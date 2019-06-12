@@ -1,0 +1,44 @@
+# -------------------  TixChange Web Config Map ------------------- #
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tix-web-apm-config-v1
+  namespace: tixchange
+
+data:
+  #
+  # Ticket Exchange Web App Env Variables
+  #
+  DB_HOST: tixchange-mysql-conn-svc
+  DB_PORT: "3306"
+  WS_HOST: authservice-svc 
+  WS_PORT: "8080"
+
+  RELEASE_VERSION: "1.0"
+  CATALINA_OPTS: " -DUSE.CASE.3=false -DUSE.CASE.4=false  -Djtixchange.ws.host=${WS_HOST} -Djtixchange.ws.port=${WS_PORT} -Djtixchange.ws.path=JTiXChange_Services"
+
+
+---
+
+# -------------------  TixChange WebService Config Map ------------------- #
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tix-ws-apm-config-v1
+  namespace: tixchange
+
+data:
+  #
+  # Ticket Exchange WebService App Env Variables
+  #
+  DB_HOST: tixchange-mysql-conn-svc
+  DB_PORT: "3306"
+
+  #
+  # APM Agent Env Variables
+  #
+  RELEASE_VERSION: "1.0"
+  CATALINA_OPTS: " -Xms128m -Xmx256m   -DUSE.CASE.1=true " 
+
