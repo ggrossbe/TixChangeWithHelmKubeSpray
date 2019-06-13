@@ -1,8 +1,13 @@
 #!/bin/bash
 
-BASEDIR=$(dirname "$0")
 
-. $BASEDIR/scripts/commonFunctions.sh
+MAIN_FOLDER=`dirname $BASH_SOURCE`
+
+. $MAIN_FOLDER/scripts/include.sh
+
+$MAIN_FOLDER/scripts/preReqInstaller.sh
+
+exit
 
 Usage() {
   echo "mainInstaller.sh [Options]"
@@ -18,27 +23,27 @@ Usage() {
 case $1 in 
    -a) 
      logData " Installing all the components"
-     ./preReqInstaller.sh
-     ./K8sInstaller.sh	
-     ./umaInstaller.sh
-     ./tixChangeInstaller.sh
-     ./jmeterInstaller.sh
+     $BASEDIR/scripts/preReqInstaller.sh
+     $BASEDIR/scripts/K8sInstaller.sh	
+     $BASEDIR/scripts/umaInstaller.sh
+     $BASEDIR/scripts/tixChangeInstaller.sh
+     $BASEDIR/scripts/jmeterInstaller.sh
      ;;
    -k) 
      logData " Installing just the K8s components"
-     ./K8sInstaller.sh	
+     $BASEDIR/scripts/K8sInstaller.sh	
      ;;
    -u) 
      logData " Installing just the UMA components"
-     ./umaInstaller.sh
+     $BASEDIR/scripts/umaInstaller.sh
      ;;
    -t) 
      logData " Installing just the TixChange components"
-     ./tixChangeInstaller.sh
+     $BASEDIR/scripts/tixChangeInstaller.sh
      ;;
    -j) 
      logData " Installing just the Jmeter components"
-     ./jmeterInstaller.sh
+     $BASEDIR/scripts/jmeterInstaller.sh
      ;;
    *) 
      logData "Not a valid option"
