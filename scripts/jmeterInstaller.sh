@@ -2,8 +2,6 @@
 
 ### USER INPUT
 
-HOST_IPS="10.74.240.100 10.74.240.101 10.74.240.102"
-HOST_LOGIN=root
 
 
 #######Do not modify
@@ -15,10 +13,13 @@ LOG () {
 
 
 LOG "Deploy and setup TixChange on K8s." 
-LOG ""
-LOG "Make sure HOST_IP field is updated in this file and yes it is IP not host name"
-echo ""
-LOG "Also make sure ssh key is setp among all your nodes to connect from this box without passwd"
+LOG " *********"
+LOG "1. Make sure HOST_IP field is updated in config.ini and yes it is IP not host name"
+LOG "2. Make sure ssh key is setup among all your nodes to connect from this box without passwd"
+LOG "3. Make sure you have 40G available in /opt/"
+LOG "4. Make sure you run this as root"
+LOG "5. Script assumes the install folder is $INSTALL_FOLDER"
+LOG " *********"
 
 LOG "OK to proceed. Enter or Ctrl-C"
 
@@ -40,6 +41,15 @@ LOG "Getting KubeSpray "
 
 #wget https://github.com/kubernetes-sigs/kubespray/archive/master.zip
 wget https://github.com/kubernetes-sigs/kubespray/archive/release-2.10.zip
+
+
+rm -rf $INSTALL_FOLDER
+mkdir -p $INSTALL_FOLDER
+cp -rf ../ $INSTALL_FOLDER
+cd $INSTALL_FOLDER
+
+ESCAPE_INSTALL_FOLDER=$(echo "$INSTALL_FOLDER" | sed 's/\//\\\//g')
+sed 's/DOCKER_STORAGE_FOLDER/'$ESCAPE_INSTALL_FOLDER\\/DockerStorage'/' all.yml
 
 #unzip master.zip &&  mv kubespray-master kubespray && cd kubespray
 unzip release-2.10.zip &&  mv kubespray-release-2.10 kubespray && cd kubespray
