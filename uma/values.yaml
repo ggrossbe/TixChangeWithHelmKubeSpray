@@ -1,0 +1,58 @@
+# Settings for the Agent to find the Enterprise Manager
+
+agentManager_url_1: https://apm-em
+
+agentManager_credential:
+
+# Name for the Kubernetes Cluster.
+cluster_name: DevelopmentCluster
+
+# Indicates wheather dynamic Java Agent attach (Auto Attch) feature is turned on or not
+# Change this to false in case you want to turn off this feature
+autoattach_enabled: true
+
+# Operation Mode for Auto Attach .
+# Possible values : whitelist or blacklist
+# whitelist: will only attach to processes marked with env variable CA_APM_MONITORING_ENABLED=true
+# blacklist: will attach to all processes except those marked with env variable CA_APM_MONITORING_ENABLED=false
+
+autoattach_filter_type: whitelist
+
+# Comma Separated list of IntroscopeAgent profile properties that you would like to
+# send as part of Auto Attach Configuration
+# For eg
+#  autoattach_agent_extra_properties=introscope.agent.defaultProcessName=tomcat, introscope.agent.agentAutoNamingEnabled=false
+autoattach_agent_extra_properties:
+
+# Indicates wheather Kubernetes Remote JMX Agent feature is turned on or not
+# Change this to false in case you want to turn off this feature
+kubernetes_remote_jmx_enabled: true
+
+# Indicates wheather Kubernetes Node and cluster Monitor feature is turned on or not
+# This feature does not need any software to be pre-installed in the Kubernetes Cluster
+# Change this to false in case you want to turn off this feature
+kubernetes_monitor_enabled: true
+
+# Indicates wheather Kubernetes Node and Container Monitor Through Prometheus Exporters feature
+# is turned on or not
+# In order to use this feature, you need to have cAdvisor and node Prometheus exporters already installed
+# In case, this value is set to true, Kubernetes Node and container monitor should happen through Prometheus
+# exporters only
+kubernetes_monitor_node_container_prometheus_exporters_enabled: false
+
+# Indicates wheather Kubernetes Service Monitor through Prometheus Exporters feature
+# is turned on or not
+# In order to use this feature, you need to have haproxy, coredns or kube-state-metrics exporters already installed
+
+kubernetes_monitor_cluster_prometheus_exporters_enabled: true
+
+# Indicates whether each deployment will be limited to cpu and memory resource or not
+# For Production use, this should be set to true
+kubernetes_resource_bound: true
+
+# Name of the image
+image_clusterinfo: caapm/kubernetesmonitor:clusterinfo-beta
+image_apmia: caapm/kubernetesmonitor:uma-beta
+
+# Type of the Kubernetes Deployment. In case of Openshift, change this to Openshift
+type: Kubernetes

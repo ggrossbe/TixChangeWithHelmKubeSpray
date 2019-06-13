@@ -1,0 +1,12 @@
+# Common comfig map needed for All extensions
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: caaiops-config-common
+  namespace: {{ .Release.Namespace }}
+data:
+  cluster_name: {{ .Values.cluster_name }}
+  agentManager_url_1: {{ .Values.agentManager_url_1 }}
+  agentManager_credential: {{ .Values.agentManager_credential }}
+  apmia_min_heap: "256"
+  apmia_max_heap: "512"
