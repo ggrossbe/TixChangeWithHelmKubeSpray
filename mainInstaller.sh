@@ -7,20 +7,29 @@ MAIN_FOLDER=`dirname $BASH_SOURCE`
 
 $MAIN_FOLDER/scripts/preReqInstaller.sh
 
-exit
 
-Usage() {
-  echo "mainInstaller.sh [Options]"
-  echo "Options: "
-  echo "  -a : install all (K8s, UMA, TixChange, JMeter)"
-  echo "  -k : install kubernetes"
-  echo "  -u : install uma"
-  echo "  -t : install tixChange"
-  echo "  -j : install jmeter"
+clear
 
-}
+logData "Deploy and setup TixChange on K8s."
+
+logData " *********"
+logData "1. Make sure HOST_IP field is updated in config.ini and yes it is IP not host name"
+logData "2. Make sure ssh key is setup among all your nodes to connect from this box without passwd"
+logData "3. Make sure you have 40G available in /opt/"
+logData "4. Make sure you run this as root"
+logData "5. Script assumes the install folder is $INSTALL_FOLDER"
+logData " *********"
+
+logData "Enter to proceed. Ctrl-C to terminate"
+
+read input
+
 
 case $1 in 
+   -p) 
+     logData "Installing the Pre-Reqs. May take some time"
+     $BASEDIR/scripts/preReqInstaller.sh
+     ;;
    -a) 
      logData " Installing all the components"
      $BASEDIR/scripts/preReqInstaller.sh
@@ -53,19 +62,23 @@ esac
 
 exit
 
+clear
+
 logData "Deploy and setup TixChange on K8s." 
+
 logData " *********"
 logData "1. Make sure HOST_IP field is updated in config.ini and yes it is IP not host name"
-logData "2. make sure your system is updated by running ***yum update -y*** on all nodes"
-logData "3. Make sure ssh key is setup among all your nodes to connect from this box without passwd"
-logData "4. Make sure you have 40G available in /opt/"
-logData "5. Make sure you run this as root"
-logData "6. Script assumes the install folder is $INSTALL_FOLDER"
+logData "2. Make sure ssh key is setup among all your nodes to connect from this box without passwd"
+logData "3. Make sure you have 40G available in /opt/"
+logData "4. Make sure you run this as root"
+logData "5. Script assumes the install folder is $INSTALL_FOLDER"
 logData " *********"
 
-logData "OK to proceed. Enter or Ctrl-C"
+logData "Enter to proceed. Ctrl-C to terminate"
 
 read input
+
+
 
 
 logData " disabling firewall, SELinux off etc"
