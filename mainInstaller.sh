@@ -22,7 +22,10 @@ Usage() {
 
 case $1 in 
    -a) 
-     logData " Installing all the components"
+     logMsg " Installing all the components"
+
+     emptyInstallFolder -a
+
      $BASEDIR/scripts/preReqInstaller.sh
      $BASEDIR/scripts/K8sInstaller.sh	
      $BASEDIR/scripts/umaInstaller.sh
@@ -30,45 +33,53 @@ case $1 in
      $BASEDIR/scripts/jmeterInstaller.sh
      ;;
    -k) 
-     logData " Installing just the K8s components"
+     emptyInstallFolder -k
+
+     logMsg " Installing just the K8s components"
      $BASEDIR/scripts/K8sInstaller.sh	
      ;;
    -u) 
-     logData " Installing just the UMA components"
+     emptyInstallFolder -u
+
+     logMsg " Installing just the UMA components"
      $BASEDIR/scripts/umaInstaller.sh
      ;;
    -t) 
-     logData " Installing just the TixChange components"
+     emptyInstallFolder -t
+
+     logMsg " Installing just the TixChange components"
      $BASEDIR/scripts/tixChangeInstaller.sh
      ;;
    -j) 
-     logData " Installing just the Jmeter components"
+     emptyInstallFolder -j
+
+     logMsg " Installing just the Jmeter components"
      $BASEDIR/scripts/jmeterInstaller.sh
      ;;
    *) 
-     logData "Not a valid option"
+     logMsg "Not a valid option"
      Usage
      ;;     
 esac
 
 exit
 
-logData "Deploy and setup TixChange on K8s." 
-logData " *********"
-logData "1. Make sure HOST_IP field is updated in config.ini and yes it is IP not host name"
-logData "2. make sure your system is updated by running ***yum update -y*** on all nodes"
-logData "3. Make sure ssh key is setup among all your nodes to connect from this box without passwd"
-logData "4. Make sure you have 40G available in /opt/"
-logData "5. Make sure you run this as root"
-logData "6. Script assumes the install folder is $INSTALL_FOLDER"
-logData " *********"
+logMsg "Deploy and setup TixChange on K8s." 
+logMsg " *********"
+logMsg "1. Make sure HOST_IP field is updated in config.ini and yes it is IP not host name"
+logMsg "2. make sure your system is updated by running ***yum update -y*** on all nodes"
+logMsg "3. Make sure ssh key is setup among all your nodes to connect from this box without passwd"
+logMsg "4. Make sure you have 40G available in /opt/"
+logMsg "5. Make sure you run this as root"
+logMsg "6. Script assumes the install folder is $INSTALL_FOLDER"
+logMsg " *********"
 
-logData "OK to proceed. Enter or Ctrl-C"
+logMsg "OK to proceed. Enter or Ctrl-C"
 
 read input
 
 
-logData " disabling firewall, SELinux off etc"
+logMsg " disabling firewall, SELinux off etc"
 systemctl stop firewalld
 systemctl disable firewalld
 
@@ -79,7 +90,7 @@ swapoff -a
 systemctl daemon-reload
 systemctl restart kubelet
 
-logData "Getting KubeSpray "
+logMsg "Getting KubeSpray "
 
 #wget https://github.com/kubernetes-sigs/kubespray/archive/master.zip
 wget https://github.com/kubernetes-sigs/kubespray/archive/release-2.10.zip
@@ -104,7 +115,7 @@ export LC_ALL=C
 
 yum install -y python-pip python36 iproute wget nfs-utils
 
-logData "Installing the requirements for Kubespray"
+logMsg "Installing the requirements for Kubespray"
 sleep 1
 
 export LC_ALL=C
@@ -135,8 +146,8 @@ ansible-playbook -b --become-user=root -v -i  inventory/mycluster/hosts.yml --us
 
 kubectl label node node3 node-role.kubernetes.io/worker=worker
 
-logData "*****"
-logData "K8s install is done... see the output of kubectl get nodes - if this doesnt look right pls Ctrl-C and debug"
+logMsg "*****"
+logMsg "K8s install is done... see the output of kubectl get nodes - if this doesnt look right pls Ctrl-C and debug"
 
 
 kubectl get nodes

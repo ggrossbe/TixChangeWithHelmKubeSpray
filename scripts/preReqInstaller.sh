@@ -14,8 +14,4 @@ swapoff -a
 systemctl daemon-reload
 systemctl restart kubelet
 
-#rm -rf $INSTALL_FOLDER
-mkdir -p $INSTALL_FOLDER
-cp -rf $SCRIPTS_FOLDER/../ $INSTALL_FOLDER
-cd $INSTALL_FOLDER
 
