@@ -7,19 +7,17 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 KUBESPRAY_FOLDER=kubespray
 TIXCHANGE_FOLDER=tixChangeHelm
 HELM_FOLDER=helmInstaller
+HELM_RBAC_YAML=helm-rbac-config.yaml
 UMA_FOLDER=uma
 JMETER_FOLDER=jmeter
 
 logMsg () {
         echo "$1"
-        sleep 1
+        
 }
 
-installHelmClient () {
-  logMsg "Installing Helm Client"
-}
 
-emptyInstallFolder () {
+emptyInstallFolders () {
 
 
      #ensure folder exist
@@ -36,7 +34,8 @@ emptyInstallFolder () {
          if [ $? -eq 0 ]; then
 
            case $1 in
-            -a) # empty all
+            a) # empty all
+                rm -rf $HELM_FOLDER
                 rm -rf $KUBESPRAY_FOLDER
                 rm -rf $TIXCHANGE_FOLDER
                 rm -rf $HELM_FOLDER
@@ -44,19 +43,19 @@ emptyInstallFolder () {
                 rm -rf $JMETER_FOLDER
                 cd -
                 ;;
-            -k)
+            k)
                 rm -rf $KUBESPRAY_FOLDER
                 cd -
                 ;;
-            -u)
+            u)
                 rm -rf $UMA_FOLDER
                 cd -
                 ;;
-            -t)
+            t)
                 rm -rf $TIXCHANGE_FOLDER
                 cd -
                 ;;
-            -j)
+            j)
                 rm -rf $JMETER_FOLDER
                 cd -
                 ;;
@@ -74,15 +73,45 @@ emptyInstallFolder () {
 }
 
 Usage () {
-  echo "mainInstaller.sh [Options]"
   echo "Options: "
-  echo "  -a : install all (K8s, UMA, TixChange, JMeter)"
-  echo "  -p : run the pre-reqa"
-  echo "  -k : install kubernetes"
-  echo "  -u : install uma"
-  echo "  -t : install tixChange"
-  echo "  -j : install jmeter"
+  echo "  a : install all (K8s, UMA, TixChange, JMeter)"
+  echo "  p : run the pre-reqa"
+  echo "  k : install kubernetes"
+  echo "  u : install uma"
+  echo "  t : install tixChange"
+  echo "  j : install jmeter"
 
+}
+
+cleanInstallHelmClient () {
+   
+    logMsg "Deleting Helm"
+
+    #ensure folder exist
+     if [ -d "$INSTALL_FOLDER" ]; then
+         #ensure folder exist
+        if [ -d "$INSTALL_FOLDER/$HELM_FOLDER" ]; then
+          helm delete uma --purge
+          helm delete tixchange --purge
+
+          cp -f $SCRIPTS_FOLDER/$HELM_RBAC_YAML  $INSTALL_FOLDER/$HELM_FOLDER/
+
+          kubectl create -f $INSTALL_FOLDER/$HELM_FOLDER/$HELM_RBAC_YAML
+          helm init --service-account tiller --history-max 200
+        else
+          mkdir -p $INSTALL_FOLDER/$HELM_FOLDER/
+          cp -f $SCRIPTS_FOLDER/$HELM_RBAC_YAML  $INSTALL_FOLDER/$HELM_FOLDER/
+          
+          kubectl create -f $INSTALL_FOLDER/$HELM_FOLDER/$HELM_RBAC_YAML
+          helm init --service-account tiller --history-max 200
+        fi
+     else
+        mkdir -p $INSTALL_FOLDER/$HELM_FOLDER/
+        cp -f $SCRIPTS_FOLDER/$HELM_RBAC_YAML  $INSTALL_FOLDER/$HELM_FOLDER/
+
+        kubectl create -f $INSTALL_FOLDER/$HELM_FOLDER/$HELM_RBAC_YAML
+        helm init --service-account tiller --history-max 200
+     fi
 }
 
 
