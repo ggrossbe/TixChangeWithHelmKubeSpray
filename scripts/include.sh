@@ -12,10 +12,11 @@ JMETER_FOLDER=jmeter
 
 logMsg () {
         echo "$1"
-        sleep 2
+        sleep 1
 }
 
 installHelmClient () {
+  logMsg "Installing Helm Client"
 }
 
 emptyInstallFolder () {
@@ -61,7 +62,7 @@ emptyInstallFolder () {
                 ;;
              esac
         else
-           logMsg "Sorry could not CD to $INSTALL_FOLDER". Hence cannot empty it. Pls check if the folder exists or not and have sufficient priv"
+           logMsg "Sorry could not CD to $INSTALL_FOLDER. Hence cannot empty it. Pls check if the folder exists or not and have sufficient priv"
            exit
         fi
        fi
@@ -72,7 +73,7 @@ emptyInstallFolder () {
 
 }
 
-Usage() {
+Usage () {
   echo "mainInstaller.sh [Options]"
   echo "Options: "
   echo "  -a : install all (K8s, UMA, TixChange, JMeter)"

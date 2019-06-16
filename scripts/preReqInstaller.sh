@@ -6,24 +6,19 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 
 for HOST in $HOST_IPS;
 do 
-   logMsg "running yum update -y in all the packages "
+   logMsg "running yum update -y on host $HOST"
    
    ssh root@$HOST "yum update -y"
 
    logMsg " disabling firewall, SELinux off etc"
-   systemctl stop firewalld
-   systemctl disable firewalld
+   ssh root@$HOST "systemctl stop firewalld"
+   ssh root@$HOST "systemctl disable firewalld"
 
-   setenforce 0
-   sed -i s/^SELINUX=.*$/SELINUX=disabled/ /etc/selinux/config
+   ssh root@$HOST "setenforce 0"
+   ssh root@$HOST "sed -i s/^SELINUX=.*$/SELINUX=disabled/ /etc/selinux/config"
 
-   swapoff -a
-   systemctl daemon-reload
-   systemctl restart kubelet
+   ssh root@$HOST "swapoff -a"
+   ssh root@$HOST "systemctl daemon-reload"
+   ssh root@$HOST "systemctl restart kubelet"
    
-   #rm -rf $INSTALL_FOLDER
-   mkdir -p $INSTALL_FOLDER
-   cp -rf $SCRIPTS_FOLDER/../ $INSTALL_FOLDER
-   cd $INSTALL_FOLDER
-
 done

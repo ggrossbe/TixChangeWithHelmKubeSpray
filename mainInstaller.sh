@@ -5,29 +5,28 @@ MAIN_FOLDER=`dirname $BASH_SOURCE`
 
 . $MAIN_FOLDER/scripts/include.sh
 
-$MAIN_FOLDER/scripts/preReqInstaller.sh
+#$MAIN_FOLDER/scripts/preReqInstaller.sh
 
 
 clear
 
-logData "Deploy and setup TixChange on K8s."
+logMsg "Deploy and setup TixChange on K8s."
 
-logData " *********"
-logData "1. Make sure HOST_IP field is updated in config.ini and yes it is IP not host name"
-logData "2. Make sure ssh key is setup among all your nodes to connect from this box without passwd"
-logData "3. Make sure you have 40G available in /opt/"
-logData "4. Make sure you run this as root"
-logData "5. Script assumes the install folder is $INSTALL_FOLDER"
-logData " *********"
+logMsg " *********"
+logMsg "1. Make sure HOST_IP field is updated in config.ini and yes it is IP not host name"
+logMsg "2. Make sure ssh key is setup among all your nodes to connect from this box without passwd"
+logMsg "3. Make sure you have 40G available in the install folder ($INSTALL_FOLDER) volume"
+logMsg "4. Make sure you run this as root"
+logMsg " *********"
 
-logData "Enter to proceed. Ctrl-C to terminate"
+logMsg "Enter to proceed. Ctrl-C to terminate"
 
 read input
 
 
 case $1 in 
    -p) 
-     logData "Installing the Pre-Reqs. May take some time"
+     logMsg "Installing the Pre-Reqs. May take some time"
      $BASEDIR/scripts/preReqInstaller.sh
      ;;
    -a) 
