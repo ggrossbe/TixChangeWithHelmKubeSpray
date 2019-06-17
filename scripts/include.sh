@@ -86,14 +86,14 @@ cleanUp () {
   ansible-playbook -b --become-user=root -v -i  inventory/mycluster/hosts.yml --user=root reset.yml --flush-cache
 
   ps -ef |grep jmeter |grep Tix|awk  '{print $2}' | kill -9
-  cd -
-
 
   logMsg "Cleaning up all the folders"
 
   sleep 2
 
   emptyInstallFolders a
+
+  cd $INSTALL_SCRIPT_FOLDER
 }
 
 
@@ -234,8 +234,8 @@ installAndRunJmeter () {
 
   tar xvf  apache-jmeter-5.1.1.tgz 1> /dev/null
 
-  SVC_IP=kubectl get svc -n tixchange |grep web |awk 'awk {print $4}'
-  SVC_PORT=kubectl get svc -n tixchange |grep web |awk 'awk {print $6}'
+  SVC_IP=`kubectl get svc -n tixchange |grep web |awk 'awk {print $4}'`
+  SVC_PORT=`kubectl get svc -n tixchange |grep web |awk 'awk {print $6}'`
 
   echo $SVC_IP,$SVC_PORT >jt-ips.csv
 
