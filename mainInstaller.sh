@@ -44,7 +44,7 @@ case $OPTION in
    a) 
      logMsg " Installing all the components"
 
-     emptyInstallFolder a
+     emptyInstallFolders a
 
      $MAIN_FOLDER/scripts/preReqInstaller.sh
      $MAIN_FOLDER/scripts/K8sInstaller.sh	
@@ -79,6 +79,13 @@ case $OPTION in
 
      logMsg " Installing just the Jmeter components"
      $MAIN_FOLDER/scripts/jmeterInstaller.sh
+     ;;
+   c) 
+     logMsg "Clean All. Are you sure. Press Enter to continue or Ctrl-C"
+     
+     read INPUT
+    
+     cleanUp 
      ;;
    *) 
      logMsg "Not a valid option"

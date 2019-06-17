@@ -2,6 +2,7 @@
 SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 . $SCRIPTS_FOLDER/include.sh
 
+
 wget https://github.com/kubernetes-sigs/kubespray/archive/release-2.10.zip
 
 
@@ -13,6 +14,8 @@ rm -rf $INSTALL_FOLDER/$KUBESPRAY_FOLDER
 #unzip master.zip &&  mv kubespray-master kubespray && cd kubespray
 unzip release-2.10.zip &&  mv kubespray-release-2.10 $INSTALL_FOLDER/$KUBESPRAY_FOLDER 
 
+rm -rf release-2.10.zip*
+
 cd $INSTALL_FOLDER/$KUBESPRAY_FOLDER
 
 export LC_ALL=C
@@ -23,7 +26,7 @@ logMsg "Installing Kubespray pre-preq "
 
 sleep 2
 rm -fr inventory/mycluster
-cp -r inventory/local/ inventory/mycluster && rm -f inventory/mycluster/hosts.ini
+cp -r inventory/local/ inventory/mycluster && rm -f inventory/mycluster/hosts.yml
 
 
 export LC_ALL=C

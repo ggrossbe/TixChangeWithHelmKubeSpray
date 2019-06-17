@@ -72,6 +72,21 @@ emptyInstallFolders () {
 
 }
 
+cleanUp {
+   
+  helm delete tixchange --purge
+  helm delete uma --purge
+
+  cd $INSTALL_FOLDER/$KUBESPRAY_FOLDER
+
+  ansible-playbook -b --become-user=root -v -i  inventory/mycluster/hosts.yml --user=root reset.yml --flush-cache
+
+  cd -
+
+  emptyInstallFolders
+}
+
+
 Usage () {
   echo "Options: "
   echo "  a : install all (K8s, UMA, TixChange, JMeter)"
@@ -80,6 +95,7 @@ Usage () {
   echo "  u : install uma"
   echo "  t : install tixChange"
   echo "  j : install jmeter"
+  echo "  c : cleanup and unintsall everything"
 
 }
 
