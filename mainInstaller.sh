@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 MAIN_FOLDER=`dirname $BASH_SOURCE`
 
 . $MAIN_FOLDER/scripts/include.sh
@@ -15,7 +14,7 @@ logMsg "Deploy and setup TixChange on K8s."
 logMsg " *********"
 logMsg "1. Make sure HOST_IP field is updated in config.ini"
 logMsg "2. Make sure ssh key is setup among all your nodes to connect from this box without passwd"
-logMsg "3. Make sure you have 40G available in the install folder ($INSTALL_FOLDER) volume"
+logMsg "3. Make sure you have 40G available in the install folder ($INSTALLATION_FOLDER) volume"
 logMsg "4. Make sure you run this as root"
 logMsg " *********"
 
@@ -46,12 +45,28 @@ case $OPTION in
 
      emptyInstallFolders a
 
+     echo "1pwd is $PWD"
+     cd $INSTALL_SCRIPT_FOLDER
      $MAIN_FOLDER/scripts/preReqInstaller.sh
-     $MAIN_FOLDER/scripts/K8sInstaller.sh	
+	
+     echo "2pwd is $PWD"
+     cd $INSTALL_SCRIPT_FOLDER
+     #$MAIN_FOLDER/scripts/K8sInstaller.sh	
+
+     echo "3pwd is $PWD"
+     cd $INSTALL_SCRIPT_FOLDER
      cleanInstallHelmClient
 
+     echo "4pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
+     cd $INSTALL_SCRIPT_FOLDER
      installUMA
+
+     echo "5pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
+     cd $INSTALL_SCRIPT_FOLDER
      installTixChangeHelm
+
+     echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
+     cd $INSTALL_SCRIPT_FOLDER
      installAndRunJmeter 
      ;;
    k) 

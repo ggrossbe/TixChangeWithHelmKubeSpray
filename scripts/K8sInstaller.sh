@@ -6,17 +6,17 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 wget https://github.com/kubernetes-sigs/kubespray/archive/release-2.10.zip
 
 
-ESCAPE_INSTALL_FOLDER=$(echo "$INSTALL_FOLDER" | sed 's/\//\\\//g')
-sed 's/DOCKER_STORAGE_FOLDER/'$ESCAPE_INSTALL_FOLDER\\/DockerStorage'/' all.yml
+ESCAPE_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER" | sed 's/\//\\\//g')
+sed 's/DOCKER_STORAGE_FOLDER/'$ESCAPE_INSTALLATION_FOLDER\\/DockerStorage'/' all.yml
 
-rm -rf $INSTALL_FOLDER/$KUBESPRAY_FOLDER
+rm -rf $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
 
 #unzip master.zip &&  mv kubespray-master kubespray && cd kubespray
-unzip release-2.10.zip &&  mv kubespray-release-2.10 $INSTALL_FOLDER/$KUBESPRAY_FOLDER 
+unzip release-2.10.zip &&  mv kubespray-release-2.10 $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER 
 
 rm -rf release-2.10.zip*
 
-cd $INSTALL_FOLDER/$KUBESPRAY_FOLDER
+cd $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
 
 export LC_ALL=C
 
@@ -39,8 +39,8 @@ CONFIG_FILE=inventory/mycluster/hosts.yml /usr/bin/python3.6m contrib/inventory_
 
 cd -
 
-cp -f $SCRIPTS_FOLDER/*.yml  $INSTALL_FOLDER/$KUBESPRAY_FOLDER/inventory/mycluster/group_vars/
-cp -f $SCRIPTS_FOLDER/ansible.cfg  $INSTALL_FOLDER/$KUBESPRAY_FOLDER 
+cp -f $SCRIPTS_FOLDER/*.yml  $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER/inventory/mycluster/group_vars/
+cp -f $SCRIPTS_FOLDER/ansible.cfg  $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER 
 
 cd -
 
