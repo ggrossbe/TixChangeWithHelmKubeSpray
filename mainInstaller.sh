@@ -50,10 +50,8 @@ case $OPTION in
      $MAIN_FOLDER/scripts/K8sInstaller.sh	
      cleanInstallHelmClient
 
-     exit
-
-     $MAIN_FOLDER/scripts/umaInstaller.sh
-     $MAIN_FOLDER/scripts/tixChangeInstaller.sh
+     installUMA
+     installTixChangeHelm
      $MAIN_FOLDER/scripts/jmeterInstaller.sh
      ;;
    k) 

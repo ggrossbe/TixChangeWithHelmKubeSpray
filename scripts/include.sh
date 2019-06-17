@@ -72,7 +72,7 @@ emptyInstallFolders () {
 
 }
 
-cleanUp {
+cleanUp () {
    
   helm delete tixchange --purge
   helm delete uma --purge
@@ -83,7 +83,12 @@ cleanUp {
 
   cd -
 
-  emptyInstallFolders
+
+  logMsg "Cleaning up all the folders"
+
+  sleep 2
+
+  emptyInstallFolders a
 }
 
 
@@ -113,21 +118,84 @@ cleanInstallHelmClient () {
           cp -f $SCRIPTS_FOLDER/$HELM_RBAC_YAML  $INSTALL_FOLDER/$HELM_FOLDER/
 
           kubectl create -f $INSTALL_FOLDER/$HELM_FOLDER/$HELM_RBAC_YAML
+
+          cd  $INSTALL_FOLDER/$HELM_FOLDER/
+          wget https://storage.googleapis.com/kubernetes-helm/helm-v2.13.1-linux-amd64.tar.gz
+
+          tar -xvf helm-v2.13.1-linux-amd64.tar.gz
+          mv linux-amd64/helm /usr/local/bin/helm
+
           helm init --service-account tiller --history-max 200
+
+          cd -
+
         else
           mkdir -p $INSTALL_FOLDER/$HELM_FOLDER/
           cp -f $SCRIPTS_FOLDER/$HELM_RBAC_YAML  $INSTALL_FOLDER/$HELM_FOLDER/
           
           kubectl create -f $INSTALL_FOLDER/$HELM_FOLDER/$HELM_RBAC_YAML
+          
+          cd  $INSTALL_FOLDER/$HELM_FOLDER/
+          wget https://storage.googleapis.com/kubernetes-helm/helm-v2.13.1-linux-amd64.tar.gz 
+
+          tar -xvf helm-v2.13.1-linux-amd64.tar.gz
+          mv linux-amd64/helm /usr/local/bin/helm
+
           helm init --service-account tiller --history-max 200
+
+          cd -
         fi
      else
         mkdir -p $INSTALL_FOLDER/$HELM_FOLDER/
         cp -f $SCRIPTS_FOLDER/$HELM_RBAC_YAML  $INSTALL_FOLDER/$HELM_FOLDER/
 
         kubectl create -f $INSTALL_FOLDER/$HELM_FOLDER/$HELM_RBAC_YAML
-        helm init --service-account tiller --history-max 200
+       
+          cd  $INSTALL_FOLDER/$HELM_FOLDER/
+          wget https://storage.googleapis.com/kubernetes-helm/helm-v2.13.1-linux-amd64.tar.gz
+
+          tar -xvf helm-v2.13.1-linux-amd64.tar.gz
+          mv linux-amd64/helm /usr/local/bin/helm
+
+          helm init --service-account tiller --history-max 200
+
+          cd -
+
      fi
+}
+
+
+installUMA () {
+   logMsg "Installing UMA using Helm"
+
+   cd $INSTALL_FOLDER/$UMA_FOLDER
+   helm install  . --name uma --namespace caaiops
+   
+   helm list
+   kubectl get pods -n caaiops
+
+   cd -
+   
+   logMsg " UMA done "
+
+   sleep 5 
+}
+
+
+installTixChangeHelm () {
+   logMsg "Installing TixChang using Helm"
+
+   cd $INSTALL_FOLDER/$TIXCHANGE_FOLDER
+   helm install  . --name tixchange --namespace tixchange
+    
+   helm list 
+   kubectl get pods -n tixchange
+   
+   cd -
+
+   logMsg " Tixchange  done "
+
+   sleep 5
 }
 
 

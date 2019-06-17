@@ -44,7 +44,6 @@ cp -f $SCRIPTS_FOLDER/ansible.cfg  $INSTALL_FOLDER/$KUBESPRAY_FOLDER
 
 cd -
 
-exit
 
 ### KubeSpray install
 
