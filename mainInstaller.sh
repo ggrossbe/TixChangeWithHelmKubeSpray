@@ -52,7 +52,7 @@ case $OPTION in
 
      installUMA
      installTixChangeHelm
-     $MAIN_FOLDER/scripts/jmeterInstaller.sh
+     installAndRunJmeter 
      ;;
    k) 
      emptyInstallFolder -k
@@ -79,7 +79,8 @@ case $OPTION in
      $MAIN_FOLDER/scripts/jmeterInstaller.sh
      ;;
    c) 
-     logMsg "Clean All. Are you sure. Press Enter to continue or Ctrl-C"
+     logMsg "Clean All. Are you sure ??" 
+     logMsg "Press Enter to continue or Ctrl-C"
      
      read INPUT
     

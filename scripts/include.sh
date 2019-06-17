@@ -22,7 +22,8 @@ emptyInstallFolders () {
 
      #ensure folder exist
      if [ -d "$INSTALL_FOLDER" ]; then
-       logMsg "emptying stuff from ** $INSTALL_FOLDER ** and will re-install relevant components. press y to proceed"
+       logMsg "emptying stuff from ** $INSTALL_FOLDER ** and will re-install relevant components."
+       logMsg "press y to proceed"
 
        read INPUT
 
@@ -81,6 +82,7 @@ cleanUp () {
 
   ansible-playbook -b --become-user=root -v -i  inventory/mycluster/hosts.yml --user=root reset.yml --flush-cache
 
+  ps -ef |grep jmeter |grep Tix|awk  '{print $2}' | kill -9
   cd -
 
 
@@ -94,12 +96,12 @@ cleanUp () {
 
 Usage () {
   echo "Options: "
-  echo "  a : install all (K8s, UMA, TixChange, JMeter)"
-  echo "  p : run the pre-reqa"
-  echo "  k : install kubernetes"
-  echo "  u : install uma"
-  echo "  t : install tixChange"
-  echo "  j : install jmeter"
+  echo "  a : install all (K8s,i Helm, UMA, TixChange, JMeter)"
+#  echo "  p : run the pre-reqa"
+#  echo "  k : install kubernetes"
+#  echo "  u : install uma"
+#  echo "  t : install tixChange"
+#  echo "  j : install jmeter"
   echo "  c : cleanup and unintsall everything"
 
 }
@@ -168,7 +170,10 @@ cleanInstallHelmClient () {
 installUMA () {
    logMsg "Installing UMA using Helm"
 
-   cd $INSTALL_FOLDER/$UMA_FOLDER
+   if [ ! -d $INSTALL_FOLDER/$UMA_FOLDER ]; then
+     mkdir -p $INSTALL_FOLDER/$UMA_FOLDER
+   fi
+
    helm install  . --name uma --namespace caaiops
    
    helm list
@@ -185,6 +190,10 @@ installUMA () {
 installTixChangeHelm () {
    logMsg "Installing TixChang using Helm"
 
+  if [ ! -d $INSTALL_FOLDER/$TIXCHANGE_FOLDER ]; then
+    mkdir -p $INSTALL_FOLDER/$TIXCHANGE_FOLDER
+  fi
+
    cd $INSTALL_FOLDER/$TIXCHANGE_FOLDER
    helm install  . --name tixchange --namespace tixchange
     
@@ -196,6 +205,30 @@ installTixChangeHelm () {
    logMsg " Tixchange  done "
 
    sleep 5
+}
+
+installAndRunJmeter () {
+  
+  logMsg "Installing Jmeter"
+
+  if [ ! -d $INSTALL_FOLDER/$JMETER_FOLDER ]; then
+    mkdir -p $INSTALL_FOLDER/$JMETER_FOLDER	
+  fi
+
+  cp -f jmeter/* $INSTALL_FOLDER/$JMETER_FOLDER
+ 
+  cd $INSTALL_FOLDER/$JMETER_FOLDER
+
+  tar xvf  apache-jmeter-5.1.1.tgz
+
+  SVC_IP=kubectl get svc -n tixchange |grep web |awk 'awk {print $4}'
+  SVC_PORT=kubectl get svc -n tixchange |grep web |awk 'awk {print $6}'
+
+  echo $SVC_IP,$SVC_PORT >jt-ips.csv
+
+  bin/jmeter -n -t TixChange_LoadScript.jmx 2&>1
+
+ cd -
 }
 
 
