@@ -37,6 +37,8 @@ fi
 
 case $OPTION in 
    p) 
+     ### NOT IMPLETED###
+
      logMsg "Installing the Pre-Reqs. May take some time"
      $MAIN_FOLDER/scripts/preReqInstaller.sh
      ;;
@@ -45,49 +47,61 @@ case $OPTION in
 
      emptyInstallFolders a
 
-     echo "1pwd is $PWD"
      cd $INSTALL_SCRIPT_FOLDER
      $MAIN_FOLDER/scripts/preReqInstaller.sh
 	
-     echo "2pwd is $PWD"
      cd $INSTALL_SCRIPT_FOLDER
-     #$MAIN_FOLDER/scripts/K8sInstaller.sh	
+     $MAIN_FOLDER/scripts/K8sInstaller.sh	
 
-     echo "3pwd is $PWD"
+     sleep 5 
+
+     #echo "3pwd is $PWD"
      cd $INSTALL_SCRIPT_FOLDER
      cleanInstallHelmClient
 
-     echo "4pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
+     sleep 10
+     #echo "4pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      installUMA
 
-     echo "5pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
+     sleep 10
+     #echo "5pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      installTixChangeHelm
 
-     echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
+     logMsg "Waiting few seconds for app to startup"
+     sleep 15
+     #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      installAndRunJmeter 
      ;;
    k) 
+     ### NOT IMPLETED###
+
      emptyInstallFolder -k
 
      logMsg " Installing just the K8s components"
      $MAIN_FOLDER/scripts/K8sInstaller.sh	
      ;;
    u) 
+     ### NOT IMPLETED###
+
      emptyInstallFolder -u
 
      logMsg " Installing just the UMA components"
      $MAIN_FOLDER/scripts/umaInstaller.sh
      ;;
    t) 
+     ### NOT IMPLETED###
+
      emptyInstallFolder -t
 
      logMsg " Installing just the TixChange components"
      $MAIN_FOLDER/scripts/tixChangeInstaller.sh
      ;;
    j) 
+     ### NOT IMPLETED###
+
      emptyInstallFolder -j
 
      logMsg " Installing just the Jmeter components"

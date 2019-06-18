@@ -16,7 +16,7 @@ autoattach_enabled: true
 # whitelist: will only attach to processes marked with env variable CA_APM_MONITORING_ENABLED=true
 # blacklist: will attach to all processes except those marked with env variable CA_APM_MONITORING_ENABLED=false
 
-autoattach_filter_type: whitelist
+autoattach_filter_type: blacklist
 
 # Comma Separated list of IntroscopeAgent profile properties that you would like to
 # send as part of Auto Attach Configuration

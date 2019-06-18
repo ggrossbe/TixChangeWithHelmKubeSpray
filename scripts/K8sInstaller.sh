@@ -7,7 +7,7 @@ wget https://github.com/kubernetes-sigs/kubespray/archive/release-2.10.zip
 
 
 ESCAPE_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER" | sed 's/\//\\\//g')
-sed 's/DOCKER_STORAGE_FOLDER/'$ESCAPE_INSTALLATION_FOLDER\\/DockerStorage'/' all.yml
+sed -i 's/DOCKER_STORAGE_FOLDER/'$ESCAPE_INSTALLATION_FOLDER\\/DockerStorage'/' all.yml
 
 rm -rf $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
 

@@ -182,6 +182,11 @@ installUMA () {
 
    cd $INSTALLATION_FOLDER/$UMA_FOLDER
 
+   ESCAPED_APM_MANAGER_URL_1=$(echo "$APM_MANAGER_URL_1"| sed 's/\//\\\//g')
+   sed -i 's/agentManager_url_1.*$/agentManager_url_1: '$ESCAPED_APM_MANAGER_URL_1'/' values.yaml
+
+   sed -i 's/agentManager_credential.*$/agentManager_credential: '$APM_MANAGER_CREDENTIAL'/' values.yaml
+
    helm install  . --name uma --namespace caaiops
    
    helm list
@@ -232,14 +237,14 @@ installAndRunJmeter () {
  
   cd $INSTALLATION_FOLDER/$JMETER_FOLDER
 
-  tar xvf  apache-jmeter-5.1.1.tgz 1> /dev/null
+  tar xvf  apache-jmeter-5.1.1.tgz > /dev/null
 
-  SVC_IP=`kubectl get svc -n tixchange |grep web |awk 'awk {print $4}'`
-  SVC_PORT=`kubectl get svc -n tixchange |grep web |awk 'awk {print $6}'`
+  SVC_IP=`kubectl get svc -n tixchange |grep webportal|awk 'print {$3}'`
+  SVC_PORT=`kubectl get svc -n tixchange|grep webportal|awk '{print $5}'|awk -F/ '{print $1}'`
 
   echo $SVC_IP,$SVC_PORT >jt-ips.csv
 
-  bin/jmeter -n -t TixChange_LoadScript.jmx 2&>1
+  apache-jmeter*/bin/jmeter -n -t TixChange_LoadScript.jmx 2>&1
 
  cd -
 }
