@@ -26,7 +26,7 @@ logMsg "Installing Kubespray pre-preq "
 
 sleep 2
 rm -fr inventory/mycluster
-cp -r inventory/local/ inventory/mycluster && rm -f inventory/mycluster/hosts.yml
+cp -fpr inventory/sample/ inventory/mycluster && rm -f inventory/mycluster/hosts.yml
 
 
 export LC_ALL=C
@@ -39,7 +39,7 @@ CONFIG_FILE=inventory/mycluster/hosts.yml /usr/bin/python3.6m contrib/inventory_
 
 cd -
 
-cp -f $SCRIPTS_FOLDER/*.yml  $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER/inventory/mycluster/group_vars/
+#cp -f $SCRIPTS_FOLDER/*.yml  $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER/inventory/mycluster/group_vars/
 cp -f $SCRIPTS_FOLDER/ansible.cfg  $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER 
 
 cd -
