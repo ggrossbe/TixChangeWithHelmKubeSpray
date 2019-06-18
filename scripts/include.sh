@@ -25,7 +25,7 @@ emptyInstallFolders () {
 
      #ensure folder exist
      if [ -d "$INSTALLATION_FOLDER" ]; then
-       logMsg "emptying stuff from ** $INSTALLATION_FOLDER **"
+       logMsg "emptying relevant stuff from ** $INSTALLATION_FOLDER **"
        logMsg "press y to proceed"
 
        read INPUT
@@ -52,11 +52,17 @@ emptyInstallFolders () {
                 cd -
                 ;;
             u)
+		logMsg "Deleting UMA"
+                helm delete uma --purge
                 rm -rf $UMA_FOLDER
+		sleep 5
                 cd -
                 ;;
             t)
+		logMsg "Deleting TixChange"
+                helm delete tixchange --purge
                 rm -rf $TIXCHANGE_FOLDER
+                sleep 5
                 cd -
                 ;;
             j)
@@ -101,10 +107,10 @@ Usage () {
   echo "Options: "
   echo "  a : install all (K8s,i Helm, UMA, TixChange, JMeter)"
 #  echo "  p : run the pre-reqa"
-#  echo "  k : install kubernetes"
-#  echo "  u : install uma"
-#  echo "  t : install tixChange"
-#  echo "  j : install jmeter"
+#  echo "  k : install just kubernetes"
+   echo "  u : install just uma"
+   echo "  t : install just tixChange"
+#  echo "  j : install just jmeter"
   echo "  c : cleanup and unintsall everything"
 
 }
@@ -186,6 +192,7 @@ installUMA () {
    sed -i 's/agentManager_url_1.*$/agentManager_url_1: '$ESCAPED_APM_MANAGER_URL_1'/' values.yaml
 
    sed -i 's/agentManager_credential.*$/agentManager_credential: '$APM_MANAGER_CREDENTIAL'/' values.yaml
+   sed -i 's/cluster_name.*$/cluster_name: '$UMA_K8S_CLUSTER_NAME'/' values.yaml
 
    helm install  . --name uma --namespace caaiops
    
@@ -239,7 +246,7 @@ installAndRunJmeter () {
 
   tar xvf  apache-jmeter-5.1.1.tgz > /dev/null
 
-  SVC_IP=`kubectl get svc -n tixchange |grep webportal|awk 'print {$3}'`
+  SVC_IP=`kubectl get svc -n tixchange |grep webportal|awk '{print $3}'`
   SVC_PORT=`kubectl get svc -n tixchange|grep webportal|awk '{print $5}'|awk -F/ '{print $1}'`
 
   echo $SVC_IP,$SVC_PORT >jt-ips.csv

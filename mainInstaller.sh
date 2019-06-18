@@ -78,7 +78,7 @@ case $OPTION in
    k) 
      ### NOT IMPLETED###
 
-     emptyInstallFolder -k
+     emptyInstallFolders k
 
      logMsg " Installing just the K8s components"
      $MAIN_FOLDER/scripts/K8sInstaller.sh	
@@ -86,23 +86,23 @@ case $OPTION in
    u) 
      ### NOT IMPLETED###
 
-     emptyInstallFolder -u
+     emptyInstallFolders u
 
      logMsg " Installing just the UMA components"
-     $MAIN_FOLDER/scripts/umaInstaller.sh
+     installUMA
      ;;
    t) 
      ### NOT IMPLETED###
 
-     emptyInstallFolder -t
+     emptyInstallFolders t
 
      logMsg " Installing just the TixChange components"
-     $MAIN_FOLDER/scripts/tixChangeInstaller.sh
+     installTixChangeHelm
      ;;
    j) 
      ### NOT IMPLETED###
 
-     emptyInstallFolder -j
+     emptyInstallFolders j
 
      logMsg " Installing just the Jmeter components"
      $MAIN_FOLDER/scripts/jmeterInstaller.sh
