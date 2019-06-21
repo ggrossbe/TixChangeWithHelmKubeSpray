@@ -271,7 +271,7 @@ installAndRunJmeter () {
 
   echo $SVC_IP,$SVC_PORT >jt-ips.csv
 
-  apache-jmeter*/bin/jmeter -n -t TixChange_LoadScript.jmx 2>&1
+  nohup apache-jmeter*/bin/jmeter.sh -n -t TixChange_LoadScript.jmx 2>&1 &
 
  cd -
 }
