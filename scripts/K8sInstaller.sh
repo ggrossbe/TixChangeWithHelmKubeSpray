@@ -6,8 +6,8 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 wget https://github.com/kubernetes-sigs/kubespray/archive/release-2.10.zip
 
 
-ESCAPE_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER" | sed 's/\//\\\//g')
-sed -i 's/DOCKER_STORAGE_FOLDER/'$ESCAPE_INSTALLATION_FOLDER\\/DockerStorage'/' all.yml
+#ESCAPE_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER" | sed 's/\//\\\//g')
+#sed -i 's/DOCKER_STORAGE_FOLDER/'$ESCAPE_INSTALLATION_FOLDER\\/DockerStorage'/' all.yml
 
 rm -rf $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
 
@@ -25,13 +25,12 @@ logMsg "Installing Kubespray pre-preq "
 /usr/local/bin/pip install -r requirements.txt
 
 sleep 2
-rm -fr inventory/mycluster
-cp -fpr inventory/sample/ inventory/mycluster && rm -f inventory/mycluster/hosts.yml
-
+#rm -fr inventory/mycluster
+#cp -fpr inventory/sample/ inventory/mycluster && rm -f inventory/mycluster/hosts.yml
+cp -r inventory/local/ inventory/mycluster && rm -f inventory/mycluster/hosts.ini
 
 export LC_ALL=C
 
-which pip
 pip -V
 
 declare -a IPS=($HOST_IPS)
@@ -39,7 +38,8 @@ CONFIG_FILE=inventory/mycluster/hosts.yml /usr/bin/python3.6m contrib/inventory_
 
 cd -
 
-#cp -f $SCRIPTS_FOLDER/*.yml  $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER/inventory/mycluster/group_vars/
+cp -f $SCRIPTS_FOLDER/k8s-cluster.yml  $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER/inventory/mycluster/group_vars/k8s-cluster/
+cp -f $SCRIPTS_FOLDER/addons.yml  $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER/inventory/mycluster/group_vars/k8s-cluster/
 cp -f $SCRIPTS_FOLDER/ansible.cfg  $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER 
 
 cd -
@@ -57,6 +57,12 @@ logMsg "*****"
 logMsg "K8s install is done... see the output of kubectl get nodes - if this doesnt look right pls Ctrl-C and debug"
 
 
+sleep 6
+
 kubectl get nodes
+kubectl get pods -n kube-system
+kubectl get pods -n ingress-nginx
+
+sleep 10
 
 logMsg "ensure everything looks good"

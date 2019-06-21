@@ -42,7 +42,7 @@ emptyInstallFolders () {
                 rm -rf $HELM_FOLDER
                 rm -rf $KUBESPRAY_FOLDER
                 rm -rf $TIXCHANGE_FOLDER
-                rm -rf $HELM_FOLDER
+                #rm -rf $HELM_FOLDER
                 rm -rf $UMA_FOLDER
                 rm -rf $JMETER_FOLDER
                 cd -

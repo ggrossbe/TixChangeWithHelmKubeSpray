@@ -56,18 +56,18 @@ case $OPTION in
      sleep 5 
 
      #echo "3pwd is $PWD"
-     cd $INSTALL_SCRIPT_FOLDER
-     cleanInstallHelmClient
-
-     sleep 10
-     #echo "4pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
-     cd $INSTALL_SCRIPT_FOLDER
-     installUMA
+     #cd $INSTALL_SCRIPT_FOLDER
+     #cleanInstallHelmClient
 
      sleep 10
      #echo "5pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      installTixChangeHelm
+
+     sleep 10
+     #echo "4pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
+     cd $INSTALL_SCRIPT_FOLDER
+     installUMA
 
      logMsg "Waiting few seconds for app to startup"
      sleep 15
@@ -78,10 +78,14 @@ case $OPTION in
    k) 
      ### NOT IMPLETED###
 
-     emptyInstallFolders k
+     emptyInstallFolders a
 
-     logMsg " Installing just the K8s components"
-     $MAIN_FOLDER/scripts/K8sInstaller.sh	
+     cd $INSTALL_SCRIPT_FOLDER
+     $MAIN_FOLDER/scripts/preReqInstaller.sh
+
+     read input
+     cd $INSTALL_SCRIPT_FOLDER
+     $MAIN_FOLDER/scripts/K8sInstaller.sh
      ;;
    u) 
      ### NOT IMPLETED###

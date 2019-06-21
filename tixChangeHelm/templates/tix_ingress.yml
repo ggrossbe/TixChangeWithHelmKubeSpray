@@ -21,11 +21,10 @@ metadata:
     ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: 10.74.240.65.nip.io
-    http:
-      paths:
-        - path: /
-          backend:
-            serviceName: webportal-svc
-            servicePort: 8080
+    - http:
+       paths:
+         - path: /
+           backend:
+             serviceName: webportal-svc
+             servicePort: 8080
 
