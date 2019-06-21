@@ -22,7 +22,7 @@ autoattach_filter_type: blacklist
 # send as part of Auto Attach Configuration
 # For eg
 #  autoattach_agent_extra_properties=introscope.agent.defaultProcessName=tomcat, introscope.agent.agentAutoNamingEnabled=false
-autoattach_agent_extra_properties:
+autoattach_agent_extra_properties: introscope.agent.external.biz.enabled=true
 
 # Indicates wheather Kubernetes Remote JMX Agent feature is turned on or not
 # Change this to false in case you want to turn off this feature
