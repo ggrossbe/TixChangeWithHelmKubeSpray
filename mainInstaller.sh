@@ -109,7 +109,7 @@ case $OPTION in
      emptyInstallFolders j
 
      logMsg " Installing just the Jmeter components"
-     $MAIN_FOLDER/scripts/jmeterInstaller.sh
+     installAndRunJmeter
      ;;
    c) 
      logMsg "Clean All. Are you sure ??" 

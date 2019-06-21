@@ -25,13 +25,8 @@ emptyInstallFolders () {
 
      #ensure folder exist
      if [ -d "$INSTALLATION_FOLDER" ]; then
-       logMsg "emptying relevant stuff from ** $INSTALLATION_FOLDER **"
-       logMsg "press y to proceed"
 
-       read INPUT
 
-        #User says delete
-       if [ X$INPUT == "Xy" ]; then
          cd $INSTALLATION_FOLDER
    
          #ensure folder exists again
@@ -39,6 +34,12 @@ emptyInstallFolders () {
 
            case $1 in
             a) # empty all
+                logMsg "emptying all stuff from ** $INSTALLATION_FOLDER **"
+                logMsg "press Ctrl-C to exit"
+           
+		read INPUT
+
+
                 rm -rf $HELM_FOLDER
                 rm -rf $KUBESPRAY_FOLDER
                 rm -rf $TIXCHANGE_FOLDER
@@ -48,10 +49,20 @@ emptyInstallFolders () {
                 cd -
                 ;;
             k)
+                logMsg "emptying kubespray stuff from ** $INSTALLATION_FOLDER **"
+                logMsg "press Ctrl-C to exit"
+           
+		read INPUT
+
                 rm -rf $KUBESPRAY_FOLDER
                 cd -
                 ;;
             u)
+                logMsg "emptying UMA stuff from ** $INSTALLATION_FOLDER **"
+                logMsg "press Ctrl-C to exit"
+           
+		read INPUT
+
 		logMsg "Deleting UMA"
                 helm delete uma --purge
                 rm -rf $UMA_FOLDER
@@ -59,6 +70,11 @@ emptyInstallFolders () {
                 cd -
                 ;;
             t)
+                logMsg "emptying TixChange stuff from ** $INSTALLATION_FOLDER **"
+                logMsg "press Ctrl-C to exit"
+           
+		read INPUT
+
 		logMsg "Deleting TixChange"
                 helm delete tixchange --purge
                 rm -rf $TIXCHANGE_FOLDER
@@ -66,6 +82,11 @@ emptyInstallFolders () {
                 cd -
                 ;;
             j)
+                logMsg "emptying Jmeter stuff from ** $INSTALLATION_FOLDER **"
+                logMsg "press Ctrl-C to exit"
+           
+		read INPUT
+
                 rm -rf $JMETER_FOLDER
                 cd -
                 ;;
@@ -74,7 +95,6 @@ emptyInstallFolders () {
            logMsg "Sorry could not CD to $INSTALLATION_FOLDER. Hence cannot empty it. Pls check if the folder exists or not and have sufficient priv"
            exit
         fi
-       fi
     
      else 
        mkdir -p $INSTALLATION_FOLDER
@@ -106,11 +126,11 @@ cleanUp () {
 Usage () {
   echo "Options: "
   echo "  a : install all (K8s,i Helm, UMA, TixChange, JMeter)"
-#  echo "  p : run the pre-reqa"
+  echo "  p : run the pre-reqa"
 #  echo "  k : install just kubernetes"
    echo "  u : install just uma"
    echo "  t : install just tixChange"
-#  echo "  j : install just jmeter"
+  echo "  j : install just jmeter"
   echo "  c : cleanup and unintsall everything"
 
 }
