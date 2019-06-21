@@ -38,6 +38,8 @@ spec:
             - name: db-port
               containerPort: 3306
 
+      nodeSelector:
+        kubernetes.io/hostname: node2
       #nodeSelector:
         #nodeNum: "01"
 

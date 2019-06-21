@@ -37,6 +37,13 @@ spec:
           command: ['sh', '-c','echo Init Web Init Container sleeping 20 sec; sleep 15;']
       containers:
         - name: tix-web
+          resources:
+            limits:
+              cpu: "900m"
+              memory: "1900Mi"
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
           image: omaro/tixchange_web:2.1
           #imagePullPolicy: IfNotPresent
           imagePullPolicy: Always
@@ -45,6 +52,8 @@ spec:
                 name: tix-web-apm-config-v1 
           ports:
             - containerPort: 8080
+      nodeSelector:
+        kubernetes.io/hostname: node3
 
 ---
 
@@ -104,6 +113,13 @@ spec:
           command: ['sh', '-c','echo Init Service Init Container sleeping 15 sec; sleep 15;']
       containers:
         - name: tix-ws
+          resources:
+            limits:
+              cpu: "900m"
+              memory: "900Mi"
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
           image: omaro/tixchange_service:2.1
           imagePullPolicy: IfNotPresent
           envFrom:
@@ -112,6 +128,8 @@ spec:
           ports:
             - containerPort: 8080
 
+      nodeSelector:
+        kubernetes.io/hostname: node1
 ---
 
 apiVersion: v1

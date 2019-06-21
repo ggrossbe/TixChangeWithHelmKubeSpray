@@ -125,7 +125,7 @@ cleanUp () {
 
 Usage () {
   echo "Options: "
-  echo "  a : install all (K8s,i Helm, UMA, TixChange, JMeter)"
+  echo "  a : install all (K8s,Helm, UMA, TixChange, JMeter)"
   echo "  p : run the pre-reqa"
 #  echo "  k : install just kubernetes"
    echo "  u : install just uma"
