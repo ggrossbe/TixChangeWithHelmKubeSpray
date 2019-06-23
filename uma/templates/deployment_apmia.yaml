@@ -3,7 +3,7 @@
 # APMIA based Deployment.
 # Agent from Container1 will be reported to <Cluster_Name>|ClusterMonitoring|Infrastructure Agent
 
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: apmia-deployment
@@ -26,11 +26,39 @@ spec:
             configMapKeyRef:
               key: agentManager_url_1
               name: caaiops-config-common
-{{ if .Values.agentManager_credential }}
+{{- if .Values.agentManager_credential }}
         - name: agentManager_credential
           valueFrom:
             configMapKeyRef:
               key: agentManager_credential
+              name: caaiops-config-common
+{{ end }}
+{{- if .Values.agentManager_httpProxy_host }}
+        - name: apmenv_agentManager_httpProxy_host
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_httpProxy_host
+              name: caaiops-config-common
+{{ end }}
+{{- if .Values.agentManager_httpProxy_port }}
+        - name: apmenv_agentManager_httpProxy_port
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_httpProxy_port
+              name: caaiops-config-common
+{{ end }}
+{{- if .Values.agentManager_httpProxy_username }}
+        - name: apmenv_agentManager_httpProxy_username
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_httpProxy_username
+              name: caaiops-config-common
+{{ end }}
+{{- if .Values.agentManager_httpProxy_password }}
+        - name: apmenv_agentManager_httpProxy_password
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_httpProxy_password
               name: caaiops-config-common
 {{ end }}
 
@@ -88,7 +116,7 @@ spec:
             command:
             - /bin/bash
             - -c
-            - if (( $(expr `date +%s` - `stat -c %Y /tmp/apmia-health/extensions/Kubernetes-health.txt`) > 900 )); then exit 1; fi
+            - "if (( $(expr `date +%s` - `stat -c %Y /tmp/apmia-health/extensions/Kubernetes-health.txt`) > 900 )); then exit 1; fi"
           initialDelaySeconds: 120
 {{end}}
 {{- if or (eq .Values.type "Openshift") }}
@@ -97,7 +125,7 @@ spec:
             command:
             - /bin/bash
             - -c
-            - if (( $(expr `date +%s` - `stat -c %Y /tmp/apmia-health/extensions/Openshift-health.txt`) > 900 )); then exit 1; fi
+            - "if (( $(expr `date +%s` - `stat -c %Y /tmp/apmia-health/extensions/Openshift-health.txt`) > 900 )); then exit 1; fi"
           initialDelaySeconds: 120
 {{end}}
         imagePullPolicy: Always

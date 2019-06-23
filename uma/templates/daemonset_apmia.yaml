@@ -35,13 +35,42 @@ spec:
             configMapKeyRef:
               key: agentManager_url_1
               name: caaiops-config-common
-{{ if .Values.agentManager_credential }}
+{{- if .Values.agentManager_credential }}
         - name: agentManager_credential
           valueFrom:
             configMapKeyRef:
               key: agentManager_credential
               name: caaiops-config-common
 {{ end }}
+{{- if .Values.agentManager_httpProxy_host }}
+        - name: apmenv_agentManager_httpProxy_host
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_httpProxy_host
+              name: caaiops-config-common
+{{ end }}
+{{- if .Values.agentManager_httpProxy_port }}
+        - name: apmenv_agentManager_httpProxy_port
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_httpProxy_port
+              name: caaiops-config-common
+{{ end }}
+{{- if .Values.agentManager_httpProxy_username }}
+        - name: apmenv_agentManager_httpProxy_username
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_httpProxy_username
+              name: caaiops-config-common
+{{ end }}
+{{- if .Values.agentManager_httpProxy_password }}
+        - name: apmenv_agentManager_httpProxy_password
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_httpProxy_password
+              name: caaiops-config-common
+{{ end }}
+
         - name: type
           value: {{ .Values.type }}
         - name: interval
@@ -52,10 +81,14 @@ spec:
         ##########################
         # Auto Attach properties:
         ##########################
+        - name: apmenv_log4j_logger_IntroscopeAgent
+          value: "TRACE#com.wily.util.feedback.Log4JSeverityLevel, logfile"
+        - name: apmenv_log4j_appender_logfile_MaxFileSize
+          value: "200MB"
         - name: apmenv_autoattach_enable_agentNameSuffix
           value: "false"
         - name: apmenv_autoattach_enabled_applications
-          value: ""
+          value: " "
         # Operation Mode for Auto Attach (whitelist/blacklist).
         # whitelist: will only attach to processes marked with env variable CA_APM_MONITORING_ENABLED=true
         # blacklist: will attach to all processes except those marked with env variable CA_APM_MONITORING_ENABLED=false
@@ -70,8 +103,13 @@ spec:
           value: "/usr/local/openshift/apmia/java-agent/wily"
         - name: apmenv_autoattach_proactiveMode_agent_profile
           value: "IntroscopeAgentMicro.profile"
+{{- if and .Values.autoattach_agent_extra_properties }}
         - name: apmenv_autoattach_proactiveMode_agent_extra_properties
-          value: "{{ default "" .Values.autoattach_agent_extra_properties }}"
+          value: {{ .Values.autoattach_agent_extra_properties }}
+{{ else }}
+        - name: apmenv_autoattach_proactiveMode_agent_extra_properties
+          value: "introscope.agent.hostName={{ .Values.cluster_name }}"
+{{ end }}
 
 {{end}}
 {{- if or .Values.kubernetes_remote_jmx_enabled  .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
@@ -119,7 +157,7 @@ spec:
             command:
             - /bin/bash
             - -c
-            - if (( $(expr `date +%s` - `stat -c %Y /tmp/apmia-health/extensions/Docker-health.txt`) > 120 )); then exit 1; fi
+            - "if (( $(expr `date +%s` - `stat -c %Y /tmp/apmia-health/extensions/Docker-health.txt`) > 120 )); then exit 1; fi"
           initialDelaySeconds: 120
 {{end}}
 {{- if .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
@@ -128,7 +166,7 @@ spec:
             command:
             - /bin/bash
             - -c
-            - if (( $(expr `date +%s` - `stat -c %Y /tmp/apmia-health/extensions/prometheus-health.txt`) > 120 )); then exit 1; fi
+            - "if (( $(expr `date +%s` - `stat -c %Y /tmp/apmia-health/extensions/prometheus-health.txt`) > 120 )); then exit 1; fi"
           initialDelaySeconds: 120
 {{end}}
         imagePullPolicy: Always

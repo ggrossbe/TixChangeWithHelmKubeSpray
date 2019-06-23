@@ -1,5 +1,7 @@
-# Cluster Discovery Service
-apiVersion: apps/v1
+{{- if or .Values.kubernetes_monitor_cluster_prometheus_exporters_enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}
+
+  # Cluster Discovery Service
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: clusterinfo
@@ -41,3 +43,4 @@ spec:
   selector:
     matchLabels:
       module: clusterinfo
+{{ end }}
