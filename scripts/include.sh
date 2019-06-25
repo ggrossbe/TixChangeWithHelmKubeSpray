@@ -236,8 +236,13 @@ installTixChangeHelm () {
 
 
    cp -rf $TIXCHANGE_FOLDER/* $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
+   cp -rf $SCRIPTS_FOLDER/default.basnippet $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
+
+   echo $BA_SNIPPET > $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/default.basnippet
 
    cd $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
+
+   kubectl create configmap default-basnippet --namespace=tixchange --from-file=./default.basnippet
    helm install  . --name tixchange --namespace tixchange
     
    helm list 

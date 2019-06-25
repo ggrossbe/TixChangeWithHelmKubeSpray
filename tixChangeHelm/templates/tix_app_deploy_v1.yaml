@@ -50,8 +50,19 @@ spec:
           envFrom:
             - configMapRef:
                 name: tix-web-apm-config-v1 
+          volumeMounts:
+            - name: ba-snippet
+              mountPath: /opt/default.basnippet
+              subPath: default.basnippet
+              readOnly: true
           ports:
             - containerPort: 8080
+      volumes:
+        - name: ba-snippet
+          configMap:
+            name: default-basnippet
+          #hostPath:
+            #path: /opt/ca/TixChangeK8sDemo/tixChangeHelm/default.basnippet
       nodeSelector:
         kubernetes.io/hostname: node3
 

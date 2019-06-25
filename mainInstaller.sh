@@ -75,6 +75,9 @@ case $OPTION in
      cd $INSTALL_SCRIPT_FOLDER
      installAndRunJmeter 
      ;;
+
+    TIX_IP=` ip a |grep eth0|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
+    logMsg "Access TixChange from browser at $TIX_IP/jtixchange_web/shop/index.shtml"
    k) 
      ### NOT IMPLETED###
 
