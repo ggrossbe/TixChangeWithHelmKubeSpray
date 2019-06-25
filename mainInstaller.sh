@@ -74,10 +74,11 @@ case $OPTION in
      #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      installAndRunJmeter 
+
+     TIX_IP=` ip a |grep eth0|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
+     logMsg "Access TixChange from browser at $TIX_IP/jtixchange_web/shop/index.shtml"
      ;;
 
-    TIX_IP=` ip a |grep eth0|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
-    logMsg "Access TixChange from browser at $TIX_IP/jtixchange_web/shop/index.shtml"
    k) 
      ### NOT IMPLETED###
 

@@ -54,7 +54,8 @@ metadata:
 
 data:
 
-  apmenv_introscope_agent_browseragent_snippetString: '<script type="text/javascript" id="ca_eum_ba" src="https://dxc.dxi-na1.saas.broadcom.com/api/1/urn:ca:tenantId:C91D5AF8-45AB-4C2E-A6E1-321AB3718B03/urn:ca:appId:TixChangeUMA/bajs?agent=browser" data-profileUrl="https://dxc.dxi-na1.saas.broadcom.com/api/1/urn:ca:tenantId:C91D5AF8-45AB-4C2E-A6E1-321AB3718B03/urn:ca:appId:TixChangeUMA/profile?agent=browser" data-tenantID="C91D5AF8-45AB-4C2E-A6E1-321AB3718B03" data-appID="TixChangeUMA" data-appKey="00b45f30-94f5-11e9-b080-47cd5fe9719b" async ></script>'
+  #apmenv_introscope_agent_browseragent_snippetString: 'SNIPPET_STRING'
+  apmenv_introscope_agent_browseragent_autoInjection_default_snippetLocation: /opt/default.basnippet
 
   apmenv_introscope_agent_browseragent_response_decoration_enabled: "true"
   apmenv_introscope_agent_transactiontracer_sampling_perinterval_count: "6"
