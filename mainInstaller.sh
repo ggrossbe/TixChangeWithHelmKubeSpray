@@ -75,7 +75,6 @@ case $OPTION in
      cd $INSTALL_SCRIPT_FOLDER
      installAndRunJmeter 
 
-     TIX_IP=` ip a |grep eth0|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
      logMsg "Access TixChange from browser at $TIX_IP/jtixchange_web/shop/index.shtml"
      ;;
 
@@ -100,15 +99,19 @@ case $OPTION in
      installUMA
      ;;
    t) 
-     ### NOT IMPLETED###
-
      emptyInstallFolders t
 
      logMsg " Installing just the TixChange components"
      installTixChangeHelm
      ;;
+   s) 
+     emptyInstallFolders s
+
+     logMsg " Installing just the selenium components"
+     installAndRunSelenium
+     ;;
    j) 
-     ### NOT IMPLETED###
+     ### DEPRECATED in favor if Selenium
 
      emptyInstallFolders j
 

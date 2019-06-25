@@ -15,6 +15,8 @@ UMA_FOLDER=uma
 JMETER_FOLDER=jmeter
 SELENIUM_FOLDER=selenium
 
+TIX_IP=` ip a |grep eth0|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
+
 logMsg () {
         echo "$1"
         
@@ -82,6 +84,15 @@ emptyInstallFolders () {
                 sleep 5
                 cd -
                 ;;
+            s)
+                logMsg "emptying Selenium stuff from ** $INSTALLATION_FOLDER **"
+                logMsg "press Ctrl-C to exit"
+           
+		read INPUT
+
+                rm -rf $SELENIUM_FOLDER
+                cd -
+  		;;
             j)
                 logMsg "emptying Jmeter stuff from ** $INSTALLATION_FOLDER **"
                 logMsg "press Ctrl-C to exit"
@@ -126,12 +137,13 @@ cleanUp () {
 
 Usage () {
   echo "Options: "
-  echo "  a : install all (K8s,Helm, UMA, TixChange, JMeter)"
+  echo "  a : install all (K8s,Helm, UMA, TixChange, Selenium)"
   echo "  p : run the pre-reqa"
 #  echo "  k : install just kubernetes"
-   echo "  u : install just uma"
-   echo "  t : install just tixChange"
-  echo "  j : install just jmeter"
+   echo "  u : install & run just uma"
+   echo "  t : install & run just tixChange"
+  #echo "  j : install & run just jmeter"
+  echo "  s : install & run just selenium"
   echo "  c : cleanup and unintsall everything"
 
 }
@@ -292,7 +304,7 @@ installAndRunSelenium () {
     mkdir -p $INSTALLATION_FOLDER/$SELENIUM_FOLDER
   fi
 
-  cp $SCRIPTS_FOLDER/selenim* $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+  cp $SCRIPTS_FOLDER/TixChangeSelenimum.side $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
   cd $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
@@ -307,7 +319,11 @@ installAndRunSelenium () {
 
   npm install -g chromedriver@74
 
-  selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url https://10.74.240.132/ ./TixChangeSelenimum.side
+  echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url https://$TIX_IP/ ./TixChangeSelenimum.side " > runSelenium
+
+  nohup ./runSelenium 2>&1 &  
+
+  cd -
 }
 
 
