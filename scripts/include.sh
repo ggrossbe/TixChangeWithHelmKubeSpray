@@ -13,6 +13,7 @@ HELM_FOLDER=helmInstaller
 HELM_RBAC_YAML=helm-rbac-config.yaml
 UMA_FOLDER=uma
 JMETER_FOLDER=jmeter
+SELENIUM_FOLDER=selenium
 
 logMsg () {
         echo "$1"
@@ -229,6 +230,7 @@ installUMA () {
 
 installTixChangeHelm () {
    logMsg "Installing TixChang using Helm"
+   kubectl delete configmap default-basnippet --namespace=tixchange 
 
   if [ ! -d $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER ]; then
     mkdir -p $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
@@ -267,6 +269,7 @@ installAndRunJmeter () {
   fi
 
 
+
   cp -f $JMETER_FOLDER/* $INSTALLATION_FOLDER/$JMETER_FOLDER
  
   cd $INSTALLATION_FOLDER/$JMETER_FOLDER
@@ -281,6 +284,28 @@ installAndRunJmeter () {
   nohup apache-jmeter*/bin/jmeter.sh -n -t TixChange_LoadScript.jmx 2>&1 &
 
  cd -
+}
+
+installAndRunSelenium () {
+
+  if [ ! -d $INSTALLATION_FOLDER/$SELENIUM_FOLDER ]; then
+    mkdir -p $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+  fi
+
+  cp $SCRIPTS_FOLDER/selenim* $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+
+  cd $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+
+  yum install -y gcc-c++ make
+  curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
+   
+  sudo yum -y install nodejs
+  
+  yum install -y https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+
+  npm install -g selenium-side-runner
+
+  npm install -g chromedriver@74
 }
 
 
