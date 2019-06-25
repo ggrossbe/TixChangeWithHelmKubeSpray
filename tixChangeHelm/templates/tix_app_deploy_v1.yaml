@@ -50,6 +50,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: tix-web-apm-config-v1 
+            - configMapRef:
+                name: agent-profile
           volumeMounts:
             - name: ba-snippet
               mountPath: /opt/default.basnippet

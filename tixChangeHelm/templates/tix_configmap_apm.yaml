@@ -42,3 +42,37 @@ data:
   RELEASE_VERSION: "1.0"
   CATALINA_OPTS: " -Xms128m -Xmx256m   -DUSE.CASE.1=true " 
 
+---
+
+# -------------------  TixChange Web property file ------------------- #
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: agent-profile
+  namespace: tixchange
+
+data:
+
+  apmenv_introscope_agent_browseragent_snippetString: '<script type="text/javascript" id="ca_eum_ba" src="https://dxc.dxi-na1.saas.broadcom.com/api/1/urn:ca:tenantId:C91D5AF8-45AB-4C2E-A6E1-321AB3718B03/urn:ca:appId:TixChangeUMA/bajs?agent=browser" data-profileUrl="https://dxc.dxi-na1.saas.broadcom.com/api/1/urn:ca:tenantId:C91D5AF8-45AB-4C2E-A6E1-321AB3718B03/urn:ca:appId:TixChangeUMA/profile?agent=browser" data-tenantID="C91D5AF8-45AB-4C2E-A6E1-321AB3718B03" data-appID="TixChangeUMA" data-appKey="00b45f30-94f5-11e9-b080-47cd5fe9719b" async ></script>'
+
+  apmenv_introscope_agent_browseragent_response_decoration_enabled: "true"
+  apmenv_introscope_agent_transactiontracer_sampling_perinterval_count: "6"
+
+  # Changing this property does not require restarting the Monitored Process
+  apmenv_introscope_agent_transactiontracer_sampling_interval_seconds: "60"
+  apmenv_introscope_agent_acc_enable: "false"
+  apmenv_introscope_agent_sockets_managed_reportToAppmap: "false"
+  apmenv_introscope_agent_sockets_managed_reportClassAppEdge: "false"
+  apmenv_introscope_agent_sockets_managed_reportMethodAppEdge: "false"
+  apmenv_introscope_agent_deep_entrypoint_enabled: "false"
+  apmenv_introscope_agent_defaultProcessName: "tomcat"
+  apmenv_introscope_agent_urlgroup_group_default_pathprefix: "*"
+  apmenv_introscope_agent_urlgroup_group_default_format: "{path_delimited:/:3:6}"
+  apmenv_introscope_agent_urlgroup_frontend_url_clamp: "50"
+  apmenv_introscope_agent_urlgroup_frontend_url_resources_list: "tif,js,tiff,jpg,jpeg,gif,png,bmp,bmpf,ico,cur,xbm,svg,img,css,woff,nil"
+  apmenv_introscope_agent_deep_automatic_trace_clamp: "25"
+  apmenv_introscope_agent_transactiontracer_sampling_enabled: "true"
+  apmenv_introscope_agent_transactiontracer_userid_method: "HttpSession_getValue"
+  apmenv_introscope_agent_transactiontracer_userid_key: "username"
+  apmenv_introscope_agent_errorsnapshots_identicalerror_period_time: "1"
