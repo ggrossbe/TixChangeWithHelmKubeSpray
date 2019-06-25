@@ -306,6 +306,8 @@ installAndRunSelenium () {
   npm install -g selenium-side-runner
 
   npm install -g chromedriver@74
+
+  selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url https://10.74.240.132/ ./TixChangeSelenimum.side
 }
 
 
