@@ -14,6 +14,8 @@ HELM_RBAC_YAML=helm-rbac-config.yaml
 UMA_FOLDER=uma
 JMETER_FOLDER=jmeter
 SELENIUM_FOLDER=selenium
+UC1_URL=uc1.jtixchange.com
+UC2_URL=uc2.jtixchange.com
 
 TIX_IP=` ip a |grep eth0|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
 
@@ -258,15 +260,20 @@ installTixChangeHelm () {
 
    #sed -i 's/SNIPPET_STRING/'$BA_SNIPPET'/' template/tix_configmap_apm.yaml
 
-   helm install  . --name tixchange --namespace tixchange
+   helm install  . --name tixchange 
    kubectl create configmap default-basnippet --namespace=tixchange --from-file=./default.basnippet
     
    helm list 
    kubectl get pods -n tixchange
+   kubectl get pods -n tixchangev2
    
    cd -
 
    logMsg " Tixchange  done "
+
+
+   echo "$TIX_IP $UC1_URL" >> /etc/hosts
+   echo "$TIX_IP $UC2_URL" >> /etc/hosts
 
    sleep 5
 }
@@ -319,9 +326,11 @@ installAndRunSelenium () {
 
   npm install -g chromedriver@74
 
-  echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url https://$TIX_IP/ ./TixChangeSelenimum.side " > runSelenium
+  echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url https://$UC1_URL/ ./TixChangeSelenimum.side " > runSeleniumUC1
+  #echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url https://$UC2_URL/ ./TixChangeSelenimum.side " > runSeleniumUC2
 
-  nohup ./runSelenium 2>&1 &  
+  nohup ./runSeleniumUC1 2>&1 &  
+  #nohup ./runSeleniumUC2 2>&1 &  
 
   cd -
 }

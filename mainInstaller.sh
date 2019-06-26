@@ -75,7 +75,14 @@ case $OPTION in
      cd $INSTALL_SCRIPT_FOLDER
      installAndRunJmeter 
 
-     logMsg "Access TixChange from browser at $TIX_IP/jtixchange_web/shop/index.shtml"
+     logMsg "******"
+     logMsg ""
+     logMsg ""
+     logMsg "*** Update your /etc/hosts with following IP"
+     logMsg "$TIX_IP $UC1_URL"
+     logMsg "$TIX_IP $UC2_URL"
+     logMsg "***Access TixChange from browser at $UC1_URL/jtixchange_web/shop/index.shtml"
+     logMsg "******"
      ;;
 
    k) 
