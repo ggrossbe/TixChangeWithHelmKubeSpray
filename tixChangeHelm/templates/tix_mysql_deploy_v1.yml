@@ -1,0 +1,67 @@
+# ------------------- TixChange MySQL Deployment ------------------- #
+
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: tix-mysql-deploy
+  namespace: tixchange
+  labels:
+    app: tixchange-db
+    tier: database
+    env: AWS
+spec:
+  selector:
+    matchLabels:
+      app: tixchange-db
+      tier: database
+      env: AWS
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: tixchange-db
+        tier: database
+        env: AWS
+      annotations:
+        ver: "1.0"
+    spec:
+      containers:
+        - name: tix-mysql
+          image: omaro/tixchange_mysql
+          imagePullPolicy: IfNotPresent
+          env:
+          -  name: Zone
+             value: "us-east-1c"
+          ports:
+            - name: db-port
+              containerPort: 3306
+
+      nodeSelector:
+        kubernetes.io/hostname: node2
+      #nodeSelector:
+        #nodeNum: "01"
+
+---
+
+
+# -------------------  MySQL Service ------------------- #
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: tixchange-mysql-conn-svc
+  namespace: tixchange
+  labels:
+    app: tixchange-db
+    tier: database
+spec:
+  selector:
+    app: tixchange-db 
+    tier: database
+  ports:
+  - name: mysql-port
+    port: 3306
+    targetPort: 3306
+
