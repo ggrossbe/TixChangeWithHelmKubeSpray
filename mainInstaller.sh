@@ -73,15 +73,19 @@ case $OPTION in
      sleep 15
      #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
-     installAndRunJmeter 
+     installAndRunSelenium
 
      logMsg "******"
+     logMsg ""
      logMsg ""
      logMsg ""
      logMsg "*** Update your /etc/hosts with following IP"
      logMsg "$TIX_IP $UC1_URL"
      logMsg "$TIX_IP $UC2_URL"
-     logMsg "***Access TixChange from browser at $UC1_URL/jtixchange_web/shop/index.shtml"
+     logMsg "This is a Blue/Green deployment - with UC1 running on $UC1_URL/jtixchange_web/shop/index.shtml and UC2 $UC2_URL/jtixchange_web/shop/index.shtml"
+     logMsg "*** Selenium is generating load for both. Access TixChange from browser at $UC1_URL/jtixchange_web/shop/index.shtml"
+     logMsg ""
+     logMsg ""
      logMsg "******"
      ;;
 
