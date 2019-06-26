@@ -45,7 +45,7 @@ case $OPTION in
    a) 
      logMsg " Installing all the components"
 
-     emptyInstallFolders a
+     stopCleanupServices a
 
      cd $INSTALL_SCRIPT_FOLDER
      $MAIN_FOLDER/scripts/preReqInstaller.sh
@@ -92,7 +92,7 @@ case $OPTION in
    k) 
      ### NOT IMPLETED###
 
-     emptyInstallFolders a
+     stopCleanupServices a
 
      cd $INSTALL_SCRIPT_FOLDER
      $MAIN_FOLDER/scripts/preReqInstaller.sh
@@ -104,19 +104,19 @@ case $OPTION in
    u) 
      ### NOT IMPLETED###
 
-     emptyInstallFolders u
+     stopCleanupServices u
 
      logMsg " Installing just the UMA components"
      installUMA
      ;;
    t) 
-     emptyInstallFolders t
+     stopCleanupServices t
 
      logMsg " Installing just the TixChange components"
      installTixChangeHelm
      ;;
    s) 
-     emptyInstallFolders s
+     stopCleanupServices s
 
      logMsg " Installing just the selenium components"
      installAndRunSelenium
@@ -124,7 +124,7 @@ case $OPTION in
    j) 
      ### DEPRECATED in favor if Selenium
 
-     emptyInstallFolders j
+     stopCleanupServices j
 
      logMsg " Installing just the Jmeter components"
      installAndRunJmeter

@@ -25,7 +25,7 @@ logMsg () {
 }
 
 
-emptyInstallFolders () {
+stopCleanupServices () {
 
 
      #ensure folder exist
@@ -39,7 +39,7 @@ emptyInstallFolders () {
 
            case $1 in
             a) # empty all
-                logMsg "emptying all stuff from ** $INSTALLATION_FOLDER **"
+                logMsg "cleaningup all stuff from ** $INSTALLATION_FOLDER **"
                 logMsg "press Ctrl-C to exit"
            
 		read INPUT
@@ -54,7 +54,7 @@ emptyInstallFolders () {
                 cd -
                 ;;
             k)
-                logMsg "emptying kubespray stuff from ** $INSTALLATION_FOLDER **"
+                logMsg "cleaningup kubespray stuff from ** $INSTALLATION_FOLDER **"
                 logMsg "press Ctrl-C to exit"
            
 		read INPUT
@@ -63,7 +63,7 @@ emptyInstallFolders () {
                 cd -
                 ;;
             u)
-                logMsg "emptying UMA stuff from ** $INSTALLATION_FOLDER **"
+                logMsg "cleaningup UMA stuff from ** $INSTALLATION_FOLDER **"
                 logMsg "press Ctrl-C to exit"
            
 		read INPUT
@@ -75,28 +75,31 @@ emptyInstallFolders () {
                 cd -
                 ;;
             t)
-                logMsg "emptying TixChange stuff from ** $INSTALLATION_FOLDER **"
+                logMsg "cleaningup TixChange stuff from ** $INSTALLATION_FOLDER **"
                 logMsg "press Ctrl-C to exit"
            
 		read INPUT
 
 		logMsg "Deleting TixChange"
                 helm delete tixchange --purge
+                helm delete tixchange --purge
                 rm -rf $TIXCHANGE_FOLDER
                 sleep 5
                 cd -
                 ;;
             s)
-                logMsg "emptying Selenium stuff from ** $INSTALLATION_FOLDER **"
+                logMsg "cleaningup Selenium stuff from ** $INSTALLATION_FOLDER **"
                 logMsg "press Ctrl-C to exit"
            
 		read INPUT
 
+		PID=`ps -ef |grep selenium-side-runner|grep -v grep`
+                kill -f $PID
                 rm -rf $SELENIUM_FOLDER
                 cd -
   		;;
             j)
-                logMsg "emptying Jmeter stuff from ** $INSTALLATION_FOLDER **"
+                logMsg "cleaningup Jmeter stuff from ** $INSTALLATION_FOLDER **"
                 logMsg "press Ctrl-C to exit"
            
 		read INPUT
@@ -131,7 +134,7 @@ cleanUp () {
 
   sleep 2
 
-  emptyInstallFolders a
+  stopCleanupServices a
 
   cd $INSTALL_SCRIPT_FOLDER
 }
