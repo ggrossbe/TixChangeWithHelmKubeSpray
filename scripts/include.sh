@@ -329,9 +329,15 @@ installAndRunSelenium () {
 
   npm uninstall -g  chromedriver@74 --unsafe-perm=true --allow-root
 
-  echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url http://$UC1_URL/ ./TixChangeSelenimum.side " > runSeleniumUC1
-  #echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url http://$UC2_URL/ ./TixChangeSelenimum.side " > runSeleniumUC2
+  echo "while true; do" > runSeleniumUC1
+  echo "while true; do" > runSeleniumUC2
+  echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url http://$UC1_URL/ ./TixChangeSelenimum.side " >> runSeleniumUC1
+  echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url http://$UC2_URL/ ./TixChangeSelenimum.side " >> runSeleniumUC2
 
+  echo "sleep 5; done" >> runSeleniumUC1
+  echo "sleep 5; done" >> runSeleniumUC2
+
+  chmod 755 runS*
   nohup ./runSeleniumUC1 2>&1 &  
   #nohup ./runSeleniumUC2 2>&1 &  
 
