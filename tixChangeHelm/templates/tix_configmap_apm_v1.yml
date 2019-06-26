@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: tix-web-apm-config-v1
+  name: tix-web-apm-config
   namespace: tixchange
 
 data:
@@ -26,7 +26,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: tix-ws-apm-config-v1
+  name: tix-ws-apm-config
   namespace: tixchange
 
 data:
@@ -77,3 +77,5 @@ data:
   apmenv_introscope_agent_transactiontracer_userid_method: "HttpSession_getValue"
   apmenv_introscope_agent_transactiontracer_userid_key: "username"
   apmenv_introscope_agent_errorsnapshots_identicalerror_period_time: "1"
+
+

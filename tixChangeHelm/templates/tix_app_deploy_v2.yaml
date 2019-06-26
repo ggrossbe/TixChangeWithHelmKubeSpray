@@ -4,7 +4,7 @@ apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2. I'm running 1.
 kind: Deployment
 metadata:
   name: tix-web-deploy
-  namespace: tixchange
+  namespace: tixchange-v2
   labels:
     app: tixchange-web
     tier: frontend
@@ -49,22 +49,11 @@ spec:
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
-                name: tix-web-apm-config 
+                name: tix-web-apm-config
             - configMapRef:
                 name: agent-profile
-          volumeMounts:
-            - name: ba-snippet
-              mountPath: /opt/default.basnippet
-              subPath: default.basnippet
-              readOnly: true
           ports:
             - containerPort: 8080
-      volumes:
-        - name: ba-snippet
-          configMap:
-            name: default-basnippet
-          #hostPath:
-            #path: /opt/ca/TixChangeK8sDemo/tixChangeHelm/default.basnippet
       nodeSelector:
         kubernetes.io/hostname: node3
 
@@ -73,8 +62,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: webportal-svc
-  namespace: tixchange
+  name: webportal-svc-v2
+  namespace: tixchange-v2
   labels:
     app: tixchange-web
     tier: frontend
@@ -86,6 +75,7 @@ spec:
   - port: 8080 
     name: web
     targetPort: 8080
+  type: NodePort
 
 ---
 
@@ -96,7 +86,7 @@ apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2. I'm running 1.
 kind: Deployment
 metadata:
   name: tix-ws-deploy
-  namespace: tixchange
+  namespace: tixchange-v2
   labels:
     app: tixchange-ws
     tier: backend
@@ -149,7 +139,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: authservice-svc
-  namespace: tixchange
+  namespace: tixchange-v2
   labels:
     app: tixchange-ws
     tier: backend

@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: tixchange-ingress
+  namespace: tixchange
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+    #nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    #nginx.org/server-snippet: "proxy_ssl_verify off;"
+spec:
+  rules:
+    - host: uc1.jtixchange.com
+      http:
+       paths:
+         - path: /
+           backend:
+             serviceName: webportal-svc
+             servicePort: 8080
+    #- host: uc2.jtixchange.com
+      #http:
+       #paths:
+         #- path: /
+           #backend:
+             #serviceName: webportal-svc-v2
+             #servicePort: 80
