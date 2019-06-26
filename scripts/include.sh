@@ -93,8 +93,10 @@ stopCleanupServices () {
            
 		read INPUT
 
-		PID=`ps -ef |grep selenium-side-runner|grep -v grep`
+		PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
                 kill -f $PID
+                npm uninstall -g  selenium-side-runner  --unsafe-perm=true --allow-root
+                npm uninstall -g  chromedriver --unsafe-perm=true --allow-root
                 rm -rf $SELENIUM_FOLDER
                 cd -
   		;;
