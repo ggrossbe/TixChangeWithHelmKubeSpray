@@ -256,10 +256,10 @@ installTixChangeHelm () {
 
    cd $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
 
-   kubectl create configmap default-basnippet --namespace=tixchange --from-file=./default.basnippet
    #sed -i 's/SNIPPET_STRING/'$BA_SNIPPET'/' template/tix_configmap_apm.yaml
 
    helm install  . --name tixchange --namespace tixchange
+   kubectl create configmap default-basnippet --namespace=tixchange --from-file=./default.basnippet
     
    helm list 
    kubectl get pods -n tixchange
