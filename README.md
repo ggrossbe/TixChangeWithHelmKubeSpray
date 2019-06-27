@@ -28,3 +28,6 @@ Options:
  s : install & run just selenium
  
  c : cleanup and unintsall everything
+
+
+more info available at https://cawiki.ca.com/display/SASWAT/Tixchange+in+K8s+V2.0
