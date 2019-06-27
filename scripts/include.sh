@@ -145,7 +145,7 @@ cleanUp () {
 Usage () {
   echo "Options: "
   echo "  a : install all (K8s,Helm, UMA, TixChange, Selenium)"
-  echo "  p : run the pre-reqa"
+  echo "  p : run the pre-req"
 #  echo "  k : install just kubernetes"
    echo "  u : install & run just uma"
    echo "  t : install & run just tixChange"
@@ -277,8 +277,12 @@ installTixChangeHelm () {
    logMsg " Tixchange  done "
 
 
-   echo "$TIX_IP $UC1_URL" >> /etc/hosts
-   echo "$TIX_IP $UC2_URL" >> /etc/hosts
+   UPDATE_HOSTS_FILE=`grep uc1.jtixchange.com /etc/hosts`
+   
+   if [ X"$UPDATE_HOSTS_FILE" == "X" ]; then
+     echo "$TIX_IP $UC1_URL" >> /etc/hosts
+     echo "$TIX_IP $UC2_URL" >> /etc/hosts
+   fi
 
    sleep 5
 }
