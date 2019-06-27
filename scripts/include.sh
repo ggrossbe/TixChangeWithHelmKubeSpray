@@ -277,8 +277,12 @@ installTixChangeHelm () {
    logMsg " Tixchange  done "
 
 
-   echo "$TIX_IP $UC1_URL" >> /etc/hosts
-   echo "$TIX_IP $UC2_URL" >> /etc/hosts
+   UPDATE_HOSTS_FILE=`grep uc1.jtixchange.com /etc/hosts`
+   
+   if [ X"$UPDATE_HOSTS_FILE" == "X" ]; then
+     echo "$TIX_IP $UC1_URL" >> /etc/hosts
+     echo "$TIX_IP $UC2_URL" >> /etc/hosts
+   fi
 
    sleep 5
 }
