@@ -10,6 +10,7 @@ Deploy and setup TixChange on K8s.
 4. Make sure you run this as root
  *********
 Press y to proceed
+
 y
 
 Choose your option and press enter
