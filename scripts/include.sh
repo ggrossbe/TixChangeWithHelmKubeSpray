@@ -331,9 +331,14 @@ installAndRunSelenium () {
   
   yum install -y https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 
+  logMsg "installing selenium-side-runner"
   npm install -g selenium-side-runner
 
+  logMsg "Uninstall and installing chromedriver"
   npm uninstall -g  chromedriver@74 --unsafe-perm=true --allow-root
+  npm install -g  chromedriver@74 --unsafe-perm=true --allow-root
+
+  sleep 10
 
   echo "while true; do" > runSeleniumUC1
   echo "while true; do" > runSeleniumUC2

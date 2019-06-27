@@ -1,4 +1,4 @@
-# TixChangeWithHelmKubeSpray
+hangeWithHelmKubeSpray
 
 ./mainInstaller.sh
 
