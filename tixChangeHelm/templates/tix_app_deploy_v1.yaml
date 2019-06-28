@@ -57,12 +57,19 @@ spec:
               mountPath: /opt/default.basnippet
               subPath: default.basnippet
               readOnly: true
+            - name: jtixchange-pbd
+              mountPath: /opt/wily/core/config/hotdeploy/jtixchange.pbd
+              subPath: jtixchange.pbd
+              readOnly: true
           ports:
             - containerPort: 8080
       volumes:
         - name: ba-snippet
           configMap:
             name: default-basnippet
+        - name: jtixchange-pbd
+          configMap:
+            name: jtixchange-pbd
           #hostPath:
             #path: /opt/ca/TixChangeK8sDemo/tixChangeHelm/default.basnippet
       nodeSelector:

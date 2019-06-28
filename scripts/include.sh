@@ -250,6 +250,8 @@ installUMA () {
 installTixChangeHelm () {
    logMsg "Installing TixChang using Helm"
    kubectl delete configmap default-basnippet --namespace=tixchange 
+   kubectl delete configmap jtixchange-pbd --namespace=tixchange-v2 
+   kubectl delete configmap jtixchange-pbd --namespace=tixchange 
 
   if [ ! -d $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER ]; then
     mkdir -p $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
@@ -258,6 +260,7 @@ installTixChangeHelm () {
 
    cp -rf $TIXCHANGE_FOLDER/* $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
    cp -rf $SCRIPTS_FOLDER/default.basnippet $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
+   cp -rf $SCRIPTS_FOLDER/jtixchange.pbd  $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
 
    echo $BA_SNIPPET > $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/default.basnippet
 
@@ -267,6 +270,8 @@ installTixChangeHelm () {
 
    helm install  . --name tixchange 
    kubectl create configmap default-basnippet --namespace=tixchange --from-file=./default.basnippet
+   kubectl create configmap jtixchange-pbd --namespace=tixchange-v2 --from-file=./jtixchange.pbd
+   kubectl create configmap jtixchange-pbd --namespace=tixchange --from-file=./jtixchange.pbd
     
    helm list 
    kubectl get pods -n tixchange
@@ -345,8 +350,8 @@ installAndRunSelenium () {
   echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url http://$UC1_URL/ ./TixChangeSelenimum.side " >> runSeleniumUC1
   echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url http://$UC2_URL/ ./TixChangeSelenimum.side " >> runSeleniumUC2
 
-  echo "sleep 5; done" >> runSeleniumUC1
-  echo "sleep 5; done" >> runSeleniumUC2
+  echo "sleep 8; done" >> runSeleniumUC1
+  echo "sleep 8; done" >> runSeleniumUC2
 
   chmod 755 runS*
   nohup ./runSeleniumUC1 2>&1 &  
