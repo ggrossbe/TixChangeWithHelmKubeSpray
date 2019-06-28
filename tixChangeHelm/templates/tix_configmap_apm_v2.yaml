@@ -78,6 +78,7 @@ data:
   apmenv_introscope_agent_transactiontracer_userid_method: "HttpSession_getValue"
   apmenv_introscope_agent_transactiontracer_userid_key: "username"
   apmenv_introscope_agent_errorsnapshots_identicalerror_period_time: "1"
-
-
-
+  apmenv_introscope_agent_sqlagent_sql_turnoffmetrics: "false"
+  apmenv_introscope_agent_sqlagent_sql_artonly: "false"
+  apmenv_introscope_agent_sqlagent_sql_turnofftrace: "false"
+  apmenv_introscope_agent_sqlagent_statement_clamp: "500"

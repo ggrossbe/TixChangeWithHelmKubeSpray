@@ -52,8 +52,17 @@ spec:
                 name: tix-web-apm-config
             - configMapRef:
                 name: agent-profile
+          volumeMounts:
+            - name: jtixchange-pbd
+              mountPath: /opt/wily/core/config/hotdeploy/jtixchange.pbd
+              subPath: jtixchange.pbd
+              readOnly: true
           ports:
             - containerPort: 8080
+      volumes:
+        - name: jtixchange-pbd
+          configMap:
+            name: jtixchange-pbd
       nodeSelector:
         kubernetes.io/hostname: node3
 
