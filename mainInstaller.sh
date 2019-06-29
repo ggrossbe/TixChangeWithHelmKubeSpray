@@ -36,16 +36,10 @@ fi
 
 
 case $OPTION in 
-   p) 
-     ### NOT IMPLETED###
-
-     logMsg "Installing the Pre-Reqs. May take some time"
-     $MAIN_FOLDER/scripts/preReqInstaller.sh
-     ;;
    a) 
      logMsg " Installing all the components"
 
-     stopCleanupServices a
+     stopDeletelAll
 
      cd $INSTALL_SCRIPT_FOLDER
      $MAIN_FOLDER/scripts/preReqInstaller.sh
@@ -53,11 +47,6 @@ case $OPTION in
      cd $INSTALL_SCRIPT_FOLDER
      $MAIN_FOLDER/scripts/K8sInstaller.sh	
 
-     sleep 5 
-
-     #echo "3pwd is $PWD"
-     #cd $INSTALL_SCRIPT_FOLDER
-     #cleanInstallHelmClient
 
      sleep 10
      #echo "5pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
@@ -92,34 +81,22 @@ case $OPTION in
      logMsg "************************"
      ;;
 
-   k) 
-     ### NOT IMPLETED###
-
-     stopCleanupServices a
-
-     cd $INSTALL_SCRIPT_FOLDER
-     $MAIN_FOLDER/scripts/preReqInstaller.sh
-
-     read input
-     cd $INSTALL_SCRIPT_FOLDER
-     $MAIN_FOLDER/scripts/K8sInstaller.sh
-     ;;
    u) 
-     ### NOT IMPLETED###
 
-     stopCleanupServices u
+     stopDeleteUMA
 
      logMsg " Installing just the UMA components"
      installUMA
      ;;
    t) 
-     stopCleanupServices t
+
+     stopDeleteTixChange
 
      logMsg " Installing just the TixChange components"
      installTixChangeHelm
      ;;
    s) 
-     stopCleanupServices s
+     stopDeleteSelenium
 
      logMsg " Installing just the selenium components"
      installAndRunSelenium
@@ -138,7 +115,7 @@ case $OPTION in
      
      read INPUT
     
-     cleanUp 
+     stopDeletelAll
      ;;
    *) 
      logMsg "Not a valid option"
