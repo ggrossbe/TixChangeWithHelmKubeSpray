@@ -1,9 +1,12 @@
-####
-## Purpose: Single script demo env installer - installs, configures and runs complete Tixchange with Universal Monitoring agent in K8s + Selenium with no manual intervention 
-## Author Srikant.Noorani@Broadcom.com
-## APR 2019
-## MIT License - provided on an as is basis
-#####
+
+ Purpose: Single script demo env installer - installs, configures and runs complete Tixchange with Universal Monitoring agent in K8s + Selenium with no manual intervention 
+
+Author Srikant.Noorani@Broadcom.com
+
+Jun 2019
+
+MIT License - provided on an as is basis
+
 
 TixchangeWithHelmKubeSpray
 
