@@ -14,6 +14,7 @@ HELM_RBAC_YAML=helm-rbac-config.yaml
 UMA_FOLDER=uma
 JMETER_FOLDER=jmeter
 SELENIUM_FOLDER=selenium
+SELENIUM_UC=runSeleniumUC
 UC1_URL=uc1.jtixchange.com
 UC2_URL=uc2.jtixchange.com
 
@@ -286,7 +287,7 @@ installAndRunSelenium () {
   fi
 
   cp $SCRIPTS_FOLDER/TixChangeSelenimum*.side $INSTALLATION_FOLDER/$SELENIUM_FOLDER
-  cp $SCRIPTS_FOLDER/runSeleniumUC1 $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+  cp $SCRIPTS_FOLDER/$SELENIUM_UC $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
   cd $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
@@ -307,18 +308,18 @@ installAndRunSelenium () {
   sleep 10
 
    ESCAPED_APM_SAAS_URL=$(echo "$APM_SASS_URL"| sed 's/\//\\\//g')
-   sed -i 's/APM_SAAS_URL/'$APM_SAAS_URL'/' runSeleniumUC1
-   sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' runSeleniumUC1
+   sed -i 's/APM_SAAS_URL/'$APM_SAAS_URL'/' $SELENIUM_UC
+   sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $SELENIUM_UC
 
    TIXCHANGE_WEB_POD=`kubectl get pods -n tixchange |grep -v NAME |awk '{print $1}'|grep web`
    TIXCHANGE_WS_POD=`kubectl get pods -n tixchange |grep -v NAME |awk '{print $1}'|grep ws`
 
-   sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD'/' runSeleniumUC1
-   sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD'/' runSeleniumUC1
+   sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD'/' $SELENIUM_UC
+   sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD'/' $SELENIUM_UC
 
 
   chmod 755 runS*
-  nohup ./runSeleniumUC1 2>&1 &   
+  nohup ./$SELENIUM_UC 2>&1 &   
 
   
   cd -
