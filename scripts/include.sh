@@ -14,13 +14,14 @@ HELM_RBAC_YAML=helm-rbac-config.yaml
 UMA_FOLDER=uma
 JMETER_FOLDER=jmeter
 SELENIUM_FOLDER=selenium
+SELENIUM_UC=runSeleniumUC
 UC1_URL=uc1.jtixchange.com
 UC2_URL=uc2.jtixchange.com
 
 TIX_IP=` ip a |grep eth0|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
 
 logMsg () {
-        echo "$1"
+        echo "**** $1"
         
 }
 
@@ -116,7 +117,7 @@ stopDeleteSelenium () {
          logMsg "Deleting Selenium"
          
          PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
-         kill -f $PID
+         kill -9 $PID
          npm uninstall -g  selenium-side-runner  --unsafe-perm=true --allow-root
          npm uninstall -g  chromedriver --unsafe-perm=true --allow-root
          cd ..
@@ -285,7 +286,8 @@ installAndRunSelenium () {
     mkdir -p $INSTALLATION_FOLDER/$SELENIUM_FOLDER
   fi
 
-  cp $SCRIPTS_FOLDER/TixChangeSelenimum.side $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+  cp $SCRIPTS_FOLDER/TixChangeSelenimum*.side $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+  cp $SCRIPTS_FOLDER/$SELENIUM_UC $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
   cd $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
@@ -305,18 +307,22 @@ installAndRunSelenium () {
 
   sleep 10
 
-  echo "while true; do" > runSeleniumUC1
-  echo "while true; do" > runSeleniumUC2
-  echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url http://$UC1_URL/ ./TixChangeSelenimum.side " >> runSeleniumUC1
-  echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url http://$UC2_URL/ ./TixChangeSelenimum.side " >> runSeleniumUC2
+  logMsg "configuring the use cases"
+  ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
+  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC
+  sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $SELENIUM_UC
 
-  echo "sleep 8; done" >> runSeleniumUC1
-  echo "sleep 8; done" >> runSeleniumUC2
+   TIXCHANGE_WEB_POD=`kubectl get pods -n tixchange |grep -v NAME |awk '{print $1}'|grep web`
+   TIXCHANGE_WS_POD=`kubectl get pods -n tixchange |grep -v NAME |awk '{print $1}'|grep ws`
+
+   sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD'/' $SELENIUM_UC
+   sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD'/' $SELENIUM_UC
+
 
   chmod 755 runS*
-  nohup ./runSeleniumUC1 2>&1 &  
-  #nohup ./runSeleniumUC2 2>&1 &  
+  nohup ./$SELENIUM_UC 2>&1 &   
 
+  
   cd -
 }
 

@@ -8,7 +8,7 @@ metadata:
   labels:
     app: tixchange-web
     tier: frontend
-    env: {{ .Values.DeploymentEnv }}
+    env: {{ .Values.DeploymentEnv2 }}
 spec:
   selector:
     matchLabels:
@@ -26,7 +26,7 @@ spec:
       labels:
         app: tixchange-web
         tier: frontend
-        env: {{ .Values.DeploymentEnv }}
+        env: {{ .Values.DeploymentEnv2 }}
         apm: enabled
       annotations:
         ver: "1.0"
@@ -99,7 +99,7 @@ metadata:
   labels:
     app: tixchange-ws
     tier: backend
-    env: {{ .Values.DeploymentEnv }}
+    env: {{ .Values.DeploymentEnv2 }}
 spec:
   selector:
     matchLabels:
@@ -114,7 +114,7 @@ spec:
       labels:
         app: tixchange-ws
         tier: backend
-        env: {{ .Values.DeploymentEnv }}
+        env: {{ .Values.DeploymentEnv2 }}
         apm: enabled
       annotations:
         ver: "1.0"
