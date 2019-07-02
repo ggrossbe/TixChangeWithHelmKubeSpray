@@ -285,7 +285,8 @@ installAndRunSelenium () {
     mkdir -p $INSTALLATION_FOLDER/$SELENIUM_FOLDER
   fi
 
-  cp $SCRIPTS_FOLDER/TixChangeSelenimum.side $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+  cp $SCRIPTS_FOLDER/TixChangeSelenimum*.side $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+  cp $SCRIPTS_FOLDER/runSeleniumUC1 $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
   cd $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
@@ -305,18 +306,21 @@ installAndRunSelenium () {
 
   sleep 10
 
-  echo "while true; do" > runSeleniumUC1
-  echo "while true; do" > runSeleniumUC2
-  echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url http://$UC1_URL/ ./TixChangeSelenimum.side " >> runSeleniumUC1
-  echo "  selenium-side-runner -c \"browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]\" --base-url http://$UC2_URL/ ./TixChangeSelenimum.side " >> runSeleniumUC2
+   ESCAPED_APM_SAAS_URL=$(echo "$APM_SASS_URL"| sed 's/\//\\\//g')
+   sed -i 's/APM_SAAS_URL/'$APM_SAAS_URL'/' runSeleniumUC1
+   sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' runSeleniumUC1
 
-  echo "sleep 8; done" >> runSeleniumUC1
-  echo "sleep 8; done" >> runSeleniumUC2
+   TIXCHANGE_WEB_POD=`kubectl get pods -n tixchange |grep -v NAME |awk '{print $1}'|grep web`
+   TIXCHANGE_WS_POD=`kubectl get pods -n tixchange |grep -v NAME |awk '{print $1}'|grep ws`
+
+   sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD'/' runSeleniumUC1
+   sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD'/' runSeleniumUC1
+
 
   chmod 755 runS*
-  nohup ./runSeleniumUC1 2>&1 &  
-  #nohup ./runSeleniumUC2 2>&1 &  
+  nohup ./runSeleniumUC1 2>&1 &   
 
+  
   cd -
 }
 

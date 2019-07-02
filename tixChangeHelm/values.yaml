@@ -3,5 +3,6 @@
 # Name for the Kubernetes Cluster.
 App_name: TixChange
 
-DeploymentEnv: VMs
+DeploymentEnv1: DataCenter_West
+DeploymentEnv2: DataCenter_East
 

@@ -1,0 +1,46 @@
+runTrxnTrace () {
+  curl -X POST \
+  APM_SAAS_URL/apm/appmap/private/agentlist/starttrace \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'accept-encoding: gzip, deflate' \
+  -H 'cache-control: no-cache' \
+  -H 'cookie: e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' \
+  -d '{
+  "minTraceDuration": 3000,
+  "traceSessionDuration": 60000,
+  "agentList": [
+    "SuperDomain|Experience Collector Host|DxC Agent|Logstash-APM-Plugin",
+    "SuperDomain|TIX_WEB_INSTANCE1|tomcat|Agent",
+    "SuperDomain|TIX_WS_INSTANCE1|tomcat|Agent",
+  ]
+}'
+}
+
+
+while true; do
+  selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc1.jtixchange.com/ ./TixChangeSelenimum.side 
+sleep 8 
+
+  MINUTES=`date +%M`
+
+  # Trigger Slow Login every hour top of the hour
+  if [ $MINUTES -eq 00 ]; then
+
+   echo "starting TT"
+    
+    runTrxnTrace
+    sleep 5
+
+    selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc1.jtixchange.com/ ./TixChangeSelenimumSlowLogin.side
+    sleep 3
+    selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc1.jtixchange.com/ ./TixChangeSelenimumSlowLogin.side
+    sleep 5
+  fi 
+
+done
+
+
