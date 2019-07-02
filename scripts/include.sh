@@ -21,7 +21,7 @@ UC2_URL=uc2.jtixchange.com
 TIX_IP=` ip a |grep eth0|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
 
 logMsg () {
-        echo "$1"
+        echo "**** $1"
         
 }
 
@@ -117,7 +117,7 @@ stopDeleteSelenium () {
          logMsg "Deleting Selenium"
          
          PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
-         kill -f $PID
+         kill -9 $PID
          npm uninstall -g  selenium-side-runner  --unsafe-perm=true --allow-root
          npm uninstall -g  chromedriver --unsafe-perm=true --allow-root
          cd ..
@@ -307,9 +307,10 @@ installAndRunSelenium () {
 
   sleep 10
 
-   ESCAPED_APM_SAAS_URL=$(echo "$APM_SASS_URL"| sed 's/\//\\\//g')
-   sed -i 's/APM_SAAS_URL/'$APM_SAAS_URL'/' $SELENIUM_UC
-   sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $SELENIUM_UC
+  logMsg "configuring the use cases"
+  ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
+  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC
+  sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $SELENIUM_UC
 
    TIXCHANGE_WEB_POD=`kubectl get pods -n tixchange |grep -v NAME |awk '{print $1}'|grep web`
    TIXCHANGE_WS_POD=`kubectl get pods -n tixchange |grep -v NAME |awk '{print $1}'|grep ws`
