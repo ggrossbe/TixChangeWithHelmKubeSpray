@@ -20,7 +20,7 @@ UC2_URL=uc2.jtixchange.com
 TIXCHANGE_NAMESPACE1=tixchange-v1
 TIXCHANGE_NAMESPACE2=tixchange-v2
 
-TIX_IP=` ip a |grep -e eth -e ens|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
+TIX_IP=` ip a |grep -E -e eth[0-9]+ -e ens[0-9]+|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
 
 logMsg () {
         echo "**** $1"
