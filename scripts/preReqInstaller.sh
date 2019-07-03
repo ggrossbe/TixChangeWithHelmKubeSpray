@@ -9,6 +9,8 @@ do
    logMsg "**** running yum update -y on host $HOST"
    
    ssh root@$HOST "yum update -y"
+   ssh root@$HOST "yum install unzip -y"
+
 
    logMsg "**** disabling firewall, SELinux off etc"
    ssh root@$HOST "systemctl stop firewalld"

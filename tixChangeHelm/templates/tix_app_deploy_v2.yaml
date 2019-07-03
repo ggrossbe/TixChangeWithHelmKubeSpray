@@ -39,11 +39,11 @@ spec:
         - name: tix-web
           resources:
             limits:
-              cpu: "900m"
-              memory: "1900Mi"
+              cpu: "1000m"
+              memory: "2000Mi"
             requests:
-              cpu: "500m"
-              memory: "500Mi"
+              cpu: "600m"
+              memory: "600Mi"
           image: omaro/tixchange_web:2.1
           #imagePullPolicy: IfNotPresent
           imagePullPolicy: Always
