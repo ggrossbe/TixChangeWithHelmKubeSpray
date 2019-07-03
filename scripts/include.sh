@@ -210,9 +210,9 @@ installUMA () {
 
 installTixChangeHelm () {
    logMsg "Installing TixChang using Helm"
-   kubectl delete configmap default-basnippet --namespace=tixchange 
+   kubectl delete configmap default-basnippet --namespace=tixchange-v1 
    kubectl delete configmap jtixchange-pbd --namespace=tixchange-v2 
-   kubectl delete configmap jtixchange-pbd --namespace=tixchange 
+   kubectl delete configmap jtixchange-pbd --namespace=tixchange-v1 
 
   if [ ! -d $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER ]; then
     mkdir -p $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
@@ -230,9 +230,9 @@ installTixChangeHelm () {
    #sed -i 's/SNIPPET_STRING/'$BA_SNIPPET'/' template/tix_configmap_apm.yaml
 
    helm install  . --name tixchange 
-   kubectl create configmap default-basnippet --namespace=tixchange --from-file=./default.basnippet
+   kubectl create configmap default-basnippet --namespace=tixchange-v1 --from-file=./default.basnippet
    kubectl create configmap jtixchange-pbd --namespace=tixchange-v2 --from-file=./jtixchange.pbd
-   kubectl create configmap jtixchange-pbd --namespace=tixchange --from-file=./jtixchange.pbd
+   kubectl create configmap jtixchange-pbd --namespace=tixchange-v1 --from-file=./jtixchange.pbd
     
    helm list 
    kubectl get pods -n tixchange
