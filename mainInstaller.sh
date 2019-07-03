@@ -73,7 +73,7 @@ case $OPTION in
      logMsg "1. Update your laptop (where you are running the browser) /etc/hosts with following IP"
      logMsg "    $TIX_IP $UC1_URL"
      logMsg "    $TIX_IP $UC2_URL"
-     logMsg "  NOTE: if you see the IP empty then update /etc/hosts manually "
+     logMsg "  *** NOTE: if you see urls and no IPs above then update /etc/hosts manually ***"
      logMsg "2. This is a Blue/Green deployment - with UC1 running on $UC1_URL/jtixchange_web/shop/index.shtml and UC2 $UC2_URL/jtixchange_web/shop/index.shtml"
      logMsg "3. Selenium is generating load for both. Access TixChange from browser at $UC1_URL/jtixchange_web/shop/index.shtml"
      logMsg ""

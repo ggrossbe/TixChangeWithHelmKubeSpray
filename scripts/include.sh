@@ -19,11 +19,12 @@ UC1_URL=uc1.jtixchange.com
 UC2_URL=uc2.jtixchange.com
 TIXCHANGE_NAMESPACE1=tixchange-v1
 TIXCHANGE_NAMESPACE2=tixchange-v2
+LOG_FILE=$INSTALLATION_FOLDER/TixChangeInstallerLog`date +%Y_%m_%d_%H_%M_%S`.log
 
 TIX_IP=` ip a |grep -E -e eth[0-9]+ -e ens[0-9]+|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
 
 logMsg () {
-        echo "**** $1"
+        echo "**** $1" | tee $LOG_FILE
         
 }
 
@@ -177,7 +178,7 @@ Usage () {
   echo "Options: "
   echo "  a : install all (K8s,Helm, UMA, TixChange, Selenium)"
   #echo "  p : run the pre-req"
-   echo "  r : re-install & run just app components (uma, tixchange, selenium)"
+   echo "  r : re-install & run just app components (helm, uma, tixchange, selenium)"
    echo "  u : install & run just uma"
    echo "  t : install & run just tixChange"
   #echo "  j : install & run just jmeter"
@@ -219,7 +220,8 @@ installUMA () {
 
 
 installTixChangeHelm () {
-   logMsg "Installing TixChang using Helm"
+   logMsg "Installing TixChange using Helm"
+
    helm delete tixchange --purge
    kubectl delete configmap default-basnippet --namespace=tixchange-v1 
    kubectl delete configmap jtixchange-pbd --namespace=tixchange-v2 
@@ -241,6 +243,9 @@ installTixChangeHelm () {
    #sed -i 's/SNIPPET_STRING/'$BA_SNIPPET'/' template/tix_configmap_apm.yaml
 
    helm install  . --name tixchange 
+
+   logMsg "***IGNORE the 3 errors related to configmap"
+   logMsg ""
    kubectl create configmap default-basnippet --namespace=tixchange-v1 --from-file=./default.basnippet
    kubectl create configmap jtixchange-pbd --namespace=tixchange-v2 --from-file=./jtixchange.pbd
    kubectl create configmap jtixchange-pbd --namespace=tixchange-v1 --from-file=./jtixchange.pbd
@@ -297,6 +302,8 @@ installAndRunJmeter () {
 }
 
 installAndRunSelenium () {
+
+  logMsg "Install and Run Selenium"
 
   if [ ! -d $INSTALLATION_FOLDER/$SELENIUM_FOLDER ]; then
     mkdir -p $INSTALLATION_FOLDER/$SELENIUM_FOLDER
