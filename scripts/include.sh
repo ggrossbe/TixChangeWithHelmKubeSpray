@@ -17,8 +17,10 @@ SELENIUM_FOLDER=selenium
 SELENIUM_UC=runSeleniumUC
 UC1_URL=uc1.jtixchange.com
 UC2_URL=uc2.jtixchange.com
+TIXCHANGE_NAMESPACE1=tixchange-v1
+TIXCHANGE_NAMESPACE2=tixchange-v2
 
-TIX_IP=` ip a |grep eth0|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
+TIX_IP=` ip a |grep -e eth -e ens|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
 
 logMsg () {
         echo "**** $1"
@@ -143,6 +145,13 @@ stopDeletelAll () {
     
 }
 
+stopDeletelAppComponents () {
+
+  stopDeleteSelenium
+  stopDeleteTixChange
+  stopDeleteUMA
+}
+
 cleanUp () {
    
   helm delete tixchange --purge
@@ -167,7 +176,8 @@ cleanUp () {
 Usage () {
   echo "Options: "
   echo "  a : install all (K8s,Helm, UMA, TixChange, Selenium)"
-  echo "  p : run the pre-req"
+  #echo "  p : run the pre-req"
+   echo "  r : re-install & run just app components (uma, tixchange, selenium)"
    echo "  u : install & run just uma"
    echo "  t : install & run just tixChange"
   #echo "  j : install & run just jmeter"
@@ -210,6 +220,7 @@ installUMA () {
 
 installTixChangeHelm () {
    logMsg "Installing TixChang using Helm"
+   helm delete tixchange --purge
    kubectl delete configmap default-basnippet --namespace=tixchange-v1 
    kubectl delete configmap jtixchange-pbd --namespace=tixchange-v2 
    kubectl delete configmap jtixchange-pbd --namespace=tixchange-v1 
@@ -235,8 +246,8 @@ installTixChangeHelm () {
    kubectl create configmap jtixchange-pbd --namespace=tixchange-v1 --from-file=./jtixchange.pbd
     
    helm list 
-   kubectl get pods -n tixchange
-   kubectl get pods -n tixchangev2
+   kubectl get pods -n $TIXCHANGE_NAMESPACE1
+   kubectl get pods -n $TIXCHANGE_NAMESPACE2
    
    cd -
 
@@ -245,9 +256,14 @@ installTixChangeHelm () {
 
    UPDATE_HOSTS_FILE=`grep uc1.jtixchange.com /etc/hosts`
    
-   if [ X"$UPDATE_HOSTS_FILE" == "X" ]; then
-     echo "$TIX_IP $UC1_URL" >> /etc/hosts
-     echo "$TIX_IP $UC2_URL" >> /etc/hosts
+   if [ X"$TIX_IP" != "X" ]; then
+  
+     if [ X"$UPDATE_HOSTS_FILE" == "X" ]; then
+       echo "$TIX_IP $UC1_URL" >> /etc/hosts
+       echo "$TIX_IP $UC2_URL" >> /etc/hosts
+     fi
+   else
+     logMsg "*** ERROR: IP address could not be update in /etc/hosts. Pls add IP to HOST manually"
    fi
 
    sleep 5
