@@ -12,7 +12,7 @@ wget https://github.com/kubernetes-sigs/kubespray/archive/release-2.10.zip
 rm -rf $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
 
 #unzip master.zip &&  mv kubespray-master kubespray && cd kubespray
-unzip release-2.10.zip &&  mv kubespray-release-2.10 $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER 
+unzip release-2.10.zip &&  mv kubespray-release-2.10/ $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER 
 
 rm -rf release-2.10.zip*
 
