@@ -8,13 +8,13 @@ metadata:
   labels:
     app: tixchange-db
     tier: database
-    env: .Values.DeploymentEnv2
+    env: {{ .Values.DeploymentEnv2 }}
 spec:
   selector:
     matchLabels:
       app: tixchange-db
       tier: database
-      env: .Values.DeploymentEnv2
+      env: {{ .Values.DeploymentEnv2 }}
   replicas: 1
   strategy:
     type: Recreate
@@ -23,7 +23,7 @@ spec:
       labels:
         app: tixchange-db
         tier: database
-        env: .Values.DeploymentEnv2
+        env: {{ .Values.DeploymentEnv2 }}
       annotations:
         ver: "1.0"
     spec:

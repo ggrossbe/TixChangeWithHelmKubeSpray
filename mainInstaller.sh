@@ -37,7 +37,6 @@ fi
 
 case $OPTION in 
    a) 
-     logMsg " Installing all the components"
 
      stopDeletelAll
 
@@ -71,16 +70,39 @@ case $OPTION in
      logMsg ""
      logMsg ""
      logMsg ""
-     logMsg "1. Update your laptop /etc/hosts with following IP"
+     logMsg "1. Update your laptop (where you are running the browser) /etc/hosts with following IP"
      logMsg "    $TIX_IP $UC1_URL"
      logMsg "    $TIX_IP $UC2_URL"
-     logMsg "4. This is a Blue/Green deployment - with UC1 running on $UC1_URL/jtixchange_web/shop/index.shtml and UC2 $UC2_URL/jtixchange_web/shop/index.shtml"
-     logMsg "5. Selenium is generating load for both. Access TixChange from browser at $UC1_URL/jtixchange_web/shop/index.shtml"
+     logMsg "  NOTE: if you see the IP empty then update /etc/hosts manually "
+     logMsg "2. This is a Blue/Green deployment - with UC1 running on $UC1_URL/jtixchange_web/shop/index.shtml and UC2 $UC2_URL/jtixchange_web/shop/index.shtml"
+     logMsg "3. Selenium is generating load for both. Access TixChange from browser at $UC1_URL/jtixchange_web/shop/index.shtml"
      logMsg ""
      logMsg ""
      logMsg "************************"
      ;;
 
+   r)
+
+     stopDeleteAppComponents
+
+     logMsg " Re-installing just the Application components (Tixchange, UMA, Selenium) in case say you are pointing to different EM"
+
+     sleep 10
+     #echo "pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
+     cd $INSTALL_SCRIPT_FOLDER
+     installTixChangeHelm
+
+     sleep 10
+     #echo "4pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
+     cd $INSTALL_SCRIPT_FOLDER
+     installUMA
+
+     logMsg "Waiting few seconds for app to startup"
+     sleep 15
+     #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
+     cd $INSTALL_SCRIPT_FOLDER
+     installAndRunSelenium
+     ;;
    u) 
 
      stopDeleteUMA
