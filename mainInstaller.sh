@@ -85,10 +85,10 @@ case $OPTION in
 
      stopDeleteAppComponents
 
-     logMsg " Installing just the Application components (Tixchange, UMA, Selenium)"
+     logMsg " Re-installing just the Application components (Tixchange, UMA, Selenium) in case say you are pointing to different EM"
 
      sleep 10
-     #echo "5pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
+     #echo "pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      installTixChangeHelm
 
