@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 MAIN_FOLDER=`dirname $BASH_SOURCE`
 
 . $MAIN_FOLDER/scripts/include.sh
@@ -85,7 +86,7 @@ case $OPTION in
 
      stopDeleteAppComponents
 
-     logMsg " Re-installing just the Application components (Tixchange, UMA, Selenium) in case say you are pointing to different EM"
+     logMsg " Now Re-installing just the Application components (Tixchange, UMA, Selenium) "
 
      sleep 10
      #echo "pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
@@ -114,8 +115,14 @@ case $OPTION in
 
      stopDeleteTixChange
 
-     logMsg " Installing just the TixChange components"
+     logMsg " Installing just the TixChange components + Selenium"
      installTixChangeHelm
+    
+     sleep 10 
+     logMsg " re-installaing Selenium"
+     stopDeleteSelenium
+     sleep 5
+     installAndRunSelenium
      ;;
    s) 
      stopDeleteSelenium

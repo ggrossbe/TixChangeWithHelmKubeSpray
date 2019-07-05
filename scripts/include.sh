@@ -81,6 +81,8 @@ stopDeleteKubeSpray () {
 
 stopDeleteTixChange () {
 
+  logMsg "Stopping and Deleteing Tixchange and its components"
+
   if [ -d "$INSTALLATION_FOLDER" ]; then
 
 
@@ -92,7 +94,7 @@ stopDeleteTixChange () {
          logMsg "Deleting tixchange"
 
          helm delete tixchange --purge
-         helm delete tixchange --purge
+         helm delete tixchange --purge 2> /dev/null
 
          cd ..
          rm -rf $TIXCHANGE_FOLDER
@@ -146,7 +148,7 @@ stopDeletelAll () {
     
 }
 
-stopDeletelAppComponents () {
+stopDeleteAppComponents () {
 
   stopDeleteSelenium
   stopDeleteTixChange
@@ -222,10 +224,12 @@ installUMA () {
 installTixChangeHelm () {
    logMsg "Installing TixChange using Helm"
 
-   helm delete tixchange --purge
-   kubectl delete configmap default-basnippet --namespace=tixchange-v1 
-   kubectl delete configmap jtixchange-pbd --namespace=tixchange-v2 
-   kubectl delete configmap jtixchange-pbd --namespace=tixchange-v1 
+   #deleting tixchange one more time just to be sure
+   helm delete tixchange --purge 2>/dev/null
+   sleep 5
+   #kubectl delete configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE1 
+   #kubectl delete configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE2 
+   #kubectl delete configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE1 
 
   if [ ! -d $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER ]; then
     mkdir -p $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
@@ -242,13 +246,13 @@ installTixChangeHelm () {
 
    #sed -i 's/SNIPPET_STRING/'$BA_SNIPPET'/' template/tix_configmap_apm.yaml
 
+   #logMsg "***IGNORE the 3 errors related to configmap below"
    helm install  . --name tixchange 
 
-   logMsg "***IGNORE the 3 errors related to configmap"
    logMsg ""
-   kubectl create configmap default-basnippet --namespace=tixchange-v1 --from-file=./default.basnippet
-   kubectl create configmap jtixchange-pbd --namespace=tixchange-v2 --from-file=./jtixchange.pbd
-   kubectl create configmap jtixchange-pbd --namespace=tixchange-v1 --from-file=./jtixchange.pbd
+   kubectl create configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./default.basnippet
+   kubectl create configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./jtixchange.pbd
+   kubectl create configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./jtixchange.pbd
     
    helm list 
    kubectl get pods -n $TIXCHANGE_NAMESPACE1
@@ -291,8 +295,8 @@ installAndRunJmeter () {
 
   tar xvf  apache-jmeter-5.1.1.tgz > /dev/null
 
-  SVC_IP=`kubectl get svc -n tixchange |grep webportal|awk '{print $3}'`
-  SVC_PORT=`kubectl get svc -n tixchange|grep webportal|awk '{print $5}'|awk -F/ '{print $1}'`
+  SVC_IP=`kubectl get svc -n $TIXCHANGE_NAMESPACE1 |grep webportal|awk '{print $3}'`
+  SVC_PORT=`kubectl get svc -n $TIXCHANGE_NAMESPACE1|grep webportal|awk '{print $5}'|awk -F/ '{print $1}'`
 
   echo $SVC_IP,$SVC_PORT >jt-ips.csv
 
@@ -335,8 +339,8 @@ installAndRunSelenium () {
   sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC
   sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $SELENIUM_UC
 
-   TIXCHANGE_WEB_POD=`kubectl get pods -n tixchange |grep -v NAME |awk '{print $1}'|grep web`
-   TIXCHANGE_WS_POD=`kubectl get pods -n tixchange |grep -v NAME |awk '{print $1}'|grep ws`
+   TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep web`
+   TIXCHANGE_WS_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep ws`
 
    sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD'/' $SELENIUM_UC
    sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD'/' $SELENIUM_UC
