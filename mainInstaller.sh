@@ -115,8 +115,14 @@ case $OPTION in
 
      stopDeleteTixChange
 
-     logMsg " Installing just the TixChange components"
+     logMsg " Installing just the TixChange components + Selenium"
      installTixChangeHelm
+    
+     sleep 10 
+     logMsg " re-installaing Selenium"
+     stopDeleteSelenium
+     sleep 5
+     installAndRunSelenium
      ;;
    s) 
      stopDeleteSelenium

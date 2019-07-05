@@ -146,7 +146,7 @@ stopDeletelAll () {
     
 }
 
-stopDeletelAppComponents () {
+stopDeleteAppComponents () {
 
   stopDeleteSelenium
   stopDeleteTixChange
@@ -242,9 +242,9 @@ installTixChangeHelm () {
 
    #sed -i 's/SNIPPET_STRING/'$BA_SNIPPET'/' template/tix_configmap_apm.yaml
 
+   logMsg "***IGNORE the 3 errors related to configmap below"
    helm install  . --name tixchange 
 
-   logMsg "***IGNORE the 3 errors related to configmap"
    logMsg ""
    kubectl create configmap default-basnippet --namespace=tixchange-v1 --from-file=./default.basnippet
    kubectl create configmap jtixchange-pbd --namespace=tixchange-v2 --from-file=./jtixchange.pbd
@@ -291,8 +291,8 @@ installAndRunJmeter () {
 
   tar xvf  apache-jmeter-5.1.1.tgz > /dev/null
 
-  SVC_IP=`kubectl get svc -n tixchange |grep webportal|awk '{print $3}'`
-  SVC_PORT=`kubectl get svc -n tixchange|grep webportal|awk '{print $5}'|awk -F/ '{print $1}'`
+  SVC_IP=`kubectl get svc -n $TIXCHANGE_NAMESPACE1 |grep webportal|awk '{print $3}'`
+  SVC_PORT=`kubectl get svc -n $TIXCHANGE_NAMESPACE1|grep webportal|awk '{print $5}'|awk -F/ '{print $1}'`
 
   echo $SVC_IP,$SVC_PORT >jt-ips.csv
 
@@ -335,8 +335,8 @@ installAndRunSelenium () {
   sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC
   sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $SELENIUM_UC
 
-   TIXCHANGE_WEB_POD=`kubectl get pods -n tixchange |grep -v NAME |awk '{print $1}'|grep web`
-   TIXCHANGE_WS_POD=`kubectl get pods -n tixchange |grep -v NAME |awk '{print $1}'|grep ws`
+   TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep web`
+   TIXCHANGE_WS_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep ws`
 
    sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD'/' $SELENIUM_UC
    sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD'/' $SELENIUM_UC
