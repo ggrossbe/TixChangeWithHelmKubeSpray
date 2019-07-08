@@ -130,14 +130,6 @@ case $OPTION in
      logMsg " Installing just the selenium components"
      installAndRunSelenium
      ;;
-   j) 
-     ### DEPRECATED in favor if Selenium
-
-     stopCleanupServices j
-
-     logMsg " Installing just the Jmeter components"
-     installAndRunJmeter
-     ;;
    c) 
      logMsg "Clean All. Are you sure ??" 
      logMsg "Press Enter to continue or Ctrl-C"
@@ -145,6 +137,20 @@ case $OPTION in
      read INPUT
     
      stopDeletelAll
+     ;;
+   e)
+     logMsg "Setup EM (Universes, Exp Views, mgmt mod). sleep 10sec before starting. Hope agents are already reporting"
+     
+     sleep 10
+     runTrxTrace
+     sleep 10
+     createUniverse 
+     sleep 5
+     createExpView
+     sleep 5
+     importMgmtModule
+
+     logMsg "Created West Coast DC Universe, Exp View and TixChangeWestCoast MgmtMod"
      ;;
    *) 
      logMsg "Not a valid option"

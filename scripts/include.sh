@@ -2,6 +2,7 @@
 SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 
 . $SCRIPTS_FOLDER/../config.ini
+. $SCRIPTS_FOLDER/../EM/commonEMFunctions
 
 
 
@@ -12,7 +13,6 @@ TIXCHANGE_FOLDER=tixChangeHelm
 HELM_FOLDER=helmInstaller
 HELM_RBAC_YAML=helm-rbac-config.yaml
 UMA_FOLDER=uma
-JMETER_FOLDER=jmeter
 SELENIUM_FOLDER=selenium
 SELENIUM_UC=runSeleniumUC
 UC1_URL=uc1.jtixchange.com
@@ -20,6 +20,8 @@ UC2_URL=uc2.jtixchange.com
 TIXCHANGE_NAMESPACE1=tixchange-v1
 TIXCHANGE_NAMESPACE2=tixchange-v2
 LOG_FILE=$INSTALLATION_FOLDER/TixChangeInstallerLog`date +%Y_%m_%d_%H_%M_%S`.log
+EM_FOLDER=em
+COMMON_EM_FUNCTIONS=commonEMFunctions
 
 TIX_IP=` ip a |grep -E -e eth[0-9]+ -e ens[0-9]+|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
 
@@ -155,26 +157,6 @@ stopDeleteAppComponents () {
   stopDeleteUMA
 }
 
-cleanUp () {
-   
-  helm delete tixchange --purge
-  helm delete uma --purge
-
-  cd $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
-
-  ansible-playbook -b --become-user=root -v -i  inventory/mycluster/hosts.yml --user=root reset.yml --flush-cache
-
-  ps -ef |grep jmeter |grep Tix|awk  '{print $2}' | kill -9
-
-  logMsg "Cleaning up all the folders"
-
-  sleep 2
-
-  stopCleanupServices a
-
-  cd $INSTALL_SCRIPT_FOLDER
-}
-
 
 Usage () {
   echo "Options: "
@@ -183,7 +165,6 @@ Usage () {
    echo "  r : re-install & run just app components (helm, uma, tixchange, selenium)"
    echo "  u : install & run just uma"
    echo "  t : install & run just tixChange"
-  #echo "  j : install & run just jmeter"
   echo "  s : install & run just selenium"
   echo "  c : cleanup and unintsall everything"
 
@@ -278,32 +259,6 @@ installTixChangeHelm () {
    sleep 5
 }
 
-installAndRunJmeter () {
-  
-  logMsg "Installing Jmeter - current folder $PWD "
-  logMsg "current folder $PWD. SCRIPT folder is $SCRIPTS_FOLDER "
-
-  if [ ! -d $INSTALLATION_FOLDER/$JMETER_FOLDER ]; then
-    mkdir -p $INSTALLATION_FOLDER/$JMETER_FOLDER	
-  fi
-
-
-
-  cp -f $JMETER_FOLDER/* $INSTALLATION_FOLDER/$JMETER_FOLDER
- 
-  cd $INSTALLATION_FOLDER/$JMETER_FOLDER
-
-  tar xvf  apache-jmeter-5.1.1.tgz > /dev/null
-
-  SVC_IP=`kubectl get svc -n $TIXCHANGE_NAMESPACE1 |grep webportal|awk '{print $3}'`
-  SVC_PORT=`kubectl get svc -n $TIXCHANGE_NAMESPACE1|grep webportal|awk '{print $5}'|awk -F/ '{print $1}'`
-
-  echo $SVC_IP,$SVC_PORT >jt-ips.csv
-
-  nohup apache-jmeter*/bin/jmeter.sh -n -t TixChange_LoadScript.jmx 2>&1 &
-
- cd -
-}
 
 installAndRunSelenium () {
 
@@ -352,6 +307,30 @@ installAndRunSelenium () {
   
   cd -
 }
+
+configureEMFunctions () {
+
+  logMsg "configuring the EM Common Functions"
+
+  cd EM
+
+  ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
+  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $COMMON_EM_FUNCTIONS
+  sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $COMMON_EM_FUNCTIONS
+  sed -i 's/SAAS_USER_ID/'$SAAS_USER_ID'/' $COMMON_EM_FUNCTIONS
+
+  TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep web`
+  TIXCHANGE_WS_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep ws`
+  
+  sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD'/' $COMMON_EM_FUNCTIONS
+  sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD'/' $COMMON_EM_FUNCTIONS
+
+  UNIVERSE_ID=`getUniverseIDFromName "WestCoast DataCenter"
+  sed -i 's/UNIVERSE_ID/'$UNIVERSE_ID'/' $COMMON_EM_FUNCTIONS
+  
+  cd -
+}
+
 
 
 if [ "$EUID" -ne 0 ]
