@@ -64,6 +64,8 @@ case $OPTION in
      cd $INSTALL_SCRIPT_FOLDER
      installAndRunSelenium
 
+     setEMSideConfiguration
+
      logMsg ""
      logMsg ""
      logMsg ""
@@ -141,6 +143,11 @@ case $OPTION in
    e)
      logMsg "Setup EM (Universes, Exp Views, mgmt mod). sleep 10sec before starting. Hope agents are already reporting"
      
+     setEMSideConfiguration
+     
+     
+     
+     exit
      sleep 10
      runTrxTrace
      sleep 10

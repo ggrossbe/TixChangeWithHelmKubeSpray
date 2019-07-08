@@ -2,7 +2,7 @@
 SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 
 . $SCRIPTS_FOLDER/../config.ini
-. $SCRIPTS_FOLDER/../EM/commonEMFunctions
+#. $SCRIPTS_FOLDER/../em/commonEMFunctions
 
 
 
@@ -21,7 +21,9 @@ TIXCHANGE_NAMESPACE1=tixchange-v1
 TIXCHANGE_NAMESPACE2=tixchange-v2
 LOG_FILE=$INSTALLATION_FOLDER/TixChangeInstallerLog`date +%Y_%m_%d_%H_%M_%S`.log
 EM_FOLDER=em
-COMMON_EM_FUNCTIONS=commonEMFunctions
+EM_SETUP_SCRIPT=setupEMSideConfigurations.sh
+EM_UNIVERSE1_NAME="WestCoast-DataCenter-Jtix"
+
 
 TIX_IP=` ip a |grep -E -e eth[0-9]+ -e ens[0-9]+|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
 
@@ -147,6 +149,8 @@ stopDeletelAll () {
   stopDeleteUMA
   stopDeleteKubeSpray
 
+  rm -rf $INSTALLATION_FOLDER/*
+
     
 }
 
@@ -166,6 +170,7 @@ Usage () {
    echo "  u : install & run just uma"
    echo "  t : install & run just tixChange"
   echo "  s : install & run just selenium"
+  echo "  e : EM side configuration: Setup Universes, import mgmt module etc"
   echo "  c : cleanup and unintsall everything"
 
 }
@@ -308,25 +313,41 @@ installAndRunSelenium () {
   cd -
 }
 
-configureEMFunctions () {
+setEMSideConfiguration () {
 
   logMsg "configuring the EM Common Functions"
 
-  cd EM
+ 
+  if [ -d $INSTALLATION_FOLDER/$EM_FOLDER ]; then
+    rm -rf $INSTALLATION_FOLDER/$EM_FOLDER
+  fi
+
+  mkdir -p $INSTALLATION_FOLDER/$EM_FOLDER
+
+  cp -f $EM_FOLDER/* $INSTALLATION_FOLDER/$EM_FOLDER/
+
+  cd $INSTALLATION_FOLDER/$EM_FOLDER
 
   ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
-  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $COMMON_EM_FUNCTIONS
-  sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $COMMON_EM_FUNCTIONS
-  sed -i 's/SAAS_USER_ID/'$SAAS_USER_ID'/' $COMMON_EM_FUNCTIONS
+  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $EM_SETUP_SCRIPT
+  sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $EM_SETUP_SCRIPT
+  sed -i 's/SAAS_USER_ID/'$SAAS_USER_ID'/' $EM_SETUP_SCRIPT
+  sed -i 's/EM_UNIVERSE1_NAME/'$EM_UNIVERSE1_NAME'/' $EM_SETUP_SCRIPT
+
 
   TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep web`
   TIXCHANGE_WS_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep ws`
   
-  sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD'/' $COMMON_EM_FUNCTIONS
-  sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD'/' $COMMON_EM_FUNCTIONS
+  sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD'/' $EM_SETUP_SCRIPT
+  sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD'/' $EM_SETUP_SCRIPT
 
-  UNIVERSE_ID=`getUniverseIDFromName "WestCoast DataCenter"
-  sed -i 's/UNIVERSE_ID/'$UNIVERSE_ID'/' $COMMON_EM_FUNCTIONS
+  ##UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
+
+  #logMsg " UNIVERSE ID is $UNIVERSE_ID"
+
+  #sed -i 's/UNIVERSE_ID/'$UNIVERSE_ID'/' $EM_SETUP_SCRIPT
+
+  ./$EM_SETUP_SCRIPT
   
   cd -
 }

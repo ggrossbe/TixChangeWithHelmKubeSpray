@@ -1,3 +1,5 @@
+EM_UNIVERSE1=EM_UNIVERSE1_NAME
+
 createUniverse () {
 
 curl -X POST \
@@ -15,7 +17,7 @@ curl -X POST \
   -b 'JSESSIONID=node0lzmpvmcbod4411k1d9rwyk9zc43.node0; e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' \
   -d '{
   "universeId": null,
-  "name": "WestCoast DataCenter",
+  "name": "EM_UNIVERSE1",
   "items": [
     {
       "layer": {
@@ -91,18 +93,13 @@ curl -X POST \
 listUniverses () {
 
 curl -X GET \
-  'APM_SAAS_URL/apm/appmap/private/universe?skipCount=true&user=SAAS_USER_ID' \
-  -H 'Accept: */*' \
-  -H 'Authorization: Bearer APM_API_TOKEN' \
-  -H 'Cache-Control: no-cache' \
-  -H 'Connection: keep-alive' \
-  -H 'Host: APM_SAAS_URL' \
-  -H 'accept-encoding: gzip, deflate' \
-  -H 'cache-control: no-cache' \
-  -H 'content-length: 411' \
-  -H 'cookie: JSESSIONID=node05645rzv09bt0ltfvrineoou546.node0; e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' \
-  -b 'JSESSIONID=node05645rzv09bt0ltfvrineoou546.node0; e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' 
-
+   'APM_SAAS_URL/apm/appmap/private/universe?skipCount=true&user=SAAS_USER_ID' \
+   -H 'Accept: */*' \
+   -H 'Authorization: Bearer APM_API_TOKEN' \
+   -H 'Cache-Control: no-cache' \
+   -H 'Connection: keep-alive' \
+   -H 'Content-Type: application/json' \
+   -H 'Host: APM_SAAS_URL'
 }
 
 
@@ -124,8 +121,8 @@ curl -X POST \
   -d '{
   "type": "experience",
   "data": {
-    "name": "West Coast DC App",
-    "universeId": "UNIVERSE_ID",
+    "name": "EM_UNIVERSE1",
+    "universeId": "$*",
     "filter": {
       "showEntry": false,
       "items": [
@@ -182,11 +179,29 @@ runTrxnTrace () {
 
 
 getUniverseIDFromName () {
-  logMsg "Get Universe ID for $*"
+  echo "Get Universe ID for $*"
 
   UNIVERSE_ID=`listUniverses |grep -A 1 "$*" |sed -e '1d'|sed -e 's/.*: "//g'|sed -e 's/"\,//g'`
+
+  echo "Get Universe ID for $UNIVERSE_ID"
 }
 
 
 createMgmtModule () {
+  echo "create mgt mod"
 }
+
+UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
+
+echo " UNIVERSE ID is $UNIVERSE_ID"
+
+sleep 10
+runTrxTrace
+sleep 10
+createUniverse $UNIVERSE_ID
+echo "Created $EM_UNIVERSE1 Universe, Exp View and TixChangeWestCoast MgmtMod"
+sleep 5
+createExpView
+sleep 5
+importMgmtModule
+
