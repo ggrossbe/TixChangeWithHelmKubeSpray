@@ -3,15 +3,16 @@ EM_UNIVERSE1=EM_UNIVERSE1_NAME
 createUniverse () {
 
 curl -X POST \
-  APM_SAAS_URL/apm/appmap/private/universe \
+   APM_SAAS_URL/apm/appmap/private/universe \
   -H 'Accept: */*' \
-  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Authorization: Bearer iAPM_API_TOKEN' \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
   -H 'Content-Type: application/json;charset=UTF-8' \
   -H 'Host: APM_SAAS_URL' \
+  -H 'User-Agent: PostmanRuntime/7.13.0' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 1321' \
+  -H 'content-length: 1325' \
   -d '{
   "universeId": null,
   "name": "$EM_UNIVERSE1",
@@ -159,7 +160,6 @@ runTrxnTrace () {
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
   -H 'Content-Type: application/json' \
-  -H 'accept-encoding: gzip, deflate' \
   -H 'cache-control: no-cache' \
   -H 'cookie: e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' \
   -d '{
@@ -188,18 +188,24 @@ createMgmtModule () {
 }
 
 
-sleep 10
-runTrxTrace
-sleep 10
-createUniverse 
-echo "Created $EM_UNIVERSE1 Universe, Exp View and TixChangeWestCoast MgmtMod"
-
 UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
 
 echo " UNIVERSE ID is $UNIVERSE_ID"
 
-sleep 5
-createExpView $UNIVERSE_ID
+sleep 10
+runTrxTrace
+sleep 10
+
+# if universe does not exist
+if [ X"$UNIVERSE_ID" == "X" ]; then
+  createUniverse 
+  echo "Created $EM_UNIVERSE1 Universe, Exp View and TixChangeWestCoast MgmtMod"
+
+  sleep 5
+  createExpView $UNIVERSE_ID
+
+fi
+
 sleep 5
 importMgmtModule
 
