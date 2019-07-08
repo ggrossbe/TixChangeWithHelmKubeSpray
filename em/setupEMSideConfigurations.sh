@@ -174,11 +174,9 @@ runTrxnTrace () {
 
 
 getUniverseIDFromName () {
-  echo "Get Universe ID for $*"
 
   UNIVERSE_ID=`listUniverses |grep -A 1 "$*" |sed -e '1d'|sed -e 's/.*: "//g'|sed -e 's/"\,//g'`
 
-  echo "Get Universe ID for $UNIVERSE_ID"
 }
 
 
@@ -189,10 +187,10 @@ createMgmtModule () {
 
 UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
 
-echo " UNIVERSE ID is $UNIVERSE_ID"
+echo " UNIVERSE ID for  $EM_UNIVERSE1 is $UNIVERSE_ID"
 
 sleep 10
-runTrxTrace
+runTrxnTrace
 sleep 10
 
 # if universe does not exist
@@ -206,5 +204,6 @@ if [ X"$UNIVERSE_ID" == "X" ]; then
 fi
 
 sleep 5
-importMgmtModule
+createMgmtModule
+
 
