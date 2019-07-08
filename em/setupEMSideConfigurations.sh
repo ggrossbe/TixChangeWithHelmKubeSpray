@@ -5,17 +5,16 @@ createUniverse () {
 curl -X POST \
    APM_SAAS_URL/apm/appmap/private/universe \
   -H 'Accept: */*' \
-  -H 'Authorization: Bearer iAPM_API_TOKEN' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
   -H 'Content-Type: application/json;charset=UTF-8' \
-  -H 'Host: APM_SAAS_URL' \
-  -H 'User-Agent: PostmanRuntime/7.13.0' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -H 'content-length: 1325' \
   -d '{
   "universeId": null,
-  "name": "$EM_UNIVERSE1",
+  "name": "'$EM_UNIVERSE1'",
   "items": [
     {
       "layer": {
