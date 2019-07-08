@@ -109,7 +109,7 @@ curl -X POST \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
   -H 'Content-Type: application/json' \
-  -H 'Host: APM_SAAS_URL' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -H 'content-length: 650' \
   -H 'cookie: JSESSIONID=node01ixkinym4b32m4ejzkoq6h0ox44.node0; e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' \
@@ -117,8 +117,8 @@ curl -X POST \
   -d '{
   "type": "experience",
   "data": {
-    "name": "EM_UNIVERSE1",
-    "universeId": "$*",
+    "name": "'$EM_UNIVERSE1'",
+    "universeId": "'$*'",
     "filter": {
       "showEntry": false,
       "items": [
