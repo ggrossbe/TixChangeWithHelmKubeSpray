@@ -3,21 +3,18 @@ EM_UNIVERSE1=EM_UNIVERSE1_NAME
 createUniverse () {
 
 curl -X POST \
-  APM_SAAS_URL/apm/appmap/private/universe 
+  APM_SAAS_URL/apm/appmap/private/universe \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
   -H 'Content-Type: application/json;charset=UTF-8' \
   -H 'Host: APM_SAAS_URL' \
-  -H 'accept-encoding: gzip, deflate' \
   -H 'cache-control: no-cache' \
   -H 'content-length: 1321' \
-  -H 'cookie: JSESSIONID=node0lzmpvmcbod4411k1d9rwyk9zc43.node0; e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' \
-  -b 'JSESSIONID=node0lzmpvmcbod4411k1d9rwyk9zc43.node0; e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' \
   -d '{
   "universeId": null,
-  "name": "EM_UNIVERSE1",
+  "name": "$EM_UNIVERSE1",
   "items": [
     {
       "layer": {
@@ -113,7 +110,6 @@ curl -X POST \
   -H 'Connection: keep-alive' \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL' \
-  -H 'accept-encoding: gzip, deflate' \
   -H 'cache-control: no-cache' \
   -H 'content-length: 650' \
   -H 'cookie: JSESSIONID=node01ixkinym4b32m4ejzkoq6h0ox44.node0; e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' \
@@ -191,17 +187,19 @@ createMgmtModule () {
   echo "create mgt mod"
 }
 
-UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
-
-echo " UNIVERSE ID is $UNIVERSE_ID"
 
 sleep 10
 runTrxTrace
 sleep 10
-createUniverse $UNIVERSE_ID
+createUniverse 
 echo "Created $EM_UNIVERSE1 Universe, Exp View and TixChangeWestCoast MgmtMod"
+
+UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
+
+echo " UNIVERSE ID is $UNIVERSE_ID"
+
 sleep 5
-createExpView
+createExpView $UNIVERSE_ID
 sleep 5
 importMgmtModule
 
