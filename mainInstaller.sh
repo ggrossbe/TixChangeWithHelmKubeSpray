@@ -107,6 +107,7 @@ case $OPTION in
      #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      installAndRunSelenium
+     configureEM
      ;;
    u) 
 

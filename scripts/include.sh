@@ -164,9 +164,9 @@ stopDeleteAppComponents () {
 
 Usage () {
   echo "Options: "
-  echo "  a : install all (K8s,Helm, UMA, TixChange, Selenium)"
+  echo "  a : install all (K8s,Helm, UMA, TixChange, Selenium, EM side - Universes, Exp View, Mgmt Mod)"
   #echo "  p : run the pre-req"
-   echo "  r : re-install & run just app components (helm, uma, tixchange, selenium)"
+   echo "  r : re-install & run just app components (helm, uma, tixchange, selenium, EM side - Universes, Exp View, Mgmt Mod)"
    echo "  u : install & run just uma"
    echo "  t : install & run just tixChange"
   echo "  s : install & run just selenium"
@@ -337,7 +337,7 @@ configureEM () {
   sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $EM_SETUP_SCRIPT
   sed -i 's/SAAS_USER_ID/'$SAAS_USER_ID'/' $EM_SETUP_SCRIPT
   sed -i 's/EM_UNIVERSE1_NAME/'$EM_UNIVERSE1_NAME'/' $EM_SETUP_SCRIPT
-  sed -i 's/INSTALLATION_FOLDER/'$INSTALLATION_FOLDER'/' $EM_SETUP_SCRIPT
+  sed -i 's/INSTALLATION_FOLDER/'$ESCAPED_INSTALLATION_FOLDER'/' $EM_SETUP_SCRIPT
   sed -i 's/EM_FOLDER/'$EM_FOLDER'/' $EM_SETUP_SCRIPT
 
 
