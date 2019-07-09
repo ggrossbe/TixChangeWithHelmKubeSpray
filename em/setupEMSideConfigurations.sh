@@ -2,7 +2,7 @@ EM_UNIVERSE1=EM_UNIVERSE1_NAME
 
 createUniverse () {
 
-curl -X POST \
+curl -s  -X POST \
    APM_SAAS_URL/apm/appmap/private/universe \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
@@ -89,20 +89,20 @@ curl -X POST \
 
 listUniverses () {
 
-curl -X GET \
+curl -s -X GET \
    'APM_SAAS_URL/apm/appmap/private/universe?skipCount=true&user=SAAS_USER_ID' \
    -H 'Accept: */*' \
    -H 'Authorization: Bearer APM_API_TOKEN' \
    -H 'Cache-Control: no-cache' \
    -H 'Connection: keep-alive' \
    -H 'Content-Type: application/json' \
-   -H 'Host: APM_SAAS_URL'
+   -H 'Host: APM_SAAS_URL_NO_PROTO'
 }
 
 
 createExpView () {
 
-curl -X POST \
+curl  -s -X POST \
   APM_SAAS_URL/apm/appmap/private/settings/experience \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
@@ -111,7 +111,7 @@ curl -X POST \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 650' \
+  -H 'content-length: 658' \
   -H 'cookie: JSESSIONID=node01ixkinym4b32m4ejzkoq6h0ox44.node0; e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' \
   -b 'JSESSIONID=node01ixkinym4b32m4ejzkoq6h0ox44.node0; e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' \
   -d '{
@@ -152,7 +152,7 @@ curl -X POST \
 }
 
 runTrxnTrace () {
-  curl -X POST \
+  curl -s -X POST \
   APM_SAAS_URL/apm/appmap/private/agentlist/starttrace \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
@@ -175,15 +175,15 @@ runTrxnTrace () {
 
 getUniverseIDFromName () {
 
-  UNIVERSE_ID=`listUniverses |grep -A 1 "$*" |sed -e '1d'|sed -e 's/.*: "//g'|sed -e 's/"\,//g'`
+  listUniverses |INSTALLATION_FOLDER/EM_FOLDER/jq-linux64|grep -A 1 "$*" |sed -e '1d'|sed -e 's/.*: "//g'|sed -e 's/"\,//g'
 
 }
 
 
 isMgmtModulePresent () {
-  MGMT_MOD=`curl -X GET -H "Authorization: Bearer APM_API_TOKEN" APM_SAAS_URL/apm/appmap/private/mgmtmod |grep "$*"`
+  MGMT_MOD=`curl -s -X GET   APM_SAAS_URL/apm/appmap/private/mgmtmod   -H 'Accept: */*'   -H 'Authorization: Bearer APM_API_TOKEN'   -H 'Cache-Control: no-cache'   -H 'Connection: keep-alive'   -H 'Content-Type: application/json'   -H 'Host: APM_SAAS_URL_NO_PROTO'      -H 'cache-control: no-cache'|grep "$*"`
 
-  if [ X$"MGMT_MOD" == "X" ]; then
+  if [ X"$MGMT_MOD" == "X" ]; then
     echo "no";
   else
     echo "yes";
@@ -195,13 +195,13 @@ importMgmtModule () {
   echo "import mgt mod"
 
   MGMT_MODULE="$*"
-  IS_PRESENT=`isMgmtModulePresent $MGMT_MODULE
+  IS_PRESENT=`isMgmtModulePresent $MGMT_MODULE`
 
   # not present
   if [ "$IS_PRESENT" == "no" ]; then
   echo "MGMT Module $MGMT_MODULE importing"
   
-   curl -X POST -H "Authorization: Bearer APM_API_TOKEN"  -F "file=@$INSTALLATION_FOLDER/$EM_FOLDER/$MGMT_MODULE" APM_SAAS_URL/apm/appmap/private/mgmtmod
+   curl -s -X POST -H "Authorization: Bearer APM_API_TOKEN"  -F "file=@INSTALLATION_FOLDER/EM_FOLDER/$MGMT_MODULE" APM_SAAS_URL/apm/appmap/private/mgmtmod
 
   fi
 }
@@ -218,9 +218,10 @@ sleep 10
 # if universe does not exist
 if [ X"$UNIVERSE_ID" == "X" ]; then
   createUniverse 
-  echo "Created $EM_UNIVERSE1 Universe, Exp View and TixChangeWestCoast MgmtMod"
 
-  sleep 5
+  sleep 10
+  UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
+  echo "Created $EM_UNIVERSE1 Universe, Exp View and TixChange MgmtMod - UNIV ID $UNIVERSE_ID"
   createExpView $UNIVERSE_ID
 
 fi

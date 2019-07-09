@@ -313,7 +313,7 @@ installAndRunSelenium () {
   cd -
 }
 
-setEMSideConfiguration () {
+configureEM () {
 
   logMsg "configuring the EM Common Functions"
 
@@ -329,6 +329,7 @@ setEMSideConfiguration () {
   cd $INSTALLATION_FOLDER/$EM_FOLDER
 
   ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
+   ESCAPED_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER"| sed 's/\//\\\//g')
   APM_SAAS_URL_NO_PROTO=$(echo "$APM_SAAS_URL"| sed 's/https:\/\///g' |sed 's/\//\\\//g' )
 
   sed -i 's/APM_SAAS_URL_NO_PROTO/'$APM_SAAS_URL_NO_PROTO'/' $EM_SETUP_SCRIPT
@@ -337,6 +338,7 @@ setEMSideConfiguration () {
   sed -i 's/SAAS_USER_ID/'$SAAS_USER_ID'/' $EM_SETUP_SCRIPT
   sed -i 's/EM_UNIVERSE1_NAME/'$EM_UNIVERSE1_NAME'/' $EM_SETUP_SCRIPT
   sed -i 's/INSTALLATION_FOLDER/'$INSTALLATION_FOLDER'/' $EM_SETUP_SCRIPT
+  sed -i 's/EM_FOLDER/'$EM_FOLDER'/' $EM_SETUP_SCRIPT
 
 
   TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep web`

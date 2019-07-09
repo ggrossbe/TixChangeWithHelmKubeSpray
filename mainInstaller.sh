@@ -10,6 +10,8 @@ MAIN_FOLDER=`dirname $BASH_SOURCE`
 
 clear
 
+mkdir -p $INSTALLATION_FOLDER/logs 2> /dev/null
+
 logMsg "Deploy and setup TixChange on K8s."
 
 logMsg " *********"
@@ -64,7 +66,7 @@ case $OPTION in
      cd $INSTALL_SCRIPT_FOLDER
      installAndRunSelenium
 
-     setEMSideConfiguration
+     configureEM
 
      logMsg ""
      logMsg ""
@@ -143,21 +145,8 @@ case $OPTION in
    e)
      logMsg "Setup EM (Universes, Exp Views, mgmt mod). sleep 10sec before starting. Hope agents are already reporting"
      
-     setEMSideConfiguration
+     configureEM
      
-     
-     
-     exit
-     sleep 10
-     runTrxTrace
-     sleep 10
-     createUniverse 
-     sleep 5
-     createExpView
-     sleep 5
-     importMgmtModule
-
-     logMsg "Created West Coast DC Universe, Exp View and TixChangeWestCoast MgmtMod"
      ;;
    *) 
      logMsg "Not a valid option"
