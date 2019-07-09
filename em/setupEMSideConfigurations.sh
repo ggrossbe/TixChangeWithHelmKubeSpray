@@ -180,8 +180,30 @@ getUniverseIDFromName () {
 }
 
 
-createMgmtModule () {
-  echo "create mgt mod"
+isMgmtModulePresent () {
+  MGMT_MOD=`curl -X GET -H "Authorization: Bearer APM_API_TOKEN" APM_SAAS_URL/apm/appmap/private/mgmtmod |grep "$*"`
+
+  if [ X$"MGMT_MOD" == "X" ]; then
+    echo "no";
+  else
+    echo "yes";
+  fi 
+}
+
+
+importMgmtModule () {
+  echo "import mgt mod"
+
+  MGMT_MODULE="$*"
+  IS_PRESENT=`isMgmtModulePresent $MGMT_MODULE
+
+  # not present
+  if [ "$IS_PRESENT" == "no" ]; then
+  echo "MGMT Module $MGMT_MODULE importing"
+  
+   curl -X POST -H "Authorization: Bearer APM_API_TOKEN"  -F "file=@$INSTALLATION_FOLDER/$EM_FOLDER/$MGMT_MODULE" APM_SAAS_URL/apm/appmap/private/mgmtmod
+
+  fi
 }
 
 
@@ -204,6 +226,5 @@ if [ X"$UNIVERSE_ID" == "X" ]; then
 fi
 
 sleep 5
-createMgmtModule
-
+importMgmtModule "TixChange.jar"
 

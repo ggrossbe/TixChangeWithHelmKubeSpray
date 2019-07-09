@@ -336,6 +336,7 @@ setEMSideConfiguration () {
   sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $EM_SETUP_SCRIPT
   sed -i 's/SAAS_USER_ID/'$SAAS_USER_ID'/' $EM_SETUP_SCRIPT
   sed -i 's/EM_UNIVERSE1_NAME/'$EM_UNIVERSE1_NAME'/' $EM_SETUP_SCRIPT
+  sed -i 's/INSTALLATION_FOLDER/'$INSTALLATION_FOLDER'/' $EM_SETUP_SCRIPT
 
 
   TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep web`
