@@ -10,6 +10,8 @@ MAIN_FOLDER=`dirname $BASH_SOURCE`
 
 clear
 
+mkdir -p $INSTALLATION_FOLDER/logs 2> /dev/null
+
 logMsg "Deploy and setup TixChange on K8s."
 
 logMsg " *********"
@@ -64,6 +66,8 @@ case $OPTION in
      cd $INSTALL_SCRIPT_FOLDER
      installAndRunSelenium
 
+     configureEM
+
      logMsg ""
      logMsg ""
      logMsg ""
@@ -103,6 +107,7 @@ case $OPTION in
      #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      installAndRunSelenium
+     configureEM
      ;;
    u) 
 
@@ -130,14 +135,6 @@ case $OPTION in
      logMsg " Installing just the selenium components"
      installAndRunSelenium
      ;;
-   j) 
-     ### DEPRECATED in favor if Selenium
-
-     stopCleanupServices j
-
-     logMsg " Installing just the Jmeter components"
-     installAndRunJmeter
-     ;;
    c) 
      logMsg "Clean All. Are you sure ??" 
      logMsg "Press Enter to continue or Ctrl-C"
@@ -145,6 +142,12 @@ case $OPTION in
      read INPUT
     
      stopDeletelAll
+     ;;
+   e)
+     logMsg "Setup EM (Universes, Exp Views, mgmt mod). sleep 10sec before starting. Hope agents are already reporting"
+     
+     configureEM
+     
      ;;
    *) 
      logMsg "Not a valid option"

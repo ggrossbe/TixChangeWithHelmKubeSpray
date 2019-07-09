@@ -2,6 +2,7 @@
 SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 
 . $SCRIPTS_FOLDER/../config.ini
+#. $SCRIPTS_FOLDER/../em/commonEMFunctions
 
 
 
@@ -12,7 +13,6 @@ TIXCHANGE_FOLDER=tixChangeHelm
 HELM_FOLDER=helmInstaller
 HELM_RBAC_YAML=helm-rbac-config.yaml
 UMA_FOLDER=uma
-JMETER_FOLDER=jmeter
 SELENIUM_FOLDER=selenium
 SELENIUM_UC=runSeleniumUC
 UC1_URL=uc1.jtixchange.com
@@ -20,6 +20,10 @@ UC2_URL=uc2.jtixchange.com
 TIXCHANGE_NAMESPACE1=tixchange-v1
 TIXCHANGE_NAMESPACE2=tixchange-v2
 LOG_FILE=$INSTALLATION_FOLDER/TixChangeInstallerLog`date +%Y_%m_%d_%H_%M_%S`.log
+EM_FOLDER=em
+EM_SETUP_SCRIPT=setupEMSideConfigurations.sh
+EM_UNIVERSE1_NAME="WestCoast-DataCenter-Jtix"
+
 
 TIX_IP=` ip a |grep -E -e eth[0-9]+ -e ens[0-9]+|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
 
@@ -145,6 +149,8 @@ stopDeletelAll () {
   stopDeleteUMA
   stopDeleteKubeSpray
 
+  rm -rf $INSTALLATION_FOLDER/*
+
     
 }
 
@@ -155,36 +161,16 @@ stopDeleteAppComponents () {
   stopDeleteUMA
 }
 
-cleanUp () {
-   
-  helm delete tixchange --purge
-  helm delete uma --purge
-
-  cd $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
-
-  ansible-playbook -b --become-user=root -v -i  inventory/mycluster/hosts.yml --user=root reset.yml --flush-cache
-
-  ps -ef |grep jmeter |grep Tix|awk  '{print $2}' | kill -9
-
-  logMsg "Cleaning up all the folders"
-
-  sleep 2
-
-  stopCleanupServices a
-
-  cd $INSTALL_SCRIPT_FOLDER
-}
-
 
 Usage () {
   echo "Options: "
-  echo "  a : install all (K8s,Helm, UMA, TixChange, Selenium)"
+  echo "  a : install all (K8s,Helm, UMA, TixChange, Selenium, EM side - Universes, Exp View, Mgmt Mod)"
   #echo "  p : run the pre-req"
-   echo "  r : re-install & run just app components (helm, uma, tixchange, selenium)"
+   echo "  r : re-install & run just app components (helm, uma, tixchange, selenium, EM side - Universes, Exp View, Mgmt Mod)"
    echo "  u : install & run just uma"
    echo "  t : install & run just tixChange"
-  #echo "  j : install & run just jmeter"
   echo "  s : install & run just selenium"
+  echo "  e : EM side configuration: Setup Universes, import mgmt module etc"
   echo "  c : cleanup and unintsall everything"
 
 }
@@ -278,32 +264,6 @@ installTixChangeHelm () {
    sleep 5
 }
 
-installAndRunJmeter () {
-  
-  logMsg "Installing Jmeter - current folder $PWD "
-  logMsg "current folder $PWD. SCRIPT folder is $SCRIPTS_FOLDER "
-
-  if [ ! -d $INSTALLATION_FOLDER/$JMETER_FOLDER ]; then
-    mkdir -p $INSTALLATION_FOLDER/$JMETER_FOLDER	
-  fi
-
-
-
-  cp -f $JMETER_FOLDER/* $INSTALLATION_FOLDER/$JMETER_FOLDER
- 
-  cd $INSTALLATION_FOLDER/$JMETER_FOLDER
-
-  tar xvf  apache-jmeter-5.1.1.tgz > /dev/null
-
-  SVC_IP=`kubectl get svc -n $TIXCHANGE_NAMESPACE1 |grep webportal|awk '{print $3}'`
-  SVC_PORT=`kubectl get svc -n $TIXCHANGE_NAMESPACE1|grep webportal|awk '{print $5}'|awk -F/ '{print $1}'`
-
-  echo $SVC_IP,$SVC_PORT >jt-ips.csv
-
-  nohup apache-jmeter*/bin/jmeter.sh -n -t TixChange_LoadScript.jmx 2>&1 &
-
- cd -
-}
 
 installAndRunSelenium () {
 
@@ -352,6 +312,52 @@ installAndRunSelenium () {
   
   cd -
 }
+
+configureEM () {
+
+  logMsg "configuring the EM Common Functions"
+
+ 
+  if [ -d $INSTALLATION_FOLDER/$EM_FOLDER ]; then
+    rm -rf $INSTALLATION_FOLDER/$EM_FOLDER
+  fi
+
+  mkdir -p $INSTALLATION_FOLDER/$EM_FOLDER
+
+  cp -f $EM_FOLDER/* $INSTALLATION_FOLDER/$EM_FOLDER/
+
+  cd $INSTALLATION_FOLDER/$EM_FOLDER
+
+  ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
+   ESCAPED_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER"| sed 's/\//\\\//g')
+  APM_SAAS_URL_NO_PROTO=$(echo "$APM_SAAS_URL"| sed 's/https:\/\///g' |sed 's/\//\\\//g' )
+
+  sed -i 's/APM_SAAS_URL_NO_PROTO/'$APM_SAAS_URL_NO_PROTO'/' $EM_SETUP_SCRIPT
+  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $EM_SETUP_SCRIPT
+  sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $EM_SETUP_SCRIPT
+  sed -i 's/SAAS_USER_ID/'$SAAS_USER_ID'/' $EM_SETUP_SCRIPT
+  sed -i 's/EM_UNIVERSE1_NAME/'$EM_UNIVERSE1_NAME'/' $EM_SETUP_SCRIPT
+  sed -i 's/INSTALLATION_FOLDER/'$ESCAPED_INSTALLATION_FOLDER'/' $EM_SETUP_SCRIPT
+  sed -i 's/EM_FOLDER/'$EM_FOLDER'/' $EM_SETUP_SCRIPT
+
+
+  TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep web`
+  TIXCHANGE_WS_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep ws`
+  
+  sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD'/' $EM_SETUP_SCRIPT
+  sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD'/' $EM_SETUP_SCRIPT
+
+  ##UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
+
+  #logMsg " UNIVERSE ID is $UNIVERSE_ID"
+
+  #sed -i 's/UNIVERSE_ID/'$UNIVERSE_ID'/' $EM_SETUP_SCRIPT
+
+  ./$EM_SETUP_SCRIPT
+  
+  cd -
+}
+
 
 
 if [ "$EUID" -ne 0 ]
