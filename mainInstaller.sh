@@ -90,7 +90,7 @@ case $OPTION in
 
      stopDeleteAppComponents
 
-     logMsg " Now Re-installing just the Application components (Tixchange, UMA, Selenium) "
+     logMsg " Now Re-installing just the Application components (Tixchange, UMA, Selenium, EM Side - MM, Univ, Exp View) "
 
      sleep 10
      #echo "pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
@@ -120,7 +120,7 @@ case $OPTION in
 
      stopDeleteTixChange
 
-     logMsg " Installing just the TixChange components + Selenium"
+     logMsg " Installing just the TixChange components + Selenium + EM side MM,ExpView, Univ"
      installTixChangeHelm
     
      sleep 10 
@@ -128,6 +128,7 @@ case $OPTION in
      stopDeleteSelenium
      sleep 5
      installAndRunSelenium
+     configureEM
      ;;
    s) 
      stopDeleteSelenium
