@@ -112,8 +112,6 @@ curl  -s -X POST \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -H 'content-length: 658' \
-  -H 'cookie: JSESSIONID=node01ixkinym4b32m4ejzkoq6h0ox44.node0; e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' \
-  -b 'JSESSIONID=node01ixkinym4b32m4ejzkoq6h0ox44.node0; e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' \
   -d '{
   "type": "experience",
   "data": {
@@ -206,6 +204,88 @@ importMgmtModule () {
   fi
 }
 
+correlateAppToInfraForDBVertex () {
+  SQL_POD=`kubectl get pods -n tixchange-v1 |grep mysql|awk '{print $1}'`
+
+  echo "SQL POD $SQL_POD"
+  if [ X"$SQL_POD" != "X" ]; then
+
+     CONTAINER_ID=`kubectl describe pod  $SQL_POD -n tixchange-v1 |grep "Container ID" |awk '{print $3}'|sed 's/docker:\/\///g'`
+     echo "Container ID is $CONTAINER_ID"
+  fi
+
+  if [ X"$CONTAINER_ID" != "X" ]; then
+    VERTEX_ID=`getMySQLVertexID |./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
+
+    echo "VERTEX_ID $VERTEX_ID"
+
+    if [ X"$VERTEX_ID" != "X" ]; then
+       patchAVertex $VERTEX_ID $CONTAINER_ID
+    fi
+
+  fi
+
+}
+
+
+getMySQLVertexID () {
+
+curl -s -X POST \
+  APM_SAAS_URL/apm/appmap/graph/vertex \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -H 'content-length: 639' \
+  -d '{
+    "includeStartPoint": false,
+    "orItems":[
+        {
+            "andItems":[
+                {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Type",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "INFERRED_DATABASE*" ]
+                 },
+                 {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Hostname",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "tixchange-mysql-conn-svc*" ]
+                 }
+            ]
+        }
+    ]
+}'
+
+}
+
+patchAVertex () {
+curl -s -X PATCH \
+  APM_SAAS_URL/apm/appmap/graph/vertex/ \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -H 'content-length: 269' \
+  -d ' { "items" : [
+                {
+                                "id":"'$1'",
+                                "attributes": {
+                                "containerId":["'$2'"]
+        }
+    }
+  ]
+}'
+}
+
 
 UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
 
@@ -228,4 +308,10 @@ fi
 
 sleep 5
 importMgmtModule "TixChange.jar"
+
+echo "running Trxn Trace pls have patience"
+runTrxnTrace
+sleep 20
+
+correlateAppToInfraForDBVertex
 
