@@ -160,7 +160,7 @@ runTrxnTrace () {
   -H 'cache-control: no-cache' \
   -H 'cookie: e63bcb68cc073a55f8914752561ebe6d=5d1e65f2b1552e35f8ea89735b7f5a13' \
   -d '{
-  "minTraceDuration": 3000,
+  "minTraceDuration": 3,
   "traceSessionDuration": 60000,
   "agentList": [
     "SuperDomain|Experience Collector Host|DxC Agent|Logstash-APM-Plugin",
@@ -311,7 +311,7 @@ importMgmtModule "TixChange.jar"
 
 echo "running Trxn Trace pls have patience"
 runTrxnTrace
-sleep 20
+sleep 30
 
 correlateAppToInfraForDBVertex
 
