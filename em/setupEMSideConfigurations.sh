@@ -291,9 +291,8 @@ UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
 
 echo " UNIVERSE ID for  $EM_UNIVERSE1 is $UNIVERSE_ID"
 
-sleep 10
 runTrxnTrace
-sleep 10
+sleep 30
 
 # if universe does not exist
 if [ X"$UNIVERSE_ID" == "X" ]; then
