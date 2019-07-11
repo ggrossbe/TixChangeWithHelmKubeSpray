@@ -21,16 +21,6 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "830f79ec-23d5-4de1-a8be-5ae29ba91576",
-      "comment": "",
-      "command": "click",
-      "target": "css=table:nth-child(3)",
-      "targets": [
-        ["css=table:nth-child(3)", "css:finder"],
-        ["xpath=//table[2]", "xpath:position"]
-      ],
-      "value": ""
-    }, {
       "id": "880bd804-3fc1-47a5-b092-ba6530506a1c",
       "comment": "",
       "command": "pause",
