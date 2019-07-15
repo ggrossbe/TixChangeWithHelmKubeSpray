@@ -68,6 +68,10 @@ case $OPTION in
 
      configureEM
 
+     runFinalSanityCheck
+
+     clear
+
      logMsg ""
      logMsg ""
      logMsg ""
@@ -81,9 +85,12 @@ case $OPTION in
      logMsg "  *** NOTE: if you see urls and no IPs above then update /etc/hosts manually ***"
      logMsg "2. This is a Blue/Green deployment - with UC1 running on $UC1_URL/jtixchange_web/shop/index.shtml and UC2 $UC2_URL/jtixchange_web/shop/index.shtml"
      logMsg "3. Selenium is generating load for both. Access TixChange from browser at $UC1_URL/jtixchange_web/shop/index.shtml"
+     logMsg "4. Log File is available under $INSTALLATION_FOLDER/logs"
      logMsg ""
      logMsg ""
      logMsg "************************"
+
+     
      ;;
 
    r)
@@ -108,6 +115,8 @@ case $OPTION in
      cd $INSTALL_SCRIPT_FOLDER
      installAndRunSelenium
      configureEM
+     
+     runFinalSanityCheck
      ;;
    u) 
 
@@ -129,12 +138,16 @@ case $OPTION in
      sleep 5
      installAndRunSelenium
      configureEM
+
+     runFinalSanityCheck
      ;;
    s) 
      stopDeleteSelenium
 
      logMsg " Installing just the selenium components"
      installAndRunSelenium
+     
+     runFinalSanityCheck
      ;;
    c) 
      logMsg "Clean All. Are you sure ??" 
