@@ -29,7 +29,7 @@ EM_UNIVERSE1_NAME="WestCoast-DataCenter-Jtix"
 TIX_IP=` ip a |grep -E -e eth[0-9]+ -e ens[0-9]+|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
 
 logMsg () {
-        echo "**** $1" | tee $LOG_FILE
+        echo "**** $1" | tee -a $LOG_FILE
         
 }
 
@@ -160,6 +160,7 @@ stopDeleteAppComponents () {
   stopDeleteSelenium
   stopDeleteTixChange
   stopDeleteUMA
+  rm -rf $INSTALLATION_FOLDER/logs/
 }
 
 
@@ -357,6 +358,24 @@ configureEM () {
   ./$EM_SETUP_SCRIPT
   
   cd -
+}
+
+runFinalSanityCheck () {
+
+   logMsg "running sanity test to ensure its all good"
+
+   IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/$SELENIUM_UC `
+
+   if [ X"$IS_TEST_PASS" != "X" ]; then
+      logMsg ""
+      logMsg "*** Looks like Selenium is experiencing issues running the test. Pls check $INSTALLATION_FOLDER/$SELENIUM_FOLDER/nohup.out and raise an issue in git hub"	
+      logMsg ""
+
+      exit
+   fi
+
+   logMsg "Sanity Passed"
+
 }
 
 
