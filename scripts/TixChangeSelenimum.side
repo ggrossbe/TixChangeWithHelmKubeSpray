@@ -212,9 +212,9 @@
       "id": "c3231820-657d-4aa7-afb0-40ec1e12a213",
       "comment": "",
       "command": "click",
-      "target": "css=center:nth-child(20) img",
+      "target": "css=center:nth-child(8) img",
       "targets": [
-        ["css=center:nth-child(20) img", "css:finder"],
+        ["css=center:nth-child(8) img", "css:finder"],
         ["xpath=//center[3]/a/img", "xpath:position"]
       ],
       "value": ""

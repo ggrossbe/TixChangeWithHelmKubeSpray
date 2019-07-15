@@ -1,5 +1,5 @@
 runTrxnTrace () {
-  curl -X POST \
+  curl -s -X POST \
   APM_SAAS_URL/apm/appmap/private/agentlist/starttrace \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
