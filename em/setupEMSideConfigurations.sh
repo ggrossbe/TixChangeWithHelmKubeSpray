@@ -11,11 +11,11 @@ curl -s  -X POST \
   -H 'Content-Type: application/json;charset=UTF-8' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 1325' \
+  -H 'content-length: 1680' \
   -d '{
   "universeId": null,
   "name": "'$EM_UNIVERSE1'",
-  "items": [
+"items": [
     {
       "layer": {
         "value": "INFRASTRUCTURE"
@@ -38,6 +38,21 @@ curl -s  -X POST \
         }
       ]
     },
+    {
+         "operator": "AND",
+         "attributeName": "applicationName",
+         "values": [
+             "TIXCHANGE Services",
+             "TIXCHANGE Web",
+             "CA_INTERNAL_NULL"
+         ],
+         "layer": {
+             "value": "ATC"
+         },
+         "not": false,
+         "wildCard": false,
+         "btCoverage": null
+     },
     {
       "operator": "OR",
       "attributeName": "hostname",
