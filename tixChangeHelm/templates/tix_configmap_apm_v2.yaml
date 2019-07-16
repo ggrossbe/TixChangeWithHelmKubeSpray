@@ -75,7 +75,7 @@ data:
   apmenv_introscope_agent_urlgroup_frontend_url_resources_list: "tif,js,tiff,jpg,jpeg,gif,png,bmp,bmpf,ico,cur,xbm,svg,img,css,woff,nil"
   apmenv_introscope_agent_deep_automatic_trace_clamp: "25"
   apmenv_introscope_agent_transactiontracer_sampling_enabled: "true"
-  apmenv_introscope_agent_transactiontracer_userid_method: "HttpSession_getValue"
+  apmenv_introscope_agent_transactiontracer_userid_method: "HttpSession.getValue"
   apmenv_introscope_agent_transactiontracer_userid_key: "username"
   apmenv_introscope_agent_errorsnapshots_identicalerror_period_time: "1"
   apmenv_introscope_agent_sqlagent_sql_turnoffmetrics: "false"
