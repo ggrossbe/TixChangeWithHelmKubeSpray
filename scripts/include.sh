@@ -5,6 +5,7 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 #. $SCRIPTS_FOLDER/../em/commonEMFunctions
 
 
+mkdir -p $INSTALLATION_FOLDER/logs 2> /dev/null
 
 INSTALL_SCRIPT_FOLDER=$PWD/$SCRIPTS_FOLDER/..
 

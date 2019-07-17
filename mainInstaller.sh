@@ -3,6 +3,7 @@
 
 MAIN_FOLDER=`dirname $BASH_SOURCE`
 
+
 . $MAIN_FOLDER/scripts/include.sh
 
 #$MAIN_FOLDER/scripts/preReqInstaller.sh
@@ -10,7 +11,6 @@ MAIN_FOLDER=`dirname $BASH_SOURCE`
 
 clear
 
-mkdir -p $INSTALLATION_FOLDER/logs 2> /dev/null
 
 logMsg "Deploy and setup TixChange on K8s."
 
@@ -70,7 +70,6 @@ case $OPTION in
 
      runFinalSanityCheck
 
-     clear
 
      logMsg ""
      logMsg ""
