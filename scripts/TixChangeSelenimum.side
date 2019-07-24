@@ -19,7 +19,7 @@
       "command": "pause",
       "target": "",
       "targets": [],
-      "value": "5000"
+      "value": "50"
     }, {
       "id": "b55242b8-9557-4dd2-8fb0-2bcaaf851aff",
       "comment": "",
@@ -144,7 +144,7 @@
       "command": "pause",
       "target": "",
       "targets": [],
-      "value": "5000"
+      "value": "50"
     }, {
       "id": "ea035378-8d0a-4bb3-b4e6-ad930b934809",
       "comment": "",
