@@ -5,7 +5,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: prometheus-deployment
+  name: cluster-service-monitor
   namespace: {{ .Release.Namespace }}
   labels:
     app: prometheus-deployment
@@ -94,7 +94,7 @@ spec:
           value: "64"
 
         name: kubernetesservice
-        image: {{ .Values.image_apmia }}
+        image: {{ .Values.image }}
 {{- if .Values.kubernetes_resource_bound }}
         resources:
           limits:

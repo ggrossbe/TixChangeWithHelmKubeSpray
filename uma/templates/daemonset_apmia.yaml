@@ -4,7 +4,7 @@
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
-  name: apmia-daemonset
+  name: app-container-monitor
   namespace: {{ .Release.Namespace }}
   labels:
     tier: monitoring
@@ -76,15 +76,11 @@ spec:
         - name: interval
           value: "60"
         - name: apmenv_introscope_agent_extensions_bundles_load
-          value: {{ if or .Values.autoattach_enabled }} AutoAttach,{{end}}{{ if and .Values.kubernetes_monitor_enabled (not .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled) }}OpenshiftMonitor,HostMonitor,{{end}}{{ if or .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}KubernetesRemoteMonitor,{{end}}
+          value: {{ if or .Values.autoattach_enabled }} AutoAttach,{{end}}{{ if and .Values.kubernetes_monitor_enabled }}OpenshiftMonitor,HostMonitor,{{end}}{{ if or .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}KubernetesRemoteMonitor,{{end}}
 {{- if or .Values.autoattach_enabled }}
         ##########################
         # Auto Attach properties:
         ##########################
-        - name: apmenv_log4j_logger_IntroscopeAgent
-          value: "TRACE#com.wily.util.feedback.Log4JSeverityLevel, logfile"
-        - name: apmenv_log4j_appender_logfile_MaxFileSize
-          value: "200MB"
         - name: apmenv_autoattach_enable_agentNameSuffix
           value: "false"
         - name: apmenv_autoattach_enabled_applications
@@ -106,15 +102,13 @@ spec:
 {{- if and .Values.autoattach_agent_extra_properties }}
         - name: apmenv_autoattach_proactiveMode_agent_extra_properties
           value: {{ .Values.autoattach_agent_extra_properties }}
-{{ else }}
-        - name: apmenv_autoattach_proactiveMode_agent_extra_properties
-          value: "introscope.agent.hostName={{ .Values.cluster_name }}"
 {{ end }}
+
 
 {{end}}
 {{- if or .Values.kubernetes_remote_jmx_enabled  .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
         - name: apmenv_com_ca_apm_kubernetes_remote_monitor_type
-          value: {{ if or .Values.kubernetes_remote_jmx_enabled }}jmx,{{end}}{{ if or .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}prometheus{{end}}
+          value: {{ if or .Values.kubernetes_remote_jmx_enabled }}jmx,{{end}}{{ if and .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled (not .Values.kubernetes_monitor_enabled) }}prometheus{{end}}
         - name: apmenv_com_ca_apm_kubernetes_clusterName
           valueFrom:
             configMapKeyRef:
@@ -141,7 +135,7 @@ spec:
         - name: MIN_HEAP_VAL_IN_MB
           value: "64"
         name: podmonitor
-        image:  {{ .Values.image_apmia }}
+        image:  {{ .Values.image }}
 {{- if .Values.kubernetes_resource_bound }}
         resources:
           limits:

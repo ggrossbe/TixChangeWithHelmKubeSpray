@@ -6,7 +6,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: apmia-deployment
+  name: cluster-deployment-monitor
   namespace: {{ .Release.Namespace }}
   labels:
     app: apmia-deployment
@@ -85,7 +85,7 @@ spec:
               key: cluster_name
               name: caaiops-config-common
         - name: apmenv_introscope_agent_customProcessName
-          value: ClusterDeploymentMonitoring
+          value: ClusterDeploymentMonitor
         - name: apmenv_introscope_agent_agentName
           value: Infrastructure Agent
         - name: apmenv_introscope_agent_extensions_bundles_load
@@ -100,7 +100,7 @@ spec:
               name: caaiops-config-common
 
         name: osemetainfo
-        image: {{ .Values.image_apmia }}
+        image: {{ .Values.image }}
 {{- if .Values.kubernetes_resource_bound }}
         resources:
           limits:

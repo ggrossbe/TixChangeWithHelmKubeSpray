@@ -286,7 +286,7 @@ installAndRunSelenium () {
    
   sudo yum -y install nodejs
   
-  yum install -y https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+  yum install -y http://orion.lcg.ufrj.br/RPMS/myrpms/google/google-chrome-stable-74.0.3729.169-1.x86_64.rpm
 
   logMsg "installing selenium-side-runner"
   npm install -g selenium-side-runner
