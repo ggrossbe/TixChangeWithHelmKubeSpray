@@ -11,6 +11,8 @@ MAIN_FOLDER=`dirname $BASH_SOURCE`
 
 clear
 
+rm -rf $INSTALLATION_FOLDER/logs/ 2> /dev/null
+mkdir -p $INSTALLATION_FOLDER/logs 2> /dev/null
 
 logMsg "Deploy and setup TixChange on K8s."
 
@@ -38,6 +40,7 @@ else
 fi
 
 
+
 case $OPTION in 
    a) 
 
@@ -54,6 +57,9 @@ case $OPTION in
      #echo "5pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      installTixChangeHelm
+
+     sleep 10
+     installPromExporter
 
      sleep 10
      #echo "4pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
@@ -102,6 +108,9 @@ case $OPTION in
      #echo "pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      installTixChangeHelm
+
+     sleep 10
+     installPromExporter
 
      sleep 10
      #echo "4pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
