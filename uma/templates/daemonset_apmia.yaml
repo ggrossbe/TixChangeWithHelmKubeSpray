@@ -76,7 +76,9 @@ spec:
         - name: interval
           value: "60"
         - name: apmenv_introscope_agent_extensions_bundles_load
-          value: {{ if or .Values.autoattach_enabled }} AutoAttach,{{end}}{{ if and .Values.kubernetes_monitor_enabled }}OpenshiftMonitor,HostMonitor,{{end}}{{ if or .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}KubernetesRemoteMonitor,{{end}}
+          value: {{ if or .Values.autoattach_enabled }} AutoAttach,{{end}}{{ if and .Values.kubernetes_monitor_enabled }}OpenshiftMonitor,HostMonitor,{{end}}KubernetesRemoteMonitor
+        ###Enable Node Exporter####- name: apmenv_introscope_agent_extensions_bundles_load
+          ###Enable Node Exporter####value: {{ if or .Values.autoattach_enabled }} AutoAttach,{{end}}{{ if and .Values.kubernetes_monitor_enabled }}OpenshiftMonitor,HostMonitor,{{end}}{{ if or .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}KubernetesRemoteMonitor,{{end}}
 {{- if or .Values.autoattach_enabled }}
         ##########################
         # Auto Attach properties:
@@ -108,7 +110,8 @@ spec:
 {{end}}
 {{- if or .Values.kubernetes_remote_jmx_enabled  .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
         - name: apmenv_com_ca_apm_kubernetes_remote_monitor_type
-          value: {{ if or .Values.kubernetes_remote_jmx_enabled }}jmx,{{end}}{{ if and .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled (not .Values.kubernetes_monitor_enabled) }}prometheus{{end}}
+          value: prometheus
+          ###Enable Node Exporter###value: {{ if or .Values.kubernetes_remote_jmx_enabled }}jmx,{{end}}{{ if and .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled (not .Values.kubernetes_monitor_enabled) }}prometheus{{end}}
         - name: apmenv_com_ca_apm_kubernetes_clusterName
           valueFrom:
             configMapKeyRef:
@@ -123,7 +126,8 @@ spec:
 {{end}}
 {{- if or .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
         - name: apmenv_com_ca_apm_kubernetes_prometheus_datafile
-          value: node-exporter, cadvisor
+          value: node-exporter
+          ###Enable Node Exporter###value: node-exporter, cadvisor
 {{end}}
         - name: apmenv_introscope_agent_customProcessName
           valueFrom:

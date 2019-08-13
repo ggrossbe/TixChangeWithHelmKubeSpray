@@ -5,7 +5,6 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 #. $SCRIPTS_FOLDER/../em/commonEMFunctions
 
 
-mkdir -p $INSTALLATION_FOLDER/logs 2> /dev/null
 
 INSTALL_SCRIPT_FOLDER=$PWD/$SCRIPTS_FOLDER/..
 
@@ -25,6 +24,8 @@ LOG_FILE=$INSTALLATION_FOLDER/logs/$LOG_FILE_NAME
 EM_FOLDER=em
 EM_SETUP_SCRIPT=setupEMSideConfigurations.sh
 EM_UNIVERSE1_NAME="WestCoast-DataCenter-Jtix"
+PROM_NAMESPACE=monitor
+PROM_FOLDER=prometheus
 
 
 TIX_IP=` ip a |grep -E -e eth[0-9]+ -e ens[0-9]+|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
@@ -56,6 +57,11 @@ stopDeleteUMA () {
   fi
   cd $INSTALL_SCRIPT_FOLDER
 
+}
+
+stopDeletePromExporter () {
+  logMsg "Deleting Prometheus node exporter "
+  kubectl delete -f $SCRIPTS_FOLDER/../$PROM_FOLDER/node-exporter.yaml -n $PROM_NAMESPACE
 }
 
 
@@ -148,6 +154,7 @@ stopDeletelAll () {
 
   stopDeleteSelenium
   stopDeleteTixChange
+  stopDeletePromExporter
   stopDeleteUMA
   stopDeleteKubeSpray
 
@@ -160,8 +167,9 @@ stopDeleteAppComponents () {
 
   stopDeleteSelenium
   stopDeleteTixChange
+  stopDeletePromExporter
   stopDeleteUMA
-  rm -rf $INSTALLATION_FOLDER/logs/
+  #rm -rf $INSTALLATION_FOLDER/logs/
 }
 
 
@@ -178,6 +186,10 @@ Usage () {
 
 }
 
+installPromExporter () {
+  logMsg "Creating Prometheus node exporter "
+  kubectl create -f $SCRIPTS_FOLDER/../$PROM_FOLDER/node-exporter.yaml -n $PROM_NAMESPACE
+}
 
 installUMA () {
    logMsg "Installing UMA using Helm"
