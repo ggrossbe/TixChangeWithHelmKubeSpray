@@ -61,7 +61,7 @@ stopDeleteUMA () {
 
 stopDeleteApmiaMySQL () {
   logMsg "deleting apmia mysql"
-  kubectl -f delete $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml -n tixchange-v1
+  kubectl  delete -f $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml -n tixchange-v1
 }
 
 installApmiaMySQL () {
@@ -79,7 +79,7 @@ installApmiaMySQL () {
 
    sed -i 's/MY_SQL_SVR_IP/'$SQL_SVC_IP'/' $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml
 
-  kubectl -f create $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml -n tixchange-v1
+  kubectl  create -f $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml -n tixchange-v1
 }
 
 
@@ -130,13 +130,13 @@ stopDeleteTixChange () {
          logMsg "Deleting tixchange"
 
          helm delete tixchange --purge
-         sleep 5
+         sleep 10
          helm delete tixchange --purge 2> /dev/null
 
          cd ..
          rm -rf $TIXCHANGE_FOLDER
 
-         sleep 10
+         sleep 15
 
       fi
   fi
