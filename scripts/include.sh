@@ -59,6 +59,30 @@ stopDeleteUMA () {
 
 }
 
+stopDeleteApmiaMySQL () {
+  logMsg "deleting apmia mysql"
+  kubectl -f delete $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml -n tixchange-v1
+}
+
+installApmiaMySQL () {
+  logMsg "starting apmia mysql"
+  
+  mkdir $INSTALLATION_FOLDER/apmiaMySQL 2> /dev/null
+ 
+  cp -f $SCRIPTS_FOLDER/../apmiaMySQL/* $INSTALLATION_FOLDER/apmiaMySQL
+  
+   ESCAPED_APM_MANAGER_URL_1=$(echo "$APM_MANAGER_URL_1"| sed 's/\//\\\//g')
+   sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml
+   sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml
+
+   SQL_SVC_IP=`kubectl get svc -n tixchange-v1|grep mysql|awk '{print $3}'`
+
+   sed -i 's/MY_SQL_SVR_IP/'$SQL_SVC_IP'/' $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml
+
+  kubectl -f create $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml -n tixchange-v1
+}
+
+
 stopDeletePromExporter () {
   logMsg "Deleting Prometheus node exporter "
   kubectl delete -f $SCRIPTS_FOLDER/../$PROM_FOLDER/node-exporter.yaml -n $PROM_NAMESPACE
@@ -116,6 +140,8 @@ stopDeleteTixChange () {
 
       fi
   fi
+
+ stopDeleteApmiaMySQL
 
   cd $INSTALL_SCRIPT_FOLDER
 
@@ -284,6 +310,8 @@ installTixChangeHelm () {
    else
      logMsg "*** ERROR: IP address could not be update in /etc/hosts. Pls add IP to HOST manually"
    fi
+
+  installApmiaMySQL
 
    sleep 5
 }
