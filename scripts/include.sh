@@ -106,12 +106,13 @@ stopDeleteTixChange () {
          logMsg "Deleting tixchange"
 
          helm delete tixchange --purge
+         sleep 5
          helm delete tixchange --purge 2> /dev/null
 
          cd ..
          rm -rf $TIXCHANGE_FOLDER
 
-         sleep 5
+         sleep 10
 
       fi
   fi
@@ -137,6 +138,7 @@ stopDeleteSelenium () {
          kill -9 $PID
          npm uninstall -g  selenium-side-runner  --unsafe-perm=true --allow-root
          npm uninstall -g  chromedriver --unsafe-perm=true --allow-root
+         yum remove -y google-chrome
          cd ..
          rm -rf $SELENIUM_FOLDER
                 
@@ -244,6 +246,13 @@ installTixChangeHelm () {
    echo $BA_SNIPPET > $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/default.basnippet
 
    cd $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
+
+
+   if [ x"$RENAME_AGENT_HOST_NAME" == "xtrue" ]; then
+     #sed -i 's/REPLACE_DEF_TIX_WEB_AGENT_HOST_NS1/\-Dintroscope.agent.hostName=TxChangeWeb_UC1/' templates/tix_configmap_apm_v1.yaml
+     echo "RenameAgentHostname: true" >> values.yaml
+   fi
+
 
    #sed -i 's/SNIPPET_STRING/'$BA_SNIPPET'/' template/tix_configmap_apm.yaml
 

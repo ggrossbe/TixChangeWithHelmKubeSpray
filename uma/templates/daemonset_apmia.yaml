@@ -30,6 +30,8 @@ spec:
       - env:
         - name: containerflow
           value: enabled
+        - name: apmenv_autoattach_docker_free_memory_threshold
+          value: "15.00"
         - name: agentManager_url_1
           valueFrom:
             configMapKeyRef:
