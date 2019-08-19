@@ -27,7 +27,25 @@ spec:
       annotations:
         ver: "1.0"
     spec:
+      hostAliases:
+      - ip: "127.0.0.1"
+        hostnames:
+        - "tixchange-mysql-conn-svc"
       containers:
+        - resources:
+          env:
+            - name: APMENV_AGENTMANAGER_URL_1
+              value: "APM_MANAGER_URL_1"
+            - name: APMENV_AGENTMANAGER_CREDENTIAL
+              value: "APM_MANAGER_CREDENTIAL"
+          name: apmia
+          image: srikns/apmiamysql:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "0.7"
+              memory: 700M
+
         - name: tix-mysql
           image: omaro/tixchange_mysql
           imagePullPolicy: IfNotPresent

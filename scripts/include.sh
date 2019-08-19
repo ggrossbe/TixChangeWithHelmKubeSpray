@@ -79,7 +79,7 @@ installApmiaMySQL () {
 
    sed -i 's/MY_SQL_SVR_IP/'$SQL_SVC_IP'/' $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml
 
-  kubectl  create -f $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml -n tixchange-v1
+  #kubectl  create -f $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml -n tixchange-v1
 }
 
 
@@ -129,9 +129,12 @@ stopDeleteTixChange () {
          cd $TIXCHANGE_FOLDER
          logMsg "Deleting tixchange"
 
+         helm ls
          helm delete tixchange --purge
          sleep 10
          helm delete tixchange --purge 2> /dev/null
+         
+         helm ls
 
          cd ..
          rm -rf $TIXCHANGE_FOLDER
@@ -282,14 +285,23 @@ installTixChangeHelm () {
 
    #sed -i 's/SNIPPET_STRING/'$BA_SNIPPET'/' template/tix_configmap_apm.yaml
 
+   ESCAPED_APM_MANAGER_URL_1=$(echo "$APM_MANAGER_URL_1"| sed 's/\//\\\//g')
+   sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v1.yaml
+   sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v1.yaml
+
+
+
    #logMsg "***IGNORE the 3 errors related to configmap below"
    helm install  . --name tixchange 
+
+   sleep 10
 
    logMsg ""
    kubectl create configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./default.basnippet
    kubectl create configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./jtixchange.pbd
    kubectl create configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./jtixchange.pbd
     
+   
    helm list 
    kubectl get pods -n $TIXCHANGE_NAMESPACE1
    kubectl get pods -n $TIXCHANGE_NAMESPACE2
@@ -414,7 +426,7 @@ runFinalSanityCheck () {
 
    logMsg "running sanity test to ensure its all good"
 
-   IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/$SELENIUM_UC `
+   IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/nohup.out`
 
    if [ X"$IS_TEST_PASS" != "X" ]; then
       logMsg ""

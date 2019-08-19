@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: apmia-aws
+  name: apmia-mysql
   labels:
     tier: monitoring
     app: caagent_apmia
