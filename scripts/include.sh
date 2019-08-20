@@ -165,9 +165,9 @@ stopDeleteSelenium () {
          
          PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
          kill -9 $PID
-         npm uninstall -g  selenium-side-runner  --unsafe-perm=true --allow-root
-         npm uninstall -g  chromedriver --unsafe-perm=true --allow-root
-         yum remove -y google-chrome
+         #npm uninstall -g  selenium-side-runner  --unsafe-perm=true --allow-root
+         #npm uninstall -g  chromedriver --unsafe-perm=true --allow-root
+         #yum remove -y google-chrome
          cd ..
          rm -rf $SELENIUM_FOLDER
                 
@@ -180,10 +180,21 @@ stopDeleteSelenium () {
 }
 
 
+uninstallSelenium () {
+         PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
+         kill -9 $PID
+         npm uninstall -g  selenium-side-runner  --unsafe-perm=true --allow-root
+         npm uninstall -g  chromedriver --unsafe-perm=true --allow-root
+         yum remove -y google-chrome
+}
+
+
+
 
 stopDeletelAll () {
 
   stopDeleteSelenium
+  uninstallSelenium
   stopDeleteTixChange
   stopDeletePromExporter
   stopDeleteUMA
@@ -341,8 +352,25 @@ installTixChangeHelm () {
    sleep 5
 }
 
+installSelenium () {
+  yum install -y gcc-c++ make
+  curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
 
-installAndRunSelenium () {
+  sudo yum -y install nodejs
+
+  yum install -y http://orion.lcg.ufrj.br/RPMS/myrpms/google/google-chrome-stable-74.0.3729.169-1.x86_64.rpm
+
+  logMsg "installing selenium-side-runner"
+  npm install -g selenium-side-runner
+
+  logMsg "Uninstall and installing chromedriver"
+  npm uninstall -g  chromedriver@74 --unsafe-perm=true --allow-root
+  npm install -g  chromedriver@74 --unsafe-perm=true --allow-root
+
+}
+
+
+configureAndRunSelenium () {
 
   logMsg "Install and Run Selenium"
 
@@ -356,19 +384,19 @@ installAndRunSelenium () {
   cd $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
 #--
-  yum install -y gcc-c++ make
-  curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
+#  yum install -y gcc-c++ make
+  #curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
    
-  sudo yum -y install nodejs
+  #sudo yum -y install nodejs
   
-  yum install -y http://orion.lcg.ufrj.br/RPMS/myrpms/google/google-chrome-stable-74.0.3729.169-1.x86_64.rpm
+  #yum install -y http://orion.lcg.ufrj.br/RPMS/myrpms/google/google-chrome-stable-74.0.3729.169-1.x86_64.rpm
 
-  logMsg "installing selenium-side-runner"
-  npm install -g selenium-side-runner
+  #logMsg "installing selenium-side-runner"
+  #npm install -g selenium-side-runner
 
-  logMsg "Uninstall and installing chromedriver"
-  npm uninstall -g  chromedriver@74 --unsafe-perm=true --allow-root
-  npm install -g  chromedriver@74 --unsafe-perm=true --allow-root
+  #logMsg "Uninstall and installing chromedriver"
+  #npm uninstall -g  chromedriver@74 --unsafe-perm=true --allow-root
+  #npm install -g  chromedriver@74 --unsafe-perm=true --allow-root
 
 #--
 
