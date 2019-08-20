@@ -33,12 +33,13 @@ spec:
         - "tixchange-mysql-conn-svc"
       containers:
         - resources:
+          env:
 {{- if .Values.RenameAgentHostname }}
-          env:
-          - name: apmenv_introscope_agent_hostName
-            value: TxChangeMySQL_UC1
+            - name: apmenv_introscope_agent_defaultProcessName
+              value: apmiaMySQL
+            - name: apmenv_introscope_agent_hostName
+              value: node2
 {{ end }}
-          env:
             - name: APMENV_AGENTMANAGER_URL_1
               value: "APM_MANAGER_URL_1"
             - name: APMENV_AGENTMANAGER_CREDENTIAL

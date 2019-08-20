@@ -61,7 +61,7 @@ stopDeleteUMA () {
 
 stopDeleteApmiaMySQL () {
   logMsg "deleting apmia mysql"
-  kubectl  delete -f $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml -n tixchange-v1
+  #kubectl  delete -f $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml -n tixchange-v1
 }
 
 installApmiaMySQL () {
@@ -293,6 +293,19 @@ installTixChangeHelm () {
 
    #logMsg "***IGNORE the 3 errors related to configmap below"
    helm install  . --name tixchange 
+   
+   sleep 10
+
+   TIXCHANGE_DEPLOYED=`helm ls|grep FAILED`
+   
+   if [ X"$TIXCHANGE_DEPLOYED" != "X" ]; then
+      helm delete tixchange --purge 2>/dev/null
+     
+      sleep 10
+   
+      helm install  . --name tixchange
+
+   fi
 
    sleep 10
 
@@ -342,6 +355,7 @@ installAndRunSelenium () {
 
   cd $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
+#--
   yum install -y gcc-c++ make
   curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
    
@@ -355,6 +369,8 @@ installAndRunSelenium () {
   logMsg "Uninstall and installing chromedriver"
   npm uninstall -g  chromedriver@74 --unsafe-perm=true --allow-root
   npm install -g  chromedriver@74 --unsafe-perm=true --allow-root
+
+#--
 
   sleep 10
 
