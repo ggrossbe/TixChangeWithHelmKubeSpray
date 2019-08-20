@@ -59,6 +59,30 @@ stopDeleteUMA () {
 
 }
 
+stopDeleteApmiaMySQL () {
+  logMsg "deleting apmia mysql"
+  #kubectl  delete -f $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml -n tixchange-v1
+}
+
+installApmiaMySQL () {
+  logMsg "starting apmia mysql"
+  
+  mkdir $INSTALLATION_FOLDER/apmiaMySQL 2> /dev/null
+ 
+  cp -f $SCRIPTS_FOLDER/../apmiaMySQL/* $INSTALLATION_FOLDER/apmiaMySQL
+  
+   ESCAPED_APM_MANAGER_URL_1=$(echo "$APM_MANAGER_URL_1"| sed 's/\//\\\//g')
+   sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml
+   sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml
+
+   SQL_SVC_IP=`kubectl get svc -n tixchange-v1|grep mysql|awk '{print $3}'`
+
+   sed -i 's/MY_SQL_SVR_IP/'$SQL_SVC_IP'/' $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml
+
+  #kubectl  create -f $INSTALLATION_FOLDER/apmiaMySQL/apmiaMySql.yaml -n tixchange-v1
+}
+
+
 stopDeletePromExporter () {
   logMsg "Deleting Prometheus node exporter "
   kubectl delete -f $SCRIPTS_FOLDER/../$PROM_FOLDER/node-exporter.yaml -n $PROM_NAMESPACE
@@ -105,16 +129,22 @@ stopDeleteTixChange () {
          cd $TIXCHANGE_FOLDER
          logMsg "Deleting tixchange"
 
+         helm ls
          helm delete tixchange --purge
+         sleep 10
          helm delete tixchange --purge 2> /dev/null
+         
+         helm ls
 
          cd ..
          rm -rf $TIXCHANGE_FOLDER
 
-         sleep 5
+         sleep 15
 
       fi
   fi
+
+ stopDeleteApmiaMySQL
 
   cd $INSTALL_SCRIPT_FOLDER
 
@@ -137,6 +167,7 @@ stopDeleteSelenium () {
          kill -9 $PID
          npm uninstall -g  selenium-side-runner  --unsafe-perm=true --allow-root
          npm uninstall -g  chromedriver --unsafe-perm=true --allow-root
+         yum remove -y google-chrome
          cd ..
          rm -rf $SELENIUM_FOLDER
                 
@@ -245,16 +276,45 @@ installTixChangeHelm () {
 
    cd $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
 
+
+   if [ x"$RENAME_AGENT_HOST_NAME" == "xtrue" ]; then
+     #sed -i 's/REPLACE_DEF_TIX_WEB_AGENT_HOST_NS1/\-Dintroscope.agent.hostName=TxChangeWeb_UC1/' templates/tix_configmap_apm_v1.yaml
+     echo "RenameAgentHostname: true" >> values.yaml
+   fi
+
+
    #sed -i 's/SNIPPET_STRING/'$BA_SNIPPET'/' template/tix_configmap_apm.yaml
+
+   ESCAPED_APM_MANAGER_URL_1=$(echo "$APM_MANAGER_URL_1"| sed 's/\//\\\//g')
+   sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v1.yaml
+   sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v1.yaml
+
+
 
    #logMsg "***IGNORE the 3 errors related to configmap below"
    helm install  . --name tixchange 
+   
+   sleep 10
+
+   TIXCHANGE_DEPLOYED=`helm ls|grep FAILED`
+   
+   if [ X"$TIXCHANGE_DEPLOYED" != "X" ]; then
+      helm delete tixchange --purge 2>/dev/null
+     
+      sleep 10
+   
+      helm install  . --name tixchange
+
+   fi
+
+   sleep 10
 
    logMsg ""
    kubectl create configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./default.basnippet
    kubectl create configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./jtixchange.pbd
    kubectl create configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./jtixchange.pbd
     
+   
    helm list 
    kubectl get pods -n $TIXCHANGE_NAMESPACE1
    kubectl get pods -n $TIXCHANGE_NAMESPACE2
@@ -276,6 +336,8 @@ installTixChangeHelm () {
      logMsg "*** ERROR: IP address could not be update in /etc/hosts. Pls add IP to HOST manually"
    fi
 
+  installApmiaMySQL
+
    sleep 5
 }
 
@@ -293,6 +355,7 @@ installAndRunSelenium () {
 
   cd $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
+#--
   yum install -y gcc-c++ make
   curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
    
@@ -306,6 +369,8 @@ installAndRunSelenium () {
   logMsg "Uninstall and installing chromedriver"
   npm uninstall -g  chromedriver@74 --unsafe-perm=true --allow-root
   npm install -g  chromedriver@74 --unsafe-perm=true --allow-root
+
+#--
 
   sleep 10
 
@@ -377,7 +442,7 @@ runFinalSanityCheck () {
 
    logMsg "running sanity test to ensure its all good"
 
-   IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/$SELENIUM_UC `
+   IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/nohup.out`
 
    if [ X"$IS_TEST_PASS" != "X" ]; then
       logMsg ""

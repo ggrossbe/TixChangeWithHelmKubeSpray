@@ -37,6 +37,11 @@ spec:
           command: ['sh', '-c','echo Init Web Init Container sleeping 20 sec; sleep 15;']
       containers:
         - name: tix-web
+{{- if .Values.RenameAgentHostname }}
+          env:
+          - name: apmenv_introscope_agent_hostName
+            value: TxChangeWeb_UC1
+{{ end }}
           resources:
             limits:
               cpu: "1000m"
@@ -133,6 +138,11 @@ spec:
           command: ['sh', '-c','echo Init Service Init Container sleeping 15 sec; sleep 15;']
       containers:
         - name: tix-ws
+{{- if .Values.RenameAgentHostname }}
+          env:
+          - name: apmenv_introscope_agent_hostName
+            value: TxChangeSvc_UC1
+{{ end }}
           resources:
             limits:
               cpu: "900m"
