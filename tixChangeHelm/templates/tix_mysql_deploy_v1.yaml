@@ -35,14 +35,14 @@ spec:
         - resources:
           env:
             - name: apmenv_introscope_agent_defaultProcessName
-              value: apmiaMySQL
+              value: apmiaMySQL_UC1
             - name: apmenv_introscope_agent_hostName
               value: node2
             - name: APMENV_AGENTMANAGER_URL_1
               value: "APM_MANAGER_URL_1"
             - name: APMENV_AGENTMANAGER_CREDENTIAL
               value: "APM_MANAGER_CREDENTIAL"
-          name: apmia
+          name: apmia-mysql-uc1
           image: srikns/apmiamysql:latest
           imagePullPolicy: Always
           resources:
