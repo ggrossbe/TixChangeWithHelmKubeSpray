@@ -70,7 +70,11 @@ case $OPTION in
      sleep 15
      #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
-     installAndRunSelenium
+
+     installSelenium
+     sleep 10
+
+     configureAndRunSelenium
 
      configureEM
 
@@ -121,7 +125,7 @@ case $OPTION in
      sleep 15
      #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
-     installAndRunSelenium
+     configureAndRunSelenium
      configureEM
      
      runFinalSanityCheck
@@ -144,7 +148,7 @@ case $OPTION in
      logMsg " re-installaing Selenium"
      stopDeleteSelenium
      sleep 5
-     installAndRunSelenium
+     configureAndRunSelenium
      configureEM
 
      runFinalSanityCheck
@@ -153,7 +157,7 @@ case $OPTION in
      stopDeleteSelenium
 
      logMsg " Installing just the selenium components"
-     installAndRunSelenium
+     configureAndRunSelenium
      
      runFinalSanityCheck
      ;;
