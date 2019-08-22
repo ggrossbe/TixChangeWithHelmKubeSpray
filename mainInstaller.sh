@@ -76,7 +76,8 @@ case $OPTION in
 
      configureAndRunSelenium
 
-     configureEM
+     configureEM em1
+     configureEM em2
 
      runFinalSanityCheck
 
@@ -126,8 +127,10 @@ case $OPTION in
      #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      configureAndRunSelenium
-     configureEM
      
+     configureEM em1
+     configureEM em2
+
      runFinalSanityCheck
      ;;
    u) 
@@ -149,7 +152,9 @@ case $OPTION in
      stopDeleteSelenium
      sleep 5
      configureAndRunSelenium
-     configureEM
+     
+     configureEM em1
+     configureEM em2
 
      runFinalSanityCheck
      ;;
@@ -172,7 +177,9 @@ case $OPTION in
    e)
      logMsg "Setup EM (Universes, Exp Views, mgmt mod). sleep 10sec before starting. Hope agents are already reporting"
      
-     configureEM
+     
+     configureEM em1
+     configureEM em2
      
      ;;
    *) 
