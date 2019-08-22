@@ -14,7 +14,8 @@ HELM_FOLDER=helmInstaller
 HELM_RBAC_YAML=helm-rbac-config.yaml
 UMA_FOLDER=uma
 SELENIUM_FOLDER=selenium
-SELENIUM_UC=runSeleniumUC
+SELENIUM_UC1=runSeleniumUC1
+SELENIUM_UC2=runSeleniumUC2
 UC1_URL=uc1.jtixchange.com
 UC2_URL=uc2.jtixchange.com
 TIXCHANGE_NAMESPACE1=tixchange-v1
@@ -22,8 +23,10 @@ TIXCHANGE_NAMESPACE2=tixchange-v2
 LOG_FILE_NAME=TixChangeInstallerLog`date +%Y_%m_%d_%H_%M`.log
 LOG_FILE=$INSTALLATION_FOLDER/logs/$LOG_FILE_NAME
 EM_FOLDER=em
-EM_SETUP_SCRIPT=setupEMSideConfigurations.sh
+EM_SETUP_SCRIPT1=setupEMSideConfigurations1.sh
 EM_UNIVERSE1_NAME="WestCoast-DataCenter-Jtix"
+EM_SETUP_SCRIPT2=setupEMSideConfigurations2.sh
+EM_UNIVERSE2_NAME="EastCoast-DataCenter-Jtix"
 PROM_NAMESPACE=monitor
 PROM_FOLDER=prometheus
 
@@ -381,43 +384,36 @@ configureAndRunSelenium () {
   fi
 
   cp $SCRIPTS_FOLDER/TixChangeSelenimum*.side $INSTALLATION_FOLDER/$SELENIUM_FOLDER
-  cp $SCRIPTS_FOLDER/$SELENIUM_UC $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+  cp $SCRIPTS_FOLDER/runSeleniumUC* $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
   cd $INSTALLATION_FOLDER/$SELENIUM_FOLDER
-
-#--
-#  yum install -y gcc-c++ make
-  #curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
-   
-  #sudo yum -y install nodejs
-  
-  #yum install -y http://orion.lcg.ufrj.br/RPMS/myrpms/google/google-chrome-stable-74.0.3729.169-1.x86_64.rpm
-
-  #logMsg "installing selenium-side-runner"
-  #npm install -g selenium-side-runner
-
-  #logMsg "Uninstall and installing chromedriver"
-  #npm uninstall -g  chromedriver@74 --unsafe-perm=true --allow-root
-  #npm install -g  chromedriver@74 --unsafe-perm=true --allow-root
-
-#--
 
   sleep 10
 
   logMsg "configuring the use cases"
   ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
-  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC
-  sed -i 's/APM_API_TOKEN/'$APM_MANAGER_CREDENTIAL'/' $SELENIUM_UC
+  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC1
+  sed -i 's/APM_API_TOKEN/'$APM_MANAGER_CREDENTIAL'/' $SELENIUM_UC1
 
-   TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep web`
-   TIXCHANGE_WS_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep ws`
+  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC2
+  sed -i 's/APM_API_TOKEN/'$APM_MANAGER_CREDENTIAL'/' $SELENIUM_UC2
 
-   sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD'/' $SELENIUM_UC
-   sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD'/' $SELENIUM_UC
+   TIXCHANGE_WEB_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep web`
+   TIXCHANGE_WS_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep ws`
+
+   TIXCHANGE_WEB_POD2=`kubectl get pods -n $TIXCHANGE_NAMESPACE2 |grep -v NAME |awk '{print $1}'|grep web`
+   TIXCHANGE_WS_POD2=`kubectl get pods -n $TIXCHANGE_NAMESPACE2 |grep -v NAME |awk '{print $1}'|grep ws`
+
+   sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD1'/' $SELENIUM_UC1
+   sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD1'/' $SELENIUM_UC1
+
+   sed -i 's/TIX_WEB_INSTANCE2/'$TIXCHANGE_WEB_POD2'/' $SELENIUM_UC2
+   sed -i 's/TIX_WS_INSTANCE2/'$TIXCHANGE_WS_POD2'/' $SELENIUM_UC2
 
 
   chmod 755 runS*
-  nohup ./$SELENIUM_UC 2>&1 &   
+  nohup ./$SELENIUM_UC1 2>&1 &   
+  nohup ./$SELENIUM_UC2 2>&1 &   
 
   
   cd -
@@ -425,7 +421,21 @@ configureAndRunSelenium () {
 
 configureEM () {
 
-  logMsg "configuring the EM Common Functions"
+  if [ X"$1" == "Xem1" ]; then
+    EM_SETUP_SCRIPT=$EM_SETUP_SCRIPT1
+    EM_UNIVERSE_NAME=$EM_UNIVERSE1_NAME
+    TIXCHANGE_NAMESPACE=$TIXCHANGE_NAMESPACE1
+    #TIX_WEB_INSTANCE=$TIX_WEB_INSTANCE1
+  else
+    EM_SETUP_SCRIPT=$EM_SETUP_SCRIPT2
+    EM_UNIVERSE_NAME=$EM_UNIVERSE2_NAME
+    TIXCHANGE_NAMESPACE=$TIXCHANGE_NAMESPACE2
+    #TIX_WEB_INSTANCE=$TIX_WEB_INSTANCE2
+  
+  fi
+
+
+  logMsg "configuring the EM Common Functions for $1"
 
  
   if [ -d $INSTALLATION_FOLDER/$EM_FOLDER ]; then
@@ -446,16 +456,16 @@ configureEM () {
   sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $EM_SETUP_SCRIPT
   sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $EM_SETUP_SCRIPT
   sed -i 's/SAAS_USER_ID/'$SAAS_USER_ID'/' $EM_SETUP_SCRIPT
-  sed -i 's/EM_UNIVERSE1_NAME/'$EM_UNIVERSE1_NAME'/' $EM_SETUP_SCRIPT
+  sed -i 's/EM_UNIVERSE_NAME/'$EM_UNIVERSE_NAME'/' $EM_SETUP_SCRIPT
   sed -i 's/INSTALLATION_FOLDER/'$ESCAPED_INSTALLATION_FOLDER'/' $EM_SETUP_SCRIPT
   sed -i 's/EM_FOLDER/'$EM_FOLDER'/' $EM_SETUP_SCRIPT
 
 
-  TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep web`
-  TIXCHANGE_WS_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep ws`
+  TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE |grep -v NAME |awk '{print $1}'|grep web`
+  TIXCHANGE_WS_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE |grep -v NAME |awk '{print $1}'|grep ws`
   
-  sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD'/' $EM_SETUP_SCRIPT
-  sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD'/' $EM_SETUP_SCRIPT
+  sed -i 's/TIX_WEB_INSTANCE/'$TIXCHANGE_WEB_POD'/' $EM_SETUP_SCRIPT
+  sed -i 's/TIX_WS_INSTANCE/'$TIXCHANGE_WS_POD'/' $EM_SETUP_SCRIPT
 
   ##UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
 
