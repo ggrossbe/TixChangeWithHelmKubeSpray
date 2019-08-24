@@ -46,8 +46,8 @@ spec:
             #value: localhost 
           #- name: DB_PORT
             #value: 3306 
-          - name: WS_HOST
-            value: localhost 
+          #- name: WS_HOST
+            #value: localhost 
           - name: LD_LIBRARY_PATH
             value: /usr/local/tomcat/native-jni-lib
           - name: TOMCAT_NATIVE_LIBDIR
