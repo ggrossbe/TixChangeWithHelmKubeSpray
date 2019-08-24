@@ -361,7 +361,7 @@ installSelenium () {
   yum install -y gcc-c++ make
   curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
 
-  sudo yum -y install nodejs
+  sudo yum -y install nodejs-12.8.1
 
   yum install -y http://orion.lcg.ufrj.br/RPMS/myrpms/google/google-chrome-stable-74.0.3729.169-1.x86_64.rpm
 
@@ -412,8 +412,8 @@ configureAndRunSelenium () {
 
 
   chmod 755 runS*
-  nohup ./$SELENIUM_UC1 2>&1 &   
-  nohup ./$SELENIUM_UC2 2>&1 &   
+  nohup ./$SELENIUM_UC1 > uc1Nohup.out 2>&1 &   
+  #nohup ./$SELENIUM_UC2 > uc2Nohup.out 2>&1 &   
 
   
   cd -
@@ -482,17 +482,35 @@ runFinalSanityCheck () {
 
    logMsg "running sanity test to ensure its all good"
 
-   IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/nohup.out`
+   TEST_FAIL=0
+   IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/uc1Nohup.out`
 
    if [ X"$IS_TEST_PASS" != "X" ]; then
       logMsg ""
-      logMsg "*** Looks like Selenium is experiencing issues running the test. Pls check $INSTALLATION_FOLDER/$SELENIUM_FOLDER/nohup.out and raise an issue in git hub"	
+      logMsg "*** Looks like UC1 Selenium is experiencing issues running the test. Pls check $INSTALLATION_FOLDER/$SELENIUM_FOLDER/uc1Nohup.out and raise an issue in git hub"	
       logMsg ""
 
-      exit
+      TEST_FAIL=1
    fi
 
-   logMsg "Sanity Passed"
+   #IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/uc2Nohup.out`
+   IS_TEST_PASS=""
+
+   if [ X"$IS_TEST_PASS" != "X" ]; then
+      logMsg ""
+      logMsg "*** Looks UC2 like Selenium is experiencing issues running the test. Pls check $INSTALLATION_FOLDER/$SELENIUM_FOLDER/uc2Nohup.out and raise an issue in git hub"
+      logMsg ""
+
+      TEST_FAIL=1
+   fi
+
+   if [ X"$TEST_FAIL" == "X1" ]; then
+     
+     logMsg "Sanity Failed"
+     
+     exit
+   fi
+     logMsg "Sanity Passed"
 
 }
 

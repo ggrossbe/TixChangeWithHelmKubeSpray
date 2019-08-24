@@ -51,9 +51,17 @@ spec:
               memory: 700M
 
         - name: tix-mysql
-          image: omaro/tixchange_mysql
+          image: srikns/tixchange-mysql8:latest
           imagePullPolicy: IfNotPresent
           env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: CAdemo123
+          - name: MYSQL_DATABASE
+            value: jtixchange
+          - name: MYSQL_USER
+            value: tcuser
+          - name: MYSQL_PASSWORD
+            value: quality
           -  name: Zone
              value: "us-east-1c"
           ports:
