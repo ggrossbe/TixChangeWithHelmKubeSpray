@@ -14,8 +14,9 @@ HELM_FOLDER=helmInstaller
 HELM_RBAC_YAML=helm-rbac-config.yaml
 UMA_FOLDER=uma
 SELENIUM_FOLDER=selenium
-SELENIUM_UC1=runSeleniumUC1
-SELENIUM_UC2=runSeleniumUC2
+SELENIUM_UC=runSeleniumUC
+#For now keeping this as UC1 as all scripts are in UC1
+#SELENIUM_UC2=runSeleniumUC1
 UC1_URL=uc1.jtixchange.com
 UC2_URL=uc2.jtixchange.com
 TIXCHANGE_NAMESPACE1=tixchange-v1
@@ -392,11 +393,11 @@ configureAndRunSelenium () {
 
   logMsg "configuring the use cases"
   ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
-  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC1
-  sed -i 's/APM_API_TOKEN/'$APM_MANAGER_CREDENTIAL'/' $SELENIUM_UC1
+  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC
+  sed -i 's/APM_API_TOKEN/'$APM_MANAGER_CREDENTIAL'/' $SELENIUM_UC
 
-  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC2
-  sed -i 's/APM_API_TOKEN/'$APM_MANAGER_CREDENTIAL'/' $SELENIUM_UC2
+  #sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC2
+  #sed -i 's/APM_API_TOKEN/'$APM_MANAGER_CREDENTIAL'/' $SELENIUM_UC2
 
    TIXCHANGE_WEB_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep web`
    TIXCHANGE_WS_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep ws`
@@ -404,15 +405,15 @@ configureAndRunSelenium () {
    TIXCHANGE_WEB_POD2=`kubectl get pods -n $TIXCHANGE_NAMESPACE2 |grep -v NAME |awk '{print $1}'|grep web`
    TIXCHANGE_WS_POD2=`kubectl get pods -n $TIXCHANGE_NAMESPACE2 |grep -v NAME |awk '{print $1}'|grep ws`
 
-   sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD1'/' $SELENIUM_UC1
-   sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD1'/' $SELENIUM_UC1
+   sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD1'/' $SELENIUM_UC
+   sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD1'/' $SELENIUM_UC
 
-   sed -i 's/TIX_WEB_INSTANCE2/'$TIXCHANGE_WEB_POD2'/' $SELENIUM_UC2
-   sed -i 's/TIX_WS_INSTANCE2/'$TIXCHANGE_WS_POD2'/' $SELENIUM_UC2
+   sed -i 's/TIX_WEB_INSTANCE2/'$TIXCHANGE_WEB_POD2'/' $SELENIUM_UC
+   sed -i 's/TIX_WS_INSTANCE2/'$TIXCHANGE_WS_POD2'/' $SELENIUM_UC
 
 
   chmod 755 runS*
-  nohup ./$SELENIUM_UC1 > uc1Nohup.out 2>&1 &   
+  nohup ./$SELENIUM_UC > ucNohup.out 2>&1 &   
   #nohup ./$SELENIUM_UC2 > uc2Nohup.out 2>&1 &   
 
   
@@ -482,34 +483,16 @@ runFinalSanityCheck () {
 
    logMsg "running sanity test to ensure its all good"
 
-   TEST_FAIL=0
-   IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/uc1Nohup.out`
+   IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
 
    if [ X"$IS_TEST_PASS" != "X" ]; then
       logMsg ""
-      logMsg "*** Looks like UC1 Selenium is experiencing issues running the test. Pls check $INSTALLATION_FOLDER/$SELENIUM_FOLDER/uc1Nohup.out and raise an issue in git hub"	
+      logMsg "*** Looks like UC1 or UC2 Selenium tests are experiencing issues running the test. Pls check $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out and raise an issue in git hub"	
       logMsg ""
 
-      TEST_FAIL=1
-   fi
-
-   #IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/uc2Nohup.out`
-   IS_TEST_PASS=""
-
-   if [ X"$IS_TEST_PASS" != "X" ]; then
-      logMsg ""
-      logMsg "*** Looks UC2 like Selenium is experiencing issues running the test. Pls check $INSTALLATION_FOLDER/$SELENIUM_FOLDER/uc2Nohup.out and raise an issue in git hub"
-      logMsg ""
-
-      TEST_FAIL=1
-   fi
-
-   if [ X"$TEST_FAIL" == "X1" ]; then
-     
-     logMsg "Sanity Failed"
-     
      exit
    fi
+
      logMsg "Sanity Passed"
 
 }
