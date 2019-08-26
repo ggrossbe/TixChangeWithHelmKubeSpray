@@ -483,12 +483,31 @@ runFinalSanityCheck () {
 
    logMsg "running sanity test to ensure its all good"
 
+   sleep 10
+
    IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
 
    if [ X"$IS_TEST_PASS" != "X" ]; then
+      
+      GOOGL_CHRM_VER=`google-chrome --version |grep "74.0"`
+
+      if [ X"$GOOGL_CHRM_VER" == "X" ]; then
+        yum remove -y google-chrome
+        yum install -y http://orion.lcg.ufrj.br/RPMS/myrpms/google/google-chrome-stable-74.0.3729.169-1.x86_64.rpm
+
+        sleep 10
+      fi
+
+   fi
+   
+   IS_TEST_PASS=`tail -8 $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out |grep failed`
+   if [ X"$IS_TEST_PASS" != "X" ]; then
+    
       logMsg ""
       logMsg "*** Looks like UC1 or UC2 Selenium tests are experiencing issues running the test. Pls check $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out and raise an issue in git hub"	
       logMsg ""
+
+      
 
      exit
    fi
