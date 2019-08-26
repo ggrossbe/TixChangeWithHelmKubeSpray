@@ -1,5 +1,56 @@
 EM_UNIVERSE1=EM_UNIVERSE_NAME
 
+configMySqlMetricAndAlertMapping () {
+
+curl -X POST \
+  APM_SAAS_URL/apm/appmap/ats/extension/configure \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Length: 830' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d '{
+   "id":"REAL_DB",
+   "layer": "INFRASTRUCTURE",
+   "version":"1.1.3",
+   "icons":{
+   },
+
+   "metricSpecifiers":{
+      "MYSQL_DB":[
+         {
+            "metricSpecifier":{
+               "format":"MYSQL|tixchange-mysql-conn-svc|jtixchange|Operations",
+               "type":"EXACT"
+            },
+            "agentSpecifier":{
+               "format":"node2|apmiaMySQL_UC1|Agent",
+               "type":"EXACT"
+            },
+            "section":"Database Metrics",
+            "metricNames":[
+               "Total Queries"
+            ],
+            "filter":{
+            }
+         }
+      ]
+   },
+   "alertMappings":{
+	"MYSQL_DB_WITH_AGENT":[
+     "node2|apmiaMySQL_UC1|Agent|MYSQL|tixchange-mysql-conn-svc|jtixchange|Operations:Total Queries"
+      ]
+   },
+   "perspectives":[
+   ]
+}'
+
+}
+
+
 createUniverse () {
 
 curl -s  -X POST \
@@ -314,3 +365,7 @@ sleep 30
 
 correlateAppToInfraForDBVertex
 
+
+sleep 10
+
+configMySqlMetricAndAlertMapping
