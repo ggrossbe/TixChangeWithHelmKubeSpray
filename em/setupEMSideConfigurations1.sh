@@ -15,7 +15,7 @@ curl -X POST \
   -d '{
    "id":"REAL_DB",
    "layer": "INFRASTRUCTURE",
-   "version":"1.1.3",
+   "version":"1.1.7",
    "icons":{
    },
 
@@ -32,7 +32,7 @@ curl -X POST \
             },
             "section":"Database Metrics",
             "metricNames":[
-               "Total Queries"
+               "Total Queries", "Total Requests"
             ],
             "filter":{
             }
@@ -42,7 +42,11 @@ curl -X POST \
    "alertMappings":{
 	"MYSQL_DB_WITH_AGENT":[
      "node2|apmiaMySQL_UC1|Agent|MYSQL|tixchange-mysql-conn-svc|jtixchange|Operations:Total Queries"
+      ],
+	"INFERRED_DATABASE_WITH_AGENT":[
+     "node2|apmiaMySQL_UC1|Agent|MYSQL|tixchange-mysql-conn-svc|jtixchange|Operations:Total Queries"
       ]
+   },
    },
    "perspectives":[
    ]
