@@ -15,7 +15,7 @@ curl -X POST \
   -d '{
    "id":"REAL_DB",
    "layer": "INFRASTRUCTURE",
-   "version":"1.1.7",
+   "version":"1.1.8",
    "icons":{
    },
 
