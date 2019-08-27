@@ -210,7 +210,7 @@ correlateAppToInfraForDBVertex () {
   echo "SQL POD $SQL_POD"
   if [ X"$SQL_POD" != "X" ]; then
 
-     CONTAINER_ID=`kubectl describe pod  $SQL_POD -n tixchange-v2 |grep "Container ID" |awk '{print $3}'|sed 's/docker:\/\///g'`
+     CONTAINER_ID=`kubectl describe pod  $SQL_POD -n tixchange-v2 |sed -n '/tix-mysql:/{n;p}'|grep "Container ID" |awk '{print $3}'|sed 's/docker:\/\///g'`
      echo "Container ID is $CONTAINER_ID"
   fi
 
@@ -286,6 +286,8 @@ curl -s -X PATCH \
 }'
 }
 
+
+echo "running setupEMSideConfigurations2.sh"
 
 UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE2"`
 

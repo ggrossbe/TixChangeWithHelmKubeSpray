@@ -15,7 +15,7 @@ curl -X POST \
   -d '{
    "id":"REAL_DB",
    "layer": "INFRASTRUCTURE",
-   "version":"1.1.7",
+   "version":"1.1.8",
    "icons":{
    },
 
@@ -46,7 +46,6 @@ curl -X POST \
 	"INFERRED_DATABASE_WITH_AGENT":[
      "node2|apmiaMySQL_UC1|Agent|MYSQL|tixchange-mysql-conn-svc|jtixchange|Operations:Total Queries"
       ]
-   },
    },
    "perspectives":[
    ]
@@ -265,7 +264,7 @@ correlateAppToInfraForDBVertex () {
   echo "SQL POD $SQL_POD"
   if [ X"$SQL_POD" != "X" ]; then
 
-     CONTAINER_ID=`kubectl describe pod  $SQL_POD -n tixchange-v1 |grep "Container ID" |awk '{print $3}'|sed 's/docker:\/\///g'`
+     CONTAINER_ID=`kubectl describe pod  $SQL_POD -n tixchange-v1 |sed -n '/tix-mysql:/{n;p}'|grep "Container ID" |awk '{print $3}'|sed 's/docker:\/\///g'`
      echo "Container ID is $CONTAINER_ID"
   fi
 
@@ -341,6 +340,8 @@ curl -s -X PATCH \
 }'
 }
 
+
+echo "running setupEMSideConfigurations1.sh"
 
 UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
 
