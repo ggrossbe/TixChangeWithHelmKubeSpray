@@ -11,7 +11,7 @@ curl -s  -X POST \
   -H 'Content-Type: application/json;charset=UTF-8' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 1680' \
+  -H 'content-length: 1703' \
   -d '{
   "universeId": null,
   "name": "'$EM_UNIVERSE2'",
@@ -37,6 +37,22 @@ curl -s  -X POST \
           "btCoverage": null
         }
       ]
+    },
+    {
+       "operator": "AND",
+        "attributeName": "hostname",
+        "values": [
+            "txchangeweb_uc2",
+            "txchangesvc_uc2",
+            "tixchange-mysql-conn-svc"
+        ],
+        "layer": {
+            "value": "ATC"
+        },
+        "not": false,
+        "wildCard": false,
+        "btCoverage": null,
+        "btCoverageType": "COVERAGE"
     },
     {
       "operator": "OR",
