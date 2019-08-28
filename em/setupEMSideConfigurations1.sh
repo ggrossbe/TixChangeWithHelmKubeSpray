@@ -8,14 +8,14 @@ curl -X POST \
   -H 'Authorization: Bearer APM_API_TOKEN' \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
-  -H 'Content-Length: 1608' \
+  -H 'Content-Length: 886' \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -d '{
    "id":"REAL_DB",
    "layer": "INFRASTRUCTURE",
-   "version":"1.1.10",
+   "version":"1.1.14",
    "icons":{
    },
 
@@ -37,31 +37,10 @@ curl -X POST \
             "filter":{
             }
          }
-      ],
-    "INFERRED_DATABASE":[
-         {
-            "metricSpecifier":{
-               "format":"MYSQL|tixchange-mysql-conn-svc|jtixchange|Operations",
-               "type":"EXACT"
-            },
-            "agentSpecifier":{
-               "format":"node2|apmiaMySQL_UC1|Agent",
-               "type":"EXACT"
-            },
-            "section":"Database Metrics",
-            "metricNames":[
-               "Total Queries", "Total Requests", "Total Deletes", "Total Inserts"
-            ],
-            "filter":{
-            }
-         }
       ]
    },
    "alertMappings":{
 	"MYSQL_DB_WITH_AGENT":[
-     "node2|apmiaMySQL_UC1|Agent|MYSQL|tixchange-mysql-conn-svc|jtixchange|Operations:Total Queries"
-      ],
-	"INFERRED_DATABASE_WITH_AGENT":[
      "node2|apmiaMySQL_UC1|Agent|MYSQL|tixchange-mysql-conn-svc|jtixchange|Operations:Total Queries"
       ]
    },
