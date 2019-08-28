@@ -25,14 +25,31 @@ runTrxnTrace () {
 
 while true; do
 
-  echo "running UC1"
+  echo "running UC"
   selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc1.jtixchange.com/ ./TixChangeSelenimum.side 
 sleep 2
-  echo "running UC2"
+  echo "running UC"
   selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc2.jtixchange.com/ ./TixChangeSelenimum.side 
 sleep 8 
 
   MINUTES=`date +%M`
+
+  # Exception UC bottom of the hour
+  if [ $MINUTES -eq 30 ]; then
+
+   echo "starting TT"
+
+    runTrxnTrace
+    sleep 5
+
+  echo "running UC2"
+    selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc2.jtixchange.com/ ./TixChangeSelenimumException.side
+    sleep 2
+  echo "running UC2"
+    selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc2.jtixchange.com/ ./TixChangeSelenimumException.side
+    sleep 5
+  fi
+
 
   # Trigger Slow Login every hour top of the hour
   if [ $MINUTES -eq 00 ]; then
@@ -47,12 +64,6 @@ sleep 8
 sleep 2
   echo "running UC1"
     selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc1.jtixchange.com/ ./TixChangeSelenimumSlowLogin.side
-    sleep 3
-  echo "running UC2"
-    selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc2.jtixchange.com/ ./TixChangeSelenimumException.side
-    sleep 2
-  echo "running UC2"
-    selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc2.jtixchange.com/ ./TixChangeSelenimumException.side
     sleep 5
   fi 
 
