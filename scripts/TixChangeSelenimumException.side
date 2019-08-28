@@ -54,7 +54,14 @@
       "value": ""
     }]
   }],
-  "suites": [],
-  "urls": ["http://uc2.jtixchange.com/jtixchange_web/shop/index.shtml"],
+  "suites": [{
+    "id": "6deff1e5-b4ab-4931-b3f2-48185f67be54",
+    "name": "TixChangeExceptionUC2",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["da7c8895-69cc-4386-92c2-448789264aab"]
+  }],
+  "urls": ["http://uc2.jtixchange.com/jtixchange_web/shop/index.shtml", "http://uc2.jtixchange.com/"],
   "plugins": []
 }
