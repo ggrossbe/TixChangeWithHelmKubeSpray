@@ -15,7 +15,7 @@ runTrxnTrace () {
   "agentList": [
     "SuperDomain|Experience Collector Host|DxC Agent|Logstash-APM-Plugin",
     "SuperDomain|TIX_WEB_INSTANCE1|tomcat|Agent",
-    "SuperDomain|TIX_WS_INSTANCE1|tomcat|Agent"
+    "SuperDomain|TIX_WS_INSTANCE1|tomcat|Agent",
     "SuperDomain|TIX_WEB_INSTANCE2|tomcat|Agent",
     "SuperDomain|TIX_WS_INSTANCE2|tomcat|Agent"
   ]
