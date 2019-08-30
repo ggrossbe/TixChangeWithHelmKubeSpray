@@ -50,7 +50,7 @@ spec:
               cpu: "0.7"
               memory: 700M
         - name: tix-mysql
-          image: omaro/tixchange_mysql
+          image: srikns/tixchange-mysql8:latest
           imagePullPolicy: IfNotPresent
           env:
           -  name: Zone
