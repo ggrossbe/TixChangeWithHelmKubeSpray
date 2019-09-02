@@ -40,7 +40,7 @@ curl -X POST \
       ]
    },
    "alertMappings":{
-	"MYSQL_DB_WITH_AGENT":[
+        "MYSQL_DB_WITH_AGENT":[
      "node2|apmiaMySQL_UC1|Agent|MYSQL|tixchange-mysql-conn-svc|jtixchange|Operations:Total Queries"
       ]
    },
@@ -48,6 +48,59 @@ curl -X POST \
    ]
 }'
 
+}
+
+
+configInferredDBMetricAndAlertMapping () {
+
+curl -X POST \
+  APM_SAAS_URL/apm/appmap/ats/extension/configure \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Length: 910' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d '{
+   "id":"INFRRED_DB",
+   "layer": "APPLICATION",
+   "version":"1.1.3",
+   "icons":{
+   },
+
+   "metricSpecifiers":{
+      
+   
+    "INFERRED_DATABASE":[
+         {
+            "metricSpecifier":{
+               "format":"Backends|jtixchange on tixchange-mysql-conn-svc-3306 (MySQL DB)",
+               "type":"EXACT"
+            },
+            "agentSpecifier":{
+               "format":"TxChangeSvc_UC1|tomcat|Agent",
+               "type":"EXACT"
+            },
+            "section":"Database Metrics",
+            "metricNames":[
+               "Responses Per Interval"
+            ],
+            "filter":{
+            }
+         }
+      ]
+   },
+   "alertMappings":{
+
+   "INFERRED_DATABASE_WITH_AGENT":[
+     "TxChangeSvc_UC1|tomcat|Agent|Backends|jtixchange on tixchange-mysql-conn-svc-3306 (MySQL DB):Responses Per Interval"
+      ]
+   },
+   "perspectives":[
+   ]
+}'
 }
 
 
@@ -371,3 +424,5 @@ correlateAppToInfraForDBVertex
 sleep 10
 
 configMySqlMetricAndAlertMapping
+sleep 1
+configInferredDBMetricAndAlertMapping
