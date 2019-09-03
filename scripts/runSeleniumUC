@@ -25,10 +25,10 @@ runTrxnTrace () {
 
 while true; do
 
-  echo "running UC"
+  echo "running UC1"
   selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc1.jtixchange.com/ ./TixChangeSelenimum.side 
 sleep 2
-  echo "running UC"
+  echo "running UC2"
   selenium-side-runner -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc2.jtixchange.com/ ./TixChangeSelenimum.side 
 sleep 8 
 
