@@ -12,7 +12,7 @@ ERR_FILE=javaAutoAttachMapping.err.log
 
 echo > $ERR_FILE
 
-echo "***, Namespace, POD, container, is_Java, is_wily, is_attach, Java process detail" > $OUTPUT_FILE
+echo "***, Namespace, Node,  POD, container, is_Java, is_wily, is_attach, Java process detail" > $OUTPUT_FILE
 
 NAMESPACES=`kubectl get namespaces|grep -v ingress|grep -v default|grep -v caapm|grep -v kube|awk '{print $1}'|grep -v NAME`
 
@@ -20,12 +20,13 @@ for NAMESPACE in $NAMESPACES;
 do
 	echo "*** checking the namespace $NAMESPACE"
 
-	PODS=`kubectl get pods -n $NAMESPACE|grep -v NAME|awk '{print $1}'`
+	PODS=`kubectl get pods -n $NAMESPACE -o wide |grep -v NAME|awk '{print $1}'`
 
 	for POD in $PODS; 
 	do
 
 		echo "*** checking the pod $POD"
+		NODE=`kubectl get pod $POD  -n $NAMESPACE -o wide |grep -v NAME|awk '{print $7}'`
 
 		CONTAINERS=`kubectl describe pod $POD -n $NAMESPACE |grep -B 1 "Container ID:"|grep -v "Container ID:"|grep -v "\-\-"|sed "s/://g"`
 	
@@ -46,14 +47,14 @@ do
 				fi
 				
 				if [ X"$IS_WILY" == "X" ]; then
-					echo "***, $NAMESPACE, $POD, $CONTAINER, Java_yes, Wily_yes, $IS_ATTACH, $IS_JAVA" >> $OUTPUT_FILE
+					echo "***, $NAMESPACE, $NODE, $POD, $CONTAINER, Java_yes, Wily_yes, $IS_ATTACH, $IS_JAVA" >> $OUTPUT_FILE
 				else
-					echo "***, $NAMESPACE, $POD, $CONTAINER, Java_yes, Wily_no, $IS_ATTACH, $IS_JAVA" >> $OUTPUT_FILE
+					echo "***, $NAMESPACE, $NODE, $POD, $CONTAINER, Java_yes, Wily_no, $IS_ATTACH, $IS_JAVA" >> $OUTPUT_FILE
 	
 				fi
 	
 			else
-				echo "***, $NAMESPACE, $POD, $CONTAINER, Java_no, wily_undefined, Attach_undefined" >> $OUTPUT_FILE
+				echo "***, $NAMESPACE, $NODE, $POD, $CONTAINER, Java_no, wily_undefined, Attach_undefined" >> $OUTPUT_FILE
 			fi
 		done
 	done
