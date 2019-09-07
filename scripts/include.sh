@@ -206,7 +206,10 @@ stopDeletelAll () {
 
   rm -rf $INSTALLATION_FOLDER/*
 
-    
+  mkdir -p $INSTALLATION_FOLDER/logs 2> /dev/null
+
+  LOG_FILE_NAME=TixChangeInstallerLog`date +%Y_%m_%d_%H_%M`.log
+  LOG_FILE=$INSTALLATION_FOLDER/logs/$LOG_FILE_NAME  
 }
 
 stopDeleteAppComponents () {
@@ -483,9 +486,9 @@ configureEM () {
 
 runFinalSanityCheck () {
 
-   logMsg "running sanity test to ensure its all good"
+   logMsg "running sanity test to ensure its all good - pls wait"
 
-   sleep 10
+   sleep 15
 
    IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
 
@@ -494,13 +497,21 @@ runFinalSanityCheck () {
       GOOGL_CHRM_VER=`google-chrome --version |grep "74.0"`
 
       if [ X"$GOOGL_CHRM_VER" == "X" ]; then
+        logMsg "** Google chrome version issue - reinstalling **"
         yum remove -y google-chrome
         yum install -y http://orion.lcg.ufrj.br/RPMS/myrpms/google/google-chrome-stable-74.0.3729.169-1.x86_64.rpm
 
-        sleep 10
+      else 
+        logMsg "*** looks like Tixchange issue - restarting**"
+        $INSTALLATION_FOLDER/healthCheck/restartTixChange.sh
       fi
 
+      sleep 15
+
+      sed -i "s/failed/NOT_FAILED/g" $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out
    fi
+
+  
    
    IS_TEST_PASS=`tail -8 $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out |grep failed`
    if [ X"$IS_TEST_PASS" != "X" ]; then
