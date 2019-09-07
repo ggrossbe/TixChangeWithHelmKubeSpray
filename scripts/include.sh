@@ -399,11 +399,11 @@ configureAndRunSelenium () {
   #sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC2
   #sed -i 's/APM_API_TOKEN/'$APM_MANAGER_CREDENTIAL'/' $SELENIUM_UC2
 
-   TIXCHANGE_WEB_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep web`
-   TIXCHANGE_WS_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep ws`
+   TIXCHANGE_WEB_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep tix-web`
+   TIXCHANGE_WS_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep tix-ws`
 
-   TIXCHANGE_WEB_POD2=`kubectl get pods -n $TIXCHANGE_NAMESPACE2 |grep -v NAME |awk '{print $1}'|grep web`
-   TIXCHANGE_WS_POD2=`kubectl get pods -n $TIXCHANGE_NAMESPACE2 |grep -v NAME |awk '{print $1}'|grep ws`
+   TIXCHANGE_WEB_POD2=`kubectl get pods -n $TIXCHANGE_NAMESPACE2 |grep -v NAME |awk '{print $1}'|grep tix-web`
+   TIXCHANGE_WS_POD2=`kubectl get pods -n $TIXCHANGE_NAMESPACE2 |grep -v NAME |awk '{print $1}'|grep tix-ws`
 
    sed -i 's/TIX_WEB_INSTANCE1/'$TIXCHANGE_WEB_POD1'/' $SELENIUM_UC
    sed -i 's/TIX_WS_INSTANCE1/'$TIXCHANGE_WS_POD1'/' $SELENIUM_UC
@@ -464,8 +464,8 @@ configureEM () {
   sed -i 's/EM_FOLDER/'$EM_FOLDER'/' $EM_SETUP_SCRIPT
 
 
-  TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE |grep -v NAME |awk '{print $1}'|grep web`
-  TIXCHANGE_WS_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE |grep -v NAME |awk '{print $1}'|grep ws`
+  TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE |grep -v NAME |awk '{print $1}'|grep tix-web`
+  TIXCHANGE_WS_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE |grep -v NAME |awk '{print $1}'|grep tix-ws`
   
   sed -i 's/TIX_WEB_INSTANCE/'$TIXCHANGE_WEB_POD'/' $EM_SETUP_SCRIPT
   sed -i 's/TIX_WS_INSTANCE/'$TIXCHANGE_WS_POD'/' $EM_SETUP_SCRIPT
