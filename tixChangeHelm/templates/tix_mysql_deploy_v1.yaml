@@ -30,7 +30,7 @@ spec:
       hostAliases:
       - ip: "127.0.0.1"
         hostnames:
-        - "tixchange-mysql-conn-svc"
+        - "tixchange-mysql-conn-svc-1"
       containers:
         - resources:
           env:
@@ -42,6 +42,8 @@ spec:
               value: "APM_MANAGER_URL_1"
             - name: APMENV_AGENTMANAGER_CREDENTIAL
               value: "APM_MANAGER_CREDENTIAL"
+            - name: apmenv_db1_hostName
+              value: "tixchange-mysql-conn-svc-1"
           name: apmia-mysql-uc1
           image: srikns/apmiamysql:latest
           imagePullPolicy: Always
@@ -81,7 +83,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tixchange-mysql-conn-svc
+  name: tixchange-mysql-conn-svc-1
   namespace: tixchange-v1
   labels:
     app: tixchange-db

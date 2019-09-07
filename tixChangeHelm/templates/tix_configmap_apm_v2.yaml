@@ -10,7 +10,7 @@ data:
   #
   # Ticket Exchange Web App Env Variables
   #
-  DB_HOST: tixchange-mysql-conn-svc
+  DB_HOST: tixchange-mysql-conn-svc-2
   DB_PORT: "3306"
   WS_HOST: authservice-svc 
   WS_PORT: "8080"
@@ -34,7 +34,7 @@ data:
   #
   # Ticket Exchange WebService App Env Variables
   #
-  DB_HOST: tixchange-mysql-conn-svc
+  DB_HOST: tixchange-mysql-conn-svc-2
   DB_PORT: "3306"
 
   #
