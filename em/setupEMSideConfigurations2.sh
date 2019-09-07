@@ -11,7 +11,7 @@ curl -s  -X POST \
   -H 'Content-Type: application/json;charset=UTF-8' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 1703' \
+  -H 'content-length: 1705' \
   -d '{
   "universeId": null,
   "name": "'$EM_UNIVERSE2'",
@@ -44,7 +44,7 @@ curl -s  -X POST \
         "values": [
             "txchangeweb_uc2",
             "txchangesvc_uc2",
-            "tixchange-mysql-conn-svc"
+            "tixchange-mysql-conn-svc-2"
         ],
         "layer": {
             "value": "ATC"
@@ -255,7 +255,7 @@ curl -s -X POST \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 639' \
+  -H 'content-length: 641' \
   -d '{
     "includeStartPoint": false,
     "orItems":[
@@ -271,7 +271,7 @@ curl -s -X POST \
                      "itemType" : "attributeFilter",
                      "attributeName": "Hostname",
                      "attributeOperator": "MATCHES",
-                     "values": [ "tixchange-mysql-conn-svc*" ]
+                     "values": [ "tixchange-mysql-conn-svc-2*" ]
                  }
             ]
         }
@@ -330,5 +330,5 @@ echo "running Trxn Trace pls have patience"
 runTrxnTrace
 sleep 30
 
-correlateAppToInfraForDBVertex
+#correlateAppToInfraForDBVertex
 

@@ -8,14 +8,14 @@ curl -X POST \
   -H 'Authorization: Bearer APM_API_TOKEN' \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
-  -H 'Content-Length: 886' \
+  -H 'Content-Length: 890' \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -d '{
    "id":"REAL_DB",
    "layer": "INFRASTRUCTURE",
-   "version":"1.1.14",
+   "version":"1.1.17",
    "icons":{
    },
 
@@ -23,7 +23,7 @@ curl -X POST \
       "MYSQL_DB":[
          {
             "metricSpecifier":{
-               "format":"MYSQL|tixchange-mysql-conn-svc|jtixchange|Operations",
+               "format":"MYSQL|tixchange-mysql-conn-svc-1|jtixchange|Operations",
                "type":"EXACT"
             },
             "agentSpecifier":{
@@ -41,7 +41,7 @@ curl -X POST \
    },
    "alertMappings":{
         "MYSQL_DB_WITH_AGENT":[
-     "node2|apmiaMySQL_UC1|Agent|MYSQL|tixchange-mysql-conn-svc|jtixchange|Operations:Total Queries"
+     "node2|apmiaMySQL_UC1|Agent|MYSQL|tixchange-mysql-conn-svc-1|jtixchange|Operations:Total Queries"
       ]
    },
    "perspectives":[
@@ -59,14 +59,14 @@ curl -X POST \
   -H 'Authorization: Bearer APM_API_TOKEN' \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
-  -H 'Content-Length: 910' \
+  -H 'Content-Length: 914' \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -d '{
    "id":"INFRRED_DB",
    "layer": "APPLICATION",
-   "version":"1.1.3",
+   "version":"1.1.7",
    "icons":{
    },
 
@@ -76,7 +76,7 @@ curl -X POST \
     "INFERRED_DATABASE":[
          {
             "metricSpecifier":{
-               "format":"Backends|jtixchange on tixchange-mysql-conn-svc-3306 (MySQL DB)",
+               "format":"Backends|jtixchange on tixchange-mysql-conn-svc-1-3306 (MySQL DB)",
                "type":"EXACT"
             },
             "agentSpecifier":{
@@ -95,7 +95,7 @@ curl -X POST \
    "alertMappings":{
 
    "INFERRED_DATABASE_WITH_AGENT":[
-     "TxChangeSvc_UC1|tomcat|Agent|Backends|jtixchange on tixchange-mysql-conn-svc-3306 (MySQL DB):Responses Per Interval"
+     "TxChangeSvc_UC1|tomcat|Agent|Backends|jtixchange on tixchange-mysql-conn-svc-1-3306 (MySQL DB):Responses Per Interval"
       ]
    },
    "perspectives":[
@@ -343,7 +343,7 @@ curl -s -X POST \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 639' \
+  -H 'content-length: 641' \
   -d '{
     "includeStartPoint": false,
     "orItems":[
@@ -359,7 +359,7 @@ curl -s -X POST \
                      "itemType" : "attributeFilter",
                      "attributeName": "Hostname",
                      "attributeOperator": "MATCHES",
-                     "values": [ "tixchange-mysql-conn-svc*" ]
+                     "values": [ "tixchange-mysql-conn-svc-1*" ]
                  }
             ]
         }
