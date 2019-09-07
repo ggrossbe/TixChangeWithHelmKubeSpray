@@ -503,7 +503,7 @@ runFinalSanityCheck () {
 
       else 
         logMsg "*** looks like Tixchange issue - restarting**"
-        $INSTALLATION_FOLDER/healthCheck/restartTixChange.sh
+        $INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh
       fi
 
       sleep 15
