@@ -84,13 +84,15 @@ installBPA () {
 	TIX_WEB_SVC_IP=`kubectl get svc  -n tixchange-v1|grep -v NAME |grep webp |awk '{print $3}'`
 
 
-       logMsg "*** BPA TENANT ID $TENANT_ID, DXC URL $DXC_URL, TIX SVC IP TIX_WEB_SVC_IP**"
+       logMsg "*** BPA TENANT ID $TENANT_ID, DXC URL $DXC_URL, TIX SVC IP $TIX_WEB_SVC_IP**"
 
         cd $INSTALLATION_FOLDER/bpa
 
+   	ESCAPED_DXC_URL=$(echo "$DXC_URL"| sed 's/\//\\\//g')
+
         sed -i "s/TIX_IP_VAL/$TIX_WEB_SVC_IP/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
         sed -i "s/TENANT_ID_VAL/$TENANT_ID/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
-        sed -i "s/DXC_URL_VAL/$DXC_URL/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
+        sed -i "s/DXC_URL_VAL/$ESCAPED_DXC_URL/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
 
 	kubectl create -f tix_bpa_deploy_v1.yaml -n tixchange-v1
 
