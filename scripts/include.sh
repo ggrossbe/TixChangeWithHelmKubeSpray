@@ -8,6 +8,7 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 
 INSTALL_SCRIPT_FOLDER=$PWD/$SCRIPTS_FOLDER/..
 
+BPA_FOLDER=bpa
 KUBESPRAY_FOLDER=kubespray
 TIXCHANGE_FOLDER=tixChangeHelm
 HELM_FOLDER=helmInstaller
@@ -62,6 +63,41 @@ stopDeleteUMA () {
   cd $INSTALL_SCRIPT_FOLDER
 
 }
+
+stopDeleteBPA () {
+	logMsg "***deleting BPA***"
+  	
+	cd $INSTALLATION_FOLDER/bpa
+	kubectl delete -f tix_bpa_deploy_v1.yaml -n tixchange-v1
+	cd $INSTALL_SCRIPT_FOLDER
+}
+
+
+installBPA () {
+	logMsg "***installing BPA***"
+        mkdir $INSTALLATION_FOLDER/bpa 2> /dev/null
+
+  	cp -f $SCRIPTS_FOLDER/../bpa/* $INSTALLATION_FOLDER/bpa
+
+        TENANT_ID=`echo $BA_SNIPPET |awk -F [:/] '{print $11}'`
+	DXC_URL="https://"`echo $BA_SNIPPET |awk -F [/] '{print $11}'`
+	TIX_WEB_SVC_IP=`kubectl get svc  -n tixchange-v1|grep -v NAME |grep webp |awk '{print $3}'`
+
+
+       logMsg "*** BPA TENANT ID $TENANT_ID, DXC URL $DXC_URL, TIX SVC IP TIX_WEB_SVC_IP**"
+
+        cd $INSTALLATION_FOLDER/bpa
+
+        sed -i "s/TIX_IP_VAL/$TIX_WEB_SVC_IP/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
+        sed -i "s/TENANT_ID_VAL/$TENANT_ID/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
+        sed -i "s/DXC_URL_VAL/$DXC_URL/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
+
+	kubectl create -f tix_bpa_deploy_v1.yaml -n tixchange-v1
+
+	logMsg "*** BPA proxy and Listener installed - pls configure EM side if not done**"
+        cd $INSTALL_SCRIPT_FOLDER
+}
+
 
 stopDeleteApmiaMySQL () {
   logMsg "deleting apmia mysql"
@@ -202,6 +238,7 @@ stopDeletelAll () {
   stopDeleteTixChange
   stopDeletePromExporter
   stopDeleteUMA
+  stopDeleteBPA
   stopDeleteKubeSpray
 
   rm -rf $INSTALLATION_FOLDER/*
@@ -218,19 +255,21 @@ stopDeleteAppComponents () {
   stopDeleteTixChange
   stopDeletePromExporter
   stopDeleteUMA
+  stopDeleteBPA
   #rm -rf $INSTALLATION_FOLDER/logs/
 }
 
 
 Usage () {
   echo "Options: "
-  echo "  a : install all (K8s,Helm, UMA, TixChange, Selenium, EM side - Universes, Exp View, Mgmt Mod)"
+  echo "  a : install all (K8s,Helm, UMA, TixChange, BPA Selenium, EM side - Universes, Exp View, Mgmt Mod)"
   #echo "  p : run the pre-req"
-   echo "  r : re-install & run just app components (helm, uma, tixchange, selenium, EM side - Universes, Exp View, Mgmt Mod)"
+   echo "  r : re-install & run just app components (helm, uma, tixchange, BPA, selenium, EM side - Universes, Exp View, Mgmt Mod)"
    echo "  u : install & run just uma"
    echo "  t : install & run just tixChange"
   echo "  s : install & run just selenium"
   echo "  e : EM side configuration: Setup Universes, import mgmt module etc"
+  echo "  b : install and configure HTTPD, BT Listener for BPA"
   echo "  c : cleanup and unintsall everything"
 
 }
