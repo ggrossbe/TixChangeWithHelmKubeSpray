@@ -59,6 +59,12 @@ case $OPTION in
      installTixChangeHelm
 
      sleep 10
+     logMsg "reinstall BPA "
+     stopDeleteBPA
+     sleep 3
+     installBPA
+
+     sleep 10
      installPromExporter
 
      sleep 10
@@ -115,6 +121,12 @@ case $OPTION in
      installTixChangeHelm
 
      sleep 10
+     logMsg "reinstall BPA "
+     stopDeleteBPA 
+     sleep 3
+     installBPA
+
+     sleep 10
      installPromExporter
 
      sleep 10
@@ -148,6 +160,10 @@ case $OPTION in
      installTixChangeHelm
     
      sleep 10 
+     logMsg "reinstall BPA "
+     stopDeleteBPA 
+     sleep 3
+     installBPA
      logMsg " re-installaing Selenium"
      stopDeleteSelenium
      sleep 5
@@ -181,6 +197,15 @@ case $OPTION in
      configureEM em1
      configureEM em2
      
+     ;;
+   b)
+     logMsg "installing and configuring HTTPD, BT Listener for BPA"
+    
+    
+     stopDeleteBPA 
+     sleep 3
+     installBPA
+    
      ;;
    *) 
      logMsg "Not a valid option"
