@@ -8,14 +8,13 @@ curl -k -X POST \
   -H 'Authorization: Bearer APM_API_TOKEN' \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
-  -H 'Content-Length: 890' \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -d '{
    "id":"REAL_DB",
    "layer": "INFRASTRUCTURE",
-   "version":"1.1.17",
+   "version":"1.1.20",
    "icons":{
    },
 
@@ -59,14 +58,13 @@ curl -k -X POST \
   -H 'Authorization: Bearer APM_API_TOKEN' \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
-  -H 'Content-Length: 914' \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -d '{
    "id":"INFRRED_DB",
    "layer": "APPLICATION",
-   "version":"1.1.7",
+   "version":"1.1.9",
    "icons":{
    },
 
@@ -115,7 +113,6 @@ curl -k -s  -X POST \
   -H 'Content-Type: application/json;charset=UTF-8' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 1680' \
   -d '{
   "universeId": null,
   "name": "'$EM_UNIVERSE1'",
@@ -215,7 +212,6 @@ curl -k  -s -X POST \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 658' \
   -d '{
   "type": "experience",
   "data": {
@@ -343,7 +339,6 @@ curl -k -s -X POST \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 641' \
   -d '{
     "includeStartPoint": false,
     "orItems":[
@@ -378,7 +373,6 @@ curl -k -s -X PATCH \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 269' \
   -d ' { "items" : [
                 {
                                 "id":"'$1'",

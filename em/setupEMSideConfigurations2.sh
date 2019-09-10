@@ -11,7 +11,6 @@ curl -k -s  -X POST \
   -H 'Content-Type: application/json;charset=UTF-8' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 1705' \
   -d '{
   "universeId": null,
   "name": "'$EM_UNIVERSE2'",
@@ -127,7 +126,6 @@ curl -k  -s -X POST \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 658' \
   -d '{
   "type": "experience",
   "data": {
@@ -255,7 +253,6 @@ curl -k -s -X POST \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 641' \
   -d '{
     "includeStartPoint": false,
     "orItems":[
@@ -290,7 +287,6 @@ curl -k -s -X PATCH \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 269' \
   -d ' { "items" : [
                 {
                                 "id":"'$1'",
