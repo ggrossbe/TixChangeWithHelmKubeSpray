@@ -1,4 +1,9 @@
-HOST_IPS="10.74.57.152 10.74.57.153 10.74.57.154"
+#!/bin/bash
+HC_FOLDER=`dirname $BASH_SOURCE`
+
+. ./$HC_FOLDER/../config.ini
+
+echo $HOST_IPS
 
 cat /dev/zero | ssh-keygen -q -N "" 2> /dev/null
 
