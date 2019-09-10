@@ -2,20 +2,19 @@ EM_UNIVERSE1=EM_UNIVERSE_NAME
 
 configMySqlMetricAndAlertMapping () {
 
-curl -X POST \
+curl -k -X POST \
   APM_SAAS_URL/apm/appmap/ats/extension/configure \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
-  -H 'Content-Length: 890' \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -d '{
    "id":"REAL_DB",
    "layer": "INFRASTRUCTURE",
-   "version":"1.1.17",
+   "version":"1.1.20",
    "icons":{
    },
 
@@ -53,20 +52,19 @@ curl -X POST \
 
 configInferredDBMetricAndAlertMapping () {
 
-curl -X POST \
+curl -k -X POST \
   APM_SAAS_URL/apm/appmap/ats/extension/configure \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
-  -H 'Content-Length: 914' \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -d '{
    "id":"INFRRED_DB",
    "layer": "APPLICATION",
-   "version":"1.1.7",
+   "version":"1.1.9",
    "icons":{
    },
 
@@ -106,7 +104,7 @@ curl -X POST \
 
 createUniverse () {
 
-curl -s  -X POST \
+curl -k -s  -X POST \
    APM_SAAS_URL/apm/appmap/private/universe \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
@@ -115,7 +113,6 @@ curl -s  -X POST \
   -H 'Content-Type: application/json;charset=UTF-8' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 1680' \
   -d '{
   "universeId": null,
   "name": "'$EM_UNIVERSE1'",
@@ -193,7 +190,7 @@ curl -s  -X POST \
 
 listUniverses () {
 
-curl -s -X GET \
+curl -k -s -X GET \
    'APM_SAAS_URL/apm/appmap/private/universe?skipCount=true&user=SAAS_USER_ID' \
    -H 'Accept: */*' \
    -H 'Authorization: Bearer APM_API_TOKEN' \
@@ -206,7 +203,7 @@ curl -s -X GET \
 
 createExpView () {
 
-curl  -s -X POST \
+curl -k  -s -X POST \
   APM_SAAS_URL/apm/appmap/private/settings/experience \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
@@ -215,7 +212,6 @@ curl  -s -X POST \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 658' \
   -d '{
   "type": "experience",
   "data": {
@@ -254,7 +250,7 @@ curl  -s -X POST \
 }
 
 runTrxnTrace () {
-  curl -s -X POST \
+  curl -k -s -X POST \
   APM_SAAS_URL/apm/appmap/private/agentlist/starttrace \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
@@ -283,7 +279,7 @@ getUniverseIDFromName () {
 
 
 isMgmtModulePresent () {
-  MGMT_MOD=`curl -s -X GET   APM_SAAS_URL/apm/appmap/private/mgmtmod   -H 'Accept: */*'   -H 'Authorization: Bearer APM_API_TOKEN'   -H 'Cache-Control: no-cache'   -H 'Connection: keep-alive'   -H 'Content-Type: application/json'   -H 'Host: APM_SAAS_URL_NO_PROTO'      -H 'cache-control: no-cache'|grep "$*"`
+  MGMT_MOD=`curl -k -s -X GET   APM_SAAS_URL/apm/appmap/private/mgmtmod   -H 'Accept: */*'   -H 'Authorization: Bearer APM_API_TOKEN'   -H 'Cache-Control: no-cache'   -H 'Connection: keep-alive'   -H 'Content-Type: application/json'   -H 'Host: APM_SAAS_URL_NO_PROTO'      -H 'cache-control: no-cache'|grep "$*"`
 
   if [ X"$MGMT_MOD" == "X" ]; then
     echo "no";
@@ -303,7 +299,7 @@ importMgmtModule () {
   if [ "$IS_PRESENT" == "no" ]; then
   echo "MGMT Module $MGMT_MODULE importing"
   
-   curl -s -X POST -H "Authorization: Bearer APM_API_TOKEN"  -F "file=@INSTALLATION_FOLDER/EM_FOLDER/$MGMT_MODULE" APM_SAAS_URL/apm/appmap/private/mgmtmod
+   curl -k -s -X POST -H "Authorization: Bearer APM_API_TOKEN"  -F "file=@INSTALLATION_FOLDER/EM_FOLDER/$MGMT_MODULE" APM_SAAS_URL/apm/appmap/private/mgmtmod
 
   fi
 }
@@ -334,7 +330,7 @@ correlateAppToInfraForDBVertex () {
 
 getMySQLVertexID () {
 
-curl -s -X POST \
+curl -k -s -X POST \
   APM_SAAS_URL/apm/appmap/graph/vertex \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
@@ -343,7 +339,6 @@ curl -s -X POST \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 641' \
   -d '{
     "includeStartPoint": false,
     "orItems":[
@@ -369,7 +364,7 @@ curl -s -X POST \
 }
 
 patchAVertex () {
-curl -s -X PATCH \
+curl -k -s -X PATCH \
   APM_SAAS_URL/apm/appmap/graph/vertex/ \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
@@ -378,7 +373,6 @@ curl -s -X PATCH \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -H 'content-length: 269' \
   -d ' { "items" : [
                 {
                                 "id":"'$1'",

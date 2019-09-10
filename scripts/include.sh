@@ -79,8 +79,16 @@ installBPA () {
 
   	cp -f $SCRIPTS_FOLDER/../bpa/* $INSTALLATION_FOLDER/bpa
 
+	IS_HTTPS=`echo $BA_SNIPPET|grep https`
+	if [ X"IS_HTTPS" == "X" ]; then
+		
+		DXC_URL="http://"`echo $BA_SNIPPET |awk -F [/] '{print $11}'`
+	else
+		DXC_URL="https://"`echo $BA_SNIPPET |awk -F [/] '{print $11}'`
+        fi
+
         TENANT_ID=`echo $BA_SNIPPET |awk -F [:/] '{print $11}'`
-	DXC_URL="https://"`echo $BA_SNIPPET |awk -F [/] '{print $11}'`
+
 	TIX_WEB_SVC_IP=`kubectl get svc  -n tixchange-v1|grep -v NAME |grep webp |awk '{print $3}'`
 
 
@@ -497,7 +505,7 @@ configureEM () {
 
   ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
    ESCAPED_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER"| sed 's/\//\\\//g')
-  APM_SAAS_URL_NO_PROTO=$(echo "$APM_SAAS_URL"| sed 's/https:\/\///g' |sed 's/\//\\\//g' )
+  APM_SAAS_URL_NO_PROTO=$(echo "$APM_SAAS_URL"| sed 's/http[s]*:\/\///g' |sed 's/\//\\\//g' )
 
   sed -i 's/APM_SAAS_URL_NO_PROTO/'$APM_SAAS_URL_NO_PROTO'/' $EM_SETUP_SCRIPT
   sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $EM_SETUP_SCRIPT
