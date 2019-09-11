@@ -79,7 +79,7 @@ installBPA () {
 
   	cp -f $SCRIPTS_FOLDER/../bpa/* $INSTALLATION_FOLDER/bpa
 
-	IS_HTTPS=`echo $BA_SNIPPET|grep https`
+	IS_HTTPS=`echo $BA_SNIPPET|grep -v grep |grep https`
 	if [ X"IS_HTTPS" == "X" ]; then
 		
 		DXC_URL="http://"`echo $BA_SNIPPET |awk -F [/] '{print $11}'`
