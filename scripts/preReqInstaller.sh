@@ -22,6 +22,7 @@ do
    ssh root@$HOST "swapoff -a"
    ssh root@$HOST "systemctl daemon-reload"
    ssh root@$HOST "systemctl restart kubelet"
+   ssh root@$HOST "systemctl disable yum-cron"
    
 done
 
