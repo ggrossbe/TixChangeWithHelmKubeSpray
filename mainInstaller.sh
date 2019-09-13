@@ -121,9 +121,6 @@ case $OPTION in
      installTixChangeHelm
 
      sleep 10
-     logMsg "reinstall BPA "
-     stopDeleteBPA 
-     sleep 3
      installBPA
 
      sleep 10

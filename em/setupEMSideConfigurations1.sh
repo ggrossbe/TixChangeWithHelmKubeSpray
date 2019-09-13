@@ -2,7 +2,7 @@ EM_UNIVERSE1=EM_UNIVERSE_NAME
 
 configMySqlMetricAndAlertMapping () {
 
-curl -k -X POST \
+curl -v -k -X POST \
   APM_SAAS_URL/apm/appmap/ats/extension/configure \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
@@ -14,11 +14,11 @@ curl -k -X POST \
   -d '{
    "id":"REAL_DB",
    "layer": "INFRASTRUCTURE",
-   "version":"1.1.20",
+   "version":"1.1.27",
    "icons":{
    },
 
-   "metricSpecifiers":{
+ "metricSpecifiers":{
       "MYSQL_DB":[
          {
             "metricSpecifier":{
@@ -26,7 +26,7 @@ curl -k -X POST \
                "type":"EXACT"
             },
             "agentSpecifier":{
-               "format":"node2|apmiaMySQL_UC1|Agent",
+               "format":"<agent>",
                "type":"EXACT"
             },
             "section":"Database Metrics",
@@ -40,7 +40,7 @@ curl -k -X POST \
    },
    "alertMappings":{
         "MYSQL_DB_WITH_AGENT":[
-     "node2|apmiaMySQL_UC1|Agent|MYSQL|tixchange-mysql-conn-svc-1|jtixchange|Operations:Total Queries"
+     "node2|apmiaMySQL_UC1|Agent|MYSQL|<Hostname>|jtixchange|Operations:Total Queries"
       ]
    },
    "perspectives":[
@@ -52,7 +52,7 @@ curl -k -X POST \
 
 configInferredDBMetricAndAlertMapping () {
 
-curl -k -X POST \
+curl -v  -k -X POST \
   APM_SAAS_URL/apm/appmap/ats/extension/configure \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
@@ -64,17 +64,16 @@ curl -k -X POST \
   -d '{
    "id":"INFRRED_DB",
    "layer": "APPLICATION",
-   "version":"1.1.9",
+   "version":"1.1.16",
    "icons":{
    },
 
    "metricSpecifiers":{
       
-   
     "INFERRED_DATABASE":[
          {
             "metricSpecifier":{
-               "format":"Backends|jtixchange on tixchange-mysql-conn-svc-1-3306 (MySQL DB)",
+               "format":"Backends|<databasename>",
                "type":"EXACT"
             },
             "agentSpecifier":{
@@ -86,6 +85,7 @@ curl -k -X POST \
                "Responses Per Interval"
             ],
             "filter":{
+                "Hostname": "tixchange-mysql-conn-svc-1"
             }
          }
       ]
@@ -93,12 +93,12 @@ curl -k -X POST \
    "alertMappings":{
 
    "INFERRED_DATABASE_WITH_AGENT":[
-     "TxChangeSvc_UC1|tomcat|Agent|Backends|jtixchange on tixchange-mysql-conn-svc-1-3306 (MySQL DB):Responses Per Interval"
+     "TxChangeSvc_UC1|tomcat|Agent|Backends|<databasename>:Responses Per Interval"
       ]
    },
    "perspectives":[
    ]
-}'
+}'   
 }
 
 

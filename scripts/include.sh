@@ -551,13 +551,20 @@ runFinalSanityCheck () {
         yum install -y http://orion.lcg.ufrj.br/RPMS/myrpms/google/google-chrome-stable-74.0.3729.169-1.x86_64.rpm
 
       else 
-        logMsg "*** looks like Tixchange issue - restarting**"
-        $INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh
+        logMsg "*** looks like Tixchange issue - restarting - Pls have patience**"
+        $INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v1
+        $INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v2
+
+	sleep 15
       fi
 
-      sleep 15
 
-      sed -i "s/failed/NOT_FAILED/g" $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out
+       PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
+       kill -9 $PID
+
+  	nohup ./$SELENIUM_UC > ucNohup.out 2>&1 &   
+
+       sleep 15
    fi
 
   
