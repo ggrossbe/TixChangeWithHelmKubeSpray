@@ -1,5 +1,40 @@
 EM_UNIVERSE2=EM_UNIVERSE_NAME
 
+configInferredDBMetricAndAlertMapping () {
+                
+curl -v -k -X POST \
+  APM_SAAS_URL/apm/appmap/ats/extension/configure \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d '{
+   "id":"INFRRED_DB2",
+   "layer": "APPLICATION",
+   "version":"1.1.16",
+   "icons":{
+   },
+
+   "metricSpecifiers":{
+
+   
+   },
+   "alertMappings":{
+          
+   "INFERRED_DATABASE_WITH_AGENT":[
+     "TxChangeSvc_UC2|tomcat|Agent|Backends|<databasename>:Responses Per Interval"
+      ]   
+   },     
+   "perspectives":[
+   ]        
+}'          
+} 
+
+
+
 createUniverse () {
 
 curl -k -s  -X POST \
@@ -327,4 +362,4 @@ runTrxnTrace
 sleep 30
 
 #correlateAppToInfraForDBVertex
-
+configInferredDBMetricAndAlertMapping
