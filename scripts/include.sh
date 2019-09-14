@@ -562,7 +562,7 @@ runFinalSanityCheck () {
        PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
        kill -9 $PID
 
-  	nohup ./$SELENIUM_UC > ucNohup.out 2>&1 &   
+  	nohup $INSTALLATION_FOLDER/$SELENIUM_FOLDER/$SELENIUM_UC > ucNohup.out 2>&1 &   
 
        sleep 15
    fi
