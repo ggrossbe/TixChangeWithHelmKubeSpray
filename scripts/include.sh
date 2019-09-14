@@ -565,6 +565,9 @@ runFinalSanityCheck () {
   	nohup $INSTALLATION_FOLDER/$SELENIUM_FOLDER/$SELENIUM_UC > ucNohup.out 2>&1 &   
 
        sleep 15
+       configureEM em1
+       configureEM em2
+
    fi
 
   
