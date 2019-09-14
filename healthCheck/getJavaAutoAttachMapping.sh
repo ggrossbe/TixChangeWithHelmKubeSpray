@@ -2,6 +2,7 @@
 # useful to debug if autoattach is working or not
 #
 # author srikant.noorani@broadcom.com
+# to run  ./getJavaAutoAttachMapping.sh &> CA_UMA_output.log
 
 
 mkdir CA_APM 2> /dev/null
@@ -65,7 +66,8 @@ awk -F, '{print $1 $2 $3 $4 $5 $6 $7}' $OUTPUT_FILE |grep "^*" > javaAutoAttachM
 
 cd ..
 
-tar cvf javaAutoAttachMapping.tar CA_APM
+tar cvf javaAutoAttachMapping.tar CA_APM CA_UMA_output.log
+rm CA_UMA_output.log
 
 sleep 2
 echo "****share javaAutoAttachMapping.tar with CA/BC"
