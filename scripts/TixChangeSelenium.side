@@ -2,7 +2,7 @@
   "id": "6da13a18-ccbb-441b-95c6-d740fe29d2d2",
   "version": "2.0",
   "name": "TixChangeSelenium",
-  "url": "${dummy-base-url}",
+  "url": "http://uc1.jtixchange.com/",
   "tests": [{
     "id": "d060aa52-f8e8-4711-a8d8-1a513f85e372",
     "name": "EndToEnd",
@@ -118,7 +118,17 @@
       ],
       "value": ""
     }, {
-      "id": "9917c7ad-c20a-46fe-a73e-9914e11801f0",
+      "id": "979f1d8a-7565-492e-8f17-c8099f5d61ac",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(1) > td:nth-child(1) > a > img",
+      "targets": [
+        ["css=tr:nth-child(1) > td:nth-child(1) > a > img", "css:finder"],
+        ["xpath=//img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ec4712e8-4a50-42e1-9300-ccce6ebb7792",
       "comment": "",
       "command": "click",
       "target": "css=tr:nth-child(2) img",
@@ -250,6 +260,6 @@
     "timeout": 300,
     "tests": ["d060aa52-f8e8-4711-a8d8-1a513f85e372"]
   }],
-  "urls": ["https://10.74.240.132/", "https://10.74.240.132/https://10.74.240.132/jtixchange_web/shop/index.shtml", "https://10.74.240.132/jtixchange_web/shop/index.shtml"],
+  "urls": ["https://10.74.240.132/", "https://10.74.240.132/https://10.74.240.132/jtixchange_web/shop/index.shtml", "https://10.74.240.132/jtixchange_web/shop/index.shtml", "http://uc1.jtixchange.com/"],
   "plugins": []
 }

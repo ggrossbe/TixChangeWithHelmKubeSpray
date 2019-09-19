@@ -474,6 +474,8 @@ configureAndRunSelenium () {
 
 configureEM () {
 
+  cd  $INSTALL_SCRIPT_FOLDER/
+
   if [ X"$1" == "Xem1" ]; then
     EM_SETUP_SCRIPT=$EM_SETUP_SCRIPT1
     EM_UNIVERSE_NAME=$EM_UNIVERSE1_NAME
@@ -537,6 +539,8 @@ runFinalSanityCheck () {
 
    logMsg "running sanity test to ensure its all good - pls wait"
 
+   cd $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+
    sleep 15
 
    IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
@@ -562,7 +566,7 @@ runFinalSanityCheck () {
        PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
        kill -9 $PID
 
-  	nohup $INSTALLATION_FOLDER/$SELENIUM_FOLDER/$SELENIUM_UC > ucNohup.out 2>&1 &   
+  	nohup $INSTALLATION_FOLDER/$SELENIUM_FOLDER/$SELENIUM_UC > $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out 2>&1 &   
 
        sleep 15
        configureEM em1
@@ -586,6 +590,7 @@ runFinalSanityCheck () {
 
      logMsg "Sanity Passed"
 
+	cd -
 }
 
 
