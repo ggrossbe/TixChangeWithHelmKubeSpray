@@ -521,10 +521,12 @@ installAndConfigureSelenium () {
   
    sed -i 's/SELENIUM_HUB_SVC_IP/'$SELENIUM_HUB_SVC_IP'/' $SELENIUM_UC
    
-  sleep 5
+  sleep 15
   
   chmod 755 runS*
   nohup ./$SELENIUM_UC > ucNohup.out 2>&1 &   
+
+  sleep 10
 
   cd -
 }
@@ -598,17 +600,25 @@ runFinalSanityCheck () {
 
    cd $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
-   sleep 15
+   sleep 25
 
    IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
 
    if [ X"$IS_TEST_PASS" != "X" ]; then
       
-        logMsg "*** looks like Tixchange issue - restarting - Pls have patience**"
-        $INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v1
-        $INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v2
+      
+        IS_TEST_PASS=`grep nth-child $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
+	if [ X"$IS_TEST_PASS" != "X" ]; then
+        	logMsg "*** looks like Tixchange issue - restarting - Pls have patience**"
+        	$INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v1
+        	$INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v2
 
-	sleep 15
+		sleep 15
+        else
+        	logMsg "*** looks like Selenium node chrome  issue - restarting - Pls have patience**"
+        	$INSTALL_SCRIPT_FOLDER/healthCheck/restartSeleniumNodePod.sh 
+        	sleep 15
+	fi
 
 
        PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
@@ -616,7 +626,7 @@ runFinalSanityCheck () {
 
   	nohup $INSTALLATION_FOLDER/$SELENIUM_FOLDER/$SELENIUM_UC > $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out 2>&1 &   
 
-       sleep 15
+       sleep 30
        configureEM em1
        configureEM em2
 
