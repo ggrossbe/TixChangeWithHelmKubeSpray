@@ -37,3 +37,8 @@ done
 
    export LC_ALL=C
 
+     logMsg "********* installting node, npm, selenium side runner"
+  yum install -y gcc-c++ make
+  curl -sL https://rpm.nodesource.com/setup_10.x | sudo -E bash -
+  sudo yum install -y nodejs
+  npm install -g selenium-side-runner
