@@ -40,6 +40,10 @@ spec:
             value: "4444"
           - name: CA_APM_MONITORING_ENABLED
             value: "false"
+          - name: NODE_MAX_INSTANCES
+            value: "4"
+          - name: NODE_MAX_SESSION
+            value: "4"
         resources:
           limits:
             memory: "1000Mi"
