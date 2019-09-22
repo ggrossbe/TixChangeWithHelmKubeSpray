@@ -9,6 +9,8 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 INSTALL_SCRIPT_FOLDER=$PWD/$SCRIPTS_FOLDER/..
 
 BPA_FOLDER=bpa
+SELENIUM_NODE_YML=selenium-node-chrome.yml
+SELENIUM_HUB_YML=selenium-hub-chrome.yml
 KUBESPRAY_FOLDER=kubespray
 TIXCHANGE_FOLDER=tixChangeHelm
 HELM_FOLDER=helmInstaller
@@ -200,7 +202,7 @@ stopDeleteTixChange () {
 
 }
 
-
+#Stops the selenium pods
 stopDeleteSelenium () {
 
   if [ -d "$INSTALLATION_FOLDER" ]; then
@@ -215,9 +217,12 @@ stopDeleteSelenium () {
          
          PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
          kill -9 $PID
-         #npm uninstall -g  selenium-side-runner  --unsafe-perm=true --allow-root
-         #npm uninstall -g  chromedriver --unsafe-perm=true --allow-root
-         #yum remove -y google-chrome
+         kubectl delete -f $SELENIUM_NODE_YML -n selenium 
+         sleep 5
+         kubectl delete -f $SELENIUM_HUB_YML -n selenium 
+
+         kubectl delete ns selenium
+
          cd ..
          rm -rf $SELENIUM_FOLDER
                 
@@ -230,21 +235,46 @@ stopDeleteSelenium () {
 }
 
 
+#stops the selenium pods + uninstalls selenium-side-runner
 uninstallSelenium () {
+
+    logMsg "Uninstalling Selenium"
+
          PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
          kill -9 $PID
+	kubectl delete -f $SELENIUM_NODE_YML -n selenium --grace-period=0 --force
+        sleep 5
+         kubectl delete -f $SELENIUM_HUB_YML -n selenium --grace-period=0 --force
          npm uninstall -g  selenium-side-runner  --unsafe-perm=true --allow-root
-         npm uninstall -g  chromedriver --unsafe-perm=true --allow-root
-         yum remove -y google-chrome
+      
+         kubectl delete ns selenium
+
+   if [ -d "$INSTALLATION_FOLDER" ]; then
+
+
+      cd $INSTALLATION_FOLDER
+    
+      #ensure folder exists again
+      if [ $? -eq 0 ]; then
+         cd $SELENIUM_FOLDER
+         logMsg "Deleting Selenium"
+         
+        cd ..
+         rm -rf $SELENIUM_FOLDER
+
+         sleep 5
+
+      fi
+   fi
 }
 
 
 
 
-stopDeletelAll () {
+stopDeleteAll () {
 
   stopDeleteSelenium
-  uninstallSelenium
+  #uninstallSelenium
   stopDeleteTixChange
   stopDeletePromExporter
   stopDeleteUMA
@@ -410,34 +440,50 @@ installTixChangeHelm () {
    sleep 5
 }
 
+#Create the selenium pod + install side runner
 installSelenium () {
-  yum install -y gcc-c++ make
-  curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
+  #yum install -y gcc-c++ make
+  #curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
 
   sudo yum -y install nodejs-12.8.1
 
-  yum install -y http://orion.lcg.ufrj.br/RPMS/myrpms/google/google-chrome-stable-74.0.3729.169-1.x86_64.rpm
 
   logMsg "installing selenium-side-runner"
   npm install -g selenium-side-runner
 
-  logMsg "Uninstall and installing chromedriver"
-  npm uninstall -g  chromedriver@74 --unsafe-perm=true --allow-root
-  npm install -g  chromedriver@74 --unsafe-perm=true --allow-root
+  kubectl create ns selenium
+  sleep 2
+  kubectl create -f $SELENIUM_HUB_YML -n selenium --grace-period=0 --force
+  sleep 5
+  kubectl create -f $SELENIUM_NODE_YML -n selenium --grace-period=0 --force
+
+  sleep 5
 
 }
 
+#recreate selenium pods
+recreateSeleniumPods () {
+  logMsg "Recreating Selenium Pods"
+  kubectl create ns selenium
+  sleep 2
+  kubectl create -f $SELENIUM_HUB_YML -n selenium --grace-period=0 --force
+  sleep 5
+  kubectl create -f $SELENIUM_NODE_YML -n selenium --grace-period=0 --force
 
-configureAndRunSelenium () {
+  sleep 5
+}
 
-  logMsg "Install and Run Selenium"
+installAndConfigureSelenium () {
+
+  logMsg "Install and Config Selenium"
 
   if [ ! -d $INSTALLATION_FOLDER/$SELENIUM_FOLDER ]; then
     mkdir -p $INSTALLATION_FOLDER/$SELENIUM_FOLDER
   fi
 
-  cp $SCRIPTS_FOLDER/TixChangeSelenium*.side $INSTALLATION_FOLDER/$SELENIUM_FOLDER
-  cp $SCRIPTS_FOLDER/runSeleniumUC* $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+  cp $SCRIPTS_FOLDER/../selenium/* $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+  #cp $SCRIPTS_FOLDER/../selenium/TixChangeSelenium*.side $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+  #cp $SCRIPTS_FOLDER/../selenium/runSeleniumUC* $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
   cd $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
@@ -448,9 +494,7 @@ configureAndRunSelenium () {
   sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC
   sed -i 's/APM_API_TOKEN/'$APM_MANAGER_CREDENTIAL'/' $SELENIUM_UC
 
-  #sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC2
-  #sed -i 's/APM_API_TOKEN/'$APM_MANAGER_CREDENTIAL'/' $SELENIUM_UC2
-
+   
    TIXCHANGE_WEB_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep tix-web`
    TIXCHANGE_WS_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep tix-ws`
 
@@ -464,11 +508,26 @@ configureAndRunSelenium () {
    sed -i 's/TIX_WS_INSTANCE2/'$TIXCHANGE_WS_POD2'/' $SELENIUM_UC
 
 
+    kubectl create ns selenium
+  sleep 2
+  kubectl create -f selenium-hub-deployment.yml -n selenium
+  sleep 5
+   sed -i 's/HOST_IP/'$TIX_IP'/' $SELENIUM_NODE_YML
+  kubectl create -f $SELENIUM_NODE_YML -n selenium
+
+  sleep 10
+
+   SELENIUM_HUB_SVC_IP=`kubectl get svc -n selenium|grep -v NAME |grep -v grep |awk '{print $3}'`
+  
+   sed -i 's/SELENIUM_HUB_SVC_IP/'$SELENIUM_HUB_SVC_IP'/' $SELENIUM_UC
+   
+  sleep 15
+  
   chmod 755 runS*
   nohup ./$SELENIUM_UC > ucNohup.out 2>&1 &   
-  #nohup ./$SELENIUM_UC2 > uc2Nohup.out 2>&1 &   
 
-  
+  sleep 10
+
   cd -
 }
 
@@ -541,26 +600,25 @@ runFinalSanityCheck () {
 
    cd $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
-   sleep 15
+   sleep 25
 
    IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
 
    if [ X"$IS_TEST_PASS" != "X" ]; then
       
-      GOOGL_CHRM_VER=`google-chrome --version |grep "74.0"`
+      
+        IS_TEST_PASS=`grep nth-child $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
+	if [ X"$IS_TEST_PASS" != "X" ]; then
+        	logMsg "*** looks like Tixchange issue - restarting - Pls have patience**"
+        	$INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v1
+        	$INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v2
 
-      if [ X"$GOOGL_CHRM_VER" == "X" ]; then
-        logMsg "** Google chrome version issue - reinstalling **"
-        yum remove -y google-chrome
-        yum install -y http://orion.lcg.ufrj.br/RPMS/myrpms/google/google-chrome-stable-74.0.3729.169-1.x86_64.rpm
-
-      else 
-        logMsg "*** looks like Tixchange issue - restarting - Pls have patience**"
-        $INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v1
-        $INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v2
-
-	sleep 15
-      fi
+		sleep 15
+        else
+        	logMsg "*** looks like Selenium node chrome  issue - restarting - Pls have patience**"
+        	$INSTALL_SCRIPT_FOLDER/healthCheck/restartSeleniumNodePod.sh 
+        	sleep 15
+	fi
 
 
        PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
@@ -568,7 +626,7 @@ runFinalSanityCheck () {
 
   	nohup $INSTALLATION_FOLDER/$SELENIUM_FOLDER/$SELENIUM_UC > $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out 2>&1 &   
 
-       sleep 15
+       sleep 30
        configureEM em1
        configureEM em2
 
