@@ -44,7 +44,7 @@ fi
 case $OPTION in 
    a) 
 
-     stopDeletelAll
+     stopDeleteAll
 
      cd $INSTALL_SCRIPT_FOLDER
      $MAIN_FOLDER/scripts/preReqInstaller.sh
@@ -77,10 +77,9 @@ case $OPTION in
      #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
 
-     installSelenium
+     installAndConfigureSelenium
      sleep 10
 
-     configureAndRunSelenium
 
      configureEM em1
      configureEM em2
@@ -135,7 +134,7 @@ case $OPTION in
      sleep 15
      #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
-     configureAndRunSelenium
+     installAndConfigureSelenium
      
      configureEM em1
      configureEM em2
@@ -164,7 +163,8 @@ case $OPTION in
      logMsg " re-installaing Selenium"
      stopDeleteSelenium
      sleep 5
-     configureAndRunSelenium
+     installAndConfigureSelenium
+     sleep 5
      
      configureEM em1
      configureEM em2
@@ -175,7 +175,7 @@ case $OPTION in
      stopDeleteSelenium
 
      logMsg " Installing just the selenium components"
-     configureAndRunSelenium
+     installAndConfigureSelenium
      
      runFinalSanityCheck
      ;;
@@ -185,7 +185,7 @@ case $OPTION in
      
      read INPUT
     
-     stopDeletelAll
+     stopDeleteAll
      ;;
    e)
      logMsg "Setup EM (Universes, Exp Views, mgmt mod). sleep 10sec before starting. Hope agents are already reporting"
