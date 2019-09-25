@@ -602,13 +602,19 @@ runFinalSanityCheck () {
 
    sleep 25
 
+   IS_TEST_PASS2=`grep ECONNREFUSED   $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
+   if [ X"$IS_TEST_PASS2" != "X" ]; then
+	logMsg "*** looks like Selenium node chrome not ready yet - giving it few more seconds"	
+        sleep 25
+   fi
+
    IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
 
    if [ X"$IS_TEST_PASS" != "X" ]; then
       
       
-        IS_TEST_PASS=`grep nth-child $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
-	if [ X"$IS_TEST_PASS" != "X" ]; then
+        IS_TEST_PASS1=`grep -e nth-child -e NoSuchElem  $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
+	if [ X"$IS_TEST_PASS1" != "X" ]; then
         	logMsg "*** looks like Tixchange issue - restarting - Pls have patience**"
         	$INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v1
         	$INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v2
@@ -650,6 +656,22 @@ runFinalSanityCheck () {
 
 	cd -
 }
+
+
+rm () {
+  logMsg "calling custom remove rm"
+
+  IS_NONROOT=`echo "$2" |grep -c [a-zA-Z0-9]`
+
+  if [ X"$IS_NONROOT" == "X0" ]; then
+  	logMsg "FATAL - Trying to remove files from unknown folders - $2. Pls check if passwordless access etc is good... exiting.."
+        sleep 2
+        exit
+  else 
+      /bin/rm -rf $2
+  fi
+}
+
 
 
 
