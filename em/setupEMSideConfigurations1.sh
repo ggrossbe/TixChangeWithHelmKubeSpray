@@ -22,8 +22,8 @@ curl -v -k -X POST \
       "MYSQL_DB":[
          {
             "metricSpecifier":{
-               "format":"MYSQL|tixchange-mysql-conn-svc-1|jtixchange|Operations",
-               "type":"EXACT"
+               "format":"MYSQL\\|tixchange\\-mysql\\-conn\\-svc\\-1\\|jtixchange.*",
+               "type":"REGEX"
             },
             "agentSpecifier":{
                "format":"<agent>",
@@ -31,7 +31,7 @@ curl -v -k -X POST \
             },
             "section":"Database Metrics",
             "metricNames":[
-               "Total Queries", "Total Requests", "Total Deletes", "Total Inserts"
+               "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
             ],
             "filter":{
             }
