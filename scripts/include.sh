@@ -383,8 +383,11 @@ installTixChangeHelm () {
    #sed -i 's/SNIPPET_STRING/'$BA_SNIPPET'/' template/tix_configmap_apm.yaml
 
    ESCAPED_APM_MANAGER_URL_1=$(echo "$APM_MANAGER_URL_1"| sed 's/\//\\\//g')
-   sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v1.yaml
-   sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v1.yaml
+   #sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v1.yaml
+   #sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v1.yaml
+
+   sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v1.yaml
+   sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v1.yaml
 
    sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v2.yaml
    sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v2.yaml
