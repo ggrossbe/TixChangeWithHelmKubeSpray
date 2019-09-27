@@ -265,8 +265,8 @@ runTrxnTrace () {
   "traceSessionDuration": 60000,
   "agentList": [
     "SuperDomain|Experience Collector Host|DxC Agent|Logstash-APM-Plugin",
-    "SuperDomain|TIX_WEB_INSTANCE|tomcat|Agent",
-    "SuperDomain|TIX_WS_INSTANCE|tomcat|Agent"
+    "SuperDomain|TxChangeWeb_UC1|tomcat|Agent",
+    "SuperDomain|TxChangeSvc_UC1|tomcat|Agent"
   ]
 }'
 }
@@ -306,7 +306,7 @@ importMgmtModule () {
 }
 
 correlateAppToInfraForDBVertex () {
-  SQL_POD=`kubectl get pods -n tixchange-v1 |grep mysql|awk '{print $1}'`
+  SQL_POD=`kubectl get pods -n tixchange-v1 |grep $1 |awk '{print $1}'`
 
   echo "SQL POD $SQL_POD"
   if [ X"$SQL_POD" != "X" ]; then
@@ -413,7 +413,8 @@ echo "running Trxn Trace pls have patience"
 runTrxnTrace
 sleep 30
 
-correlateAppToInfraForDBVertex
+correlateAppToInfraForDBVertex tix-mysql
+correlateAppToInfraForDBVertex apmia-mysql
 
 
 sleep 10
