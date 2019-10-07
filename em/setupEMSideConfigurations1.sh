@@ -265,8 +265,8 @@ runTrxnTrace () {
   "traceSessionDuration": 60000,
   "agentList": [
     "SuperDomain|Experience Collector Host|DxC Agent|Logstash-APM-Plugin",
-    "SuperDomain|TIX_WEB_INSTANCE|tomcat|Agent",
-    "SuperDomain|TIX_WS_INSTANCE|tomcat|Agent"
+    "SuperDomain|TxChangeWeb_UC1|tomcat|Agent",
+    "SuperDomain|TxChangeSvc_UC1|tomcat|Agent"
   ]
 }'
 }
@@ -306,7 +306,7 @@ importMgmtModule () {
 }
 
 correlateAppToInfraForDBVertex () {
-  SQL_POD=`kubectl get pods -n tixchange-v1 |grep mysql|awk '{print $1}'`
+  SQL_POD=`kubectl get pods -n tixchange-v1 |grep $1 |awk '{print $1}'`
 
   echo "SQL POD $SQL_POD"
   if [ X"$SQL_POD" != "X" ]; then
@@ -364,6 +364,112 @@ curl -k -s -X POST \
 
 }
 
+
+getApmiaMysqlVertexID () {
+
+curl -k -s -X POST \
+  APM_SAAS_URL/apm/appmap/graph/vertex \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "includeStartPoint": false,
+    "orItems":[
+        {
+            "andItems":[
+                {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Type",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "MYSQL_DB*" ]
+                 },
+                 {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Hostname",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "tixchange-mysql-conn-svc-1*" ]
+                 }
+            ]
+        }
+    ]
+}'
+
+}
+
+getHostVertexID () {
+
+curl -k -s -X POST \
+  APM_SAAS_URL/apm/appmap/graph/vertex \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "includeStartPoint": false,
+    "orItems":[
+        {
+            "andItems":[
+                {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Type",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "HOST*" ]
+                 },
+                 {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Hostname",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "node2*" ]
+                 }
+            ]
+        }
+    ]
+}'
+
+}
+
+PatchHostToApmiaContainsReln () {
+	HOST_VERTEX_ID=`getHostVertexID|./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
+	APMIA_VERTEX_ID=`getApmiaMysqlVertexID |./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
+
+   if [ X"$HOST_VERTEX_ID" != "X" ] && [ X"$APMIA_VERTEX_ID" != "X" ]; then
+       patchAVertexWithContainsReln $HOST_VERTEX_ID cor.containsreln.contains.from
+       patchAVertexWithContainsReln $APMIA_VERTEX_ID cor.containsreln.contains.to
+    fi
+}
+
+
+
+patchAVertexWithContainsReln () {
+curl -k -s -X PATCH \
+  APM_SAAS_URL/apm/appmap/graph/vertex/ \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d ' { "items" : [
+                {
+                                "id":"'$1'",
+                                "attributes": {
+                                "'$2'":["contains"]
+        }
+    }
+  ]
+}'
+}
+
+
+
 patchAVertex () {
 curl -k -s -X PATCH \
   APM_SAAS_URL/apm/appmap/graph/vertex/ \
@@ -413,7 +519,10 @@ echo "running Trxn Trace pls have patience"
 runTrxnTrace
 sleep 30
 
-correlateAppToInfraForDBVertex
+correlateAppToInfraForDBVertex tix-mysql
+correlateAppToInfraForDBVertex apmia-mysql
+
+PatchHostToApmiaContainsReln
 
 
 sleep 10

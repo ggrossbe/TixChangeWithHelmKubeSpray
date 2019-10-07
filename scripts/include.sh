@@ -9,8 +9,7 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 INSTALL_SCRIPT_FOLDER=$PWD/$SCRIPTS_FOLDER/..
 
 BPA_FOLDER=bpa
-SELENIUM_NODE_YML=selenium-node-chrome.yml
-SELENIUM_HUB_YML=selenium-hub-chrome.yml
+SELENIUM_STND_ALN_YML=selenium-standalone.yml
 KUBESPRAY_FOLDER=kubespray
 TIXCHANGE_FOLDER=tixChangeHelm
 HELM_FOLDER=helmInstaller
@@ -215,11 +214,7 @@ stopDeleteSelenium () {
          cd $SELENIUM_FOLDER
          logMsg "Deleting Selenium"
          
-         PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
-         kill -9 $PID
-         kubectl delete -f $SELENIUM_NODE_YML -n selenium 
-         sleep 5
-         kubectl delete -f $SELENIUM_HUB_YML -n selenium 
+         kubectl delete -f $SELENIUM_STND_ALN_YML -n selenium 
 
          kubectl delete ns selenium
 
@@ -235,46 +230,9 @@ stopDeleteSelenium () {
 }
 
 
-#stops the selenium pods + uninstalls selenium-side-runner
-uninstallSelenium () {
-
-    logMsg "Uninstalling Selenium"
-
-         PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
-         kill -9 $PID
-	kubectl delete -f $SELENIUM_NODE_YML -n selenium --grace-period=0 --force
-        sleep 5
-         kubectl delete -f $SELENIUM_HUB_YML -n selenium --grace-period=0 --force
-         npm uninstall -g  selenium-side-runner  --unsafe-perm=true --allow-root
-      
-         kubectl delete ns selenium
-
-   if [ -d "$INSTALLATION_FOLDER" ]; then
-
-
-      cd $INSTALLATION_FOLDER
-    
-      #ensure folder exists again
-      if [ $? -eq 0 ]; then
-         cd $SELENIUM_FOLDER
-         logMsg "Deleting Selenium"
-         
-        cd ..
-         rm -rf $SELENIUM_FOLDER
-
-         sleep 5
-
-      fi
-   fi
-}
-
-
-
-
 stopDeleteAll () {
 
   stopDeleteSelenium
-  #uninstallSelenium
   stopDeleteTixChange
   stopDeletePromExporter
   stopDeleteUMA
@@ -443,38 +401,6 @@ installTixChangeHelm () {
    sleep 5
 }
 
-#Create the selenium pod + install side runner
-installSelenium () {
-  #yum install -y gcc-c++ make
-  #curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
-
-  sudo yum -y install nodejs-12.8.1
-
-
-  logMsg "installing selenium-side-runner"
-  npm install -g selenium-side-runner
-
-  kubectl create ns selenium
-  sleep 2
-  kubectl create -f $SELENIUM_HUB_YML -n selenium --grace-period=0 --force
-  sleep 5
-  kubectl create -f $SELENIUM_NODE_YML -n selenium --grace-period=0 --force
-
-  sleep 5
-
-}
-
-#recreate selenium pods
-recreateSeleniumPods () {
-  logMsg "Recreating Selenium Pods"
-  kubectl create ns selenium
-  sleep 2
-  kubectl create -f $SELENIUM_HUB_YML -n selenium --grace-period=0 --force
-  sleep 5
-  kubectl create -f $SELENIUM_NODE_YML -n selenium --grace-period=0 --force
-
-  sleep 5
-}
 
 installAndConfigureSelenium () {
 
@@ -513,16 +439,14 @@ installAndConfigureSelenium () {
 
     kubectl create ns selenium
   sleep 2
-  kubectl create -f selenium-hub-deployment.yml -n selenium
-  sleep 5
-   sed -i 's/HOST_IP/'$TIX_IP'/' $SELENIUM_NODE_YML
-  kubectl create -f $SELENIUM_NODE_YML -n selenium
+   sed -i 's/HOST_IP/'$TIX_IP'/' $SELENIUM_STND_ALN_YML
+  kubectl create -f $SELENIUM_STND_ALN_YML -n selenium
 
   sleep 10
 
-   SELENIUM_HUB_SVC_IP=`kubectl get svc -n selenium|grep -v NAME |grep -v grep |awk '{print $3}'`
+   #SELENIUM_HUB_SVC_IP=`kubectl get svc -n selenium|grep -v NAME |grep -v grep |awk '{print $3}'`
   
-   sed -i 's/SELENIUM_HUB_SVC_IP/'$SELENIUM_HUB_SVC_IP'/' $SELENIUM_UC
+   #sed -i 's/SELENIUM_HUB_SVC_IP/'$SELENIUM_HUB_SVC_IP'/' $SELENIUM_UC
    
   sleep 15
   
@@ -605,18 +529,19 @@ runFinalSanityCheck () {
 
    sleep 25
 
-   IS_TEST_PASS2=`grep ECONNREFUSED   $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
+   SELENIUM_POD=`kubectl get pods -n selenium |grep -v grep |grep -v NAME|tail -1|awk '{print $1}'`
+   IS_TEST_PASS2=`kubectl logs --tail=25  $SELENIUM_POD -n selenium|grep ECONNREFUSED `
    if [ X"$IS_TEST_PASS2" != "X" ]; then
 	logMsg "*** looks like Selenium node chrome not ready yet - giving it few more seconds"	
         sleep 25
    fi
 
-   IS_TEST_PASS=`grep failed $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
+   IS_TEST_PASS=`kubectl logs --tail=25  $SELENIUM_POD -n selenium|grep failed `
 
    if [ X"$IS_TEST_PASS" != "X" ]; then
       
       
-        IS_TEST_PASS1=`grep -e nth-child -e NoSuchElem  $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out`
+        IS_TEST_PASS1=`kubectl logs --tail=25  $SELENIUM_POD -n selenium|grep -e nth-child -e NoSuchElem `
 	if [ X"$IS_TEST_PASS1" != "X" ]; then
         	logMsg "*** looks like Tixchange issue - restarting - Pls have patience**"
         	$INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v1
@@ -630,10 +555,10 @@ runFinalSanityCheck () {
 	fi
 
 
-       PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
-       kill -9 $PID
+       #PID=`ps -ef |grep -i sele|grep -v grep|awk '{ print $2}'`
+       #kill -9 $PID
 
-  	nohup $INSTALLATION_FOLDER/$SELENIUM_FOLDER/$SELENIUM_UC > $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out 2>&1 &   
+  	#nohup $INSTALLATION_FOLDER/$SELENIUM_FOLDER/$SELENIUM_UC > $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out 2>&1 &   
 
        sleep 30
        configureEM em1
@@ -643,11 +568,11 @@ runFinalSanityCheck () {
 
   
    
-   IS_TEST_PASS=`tail -8 $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out |grep failed`
+   IS_TEST_PASS=`kubectl logs --tail=25  $SELENIUM_POD -n selenium|grep failed`
    if [ X"$IS_TEST_PASS" != "X" ]; then
     
       logMsg ""
-      logMsg "*** Looks like UC1 or UC2 Selenium tests are experiencing issues running the test. Pls check $INSTALLATION_FOLDER/$SELENIUM_FOLDER/ucNohup.out and raise an issue in git hub"	
+      logMsg "*** Looks like UC1 or UC2 Selenium tests are experiencing issues running the test. Pls check kubectl logs --tail=25  $SELENIUM_POD -n selenium and raise an issue in git hub"	
       logMsg ""
 
       
