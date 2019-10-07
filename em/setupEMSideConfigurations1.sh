@@ -436,12 +436,12 @@ curl -k -s -X POST \
 }
 
 PatchHostToApmiaContainsReln () {
-	HOST_VERTEX_ID=`getHostVertexID`
-	APMIA_VERTEX_ID=`getApmiaMysqlVertexID`
+	HOST_VERTEX_ID=`getHostVertexID|./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
+	APMIA_VERTEX_ID=`getApmiaMysqlVertexID |./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
 
    if [ X"$HOST_VERTEX_ID" != "X" ] && [ X"$APMIA_VERTEX_ID" != "X" ]; then
-       patchAVertexWithContainsReln $HOST_VERTEX_ID 
-       patchAVertexWithContainsReln $APMIA_VERTEX_ID 
+       patchAVertexWithContainsReln $HOST_VERTEX_ID cor.containsreln.contains.from
+       patchAVertexWithContainsReln $APMIA_VERTEX_ID cor.containsreln.contains.to
     fi
 }
 
@@ -461,7 +461,7 @@ curl -k -s -X PATCH \
                 {
                                 "id":"'$1'",
                                 "attributes": {
-                                "cor.containsreln.contains.to":["contains"]
+                                "'$2'":["contains"]
         }
     }
   ]
