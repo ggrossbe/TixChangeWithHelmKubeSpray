@@ -364,6 +364,112 @@ curl -k -s -X POST \
 
 }
 
+
+getApmiaMysqlVertexID () {
+
+curl -k -s -X POST \
+  APM_SAAS_URL/apm/appmap/graph/vertex \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "includeStartPoint": false,
+    "orItems":[
+        {
+            "andItems":[
+                {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Type",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "MYSQL_DB*" ]
+                 },
+                 {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Hostname",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "tixchange-mysql-conn-svc-1*" ]
+                 }
+            ]
+        }
+    ]
+}'
+
+}
+
+getHostVertexID () {
+
+curl -k -s -X POST \
+  APM_SAAS_URL/apm/appmap/graph/vertex \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "includeStartPoint": false,
+    "orItems":[
+        {
+            "andItems":[
+                {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Type",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "HOST*" ]
+                 },
+                 {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Hostname",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "node2*" ]
+                 }
+            ]
+        }
+    ]
+}'
+
+}
+
+PatchHostToApmiaContainsReln () {
+	HOST_VERTEX_ID=`getHostVertexID`
+	APMIA_VERTEX_ID=`getApmiaMysqlVertexID`
+
+   if [ X"$HOST_VERTEX_ID" != "X" ] && [ X"$APMIA_VERTEX_ID" != "X" ]; then
+       patchAVertexWithContainsReln $HOST_VERTEX_ID 
+       patchAVertexWithContainsReln $APMIA_VERTEX_ID 
+    fi
+}
+
+
+
+patchAVertexWithContainsReln () {
+curl -k -s -X PATCH \
+  APM_SAAS_URL/apm/appmap/graph/vertex/ \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d ' { "items" : [
+                {
+                                "id":"'$1'",
+                                "attributes": {
+                                "cor.containsreln.contains.to":["contains"]
+        }
+    }
+  ]
+}'
+}
+
+
+
 patchAVertex () {
 curl -k -s -X PATCH \
   APM_SAAS_URL/apm/appmap/graph/vertex/ \
@@ -415,6 +521,8 @@ sleep 30
 
 correlateAppToInfraForDBVertex tix-mysql
 correlateAppToInfraForDBVertex apmia-mysql
+
+PatchHostToApmiaContainsReln
 
 
 sleep 10

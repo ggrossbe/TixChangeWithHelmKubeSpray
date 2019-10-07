@@ -1,6 +1,6 @@
-SELENIUM_NODE_PODS=`kubectl get pods -n selenium|grep node-chrome|grep -v NAME |grep -v grep |awk '{print $1}'`
+SELENIUM_PODS=`kubectl get pods -n selenium|grep -v NAME |grep -v grep |awk '{print $1}'`
 
-for NODE_POD in $SELENIUM_NODE_PODS; 
+for SELENIUM_POD in $SELENIUM_PODS; 
 do
-	kubectl delete pod $NODE_POD -n selenium	
+	kubectl delete pod $SELENIUM_POD -n selenium	
 done

@@ -29,16 +29,16 @@ done
    yum -y --enablerepo=extras install epel-release
    export LC_ALL=C
 
-   yum install -y python-pip python36 iproute wget nfs-utils
+#  yum install -y python-pip python36 iproute wget nfs-utils
 
-   yum install python36-setuptools -y
+   #yum install python36-setuptools -y
 
-   easy_install-3.6 pip
+   #easy_install-3.6 pip
 
    export LC_ALL=C
 
      logMsg "********* installting node, npm, selenium side runner"
-  yum install -y gcc-c++ make
-  curl -sL https://rpm.nodesource.com/setup_10.x | sudo -E bash -
-  sudo yum install -y nodejs
-  npm install -g selenium-side-runner
+  #yum install -y gcc-c++ make
+  #curl -sL https://rpm.nodesource.com/setup_10.x | sudo -E bash -
+  #sudo yum install -y nodejs
+  #npm install -g selenium-side-runner
