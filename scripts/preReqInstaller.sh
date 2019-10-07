@@ -29,7 +29,7 @@ done
    yum -y --enablerepo=extras install epel-release
    export LC_ALL=C
 
-#  yum install -y python-pip python36 iproute wget nfs-utils
+ yum install -y python-pip python36 iproute wget nfs-utils
 
    #yum install python36-setuptools -y
 
