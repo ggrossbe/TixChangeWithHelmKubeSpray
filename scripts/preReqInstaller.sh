@@ -31,9 +31,9 @@ done
 
  yum install -y python-pip python36 iproute wget nfs-utils
 
-   #yum install python36-setuptools -y
+   yum install python36-setuptools -y
 
-   #easy_install-3.6 pip
+   easy_install-3.6 pip
 
    export LC_ALL=C
 
