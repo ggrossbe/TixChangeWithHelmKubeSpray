@@ -1,4 +1,8 @@
 #!/bin/bash
+
+echo "pls use mainInstaller.sh and use option "t"
+
+exit
 CURRENT_FOLDER=`dirname $BASH_SOURCE`
 
 echo "Current Folder $CURRENT_FOLDER"
