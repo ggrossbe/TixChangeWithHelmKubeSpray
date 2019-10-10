@@ -1,4 +1,5 @@
 EM_UNIVERSE1=EM_UNIVERSE_NAME
+VERSION="VERSION_VAL"
 
 configMySqlMetricAndAlertMapping () {
 
@@ -14,7 +15,7 @@ curl -v -k -X POST \
   -d '{
    "id":"REAL_DB",
    "layer": "INFRASTRUCTURE",
-   "version":"1.1.27",
+   "version": "'$VERSION'",
    "icons":{
    },
 
@@ -65,7 +66,7 @@ curl -v  -k -X POST \
   -d '{
    "id":"INFRRED_DB",
    "layer": "APPLICATION",
-   "version":"1.1.16",
+   "version": "'$VERSION'",
    "icons":{
    },
 

@@ -1,4 +1,5 @@
 EM_UNIVERSE2=EM_UNIVERSE_NAME
+VERSION="VERSION_VAL"
 
 configInferredDBMetricAndAlertMapping () {
                 
@@ -14,7 +15,7 @@ curl -v -k -X POST \
   -d '{
    "id":"INFRRED_DB2",
    "layer": "APPLICATION",
-   "version":"1.1.16",
+   "version": "'$VERSION'",
    "icons":{
    },
 

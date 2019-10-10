@@ -233,10 +233,10 @@ stopDeleteSelenium () {
 stopDeleteAll () {
 
   stopDeleteSelenium
+  stopDeleteBPA
   stopDeleteTixChange
   stopDeletePromExporter
   stopDeleteUMA
-  stopDeleteBPA
   stopDeleteKubeSpray
 
   rm -rf $INSTALLATION_FOLDER/*
@@ -250,10 +250,10 @@ stopDeleteAll () {
 stopDeleteAppComponents () {
 
   stopDeleteSelenium
+  stopDeleteBPA
   stopDeleteTixChange
   stopDeletePromExporter
   stopDeleteUMA
-  stopDeleteBPA
   #rm -rf $INSTALLATION_FOLDER/logs/
 }
 
@@ -451,7 +451,7 @@ installAndConfigureSelenium () {
   sleep 15
   
   chmod 755 runS*
-  nohup ./$SELENIUM_UC > ucNohup.out 2>&1 &   
+  #nohup ./$SELENIUM_UC > ucNohup.out 2>&1 &   
 
   sleep 10
 
@@ -491,6 +491,10 @@ configureEM () {
 
   cd $INSTALLATION_FOLDER/$EM_FOLDER
 
+  VERSION_VAL=`$INSTALL_SCRIPT_FOLDER/healthCheck/versioner`
+
+  logMsg "EM VERSION STRING is $VERSION_VAL"
+
   ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
    ESCAPED_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER"| sed 's/\//\\\//g')
   APM_SAAS_URL_NO_PROTO=$(echo "$APM_SAAS_URL"| sed 's/http[s]*:\/\///g' |sed 's/\//\\\//g' )
@@ -502,6 +506,7 @@ configureEM () {
   sed -i 's/EM_UNIVERSE_NAME/'$EM_UNIVERSE_NAME'/' $EM_SETUP_SCRIPT
   sed -i 's/INSTALLATION_FOLDER/'$ESCAPED_INSTALLATION_FOLDER'/' $EM_SETUP_SCRIPT
   sed -i 's/EM_FOLDER/'$EM_FOLDER'/' $EM_SETUP_SCRIPT
+  sed -i 's/VERSION_VAL/'$VERSION_VAL'/' $EM_SETUP_SCRIPT
 
 
   TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE |grep -v NAME |awk '{print $1}'|grep tix-web`

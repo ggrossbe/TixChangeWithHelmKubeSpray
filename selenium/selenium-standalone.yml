@@ -26,7 +26,7 @@ spec:
         - "uc2.jtixchange.com"
       containers:
       - name: selenium-standalone
-        image: srikns/selenium-standalone
+        image: srikns/selenium-standalone:latest
         imagePullPolicy: Always
         #image: selenium/node-chrome:3.141.59-oxygen
         env:
