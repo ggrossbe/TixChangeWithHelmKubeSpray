@@ -30,7 +30,7 @@ while true; do
 sleep 2
   echo "running UC2"
   selenium-side-runner   -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc2.jtixchange.com/ ./TixChangeSelenium.side 
-sleep 8 
+sleep 2 
 
   MINUTES=`date +%M`
 
