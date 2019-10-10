@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "pls use mainInstaller.sh and use option "t"
+echo "pls run mainInstaller.sh and use option \"t\""
 
 exit
 CURRENT_FOLDER=`dirname $BASH_SOURCE`
