@@ -33,6 +33,8 @@ sleep 2
 sleep 2 
 
 
+  MINUTES=`date +%M`
+
   # Trigger Slow Login every hour top of the hour
   if [ $MINUTES -eq 00 ]; then
 
