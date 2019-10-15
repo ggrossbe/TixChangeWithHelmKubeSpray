@@ -3,6 +3,10 @@
 echo "pls run mainInstaller.sh and use option \"t\""
 
 exit
+
+
+########Sorry not being used 
+
 CURRENT_FOLDER=`dirname $BASH_SOURCE`
 
 echo "Current Folder $CURRENT_FOLDER"
