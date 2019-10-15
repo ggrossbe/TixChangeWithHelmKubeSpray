@@ -13,7 +13,7 @@ curl -v -k -X POST \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -d '{
-   "id":"REAL_DB",
+   "id":"REAL_DB2",
    "layer": "INFRASTRUCTURE",
    "version": "'$VERSION'",
    "icons":{
@@ -64,7 +64,7 @@ curl -v  -k -X POST \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -d '{
-   "id":"INFRRED_DB",
+   "id":"INFRRED_DB2",
    "layer": "APPLICATION",
    "version": "'$VERSION'",
    "icons":{
@@ -530,6 +530,6 @@ PatchHostToApmiaContainsReln
 
 sleep 10
 
-configMySqlMetricAndAlertMapping
-sleep 1
-configInferredDBMetricAndAlertMapping
+#configMySqlMetricAndAlertMapping
+#sleep 1
+#configInferredDBMetricAndAlertMapping

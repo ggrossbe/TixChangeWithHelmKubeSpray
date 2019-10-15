@@ -13,7 +13,7 @@ curl -v -k -X POST \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -d '{
-   "id":"REAL_DB",
+   "id":"REAL_DB1",
    "layer": "INFRASTRUCTURE",
    "version": "'$VERSION'",
    "icons":{
@@ -35,20 +35,37 @@ curl -v -k -X POST \
                "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
             ],
             "filter":{
+                "Hostname": "tixchange-mysql-conn-svc-1"
+            }
+         },
+         {
+            "metricSpecifier":{
+               "format":"MYSQL\\|tixchange\\-mysql\\-conn\\-svc\\-2\\|jtixchange.*",
+               "type":"REGEX"
+            },
+            "agentSpecifier":{
+               "format":"<agent>",
+               "type":"EXACT"
+            },
+            "section":"Database Metrics",
+            "metricNames":[
+               "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
+            ],
+            "filter":{
+                "Hostname": "tixchange-mysql-conn-svc-2"
             }
          }
       ]
    },
    "alertMappings":{
-        "MYSQL_DB_WITH_AGENT":[
-     "node2|apmiaMySQL_UC1|Agent|MYSQL|<Hostname>|jtixchange|Operations:Total Queries",
-      "node2|apmiaMySQL_UC1|Agent|MYSQL|<Hostname>|jtixchange:Availability"
+        "MYSQL_DB":[
+      "<agent>|MYSQL|<Hostname>|jtixchange|Operations:Total Queries",
+      "<agent>|MYSQL|<Hostname>|jtixchange:Availability"
       ]
    },
    "perspectives":[
    ]
 }'
-
 }
 
 
@@ -64,7 +81,7 @@ curl -v  -k -X POST \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -d '{
-   "id":"INFRRED_DB",
+   "id":"INFRRED_DB1",
    "layer": "APPLICATION",
    "version": "'$VERSION'",
    "icons":{
@@ -89,18 +106,37 @@ curl -v  -k -X POST \
             "filter":{
                 "Hostname": "tixchange-mysql-conn-svc-1"
             }
+         },
+	{
+            "metricSpecifier":{
+               "format":"Backends|<databasename>",
+               "type":"EXACT"
+            },
+            "agentSpecifier":{
+               "format":"TxChangeSvc_UC2|tomcat|Agent",
+               "type":"EXACT"
+            },
+            "section":"Database Metrics",
+            "metricNames":[
+               "Responses Per Interval"
+            ],
+            "filter":{
+                "Hostname": "tixchange-mysql-conn-svc-2"
+            }
          }
       ]
    },
    "alertMappings":{
 
    "INFERRED_DATABASE_WITH_AGENT":[
-     "TxChangeSvc_UC1|tomcat|Agent|Backends|<databasename>:Responses Per Interval"
+     "TxChangeSvc_UC1|tomcat|Agent|Backends|<databasename>:Responses Per Interval",
+     "TxChangeSvc_UC2|tomcat|Agent|Backends|<databasename>:Responses Per Interval"
       ]
    },
    "perspectives":[
    ]
-}'   
+}'  
+
 }
 
 

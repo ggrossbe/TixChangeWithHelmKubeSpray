@@ -9,7 +9,7 @@ metadata:
     #nginx.org/server-snippet: "proxy_ssl_verify off;"
 spec:
   rules:
-    - host: uc1.jtixchange.com
+    - host: uc2.jtixchange.com
       http:
        paths:
          - path: /
