@@ -314,9 +314,6 @@ installTixChangeHelm () {
    #deleting tixchange one more time just to be sure
    helm delete tixchange --purge 2>/dev/null
    sleep 5
-   #kubectl delete configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE1 
-   #kubectl delete configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE2 
-   #kubectl delete configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE1 
 
   if [ ! -d $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER ]; then
     mkdir -p $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
@@ -371,6 +368,7 @@ installTixChangeHelm () {
 
    logMsg ""
    kubectl create configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./default.basnippet
+   kubectl create configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./default.basnippet
    kubectl create configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./jtixchange.pbd
    kubectl create configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./jtixchange.pbd
     
@@ -396,7 +394,7 @@ installTixChangeHelm () {
      logMsg "*** ERROR: IP address could not be update in /etc/hosts. Pls add IP to HOST manually"
    fi
 
-  installApmiaMySQL
+  #installApmiaMySQL
 
    sleep 5
 }
