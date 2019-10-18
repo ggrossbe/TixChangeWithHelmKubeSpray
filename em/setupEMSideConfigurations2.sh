@@ -41,8 +41,8 @@ curl -v -k -X POST \
    },
    "alertMappings":{
         "MYSQL_DB_WITH_AGENT":[
-     "node2|apmiaMySQL_UC2|Agent|MYSQL|<Hostname>|jtixchange|Operations:Total Queries",
-      "node2|apmiaMySQL_UC2|Agent|MYSQL|<Hostname>|jtixchange:Availability"
+     "MYSQL|<Hostname>|jtixchange|Operations:Total Queries",
+      "MYSQL|<Hostname>|jtixchange:Availability"
       ]
    },
    "perspectives":[

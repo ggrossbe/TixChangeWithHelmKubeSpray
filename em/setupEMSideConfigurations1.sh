@@ -59,8 +59,8 @@ curl -v -k -X POST \
    },
    "alertMappings":{
         "MYSQL_DB":[
-      "<agent>|MYSQL|<Hostname>|jtixchange|Operations:Total Queries",
-      "<agent>|MYSQL|<Hostname>|jtixchange:Availability"
+      "MYSQL|<Hostname>|jtixchange|Operations:Total Queries",
+      "MYSQL|<Hostname>|jtixchange:Availability"
       ]
    },
    "perspectives":[
