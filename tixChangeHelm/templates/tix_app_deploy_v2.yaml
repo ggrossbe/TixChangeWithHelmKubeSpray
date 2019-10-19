@@ -81,7 +81,7 @@ spec:
           volumeMounts:
             - name: ba-snippet
               mountPath: /opt/default.basnippet
-              subPath: default.basnippet
+              subPath: default.basnippet2
               readOnly: true
             - name: j2ee-pbd
               mountPath: /opt/temp/j2ee.pbd
