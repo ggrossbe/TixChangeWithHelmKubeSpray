@@ -233,7 +233,7 @@ stopDeleteSelenium () {
 stopDeleteAll () {
 
   stopDeleteSelenium
-  stopDeleteBPA
+  #stopDeleteBPA
   stopDeleteTixChange
   stopDeletePromExporter
   stopDeleteUMA
@@ -250,7 +250,7 @@ stopDeleteAll () {
 stopDeleteAppComponents () {
 
   stopDeleteSelenium
-  stopDeleteBPA
+  #stopDeleteBPA
   stopDeleteTixChange
   stopDeletePromExporter
   stopDeleteUMA

@@ -561,7 +561,7 @@ sleep 30
 correlateAppToInfraForDBVertex tix-mysql
 correlateAppToInfraForDBVertex apmia-mysql
 
-PatchHostToApmiaContainsReln
+#PatchHostToApmiaContainsReln
 
 
 sleep 10

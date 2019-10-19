@@ -23,6 +23,10 @@ runTrxnTrace () {
 }
 
 
+EXECUTED=true
+BASE_MINUTES=30
+RANDOMIZER=15
+
 while true; do
 
   echo "running normal UC1"
@@ -33,12 +37,24 @@ sleep 2
 sleep 2 
 
 
-  MINUTES=`date +%M`
+  CURRENT_MINUTES=`date +%M`
+
+  if [ $EXECUTED == "true" ]; then
+	
+    RAND=`echo $((1 + RANDOM % $RANDOMIZER ))`
+    RAND_MINUTES=`echo $(( $RAND + $BASE_MINUTES ))`
+
+    EXECUTED=false
+  fi
+
+  echo "Current Minutes=$CURRENT_MINUTES, UC execution at $RAND_MINUTES"
 
   # Trigger Slow Login every hour top of the hour
-  if [ $MINUTES -eq 00 ]; then
+  if [ $CURRENT_MINUTES -eq $RAND_MINUTES ]; then
 
-   echo "starting TT"
+   EXECUTED=true
+
+   echo "starting TT at `date`"
     
     runTrxnTrace
     sleep 5

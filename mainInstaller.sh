@@ -59,10 +59,10 @@ case $OPTION in
      installTixChangeHelm
 
      sleep 10
-     logMsg "reinstall BPA "
-     stopDeleteBPA
-     sleep 3
-     installBPA
+     #logMsg "reinstall BPA "
+     #stopDeleteBPA
+     #sleep 3
+     #installBPA
 
      sleep 10
      installPromExporter
@@ -119,8 +119,8 @@ case $OPTION in
      cd $INSTALL_SCRIPT_FOLDER
      installTixChangeHelm
 
-     sleep 10
-     installBPA
+     #sleep 10
+     #installBPA
 
      sleep 10
      installPromExporter
@@ -155,11 +155,12 @@ case $OPTION in
      logMsg " Installing just the TixChange components + Selenium + EM side MM,ExpView, Univ"
      installTixChangeHelm
     
-     sleep 10 
-     logMsg "reinstall BPA "
-     stopDeleteBPA 
-     sleep 3
-     installBPA
+     #sleep 10 
+     #logMsg "reinstall BPA "
+     #stopDeleteBPA 
+     #sleep 3
+     #installBPA
+
      logMsg " re-installaing Selenium"
      stopDeleteSelenium
      sleep 5
@@ -196,12 +197,13 @@ case $OPTION in
      
      ;;
    b)
-     logMsg "installing and configuring HTTPD, BT Listener for BPA"
+     logMsg "BPA is disabled for now"
+     #logMsg "installing and configuring HTTPD, BT Listener for BPA"
     
     
-     stopDeleteBPA 
-     sleep 3
-     installBPA
+     #stopDeleteBPA 
+     #sleep 3
+     #installBPA
     
      ;;
    *) 
