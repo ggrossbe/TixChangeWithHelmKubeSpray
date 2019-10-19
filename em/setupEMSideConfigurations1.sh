@@ -13,7 +13,7 @@ curl -v -k -X POST \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -d '{
-   "id":"REAL_DB",
+   "id":"REAL_DB1",
    "layer": "INFRASTRUCTURE",
    "version": "'$VERSION'",
    "icons":{
@@ -35,20 +35,37 @@ curl -v -k -X POST \
                "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
             ],
             "filter":{
+                "Hostname": "tixchange-mysql-conn-svc-1"
+            }
+         },
+         {
+            "metricSpecifier":{
+               "format":"MYSQL\\|tixchange\\-mysql\\-conn\\-svc\\-2\\|jtixchange.*",
+               "type":"REGEX"
+            },
+            "agentSpecifier":{
+               "format":"<agent>",
+               "type":"EXACT"
+            },
+            "section":"Database Metrics",
+            "metricNames":[
+               "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
+            ],
+            "filter":{
+                "Hostname": "tixchange-mysql-conn-svc-2"
             }
          }
       ]
    },
    "alertMappings":{
-        "MYSQL_DB_WITH_AGENT":[
-     "node2|apmiaMySQL_UC1|Agent|MYSQL|<Hostname>|jtixchange|Operations:Total Queries",
-      "node2|apmiaMySQL_UC1|Agent|MYSQL|<Hostname>|jtixchange:Availability"
+        "MYSQL_DB":[
+      "MYSQL|<Hostname>|jtixchange|Operations:Total Queries",
+      "MYSQL|<Hostname>|jtixchange:Availability"
       ]
    },
    "perspectives":[
    ]
 }'
-
 }
 
 
@@ -64,7 +81,7 @@ curl -v  -k -X POST \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
   -d '{
-   "id":"INFRRED_DB",
+   "id":"INFRRED_DB1",
    "layer": "APPLICATION",
    "version": "'$VERSION'",
    "icons":{
@@ -89,18 +106,37 @@ curl -v  -k -X POST \
             "filter":{
                 "Hostname": "tixchange-mysql-conn-svc-1"
             }
+         },
+	{
+            "metricSpecifier":{
+               "format":"Backends|<databasename>",
+               "type":"EXACT"
+            },
+            "agentSpecifier":{
+               "format":"TxChangeSvc_UC2|tomcat|Agent",
+               "type":"EXACT"
+            },
+            "section":"Database Metrics",
+            "metricNames":[
+               "Responses Per Interval"
+            ],
+            "filter":{
+                "Hostname": "tixchange-mysql-conn-svc-2"
+            }
          }
       ]
    },
    "alertMappings":{
 
    "INFERRED_DATABASE_WITH_AGENT":[
-     "TxChangeSvc_UC1|tomcat|Agent|Backends|<databasename>:Responses Per Interval"
+     "TxChangeSvc_UC1|tomcat|Agent|Backends|<databasename>:Responses Per Interval",
+     "TxChangeSvc_UC2|tomcat|Agent|Backends|<databasename>:Responses Per Interval"
       ]
    },
    "perspectives":[
    ]
-}'   
+}'  
+
 }
 
 
@@ -440,9 +476,11 @@ PatchHostToApmiaContainsReln () {
 	HOST_VERTEX_ID=`getHostVertexID|./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
 	APMIA_VERTEX_ID=`getApmiaMysqlVertexID |./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
 
+	echo "Patching for Contains  in host_vertex_id is $HOST_VERTEX_ID apmia vertex id $APMIA_VERTEX_ID"
+
    if [ X"$HOST_VERTEX_ID" != "X" ] && [ X"$APMIA_VERTEX_ID" != "X" ]; then
-       patchAVertexWithContainsReln $HOST_VERTEX_ID cor.containsreln.contains.from
-       patchAVertexWithContainsReln $APMIA_VERTEX_ID cor.containsreln.contains.to
+       patchAVertexWithContainsReln $HOST_VERTEX_ID cor.containsreln1.contains.from
+       patchAVertexWithContainsReln $APMIA_VERTEX_ID cor.containsreln1.contains.to
     fi
 }
 
@@ -523,7 +561,7 @@ sleep 30
 correlateAppToInfraForDBVertex tix-mysql
 correlateAppToInfraForDBVertex apmia-mysql
 
-PatchHostToApmiaContainsReln
+#PatchHostToApmiaContainsReln
 
 
 sleep 10

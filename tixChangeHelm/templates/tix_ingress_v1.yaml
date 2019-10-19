@@ -14,8 +14,8 @@ spec:
        paths:
          - path: /
            backend:
-             #serviceName: webportal-svc
-             serviceName: bpa-svc
+             serviceName: webportal-svc
+             #serviceName: bpa-svc
              servicePort: 8080
     #- host: uc2.jtixchange.com
       #http:

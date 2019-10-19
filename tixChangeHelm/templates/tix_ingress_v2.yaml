@@ -14,5 +14,6 @@ spec:
        paths:
          - path: /
            backend:
-             serviceName: webportal-svc-v2
+             serviceName: webportal-svc
+             #serviceName: bpa-svc
              servicePort: 8080

@@ -233,7 +233,7 @@ stopDeleteSelenium () {
 stopDeleteAll () {
 
   stopDeleteSelenium
-  stopDeleteBPA
+  #stopDeleteBPA
   stopDeleteTixChange
   stopDeletePromExporter
   stopDeleteUMA
@@ -250,7 +250,7 @@ stopDeleteAll () {
 stopDeleteAppComponents () {
 
   stopDeleteSelenium
-  stopDeleteBPA
+  #stopDeleteBPA
   stopDeleteTixChange
   stopDeletePromExporter
   stopDeleteUMA
@@ -314,9 +314,6 @@ installTixChangeHelm () {
    #deleting tixchange one more time just to be sure
    helm delete tixchange --purge 2>/dev/null
    sleep 5
-   #kubectl delete configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE1 
-   #kubectl delete configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE2 
-   #kubectl delete configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE1 
 
   if [ ! -d $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER ]; then
     mkdir -p $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
@@ -326,6 +323,7 @@ installTixChangeHelm () {
    cp -rf $TIXCHANGE_FOLDER/* $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
    cp -rf $SCRIPTS_FOLDER/default.basnippet $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
    cp -rf $SCRIPTS_FOLDER/jtixchange.pbd  $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
+   cp -rf $SCRIPTS_FOLDER/j2ee.pbd  $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
 
    echo $BA_SNIPPET > $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/default.basnippet
 
@@ -346,6 +344,9 @@ installTixChangeHelm () {
 
    sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v1.yaml
    sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v1.yaml
+
+   sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v2.yaml
+   sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v2.yaml
 
    sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v2.yaml
    sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v2.yaml
@@ -371,8 +372,11 @@ installTixChangeHelm () {
 
    logMsg ""
    kubectl create configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./default.basnippet
+   kubectl create configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./default.basnippet
    kubectl create configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./jtixchange.pbd
    kubectl create configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./jtixchange.pbd
+   kubectl create configmap j2ee-pbd --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./j2ee.pbd
+   #kubectl create configmap j2ee-pbd --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./j2ee.pbd
     
    
    helm list 
@@ -396,9 +400,9 @@ installTixChangeHelm () {
      logMsg "*** ERROR: IP address could not be update in /etc/hosts. Pls add IP to HOST manually"
    fi
 
-  installApmiaMySQL
+  #installApmiaMySQL
 
-   sleep 5
+   sleep 10
 }
 
 

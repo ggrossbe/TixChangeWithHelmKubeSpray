@@ -1,1 +1,1 @@
-kubectl delete deployment tix-mysql-deploy -n tixchange-v1
+kubectl delete deployment tix-mysql-deploy -n tixchange-v2

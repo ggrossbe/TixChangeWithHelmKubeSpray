@@ -23,46 +23,46 @@ runTrxnTrace () {
 }
 
 
+EXECUTED=true
+BASE_MINUTES=30
+RANDOMIZER=15
+
 while true; do
 
-  echo "running UC1"
+  echo "running normal UC1"
   selenium-side-runner   -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc1.jtixchange.com/ ./TixChangeSelenium.side 
 sleep 2
-  echo "running UC2"
+  echo "running normal UC2"
   selenium-side-runner   -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc2.jtixchange.com/ ./TixChangeSelenium.side 
 sleep 2 
 
-  MINUTES=`date +%M`
 
-  # Exception UC bottom of the hour
-  if [ $MINUTES -eq 30 ]; then
+  CURRENT_MINUTES=`date +%M`
 
-   echo "starting TT"
+  if [ $EXECUTED == "true" ]; then
+	
+    RAND=`echo $((1 + RANDOM % $RANDOMIZER ))`
+    RAND_MINUTES=`echo $(( $RAND + $BASE_MINUTES ))`
 
-    runTrxnTrace
-    sleep 5
-
-  echo "running UC2"
-    selenium-side-runner   -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc2.jtixchange.com/ ./TixChangeSeleniumException.side
-    sleep 2
-  echo "running UC2"
-    selenium-side-runner   -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc2.jtixchange.com/ ./TixChangeSeleniumException.side
-    sleep 5
+    EXECUTED=false
   fi
 
+  echo "Current Minutes=$CURRENT_MINUTES, UC execution at $RAND_MINUTES"
 
   # Trigger Slow Login every hour top of the hour
-  if [ $MINUTES -eq 00 ]; then
+  if [ $CURRENT_MINUTES -eq $RAND_MINUTES ]; then
 
-   echo "starting TT"
+   EXECUTED=true
+
+   echo "starting TT at `date`"
     
     runTrxnTrace
     sleep 5
 
-  echo "running UC1"
+  echo "running slow UC1"
     selenium-side-runner   -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc1.jtixchange.com/ ./TixChangeSeleniumSlowLogin.side
 sleep 2
-  echo "running UC1"
+  echo "running slow UC1"
     selenium-side-runner   -c "browserName=chrome chromeOptions.args=[disable-infobars, headless, no-sandbox]" --base-url http://uc1.jtixchange.com/ ./TixChangeSeleniumSlowLogin.side
     sleep 5
   fi 

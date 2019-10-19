@@ -1,9 +1,60 @@
-EM_UNIVERSE2=EM_UNIVERSE_NAME
+EM_UNIVERSE1=EM_UNIVERSE_NAME
 VERSION="VERSION_VAL"
 
-configInferredDBMetricAndAlertMapping () {
-                
+configMySqlMetricAndAlertMapping () {
+
 curl -v -k -X POST \
+  APM_SAAS_URL/apm/appmap/ats/extension/configure \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d '{
+   "id":"REAL_DB2",
+   "layer": "INFRASTRUCTURE",
+   "version": "'$VERSION'",
+   "icons":{
+   },
+
+ "metricSpecifiers":{
+      "MYSQL_DB":[
+         {
+            "metricSpecifier":{
+               "format":"MYSQL\\|tixchange\\-mysql\\-conn\\-svc\\-2\\|jtixchange.*",
+               "type":"REGEX"
+            },
+            "agentSpecifier":{
+               "format":"<agent>",
+               "type":"EXACT"
+            },
+            "section":"Database Metrics",
+            "metricNames":[
+               "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
+            ],
+            "filter":{
+            }
+         }
+      ]
+   },
+   "alertMappings":{
+        "MYSQL_DB_WITH_AGENT":[
+     "MYSQL|<Hostname>|jtixchange|Operations:Total Queries",
+      "MYSQL|<Hostname>|jtixchange:Availability"
+      ]
+   },
+   "perspectives":[
+   ]
+}'
+
+}
+
+
+configInferredDBMetricAndAlertMapping () {
+
+curl -v  -k -X POST \
   APM_SAAS_URL/apm/appmap/ats/extension/configure \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
@@ -20,20 +71,37 @@ curl -v -k -X POST \
    },
 
    "metricSpecifiers":{
-
-   
+      
+    "INFERRED_DATABASE":[
+         {
+            "metricSpecifier":{
+               "format":"Backends|<databasename>",
+               "type":"EXACT"
+            },
+            "agentSpecifier":{
+               "format":"TxChangeSvc_UC2|tomcat|Agent",
+               "type":"EXACT"
+            },
+            "section":"Database Metrics",
+            "metricNames":[
+               "Responses Per Interval"
+            ],
+            "filter":{
+                "Hostname": "tixchange-mysql-conn-svc-2"
+            }
+         }
+      ]
    },
    "alertMappings":{
-          
+
    "INFERRED_DATABASE_WITH_AGENT":[
      "TxChangeSvc_UC2|tomcat|Agent|Backends|<databasename>:Responses Per Interval"
-      ]   
-   },     
+      ]
+   },
    "perspectives":[
-   ]        
-}'          
-} 
-
+   ]
+}'   
+}
 
 
 createUniverse () {
@@ -49,7 +117,7 @@ curl -k -s  -X POST \
   -H 'cache-control: no-cache' \
   -d '{
   "universeId": null,
-  "name": "'$EM_UNIVERSE2'",
+  "name": "'$EM_UNIVERSE1'",
 "items": [
     {
       "layer": {
@@ -72,22 +140,6 @@ curl -k -s  -X POST \
           "btCoverage": null
         }
       ]
-    },
-    {
-       "operator": "AND",
-        "attributeName": "hostname",
-        "values": [
-            "txchangeweb_uc2",
-            "txchangesvc_uc2",
-            "tixchange-mysql-conn-svc-2"
-        ],
-        "layer": {
-            "value": "ATC"
-        },
-        "not": false,
-        "wildCard": false,
-        "btCoverage": null,
-        "btCoverageType": "COVERAGE"
     },
     {
       "operator": "OR",
@@ -165,7 +217,7 @@ curl -k  -s -X POST \
   -d '{
   "type": "experience",
   "data": {
-    "name": "'$EM_UNIVERSE2'",
+    "name": "'$EM_UNIVERSE1'",
     "universeId": "'$*'",
     "filter": {
       "showEntry": false,
@@ -214,8 +266,8 @@ runTrxnTrace () {
   "traceSessionDuration": 60000,
   "agentList": [
     "SuperDomain|Experience Collector Host|DxC Agent|Logstash-APM-Plugin",
-    "SuperDomain|TIX_WEB_INSTANCE|tomcat|Agent",
-    "SuperDomain|TIX_WS_INSTANCE|tomcat|Agent"
+    "SuperDomain|TxChangeWeb_UC2|tomcat|Agent",
+    "SuperDomain|TxChangeSvc_UC2|tomcat|Agent"
   ]
 }'
 }
@@ -255,7 +307,7 @@ importMgmtModule () {
 }
 
 correlateAppToInfraForDBVertex () {
-  SQL_POD=`kubectl get pods -n tixchange-v2 |grep mysql|awk '{print $1}'`
+  SQL_POD=`kubectl get pods -n tixchange-v2 |grep $1 |awk '{print $1}'`
 
   echo "SQL POD $SQL_POD"
   if [ X"$SQL_POD" != "X" ]; then
@@ -313,6 +365,114 @@ curl -k -s -X POST \
 
 }
 
+
+getApmiaMysqlVertexID () {
+
+curl -k -s -X POST \
+  APM_SAAS_URL/apm/appmap/graph/vertex \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "includeStartPoint": false,
+    "orItems":[
+        {
+            "andItems":[
+                {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Type",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "MYSQL_DB*" ]
+                 },
+                 {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Hostname",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "tixchange-mysql-conn-svc-2*" ]
+                 }
+            ]
+        }
+    ]
+}'
+
+}
+
+getHostVertexID () {
+
+curl -k -s -X POST \
+  APM_SAAS_URL/apm/appmap/graph/vertex \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "includeStartPoint": false,
+    "orItems":[
+        {
+            "andItems":[
+                {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Type",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "HOST*" ]
+                 },
+                 {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Hostname",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "node2*" ]
+                 }
+            ]
+        }
+    ]
+}'
+
+}
+
+PatchHostToApmiaContainsReln () {
+	HOST_VERTEX_ID=`getHostVertexID|./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
+	APMIA_VERTEX_ID=`getApmiaMysqlVertexID |./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
+
+	echo "Patching for Contains  in host_vertex_id is $HOST_VERTEX_ID apmia vertex id $APMIA_VERTEX_ID"
+
+   if [ X"$HOST_VERTEX_ID" != "X" ] && [ X"$APMIA_VERTEX_ID" != "X" ]; then
+       patchAVertexWithContainsReln $HOST_VERTEX_ID cor.containsreln.contains.from
+       patchAVertexWithContainsReln $APMIA_VERTEX_ID cor.containsreln.contains.to
+    fi
+}
+
+
+
+patchAVertexWithContainsReln () {
+curl -k -s -X PATCH \
+  APM_SAAS_URL/apm/appmap/graph/vertex/ \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d ' { "items" : [
+                {
+                                "id":"'$1'",
+                                "attributes": {
+                                "'$2'":["contains"]
+        }
+    }
+  ]
+}'
+}
+
+
+
 patchAVertex () {
 curl -k -s -X PATCH \
   APM_SAAS_URL/apm/appmap/graph/vertex/ \
@@ -337,9 +497,9 @@ curl -k -s -X PATCH \
 
 echo "running setupEMSideConfigurations2.sh"
 
-UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE2"`
+UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
 
-echo " UNIVERSE ID for  $EM_UNIVERSE2 is $UNIVERSE_ID"
+echo " UNIVERSE ID for  $EM_UNIVERSE1 is $UNIVERSE_ID"
 
 runTrxnTrace
 sleep 30
@@ -349,8 +509,8 @@ if [ X"$UNIVERSE_ID" == "X" ]; then
   createUniverse 
 
   sleep 10
-  UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE2"`
-  echo "Created $EM_UNIVERSE2 Universe, Exp View and TixChange MgmtMod - UNIV ID $UNIVERSE_ID"
+  UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`
+  echo "Created $EM_UNIVERSE1 Universe, Exp View and TixChange MgmtMod - UNIV ID $UNIVERSE_ID"
   createExpView $UNIVERSE_ID
 
 fi
@@ -362,5 +522,14 @@ echo "running Trxn Trace pls have patience"
 runTrxnTrace
 sleep 30
 
-#correlateAppToInfraForDBVertex
-configInferredDBMetricAndAlertMapping
+correlateAppToInfraForDBVertex tix-mysql
+correlateAppToInfraForDBVertex apmia-mysql
+
+#PatchHostToApmiaContainsReln
+
+
+sleep 10
+
+#configMySqlMetricAndAlertMapping
+#sleep 1
+#configInferredDBMetricAndAlertMapping
