@@ -67,6 +67,10 @@ spec:
               memory: "600Mi"
           #image: omaro/tixchange_web:2.1
           image: srikns/tixchange-web8
+          lifecycle:
+            postStart:
+              exec:
+                command: [ 'sh', '-c', 'sleep 60; cp -f /opt/temp/j2ee.pbd /opt/wily/core/config/j2ee.pbd; chmod 777 /opt/wily/core/config/j2ee.pbd;']
           #imagePullPolicy: IfNotPresent
           imagePullPolicy: Always
           envFrom:
@@ -77,7 +81,11 @@ spec:
           volumeMounts:
             - name: ba-snippet
               mountPath: /opt/default.basnippet
-              subPath: default.basnippet
+              subPath: default.basnippet1
+              readOnly: true
+            - name: j2ee-pbd
+              mountPath: /opt/temp/j2ee.pbd
+              subPath: j2ee.pbd
               readOnly: true
             - name: jtixchange-pbd
               mountPath: /opt/wily/core/config/hotdeploy/jtixchange.pbd
@@ -89,6 +97,9 @@ spec:
         - name: ba-snippet
           configMap:
             name: default-basnippet
+        - name: j2ee-pbd 
+          configMap:
+            name: j2ee-pbd
         - name: jtixchange-pbd
           configMap:
             name: jtixchange-pbd

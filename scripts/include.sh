@@ -80,15 +80,15 @@ installBPA () {
 
   	cp -f $SCRIPTS_FOLDER/../bpa/* $INSTALLATION_FOLDER/bpa
 
-	IS_HTTPS=`echo $BA_SNIPPET|grep -v grep |grep https`
+	IS_HTTPS=`echo $BA_SNIPPET_UC1|grep -v grep |grep https`
 	if [ X"IS_HTTPS" == "X" ]; then
 		
-		DXC_URL="http://"`echo $BA_SNIPPET |awk -F [/] '{print $11}'`
+		DXC_URL="http://"`echo $BA_SNIPPET_UC1 |awk -F [/] '{print $11}'`
 	else
-		DXC_URL="https://"`echo $BA_SNIPPET |awk -F [/] '{print $11}'`
+		DXC_URL="https://"`echo $BA_SNIPPET_UC1 |awk -F [/] '{print $11}'`
         fi
 
-        TENANT_ID=`echo $BA_SNIPPET |awk -F [:/] '{print $11}'`
+        TENANT_ID=`echo $BA_SNIPPET_UC1 |awk -F [:/] '{print $11}'`
 
 	TIX_WEB_SVC_IP=`kubectl get svc  -n tixchange-v1|grep -v NAME |grep webp |awk '{print $3}'`
 
@@ -267,7 +267,7 @@ Usage () {
    echo "  t : install & run just tixChange"
   echo "  s : install & run just selenium"
   echo "  e : EM side configuration: Setup Universes, import mgmt module etc"
-  echo "  b : install and configure HTTPD, BT Listener for BPA"
+  #echo "  b : install and configure HTTPD, BT Listener for BPA"
   echo "  c : cleanup and unintsall everything"
 
 }
@@ -321,11 +321,13 @@ installTixChangeHelm () {
 
 
    cp -rf $TIXCHANGE_FOLDER/* $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
-   cp -rf $SCRIPTS_FOLDER/default.basnippet $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
+   cp -rf $SCRIPTS_FOLDER/default.basnippet1 $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
+   cp -rf $SCRIPTS_FOLDER/default.basnippet2 $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
    cp -rf $SCRIPTS_FOLDER/jtixchange.pbd  $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
    cp -rf $SCRIPTS_FOLDER/j2ee.pbd  $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
 
-   echo $BA_SNIPPET > $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/default.basnippet
+   echo $BA_SNIPPET_UC1 > $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/default.basnippet1
+   echo $BA_SNIPPET_UC2 > $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/default.basnippet2
 
    cd $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
 
@@ -371,12 +373,12 @@ installTixChangeHelm () {
    sleep 10
 
    logMsg ""
-   kubectl create configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./default.basnippet
-   kubectl create configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./default.basnippet
+   kubectl create configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./default.basnippet1
+   kubectl create configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./default.basnippet2
    kubectl create configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./jtixchange.pbd
    kubectl create configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./jtixchange.pbd
    kubectl create configmap j2ee-pbd --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./j2ee.pbd
-   #kubectl create configmap j2ee-pbd --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./j2ee.pbd
+   kubectl create configmap j2ee-pbd --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./j2ee.pbd
     
    
    helm list 
@@ -495,7 +497,7 @@ configureEM () {
 
   cd $INSTALLATION_FOLDER/$EM_FOLDER
 
-  VERSION_VAL=`$INSTALL_SCRIPT_FOLDER/healthCheck/versioner`
+  VERSION_VAL=`$INSTALL_SCRIPT_FOLDER/tools/versioner`
 
   logMsg "EM VERSION STRING is $VERSION_VAL"
 
@@ -553,13 +555,13 @@ runFinalSanityCheck () {
         IS_TEST_PASS1=`kubectl logs --tail=25  $SELENIUM_POD -n selenium|grep -e nth-child -e NoSuchElem `
 	if [ X"$IS_TEST_PASS1" != "X" ]; then
         	logMsg "*** looks like Tixchange issue - restarting - Pls have patience**"
-        	$INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v1
-        	$INSTALL_SCRIPT_FOLDER/healthCheck/restartTixChange.sh tixchange-v2
+        	$INSTALL_SCRIPT_FOLDER/tools/restartTixChange.sh tixchange-v1
+        	$INSTALL_SCRIPT_FOLDER/tools/restartTixChange.sh tixchange-v2
 
 		sleep 15
         else
         	logMsg "*** looks like Selenium node chrome  issue - restarting - Pls have patience**"
-        	$INSTALL_SCRIPT_FOLDER/healthCheck/restartSeleniumNodePod.sh 
+        	$INSTALL_SCRIPT_FOLDER/tools/restartSeleniumNodePod.sh 
         	sleep 15
 	fi
 

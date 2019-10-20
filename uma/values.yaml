@@ -23,7 +23,8 @@ autoattach_filter_type: blacklist
 # send as part of Auto Attach Configuration
 # For eg.
 #  autoattach_agent_extra_properties: introscope.agent.defaultProcessName=tomcat,introscope.agent.agentAutoNamingEnabled=false
-autoattach_agent_extra_properties: introscope.agent.defaultProcessName=tomcat,introscope.agent.agentAutoNamingEnabled=true,introscope.agent.external.biz.enabled=true,introscope.agent.browseragent.autoInjectionEnabled=true,introscope.agent.browseragent.autoInjection.default.snippetLocation=/opt/wily/core/config/default.basnippet1
+autoattach_agent_extra_properties: introscope.agent.defaultProcessName=tomcat,introscope.agent.agentAutoNamingEnabled=true,introscope.agent.external.biz.enabled=true,introscope.agent.browseragent.autoInjectionEnabled=true
+#,introscope.agent.browseragent.autoInjection.default.snippetLocation=/opt/wily/core/config/default.basnippet1
 
 # Indicates wheather Kubernetes Remote JMX Agent feature is turned on or not
 # Change this to false in case you want to turn off this feature
