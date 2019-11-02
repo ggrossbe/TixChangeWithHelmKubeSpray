@@ -29,130 +29,130 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "APJ_Billing_5",
+        "name": "APJ_Billing",
         "state": "ACTIVE",
         "serviceContent": [
           {
             "query": [
               {
                 "attributeName": "applicationName",
-                "attributeValue": "Billing_5"
+                "attributeValue": "Billing"
               }
             ]
           }
         ],
         "root_service": [
-          "Mobile Service_5"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "APJ_Billing_5"
+      "externalId": "APJ_Billing"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "LATAM_5",
+        "name": "LATAM",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service_5"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "test",
         "customProperties": []
       },
-      "externalId": "LATAM_5"
+      "externalId": "LATAM"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_Billing_5",
+        "name": "NA_Billing",
         "state": "ACTIVE",
         "serviceContent": [
           {
             "query": [
               {
                 "attributeName": "applicationName",
-                "attributeValue": "Billing_5"
+                "attributeValue": "Billing"
               }
             ]
           }
         ],
         "root_service": [
-          "Mobile Service_5"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "NA_Billing_5"
+      "externalId": "NA_Billing"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "Mobile Service_5",
+        "name": "Mobile Service",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service_5"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "Mobile Service_5"
+      "externalId": "Mobile Service"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_5",
+        "name": "EMEA",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service_5"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_5"
+      "externalId": "EMEA"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "LATAM_Billing_5",
+        "name": "LATAM_Billing",
         "state": "ACTIVE",
         "serviceContent": [
           {
             "query": [
               {
                 "attributeName": "applicationName",
-                "attributeValue": "Billing_5"
+                "attributeValue": "Billing"
               }
             ]
           }
         ],
         "root_service": [
-          "Mobile Service_5"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "LATAM_Billing_5"
+      "externalId": "LATAM_Billing"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_Activiation_5",
+        "name": "NA_Activiation",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -165,110 +165,110 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service_5"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "test",
         "customProperties": []
       },
-      "externalId": "NA_Activiation_5"
+      "externalId": "NA_Activiation"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_5",
+        "name": "NA",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service_5"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "NA_5"
+      "externalId": "NA"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_Billing_5",
+        "name": "EMEA_Billing",
         "state": "ACTIVE",
         "serviceContent": [
           {
             "query": [
               {
                 "attributeName": "applicationName",
-                "attributeValue": "Billing_5"
+                "attributeValue": "Billing"
               }
             ]
           }
         ],
         "root_service": [
-          "Mobile Service_5"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_Billing_5"
+      "externalId": "EMEA_Billing"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_Activation_5",
+        "name": "EMEA_Activation",
         "state": "ACTIVE",
         "serviceContent": [
           {
             "query": [
               {
                 "attributeName": "applicationName",
-                "attributeValue": "Activation_5"
+                "attributeValue": "Activation"
               }
             ]
           }
         ],
         "root_service": [
-          "Mobile Service_5"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_Activation_5"
+      "externalId": "EMEA_Activation"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_Provisioning_5",
+        "name": "EMEA_Provisioning",
         "state": "ACTIVE",
         "serviceContent": [
           {
             "query": [
               {
                 "attributeName": "applicationName",
-                "attributeValue": "Provisioning_5"
+                "attributeValue": "Provisioning"
               }
             ]
           }
         ],
         "root_service": [
-          "Mobile Service_5"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_Provisioning_5"
+      "externalId": "EMEA_Provisioning"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_Provisioning_5",
+        "name": "NA_Provisioning",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -281,36 +281,36 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service_5"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "NA_Provisioning_5"
+      "externalId": "NA_Provisioning"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "APJ_5",
+        "name": "APJ",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service_5"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "APJ_5"
+      "externalId": "APJ"
     }
   ],
   "edges": [
     {
-      "targetExternalId": "EMEA_Billing_5",
-      "sourceExternalId": "EMEA_5",
+      "targetExternalId": "EMEA_Billing",
+      "sourceExternalId": "EMEA",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -318,8 +318,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "EMEA_Provisioning_5",
-      "sourceExternalId": "EMEA_5",
+      "targetExternalId": "EMEA_Provisioning",
+      "sourceExternalId": "EMEA",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -327,8 +327,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "EMEA_Activation_5",
-      "sourceExternalId": "EMEA_5",
+      "targetExternalId": "EMEA_Activation",
+      "sourceExternalId": "EMEA",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -336,8 +336,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "EMEA_5",
-      "sourceExternalId": "Mobile Service_5",
+      "targetExternalId": "EMEA",
+      "sourceExternalId": "Mobile Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -345,8 +345,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_Billing_5",
-      "sourceExternalId": "NA_5",
+      "targetExternalId": "NA_Billing",
+      "sourceExternalId": "NA",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -354,8 +354,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_Provisioning_5",
-      "sourceExternalId": "NA_5",
+      "targetExternalId": "NA_Provisioning",
+      "sourceExternalId": "NA",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -363,8 +363,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "LATAM_5",
-      "sourceExternalId": "Mobile Service_5",
+      "targetExternalId": "LATAM",
+      "sourceExternalId": "Mobile Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -372,8 +372,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "LATAM_Billing_5",
-      "sourceExternalId": "LATAM_5",
+      "targetExternalId": "LATAM_Billing",
+      "sourceExternalId": "LATAM",
       "attributes": {
         "health_weight": 1,
         "risk_weight": 1,
@@ -381,8 +381,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "APJ_Billing_5",
-      "sourceExternalId": "APJ_5",
+      "targetExternalId": "APJ_Billing",
+      "sourceExternalId": "APJ",
       "attributes": {
         "health_weight": 1,
         "risk_weight": 1,
@@ -390,8 +390,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_5",
-      "sourceExternalId": "Mobile Service_5",
+      "targetExternalId": "NA",
+      "sourceExternalId": "Mobile Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -399,8 +399,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_Activiation_5",
-      "sourceExternalId": "NA_5",
+      "targetExternalId": "NA_Activiation",
+      "sourceExternalId": "NA",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -408,8 +408,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "APJ_5",
-      "sourceExternalId": "Mobile Service_5",
+      "targetExternalId": "APJ",
+      "sourceExternalId": "Mobile Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
