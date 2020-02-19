@@ -152,14 +152,14 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_#_Activiation",
+        "name": "NA_#_Activation",
         "state": "ACTIVE",
         "serviceContent": [
           {
             "query": [
               {
-                "attributeName": "agent",
-                "attributeValue": "TxChangeWeb_UC2|tomcat|Agent"
+                "attributeName": "applicationName",
+                "attributeValue": "Activation"
               }
             ]
           }
@@ -172,7 +172,7 @@ curl -v -X POST \
         "description": "test",
         "customProperties": []
       },
-      "externalId": "NA_#_Activiation"
+      "externalId": "NA_#_Activation"
     },
     {
       "attributes": {
@@ -399,7 +399,7 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_#_Activiation",
+      "targetExternalId": "NA_#_Activation",
       "sourceExternalId": "NA_#",
       "attributes": {
         "health_weight": 0.33299999999999996,
@@ -440,6 +440,45 @@ curl -X POST \
         "query": [{
                                 "attributeName": "agent",
                 "attributeValue": "node2|apmiaMySQL_UC1|Agent"
+        }]
+    }]
+}'
+
+curl -X POST \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/EMEA_#_Provisioning \
+  -H 'Authorization: Bearer '$OI_TOKEN'' \
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "serviceContent": [{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "TxChangeWeb_UC2|tomcat|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "TxChangeSvc_UC2|tomcat|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "node2|apmiaMySQL_UC2|Agent"
+        }]
+    }]
+}'
+
+
+curl -X POST \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_#_Activation \
+  -H 'Authorization: Bearer '$OI_TOKEN'' \
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "serviceContent": [{
+        "query": [{
+                                "attributeName": "applicationName",
+                "attributeValue": "Activation"
         }]
     }]
 }'
