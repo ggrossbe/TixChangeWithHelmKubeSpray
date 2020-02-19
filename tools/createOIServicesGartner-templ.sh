@@ -274,8 +274,8 @@ curl -v -X POST \
           {
             "query": [
               {
-                "attributeName": "agent",
-                "attributeValue": "TxChangeWeb_UC1|tomcat|Agent"
+                "attributeName": "applicationName",
+                "attributeValue": "Provisioning"
               }
             ]
           }
