@@ -419,6 +419,8 @@ curl -v -X POST \
   ]
 }
 '
+echo "***sleeping for 10 sec"
+sleep 10
 
 curl -X POST \
   https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_#_Provisioning \
@@ -444,6 +446,9 @@ curl -X POST \
     }]
 }'
 
+echo "***sleeping for 5 sec"
+sleep 5
+
 curl -X POST \
   https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/EMEA_#_Provisioning \
   -H 'Authorization: Bearer '$OI_TOKEN'' \
@@ -468,6 +473,8 @@ curl -X POST \
     }]
 }'
 
+echo "***sleeping for 5 sec"
+sleep 5
 
 curl -X POST \
   https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_#_Activation \
