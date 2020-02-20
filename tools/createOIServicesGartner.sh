@@ -152,7 +152,7 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_Activiation",
+        "name": "NA_Activation",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -172,7 +172,7 @@ curl -v -X POST \
         "description": "test",
         "customProperties": []
       },
-      "externalId": "NA_Activiation"
+      "externalId": "NA_Activation"
     },
     {
       "attributes": {
@@ -399,7 +399,7 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_Activiation",
+      "targetExternalId": "NA_Activation",
       "sourceExternalId": "NA",
       "attributes": {
         "health_weight": 0.33299999999999996,
@@ -419,3 +419,74 @@ curl -v -X POST \
   ]
 }
 '
+
+echo "***sleeping for 10 sec"
+sleep 10
+
+curl -X POST \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Provisioning \
+  -H 'Authorization: Bearer '$OI_TOKEN'' \
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "serviceContent": [{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "TxChangeWeb_UC1|tomcat|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "TxChangeSvc_UC1|tomcat|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "node2|apmiaMySQL_UC1|Agent"
+        }]
+    }]
+}'
+
+echo "***sleeping for 5 sec"
+sleep 5
+
+curl -X POST \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/EMEA_Provisioning \
+  -H 'Authorization: Bearer '$OI_TOKEN'' \
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "serviceContent": [{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "TxChangeWeb_UC2|tomcat|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "TxChangeSvc_UC2|tomcat|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "node2|apmiaMySQL_UC2|Agent"
+        }]
+    }]
+}'
+
+echo "***sleeping for 5 sec"
+sleep 5
+
+curl -X POST \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Activation \
+  -H 'Authorization: Bearer '$OI_TOKEN'' \
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "serviceContent": [{
+        "query": [{
+                                "attributeName": "applicationName",
+                "attributeValue": "Activation"
+        }]
+    }]
+}'
