@@ -1,8 +1,12 @@
+clear
 echo ""
 echo "***********"
 echo "create service in GCP SaaS instance"
 echo ""
 echo "pls provide the OI token (this is OI token not APM - Go to Service Overview Page of the OI. Open browser dev mode and go to request header section under network tab for a request (say click on status circle) and look for Authorization Bearer token )"
+echo ""
+echo ""
+echo "####### make sure you replace \"_#\" in this file by running the following in \"vi\" \":%s/_#//g\" before running the script ####"
 echo ""
 
 read OI_TOKEN
@@ -16,6 +20,7 @@ fi
 echo " "
 
 echo " This will create an OI service - give it a minute or two and refresh your browser"
+echo ""
 
 echo ""
 
