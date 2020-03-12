@@ -502,10 +502,15 @@ configureEM () {
   logMsg "EM VERSION STRING is $VERSION_VAL"
 
   ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
+<<<<<<< HEAD
   # ESCAPED_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER"| sed 's/\//\\\//g')
   #APM_SAAS_URL_NO_PROTO=$(echo "$APM_SAAS_URL"| sed 's/http[s]*:\/\///g' |sed 's/\//\\\//g' )
   ESCAPED_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER"| sed 's/\//\\\//g')
  APM_SAAS_URL_NO_PROTO=$(echo "$APM_SAAS_URL"| sed 's/http[s]*:\/\///g' | sed 's/\/.*//g' )
+=======
+  ESCAPED_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER"| sed 's/\//\\\//g')
+  APM_SAAS_URL_NO_PROTO=$(echo "$APM_SAAS_URL"| sed 's/http[s]*:\/\///g' | sed 's/\/.*//g' )
+>>>>>>> 70aa69c356d42f5d6204117b6780a40791ddb286
 
   sed -i 's/APM_SAAS_URL_NO_PROTO/'$APM_SAAS_URL_NO_PROTO'/' $EM_SETUP_SCRIPT
   sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $EM_SETUP_SCRIPT
