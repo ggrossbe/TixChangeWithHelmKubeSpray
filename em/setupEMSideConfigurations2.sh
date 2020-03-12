@@ -300,7 +300,7 @@ importMgmtModule () {
   if [ "$IS_PRESENT" == "no" ]; then
   echo "MGMT Module $MGMT_MODULE importing"
   
-   curl -k -s -X POST -H "Authorization: Bearer APM_API_TOKEN"  -F "file=@INSTALLATION_FOLDER/EM_FOLDER/$MGMT_MODULE" APM_SAAS_URL/apm/appmap/private/mgmtmod
+   curl -k -s -X POST -H "Authorization: Bearer APM_API_TOKEN"  -F "file=@INSTALLATION_FOLDER/EM_FOLDER/$MGMT_MODULE" APM_SAAS_URL/apm/atc/api/private/mgmtmod/import
 
   fi
 }
