@@ -27,9 +27,9 @@ LOG_FILE_NAME=TixChangeInstallerLog`date +%Y_%m_%d_%H_%M`.log
 LOG_FILE=$INSTALLATION_FOLDER/logs/$LOG_FILE_NAME
 EM_FOLDER=em
 EM_SETUP_SCRIPT1=setupEMSideConfigurations1.sh
-EM_UNIVERSE1_NAME="WestCoast-DataCenter-Jtix"
+EM_UNIVERSE1_NAME="NA_Provisioning"
 EM_SETUP_SCRIPT2=setupEMSideConfigurations2.sh
-EM_UNIVERSE2_NAME="EastCoast-DataCenter-Jtix"
+EM_UNIVERSE2_NAME="EMEA_Provisioning"
 PROM_NAMESPACE=monitor
 PROM_FOLDER=prometheus
 
@@ -502,8 +502,10 @@ configureEM () {
   logMsg "EM VERSION STRING is $VERSION_VAL"
 
   ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
-   ESCAPED_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER"| sed 's/\//\\\//g')
-  APM_SAAS_URL_NO_PROTO=$(echo "$APM_SAAS_URL"| sed 's/http[s]*:\/\///g' |sed 's/\//\\\//g' )
+  # ESCAPED_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER"| sed 's/\//\\\//g')
+  #APM_SAAS_URL_NO_PROTO=$(echo "$APM_SAAS_URL"| sed 's/http[s]*:\/\///g' |sed 's/\//\\\//g' )
+  ESCAPED_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER"| sed 's/\//\\\//g')
+ APM_SAAS_URL_NO_PROTO=$(echo "$APM_SAAS_URL"| sed 's/http[s]*:\/\///g' | sed 's/\/.*//g' )
 
   sed -i 's/APM_SAAS_URL_NO_PROTO/'$APM_SAAS_URL_NO_PROTO'/' $EM_SETUP_SCRIPT
   sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $EM_SETUP_SCRIPT
