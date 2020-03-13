@@ -188,6 +188,13 @@ case $OPTION in
     
      stopDeleteAll
      ;;
+   ut)
+	logMsg "Stopping UMA and TixChange"
+	stopDeleteUMA
+        sleep 5
+       stopDeleteTixChange
+ 
+     ;;
    e)
      logMsg "Setup EM (Universes, Exp Views, mgmt mod). sleep 10sec before starting. Hope agents are already reporting"
      
