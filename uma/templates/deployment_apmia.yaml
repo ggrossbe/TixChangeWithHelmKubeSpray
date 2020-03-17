@@ -1,12 +1,12 @@
-{{- if or .Values.kubernetes_monitor_enabled }}
-
+{{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }}
+#  ( and .Values.monitor.container.prometheus.backend.endPoint.url .Values.agentManager.url )
 # APMIA based Deployment.
 # Agent from Container1 will be reported to <Cluster_Name>|ClusterMonitoring|Infrastructure Agent
 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cluster-deployment-monitor
+  name: container-monitor
   namespace: {{ .Release.Namespace }}
   labels:
     app: apmia-deployment
@@ -17,8 +17,9 @@ spec:
       name: apmia-deployment
       labels:
         app: apmia-deployment
+        deployment.name: container-monitor
     spec:
-      serviceAccountName: caapm
+      serviceAccountName: uma
       containers:
       - env:
         - name: agentManager_url_1
@@ -26,35 +27,35 @@ spec:
             configMapKeyRef:
               key: agentManager_url_1
               name: caaiops-config-common
-{{- if .Values.agentManager_credential }}
+{{- if or .Values.agentManager.credential .Values.agentManager_credential }}
         - name: agentManager_credential
           valueFrom:
             configMapKeyRef:
               key: agentManager_credential
               name: caaiops-config-common
 {{ end }}
-{{- if .Values.agentManager_httpProxy_host }}
+{{- if .Values.agentManager.httpProxy.host }}
         - name: apmenv_agentManager_httpProxy_host
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_host
               name: caaiops-config-common
 {{ end }}
-{{- if .Values.agentManager_httpProxy_port }}
+{{- if.Values.agentManager.httpProxy.port }}
         - name: apmenv_agentManager_httpProxy_port
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_port
               name: caaiops-config-common
 {{ end }}
-{{- if .Values.agentManager_httpProxy_username }}
+{{- if .Values.agentManager.httpProxy.username }}
         - name: apmenv_agentManager_httpProxy_username
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_username
               name: caaiops-config-common
 {{ end }}
-{{- if .Values.agentManager_httpProxy_password }}
+{{- if .Values.agentManager.httpProxy.password }}
         - name: apmenv_agentManager_httpProxy_password
           valueFrom:
             configMapKeyRef:
@@ -62,46 +63,90 @@ spec:
               name: caaiops-config-common
 {{ end }}
 
+{{- if .Values.namespaces }}
+        - name: KUBERNETES_NAMESPACE_MONITOR_LIST
+          value: "{{ .Values.namespaces }}"
+{{ end }}
+        - name: apmenv_introscope_agent_connection_compatibility_version
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_version
+              name: caaiops-config-common
+        - name: interval
+          value: "120"
         - name: KUEBRNETES_CLUSTER_MONITORING
           value: "true"
-
-        #        - name: connectionurl
-        #          valueFrom:
-        #            configMapKeyRef:
-        #              key: connectionurl
-        #              name: caaiops-config-common
-        #        - name: apitoken
-        #          valueFrom:
-        #            configMapKeyRef:
-        #              key: apitoken
-        #              name: caaiops-config-common
+        - name: apmenv_introscope_epagent_config_httpServerPort
+          value: "8888"
+        - name: REDUCE_METRIC_EXPLOSION
+          value: "false"
         - name: type
-          value: {{ .Values.type }}
+          value: {{ .Values.type | default "Kubernetes" | quote }}
         - name: HostMonitoring
           value: disabled
-        - name: apmenv_introscope_agent_hostName
+        - name: apmenv_cluster_name
           valueFrom:
             configMapKeyRef:
               key: cluster_name
               name: caaiops-config-common
+
         - name: apmenv_introscope_agent_customProcessName
-          value: ClusterDeploymentMonitor
+{{- if or .Values.agentNaming.deployment.apmia.process }}
+          valueFrom:
+            configMapKeyRef:
+              key: agentNaming_deployment_apmia_process
+              name: caaiops-config-common
+{{ else }}
+          value: ClusterDeployment
+{{ end }}
+        - name: apmenv_introscope_agent_hostName
+{{- if or .Values.agentNaming.deployment.apmia.host }}
+          valueFrom:
+            configMapKeyRef:
+              key: agentNaming_deployment_apmia_host
+              name: caaiops-config-common
+{{ else }}
+          valueFrom:
+            configMapKeyRef:
+              key: cluster_name
+              name: caaiops-config-common
+{{ end }}
         - name: apmenv_introscope_agent_agentName
+{{- if or .Values.agentNaming.deployment.apmia.agent }}
+          valueFrom:
+            configMapKeyRef:
+              key: agentNaming_deployment_apmia_agent
+              name: caaiops-config-common
+{{ else }}
           value: Infrastructure Agent
+#          valueFrom:
+#            fieldRef:
+#              fieldPath: metadata.labels['deployment.name']
+{{ end }}
         - name: apmenv_introscope_agent_extensions_bundles_load
-          value: OpenshiftMonitor
+          value: OpenTracing, {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }} OpenshiftMonitor, {{end}}
         - name: MIN_HEAP_VAL_IN_MB
           value: "64"
-
         - name: cluster_name
           valueFrom:
             configMapKeyRef:
               key: cluster_name
               name: caaiops-config-common
 
-        name: osemetainfo
-        image: {{ .Values.image }}
-{{- if .Values.kubernetes_resource_bound }}
+
+{{- if or .Values.namespaces }}
+        - name: apmenv_com_ca_apm_kubernetes_monitor_namespace_list
+          value: {{ quote .Values.namespaces }}
+{{ end }}
+        name: {{ .Chart.Name }}
+        image:  {{ or .Values.imageName .Values.image }}
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8888
+          initialDelaySeconds: 60
+          periodSeconds: 60
+  {{- if or .Values.EnableResourceLimits .Values.kubernetes_resource_bound }}
         resources:
           limits:
             cpu: 2
@@ -109,28 +154,25 @@ spec:
           requests:
             cpu: 200m
             memory: 300Mi
-{{end}}
-{{- if or (eq .Values.type "Kubernetes") }}
-        livenessProbe:
-          exec:
-            command:
-            - /bin/bash
-            - -c
-            - "if (( $(expr `date +%s` - `stat -c %Y /tmp/apmia-health/extensions/Kubernetes-health.txt`) > 900 )); then exit 1; fi"
-          initialDelaySeconds: 120
-{{end}}
-{{- if or (eq .Values.type "Openshift") }}
-        livenessProbe:
-          exec:
-            command:
-            - /bin/bash
-            - -c
-            - "if (( $(expr `date +%s` - `stat -c %Y /tmp/apmia-health/extensions/Openshift-health.txt`) > 900 )); then exit 1; fi"
-          initialDelaySeconds: 120
-{{end}}
+  {{end}}
         imagePullPolicy: Always
       restartPolicy: Always
   selector:
     matchLabels:
       app: apmia-deployment
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: opentracing
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: apmia-deployment
+  ports:
+  - nodePort: 31313
+    port: 8888
+    protocol: TCP
+    targetPort: 8888
+  type: LoadBalancer
 {{end}}

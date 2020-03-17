@@ -42,6 +42,29 @@ logMsg () {
 }
 
 
+stopUMA () {
+
+  if [ -d "$INSTALLATION_FOLDER" ]; then
+
+
+      cd $INSTALLATION_FOLDER
+
+      #ensure folder exists again
+      if [ $? -eq 0 ]; then
+         cd $UMA_FOLDER
+         logMsg "Deleting UMA"
+         helm delete uma --purge
+         cd ..
+
+         sleep 5
+
+      fi
+  fi
+  cd $INSTALL_SCRIPT_FOLDER
+
+}
+
+
 stopDeleteUMA () {
 
   if [ -d "$INSTALLATION_FOLDER" ]; then
@@ -201,6 +224,43 @@ stopDeleteTixChange () {
 
 }
 
+stopTixChange () {
+
+  logMsg "Stopping Tixchange and its components"
+
+  if [ -d "$INSTALLATION_FOLDER" ]; then
+
+
+      cd $INSTALLATION_FOLDER
+
+      #ensure folder exists again
+      if [ $? -eq 0 ]; then
+         cd $TIXCHANGE_FOLDER
+         logMsg "stopping tixchange"
+
+         helm ls
+         helm delete tixchange --purge
+         sleep 10
+         helm delete tixchange --purge 2> /dev/null
+
+         helm ls
+
+         cd ..
+
+         sleep 15
+
+      fi
+  fi
+
+ stopDeleteApmiaMySQL
+
+  cd $INSTALL_SCRIPT_FOLDER
+
+}
+
+
+
+
 #Stops the selenium pods
 stopDeleteSelenium () {
 
@@ -268,6 +328,7 @@ Usage () {
   echo "  s : install & run just selenium"
   echo "  e : EM side configuration: Setup Universes, import mgmt module etc"
   #echo "  b : install and configure HTTPD, BT Listener for BPA"
+  echo "  r_ut : remove UMA and TixChange - to deploy them manually for Say for a demo"
   echo "  c : cleanup and unintsall everything"
 
 }
@@ -290,10 +351,12 @@ installUMA () {
    cd $INSTALLATION_FOLDER/$UMA_FOLDER
 
    ESCAPED_APM_MANAGER_URL_1=$(echo "$APM_MANAGER_URL_1"| sed 's/\//\\\//g')
-   sed -i 's/agentManager_url_1.*$/agentManager_url_1: '$ESCAPED_APM_MANAGER_URL_1'/' values.yaml
+   #sed -i 's/agentManager_url_1.*$/agentManager_url_1: '$ESCAPED_APM_MANAGER_URL_1'/' values.yaml
 
-   sed -i 's/agentManager_credential.*$/agentManager_credential: '$APM_MANAGER_CREDENTIAL'/' values.yaml
-   sed -i 's/cluster_name.*$/cluster_name: '$UMA_K8S_CLUSTER_NAME'/' values.yaml
+   sed -i '0,/url:/ s/url:.*$/url: '$ESCAPED_APM_MANAGER_URL_1'/' values.yaml
+
+   sed -i 's/credential.*$/credential: '$APM_MANAGER_CREDENTIAL'/' values.yaml
+   sed -i 's/clusterName.*$/clusterName: '$UMA_K8S_CLUSTER_NAME'/' values.yaml
 
    helm install  . --name uma --namespace caaiops
    
@@ -325,6 +388,7 @@ installTixChangeHelm () {
    cp -rf $SCRIPTS_FOLDER/default.basnippet2 $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
    cp -rf $SCRIPTS_FOLDER/jtixchange.pbd  $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
    cp -rf $SCRIPTS_FOLDER/j2ee.pbd  $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
+   cp -rf $SCRIPTS_FOLDER/copyPBDs.sh  $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
 
    echo $BA_SNIPPET_UC1 > $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/default.basnippet1
    echo $BA_SNIPPET_UC2 > $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/default.basnippet2
@@ -373,6 +437,9 @@ installTixChangeHelm () {
    sleep 10
 
    logMsg ""
+   kubectl create configmap copy-pbds  --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./copyPBDs.sh
+   kubectl create configmap copy-pbds  --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./copyPBDs.sh
+
    kubectl create configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE1 --from-file=./default.basnippet1
    kubectl create configmap default-basnippet --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./default.basnippet2
    kubectl create configmap jtixchange-pbd --namespace=$TIXCHANGE_NAMESPACE2 --from-file=./jtixchange.pbd

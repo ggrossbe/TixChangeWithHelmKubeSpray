@@ -1,7 +1,6 @@
-{{- if or .Values.kubernetes_monitor_cluster_prometheus_exporters_enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}
-
+{{- if or .Values.agentManager.url .Values.agentManager_url_1 }}
   # Cluster Discovery Service
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: clusterinfo
@@ -21,11 +20,11 @@ spec:
         app: cagent
         module: clusterinfo
     spec:
-      serviceAccountName: caapm
+      serviceAccountName: uma
       containers:
       - name: clusterinfo
-        image: {{ .Values.image }}
-{{- if .Values.kubernetes_resource_bound }}
+        image:  {{ or .Values.imageName .Values.image }}
+{{- if .Values.EnableResourceLimits }}
         resources:
           limits:
             cpu: 2

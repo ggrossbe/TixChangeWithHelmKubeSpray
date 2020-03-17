@@ -38,6 +38,8 @@ spec:
       containers:
         - name: tix-web
           env:
+          - name: TEMP_PBD_DIR
+            value: /opt/temp
           - name: WEBAPP_HOME
             value: /usr/local/tomcat/webapps/jtixchange_web
           #- name: DB_HOST
@@ -70,7 +72,8 @@ spec:
           lifecycle:
             postStart: 
               exec:
-                command: [ 'sh', '-c', 'sleep 60; cp -f /opt/temp/j2ee.pbd /opt/wily/core/config/j2ee.pbd; chmod 777 /opt/wily/core/config/j2ee.pbd;']
+                #command: [ 'sh', '-c', 'sleep 60; cp -f /opt/temp/j2ee.pbd /opt/wily/core/config/j2ee.pbd; chmod 777 /opt/wily/core/config/j2ee.pbd;']
+                command: [ 'sh', '-c', 'sleep 60; ']
           #imagePullPolicy: IfNotPresent
           imagePullPolicy: Always
           envFrom:
@@ -79,6 +82,9 @@ spec:
             - configMapRef:
                 name: agent-profile
           volumeMounts:
+            - name: copy-pbds
+              mountPath: /opt/copyPBDs.sh
+              subPath: copyPBDs.sh
             - name: ba-snippet
               mountPath: /opt/default.basnippet
               subPath: default.basnippet2
@@ -88,7 +94,7 @@ spec:
               subPath: j2ee.pbd
               readOnly: true
             - name: jtixchange-pbd
-              mountPath: /opt/wily/core/config/hotdeploy/jtixchange.pbd
+              mountPath: /opt/temp/jtixchange.pbd
               subPath: jtixchange.pbd
               readOnly: true
           ports:
@@ -100,6 +106,9 @@ spec:
         - name: j2ee-pbd
           configMap:
             name: j2ee-pbd
+        - name: copy-pbds
+          configMap:
+            name: copy-pbds
         - name: jtixchange-pbd
           configMap:
             name: jtixchange-pbd
