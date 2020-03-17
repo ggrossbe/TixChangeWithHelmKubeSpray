@@ -14,29 +14,35 @@ clear
 rm -rf $INSTALLATION_FOLDER/logs/ 2> /dev/null
 mkdir -p $INSTALLATION_FOLDER/logs 2> /dev/null
 
-logMsg "Deploy and setup TixChange on K8s."
+if [ X$1 != "Xt" ]; then
 
-logMsg " *********"
-logMsg "1. Make sure HOST_IP field is updated in config.ini"
-logMsg "2. Make sure ssh key is setup among all your nodes to connect from this box without passwd"
-logMsg "3. Make sure you have 40G available in the install folder ($INSTALLATION_FOLDER) volume"
-logMsg "4. Make sure you run this as root"
-logMsg " *********"
+	logMsg "Deploy and setup TixChange on K8s."
 
-logMsg "Press y to proceed"
+	logMsg " *********"
+	logMsg "1. Make sure HOST_IP field is updated in config.ini"
+	logMsg "2. Make sure ssh key is setup among all your nodes to connect from this box without passwd"
+	logMsg "3. Make sure you have 40G available in the install folder ($INSTALLATION_FOLDER) volume"
+	logMsg "4. Make sure you run this as root"
+	logMsg " *********"
+	
+	logMsg "Press y to proceed"
 
-read INPUT
+	read INPUT
+	
+	OPTION=""
+	
+	if [ X$INPUT != "Xy" ]; then
+  		logMsg "Did not get \"y\". exiting ..." 
+  		exit
+	else 
+  		logMsg "Choose your option and press enter"
+  		Usage
+		
+  		read OPTION
+	fi
 
-OPTION=""
-
-if [ X$INPUT != "Xy" ]; then
-  logMsg "Did not get \"y\". exiting ..." 
-  exit
 else 
-  logMsg "Choose your option and press enter"
-  Usage
-
-  read OPTION
+	OPTION=t
 fi
 
 
@@ -188,11 +194,19 @@ case $OPTION in
     
      stopDeleteAll
      ;;
-   ut)
+   r_ut)
 	logMsg "Stopping UMA and TixChange"
-	stopDeleteUMA
+	stopUMA
         sleep 5
-       stopDeleteTixChange
+       stopTixChange
+
+       logMsg ""
+       logMsg ""
+       logMsg "######## UMA and TixChange stopped - to start them MANUALLY say for demo run - Once manually started you will have to run \"s\" option to run Selenium"
+
+       logMsg "TixChange Manual Deploy ---> cd /opt/ca/TixChangeK8sDemo/tixChangeHelm; helm install  . --name tixchange"
+       logMsg "UMA Manual Deploy ---> cd /opt/ca/TixChangeK8sDemo/uma; helm install  . --name uma --namespace caaiops"
+       logMsg ""
  
      ;;
    e)

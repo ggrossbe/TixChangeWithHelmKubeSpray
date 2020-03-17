@@ -1,7 +1,9 @@
+{{- if and (or .Values.agentManager.url .Values.agentManager_url_1) }}
+{{- if or .Values.monitor.application.java.enabled .Values.autoattach_enabled .Values.monitor.application.jmx.enabled .Values.kubernetes_remote_jmx_enabled .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled .Values.monitor.container.prometheus.exporter.enabled }}
 # DaemonSet Configuration
 # Agent from Container1 will be reported to <Node_Name>|Infrastructure|Agent
 # Agent from Container2 will be reported to <Node_Name>|Application|JMX Agent
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: app-container-monitor
@@ -13,6 +15,9 @@ metadata:
 
 spec:
   # oc adm policy add-scc-to-user privileged -z default
+  selector:
+    matchLabels:
+      app: caagent
   template:
     metadata:
       labels:
@@ -26,62 +31,77 @@ spec:
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
+      - key: node-role.kubernetes.io/storage
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/infra
+        effect: NoSchedule
+      serviceAccountName: uma
+      initContainers:
+      - name: init-clusterinfo
+        image: {{ or .Values.imageName .Values.image }}
+        command: ['bash', '-c', 'until [ $(curl --connect-timeout 5 --max-time 10 --write-out %{http_code} --silent --output /dev/null ${CLUSTERINFO_SERVICE_HOST}:${CLUSTERINFO_SERVICE_PORT}/up) -eq 200 ]; do sleep 2; done']
       containers:
       - env:
+{{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }}
         - name: containerflow
           value: enabled
+{{ end }}
         - name: apmenv_autoattach_docker_free_memory_threshold
           value: "15.00"
+        - name: apmenv_autoattach_filter_jvms
+          value: "false"
         - name: agentManager_url_1
           valueFrom:
             configMapKeyRef:
               key: agentManager_url_1
               name: caaiops-config-common
-{{- if .Values.agentManager_credential }}
+{{- if or .Values.agentManager.credential .Values.agentManager_credential }}
         - name: agentManager_credential
           valueFrom:
             configMapKeyRef:
               key: agentManager_credential
               name: caaiops-config-common
 {{ end }}
-{{- if .Values.agentManager_httpProxy_host }}
+{{- if .Values.agentManager.httpProxy.host }}
         - name: apmenv_agentManager_httpProxy_host
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_host
               name: caaiops-config-common
 {{ end }}
-{{- if .Values.agentManager_httpProxy_port }}
+{{- if .Values.agentManager.httpProxy.port }}
         - name: apmenv_agentManager_httpProxy_port
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_port
               name: caaiops-config-common
 {{ end }}
-{{- if .Values.agentManager_httpProxy_username }}
+{{- if .Values.agentManager.httpProxy.username }}
         - name: apmenv_agentManager_httpProxy_username
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_username
               name: caaiops-config-common
 {{ end }}
-{{- if .Values.agentManager_httpProxy_password }}
+{{- if .Values.agentManager.httpProxy.password }}
         - name: apmenv_agentManager_httpProxy_password
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_password
               name: caaiops-config-common
 {{ end }}
-
+        - name: apmenv_introscope_agent_connection_compatibility_version
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_version
+              name: caaiops-config-common
         - name: type
           value: {{ .Values.type }}
         - name: interval
           value: "60"
         - name: apmenv_introscope_agent_extensions_bundles_load
-          value: {{ if or .Values.autoattach_enabled }} AutoAttach,{{end}}{{ if and .Values.kubernetes_monitor_enabled }}OpenshiftMonitor,HostMonitor,{{end}}KubernetesRemoteMonitor
-        ###Enable Node Exporter####- name: apmenv_introscope_agent_extensions_bundles_load
-          ###Enable Node Exporter####value: {{ if or .Values.autoattach_enabled }} AutoAttach,{{end}}{{ if and .Values.kubernetes_monitor_enabled }}OpenshiftMonitor,HostMonitor,{{end}}{{ if or .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}KubernetesRemoteMonitor,{{end}}
-{{- if or .Values.autoattach_enabled }}
+          value: {{ if or .Values.monitor.application.java.enabled .Values.autoattach_enabled }} AutoAttach,{{end}}{{ if and ( or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled) }}OpenshiftMonitor,HostMonitor,{{end}}{{ if or .Values.monitor.container.prometheus.exporter.enabled .Values.monitor.application.jmx.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}KubernetesRemoteMonitor,{{end}}
+{{- if or .Values.monitor.application.java.enabled .Values.autoattach_enabled }}
         ##########################
         # Auto Attach properties:
         ##########################
@@ -93,7 +113,7 @@ spec:
         # whitelist: will only attach to processes marked with env variable CA_APM_MONITORING_ENABLED=true
         # blacklist: will attach to all processes except those marked with env variable CA_APM_MONITORING_ENABLED=false
         - name: apmenv_autoattach_filter_type
-          value: "{{ default "whitelist" .Values.autoattach_filter_type }}"
+          value: "{{ default "whitelist" (or .Values.monitor.application.java.filterType .Values.autoattach_filter_type) }}"
         # Properties for aggressively monitoring every JVM
         - name: apmenv_autoattach_proactiveMode_enabled
           value: "true"
@@ -103,17 +123,16 @@ spec:
           value: "/usr/local/openshift/apmia/java-agent/wily"
         - name: apmenv_autoattach_proactiveMode_agent_profile
           value: "IntroscopeAgentMicro.profile"
-{{- if and .Values.autoattach_agent_extra_properties }}
+{{- if or (or .Values.monitor.application.java.propertiesOverride .Values.autoattach_agent_extra_properties) .Values.agentManager.version }}
         - name: apmenv_autoattach_proactiveMode_agent_extra_properties
-          value: {{ .Values.autoattach_agent_extra_properties }}
+          value: {{ if or .Values.agentManager.version }}introscope.agent.connection.compatibility.version=10.7,{{end}}{{ or .Values.monitor.application.java.propertiesOverride .Values.autoattach_agent_extra_properties}}
 {{ end }}
 
 
 {{end}}
-{{- if or .Values.kubernetes_remote_jmx_enabled  .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
+{{- if or .Values.monitor.application.jmx.enabled  .Values.monitor.container.prometheus.exporter.enabled .Values.kubernetes_remote_jmx_enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
         - name: apmenv_com_ca_apm_kubernetes_remote_monitor_type
-          value: prometheus
-          ###Enable Node Exporter###value: {{ if or .Values.kubernetes_remote_jmx_enabled }}jmx,{{end}}{{ if and .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled (not .Values.kubernetes_monitor_enabled) }}prometheus{{end}}
+          value: {{ if or .Values.monitor.application.jmx.enabled .Values.kubernetes_remote_jmx_enabled }}jmx,{{end}}{{ if and (or .Values.monitor.container.prometheus.exporter.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled) }}prometheus{{end}}
         - name: apmenv_com_ca_apm_kubernetes_clusterName
           valueFrom:
             configMapKeyRef:
@@ -126,23 +145,45 @@ spec:
             fieldRef:
               fieldPath: spec.nodeName
 {{end}}
-{{- if or .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
+{{- if or .Values.monitor.container.prometheus.exporter.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled}}
         - name: apmenv_com_ca_apm_kubernetes_prometheus_datafile
-          value: node-exporter
-          ###Enable Node Exporter###value: node-exporter, cadvisor
+          value: node-exporter, cadvisor
 {{end}}
+{{- if or .Values.agentNaming.daemonset.apmia.host }}
+        - name: apmenv_introscope_agent_hostName
+          valueFrom:
+            configMapKeyRef:
+              key: agentNaming_daemonset_apmia_host
+              name: caaiops-config-common
+{{ end }}
         - name: apmenv_introscope_agent_customProcessName
+{{- if or .Values.agentNaming.daemonset.apmia.process }}
+          valueFrom:
+            configMapKeyRef:
+              key: agentNaming_daemonset_apmia_process
+              name: caaiops-config-common
+{{ else }}
           valueFrom:
             configMapKeyRef:
               key: cluster_name
               name: caaiops-config-common
+{{ end }}
         - name: apmenv_introscope_agent_agentName
+{{- if or .Values.agentNaming.daemonset.apmia.agent }}
+          valueFrom:
+            configMapKeyRef:
+              key: agentNaming_daemonset_apmia_agent
+              name: caaiops-config-common
+{{ else }}
           value: Kubernetes Agent
+{{ end }}
         - name: MIN_HEAP_VAL_IN_MB
           value: "64"
+        - name: apmenv_introscope_epagent_config_httpServerPort
+          value: "8888"
         name: podmonitor
-        image:  {{ .Values.image }}
-{{- if .Values.kubernetes_resource_bound }}
+        image:  {{ or .Values.imageName .Values.image }}
+{{- if or .Values.EnableResourceLimits .Values.kubernetes_resource_bound }}
         resources:
           limits:
             cpu: 2
@@ -151,24 +192,13 @@ spec:
             cpu: 200m
             memory: 300Mi
 {{end}}
-{{- if and .Values.kubernetes_monitor_enabled (not .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled) }}
         livenessProbe:
-          exec:
-            command:
-            - /bin/bash
-            - -c
-            - "if (( $(expr `date +%s` - `stat -c %Y /tmp/apmia-health/extensions/Docker-health.txt`) > 120 )); then exit 1; fi"
-          initialDelaySeconds: 120
-{{end}}
-{{- if .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
-        livenessProbe:
-          exec:
-            command:
-            - /bin/bash
-            - -c
-            - "if (( $(expr `date +%s` - `stat -c %Y /tmp/apmia-health/extensions/prometheus-health.txt`) > 120 )); then exit 1; fi"
-          initialDelaySeconds: 120
-{{end}}
+          httpGet:
+            path: /healthz
+            port: 8888
+          initialDelaySeconds: 60
+          periodSeconds: 60
+
         imagePullPolicy: Always
         #        resources:
         #          limits:
@@ -189,7 +219,7 @@ spec:
         - name: proc
           mountPath: /host/proc
           readOnly: true
-{{- if  .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
+{{- if or .Values.monitor.container.prometheus.exporter.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
         - name: config-volume
           mountPath: /usr/local/openshift/apmia/extensions/KubernetesRemoteMonitor/config/prometheus
 {{end}}
@@ -200,12 +230,12 @@ spec:
       - name: proc
         hostPath:
           path: /proc
-{{- if  .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
+{{- if or .Values.monitor.container.prometheus.exporter.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
       - name: config-volume
         configMap:
           name: caaiops-config-prometheus
 {{end}}
 
-selector:
-    matchLabels:
-      app: caagent
+
+{{ end }}
+{{ end }}

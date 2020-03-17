@@ -1,3 +1,4 @@
+{{- if or .Values.agentManager.url .Values.agentManager_url_1 }}
 # Common comfig map needed for All extensions
 apiVersion: v1
 kind: ConfigMap
@@ -5,13 +6,32 @@ metadata:
   name: caaiops-config-common
   namespace: {{ .Release.Namespace }}
 data:
-  cluster_name: {{ .Values.cluster_name }}
-  agentManager_url_1: {{ .Values.agentManager_url_1 }}
-  agentManager_credential: {{ .Values.agentManager_credential }}
-  agentManager_httpProxy_host: {{ .Values.agentManager_httpProxy_host }}
-  agentManager_httpProxy_port: "{{ .Values.agentManager_httpProxy_port }}"
-  agentManager_httpProxy_username: {{ .Values.agentManager_httpProxy_username }}
-  agentManager_httpProxy_password: "{{ .Values.agentManager_httpProxy_password }}"
-
+  {{- if and .Values.monitor.container.prometheus.backend.endPoint.url  .Values.monitor.container.prometheus.backend.enabled }}
+  cluster_name: "{{- template "prometheus.clusterName" . }}"
+  {{ else }}
+  cluster_name: "{{ .Values.clusterName }}"
+  {{ end }}
+  agentManager_url_1: "{{ or .Values.agentManager.url .Values.agentManager_url_1 }}"
+  agentManager_credential: "{{ or .Values.agentManager.credential .Values.agentManager_credential }}"
+  agentManager_version: "{{ .Values.agentManager.version | default "" }}"
+  agentManager_httpProxy_host: "{{ .Values.agentManager.httpProxy.host }}"
+  agentManager_httpProxy_port: "{{ .Values.agentManager.httpProxy.port }}"
+  agentManager_httpProxy_username: "{{ .Values.agentManager.httpProxy.username }}"
+  agentManager_httpProxy_password: "{{ .Values.agentManager.httpProxy.password }}"
+  prometheus_server_url: "{{ .Values.monitor.container.prometheus.backend.endPoint.url }}"
+  prometheus_server_username: "{{ .Values.monitor.container.prometheus.backend.endPoint.username }}"
+  prometheus_server_password: "{{ .Values.monitor.container.prometheus.backend.endPoint.password }}"
+  prometheus_server_token: "{{ .Values.monitor.container.prometheus.backend.endPoint.token }}"
   apmia_min_heap: "256"
   apmia_max_heap: "512"
+  agentNaming_deployment_apmia_host: "{{ .Values.agentNaming.deployment.apmia.host }}"
+  agentNaming_deployment_apmia_process: "{{ .Values.agentNaming.deployment.apmia.process }}"
+  agentNaming_deployment_apmia_agent: "{{ .Values.agentNaming.deployment.apmia.agent }}"
+  agentNaming_deployment_prometheus_host: "{{ .Values.agentNaming.deployment.prometheus.host }}"
+  agentNaming_deployment_prometheus_process: "{{ .Values.agentNaming.deployment.prometheus.process }}"
+  agentNaming_deployment_prometheus_agent: "{{ .Values.agentNaming.deployment.prometheus.agent }}"
+  agentNaming_daemonset_apmia_host: "{{ .Values.agentNaming.daemonset.apmia.host }}"
+  agentNaming_daemonset_apmia_process: "{{ .Values.agentNaming.daemonset.apmia.process }}"
+  agentNaming_daemonset_apmia_agent:  "{{ .Values.agentNaming.daemonset.apmia.agent }}"
+
+{{ end }}

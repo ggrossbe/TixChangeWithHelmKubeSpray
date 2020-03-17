@@ -1,11 +1,11 @@
-{{- if or .Values.kubernetes_monitor_cluster_prometheus_exporters_enabled }}
+{{- if or .Values.monitor.clusterPerformance.enabled .Values.kubernetes_monitor_cluster_prometheus_exporters_enabled .Values.monitor.container.prometheus.backend.enabled }}
 # Prometheus based Deployment. What is the Agent triplet name ?
 # Agent from Container1 will be reported to <Cluster_Name>|ClusterMonitoring|Prometheus Agent
 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cluster-service-monitor
+  name: cluster-performance-prometheus
   namespace: {{ .Release.Namespace }}
   labels:
     app: prometheus-deployment
@@ -17,6 +17,10 @@ spec:
       labels:
         app: prometheus-deployment
     spec:
+      initContainers:
+        - name: init-clusterinfo
+          image:  {{ or .Values.imageName .Values.image }}
+          command: ['bash', '-c', 'until [ $(curl --connect-timeout 5 --max-time 10 --write-out %{http_code} --silent --output /dev/null ${CLUSTERINFO_SERVICE_HOST}:${CLUSTERINFO_SERVICE_PORT}/up) -eq 200 ]; do sleep 2; done']
       containers:
       - env:
         - name: agentManager_url_1
@@ -24,64 +28,93 @@ spec:
             configMapKeyRef:
               key: agentManager_url_1
               name: caaiops-config-common
-{{- if .Values.agentManager_credential }}
+{{- if or .Values.agentManager.credential .Values.agentManager_credential }}
         - name: agentManager_credential
           valueFrom:
             configMapKeyRef:
               key: agentManager_credential
               name: caaiops-config-common
 {{ end }}
-{{- if .Values.agentManager_httpProxy_host }}
+{{- if .Values.agentManager.httpProxy.host }}
         - name: apmenv_agentManager_httpProxy_host
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_host
               name: caaiops-config-common
 {{ end }}
-{{- if .Values.agentManager_httpProxy_port }}
+{{- if .Values.agentManager.httpProxy.port }}
         - name: apmenv_agentManager_httpProxy_port
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_port
               name: caaiops-config-common
 {{ end }}
-{{- if .Values.agentManager_httpProxy_username }}
+{{- if .Values.agentManager.httpProxy.username }}
         - name: apmenv_agentManager_httpProxy_username
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_username
               name: caaiops-config-common
 {{ end }}
-{{- if .Values.agentManager_httpProxy_password }}
+{{- if .Values.agentManager.httpProxy.password }}
         - name: apmenv_agentManager_httpProxy_password
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_password
               name: caaiops-config-common
 {{ end }}
-        - name: apmenv_introscope_agent_extensions_bundles_load
+        - name: apmenv_introscope_agent_connection_compatibility_version
           valueFrom:
             configMapKeyRef:
-              key: kubernetes_remote_monitoring_bundles_load
-              name: caaiops-config-prometheus
+              key: agentManager_version
+              name: caaiops-config-common
+        - name: apmenv_introscope_agent_extensions_bundles_load
+          value: {{- if or .Values.monitor.clusterPerformance.enabled .Values.kubernetes_monitor_cluster_prometheus_exporters_enabled }} KubernetesRemoteMonitor, {{ end }}{{ if .Values.monitor.container.prometheus.backend.enabled }} PrometheusImporter, {{end}}
         - name: apmenv_com_ca_apm_kubernetes_remote_monitor_type
           value: prometheus
         - name: apmenv_com_ca_apm_kubernetes_prometheus_datafile
           value: haproxy,kube-state-metric,coredns
         - name: apmenv_introscope_agent_agentName
-          value: Infrastructure Agent
+{{- if or .Values.agentNaming.deployment.prometheus.agent }}
+          valueFrom:
+            configMapKeyRef:
+              key: agentNaming_deployment_prometheus_agent
+              name: caaiops-config-common
+{{ else }}
+
+          value: Prometheus Agent
+{{ end }}
+        - name: apmenv_introscope_agent_customProcessName
+{{- if or .Values.agentNaming.deployment.prometheus.process }}
+          valueFrom:
+            configMapKeyRef:
+              key: agentNaming_deployment_prometheus_process
+              name: caaiops-config-common
+{{ else }}
+{{- if or .Values.monitor.clusterPerformance.enabled .Values.kubernetes_monitor_cluster_prometheus_exporters_enabled }}
+          value: ClusterPerformanceMonitor
+{{ else }}
+          value: ClusterPerformanceMonitor
+{{ end }}
+{{ end }}
         - name: apmenv_introscope_agent_hostName
+{{- if or .Values.agentNaming.deployment.prometheus.host }}
+          valueFrom:
+            configMapKeyRef:
+              key: agentNaming_deployment_prometheus_host
+              name: caaiops-config-common
+{{ else }}
           valueFrom:
             configMapKeyRef:
               key: cluster_name
               name: caaiops-config-common
-        - name: apmenv_introscope_agent_customProcessName
-          value: ClusterServiceMonitor
+{{ end }}
         - name: apmenv_com_ca_apm_kubernetes_clusterName
           valueFrom:
             configMapKeyRef:
               key: cluster_name
               name: caaiops-config-common
+
         - name: nodename
           valueFrom:
             fieldRef:
@@ -89,13 +122,104 @@ spec:
         - name: apmenv_com_ca_apm_kubernetes_prometheus_autodiscovery
           value: "true"
         - name: type
-          value: {{ .Values.type }}
+          value: {{ .Values.type | default "Kubernetes" | quote }}
         - name: MIN_HEAP_VAL_IN_MB
           value: "64"
+        - name: apmenv_introscope_epagent_config_httpServerPort
+          value: "8888"
+        - name: HostMonitoring
+          value: disabled
+{{- if or .Values.monitor.container.prometheus.backend.endPoint.url }}
+        - name: cluster_name
+          valueFrom:
+            configMapKeyRef:
+              key: cluster_name
+              name: caaiops-config-common
 
+        - name: apmenv_cluster_name
+          valueFrom:
+            configMapKeyRef:
+              key: cluster_name
+              name: caaiops-config-common
+
+  {{ end }}
+{{- if .Values.monitor.container.prometheus.backend.filter.name }}
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-container-mapdata_filter_keyname
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.name }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-container-mapdata_filter_value
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.value }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-container-metrics_filter_keyname
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.name }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-container-metrics_filter_value
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.value }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-container-resource-cpu-limit-mapdata_filter_keyname
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.name }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-container-resource-cpu-limit-mapdata_filter_value
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.value }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-container-resource-cpu-request-mapdata_filter_keyname
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.name }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-container-resource-cpu-request-mapdata_filter_value
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.value }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-container-resource-memory-limit-mapdata_filter_keyname
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.name }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-container-resource-memory-limit-mapdata_filter_value
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.value }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-container-resource-memory-request-mapdata_filter_keyname
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.name }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-container-resource-memory-request-mapdata_filter_value
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.value }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-namespace-labels-mapdata_filter_keyname
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.name }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-namespace-labels-mapdata_filter_value
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.value }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-namespace-mapdata_filter_keyname
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.name }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-namespace-mapdata_filter_value
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.value }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-pod-labels-mapdata_filter_keyname
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.name }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-pod-labels-mapdata_filter_value
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.value }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-pod-mapdata_filter_keyname
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.name }}"
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_k8s-pod-mapdata_filter_value
+          value: "{{  .Values.monitor.container.prometheus.backend.filter.value }}"
+{{ end }}
+{{- if or .Values.monitor.container.prometheus.backend.enabled }}
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoints
+          value: prometheus
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_url
+          valueFrom:
+            configMapKeyRef:
+              key: prometheus_server_url
+              name: caaiops-config-common
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_username
+          valueFrom:
+            configMapKeyRef:
+              key: prometheus_server_username
+              name: caaiops-config-common
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_password
+          valueFrom:
+            configMapKeyRef:
+              key: prometheus_server_password
+              name: caaiops-config-common
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_token
+          valueFrom:
+            configMapKeyRef:
+              key: prometheus_server_token
+              name: caaiops-config-common
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_polling_frequency
+          value: {{ .Values.monitor.container.prometheus.backend.endPoint.pollInterval | default "30" | quote }}
+        - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_config_files
+          value: "{{ .Values.monitor.container.prometheus.backend.endPoint.configFiles | default "k8s-cluster-mapdata.yaml,k8s-container-mapdata.yaml,k8s-container-metrics.yaml,k8s-container-resource-cpu-limit-mapdata.yaml,k8s-container-resource-cpu-request-mapdata.yaml,k8s-container-resource-memory-limit-mapdata.yaml,k8s-container-resource-memory-request-mapdata.yaml, k8s-namespace-labels-mapdata.yaml,k8s-namespace-mapdata.yaml,k8s-node.yaml,k8s-node-labels-mapdata.yaml,k8s-pod-labels-mapdata.yaml,k8s-pod-mapdata.yaml" }}"
+        - name: apmenv_prometheus_metric_name_alias
+          value: "{{ .Values.monitor.container.prometheus.backend.endPoint.metricAlias }}"
+        - name: apmenv_prometheus_metric_name_alias_exception
+          value: k8s-pod-mapdata.yaml,k8s-container-mapdata.yaml
+{{ end }}
         name: kubernetesservice
-        image: {{ .Values.image }}
-{{- if .Values.kubernetes_resource_bound }}
+        image: {{ or .Values.imageName .Values.image }}
+{{- if or .Values.EnableResourceLimits .Values.kubernetes_resource_bound }}
         resources:
           limits:
             cpu: 2
@@ -105,21 +229,23 @@ spec:
             memory: 300Mi
 {{end}}
         livenessProbe:
-          exec:
-            command:
-            - /bin/bash
-            - -c
-            - "if (( $(expr `date +%s` - `stat -c %Y /tmp/apmia-health/extensions/prometheus-health.txt`) > 120 )); then exit 1; fi"
-          initialDelaySeconds: 120
+          httpGet:
+            path: /healthz
+            port: 8888
+          initialDelaySeconds: 60
+          periodSeconds: 60
         imagePullPolicy: Always
+
+{{- if or .Values.monitor.clusterPerformance.enabled .Values.kubernetes_monitor_cluster_prometheus_exporters_enabled }}
         volumeMounts:
         - name: config-volume
           mountPath: /usr/local/openshift/apmia/extensions/KubernetesRemoteMonitor/config/prometheus
-      restartPolicy: Always
+
       volumes:
       - name: config-volume
         configMap:
           name: caaiops-config-prometheus
+{{ end }}
   selector:
     matchLabels:
       app: prometheus-deployment
