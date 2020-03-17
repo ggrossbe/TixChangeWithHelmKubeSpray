@@ -11,6 +11,12 @@ MAIN_FOLDER=`dirname $BASH_SOURCE`
 
 clear
 
+cat $MAIN_FOLDER/version.txt
+
+echo ""
+
+sleep 2
+
 rm -rf $INSTALLATION_FOLDER/logs/ 2> /dev/null
 mkdir -p $INSTALLATION_FOLDER/logs 2> /dev/null
 
