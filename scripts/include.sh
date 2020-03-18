@@ -287,6 +287,15 @@ stopDeleteSelenium () {
   fi            
                 
   cd $INSTALL_SCRIPT_FOLDER
+
+ #removing OpenAcc UC status cron job
+  
+  sed -i 's/.*openAcc.*//g' /var/spool/cron/root
+  
+  sleep 5
+  
+  # set the UC status to off
+  $INSTALL_SCRIPT_FOLDER/useCaseScripts/openAccessUCStatusTracker/UC1_StatusTracker.sh DONE
 }
 
 
@@ -529,6 +538,9 @@ installAndConfigureSelenium () {
   sleep 10
 
   cd -
+
+   # add open access UC status job
+   echo "*/1 * * * * /bin/sh $INSTALL_SCRIPT_FOLDER/useCaseScripts/openAccessUCStatusTracker/UC1_StatusTracker.sh >/dev/null 2>&1" > /var/spool/cron/root
 }
 
 configureEM () {
