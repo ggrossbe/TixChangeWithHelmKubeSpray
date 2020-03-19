@@ -348,7 +348,7 @@ correlateAppToInfraForDBVertex () {
   echo "SQL POD $SQL_POD"
   if [ X"$SQL_POD" != "X" ]; then
 
-     CONTAINER_ID=`kubectl describe pod  $SQL_POD -n tixchange-v1 |sed -n '/tix-mysql:/{n;p}'|grep "Container ID" |awk '{print $3}'|sed 's/docker:\/\///g'`
+     CONTAINER_ID=`kubectl describe pod  $SQL_POD -n tixchange-v1 |sed -n '/'$1'/{n;p}'|grep "Container ID" |awk '{print $3}'|sed 's/docker:\/\///g'`
      echo "Container ID is $CONTAINER_ID"
   fi
 
@@ -510,8 +510,8 @@ curl -k -s -X PATCH \
 
 
 patchAVertex () {
-curl -k -s -X PATCH \
-  APM_SAAS_URL/apm/appmap/graph/vertex/ \
+curl -k -s -X POST \
+  APM_SAAS_URL/apm/atc/api/private/attributes/assign \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
   -H 'Cache-Control: no-cache' \
@@ -519,15 +519,7 @@ curl -k -s -X PATCH \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -d ' { "items" : [
-                {
-                                "id":"'$1'",
-                                "attributes": {
-                                "containerId":["'$2'"]
-        }
-    }
-  ]
-}'
+  -d '{"vertexIds":["'$1'"],"attributeName":"containerId","attributeValue":"'$2'"}'
 }
 
 

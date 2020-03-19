@@ -44,7 +44,7 @@ spec:
               value: "APM_MANAGER_CREDENTIAL"
             - name: apmenv_db1_hostName
               value: "tixchange-mysql-conn-svc-2"
-          name: apmia-mysql-uc1
+          name: apmia-mysql-uc2
           image: srikns/apmiamysql:latest
           imagePullPolicy: Always
           resources:
