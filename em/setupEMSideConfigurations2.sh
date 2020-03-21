@@ -87,7 +87,7 @@ curl -v  -k -X POST \
                "Responses Per Interval"
             ],
             "filter":{
-                "Hostname": "TIXCHANGE2_MYSQL_DB_HOSTNAME"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME2"
             }
          }
       ]

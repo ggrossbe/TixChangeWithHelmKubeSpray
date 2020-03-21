@@ -422,21 +422,19 @@ installTixChangeHelm () {
 
      sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v1.yaml
      sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v1.yaml
-     sed -i 's/TIXCHANGE1_MYSQL_DB_HOSTNAME/'$TIXCHANGE1_MYSQL_DB_HOSTNAME'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v1.yaml
-     sed -i 's/TIXCHANGE2_MYSQL_DB_HOSTNAME/'$TIXCHANGE2_MYSQL_DB_HOSTNAME'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v2.yaml
 
-     sed -i 's/TIXCHANGE2_MYSQL_DB_HOSTNAME/'$TIXCHANGE2_MYSQL_DB_HOSTNAME'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_configmap_apm_v1.yaml
-     sed -i 's/TIXCHANGE2_MYSQL_DB_HOSTNAME/'$TIXCHANGE2_MYSQL_DB_HOSTNAME'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_configmap_apm_v2.yaml
+     sed -i 's/TIXCHANGE_MYSQL_RDS_HOSTNAME1/'$TIXCHANGE_MYSQL_RDS_HOSTNAME1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v1.yaml
+     sed -i 's/TIXCHANGE_MYSQL_RDS_HOSTNAME2/'$TIXCHANGE_MYSQL_RDS_HOSTNAME2'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v2.yaml
+
+     sed -i 's/TIXCHANGE_MYSQL_RDS_HOSTNAME1/'$TIXCHANGE_MYSQL_RDS_HOSTNAME1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_configmap_apm_v1.yaml
+     sed -i 's/TIXCHANGE_MYSQL_RDS_HOSTNAME2/'$TIXCHANGE_MYSQL_RDS_HOSTNAME2'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_configmap_apm_v2.yaml
   
      sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v2.yaml
      sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v2.yaml
   
-   if [ $IS_AWS == "true" ]; then
+     #Using RDS
+   if [ X$TIXCHANGE_MYSQL_RDS_HOSTNAME1 != "X" ]; then
      rm -rf $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v*.yaml
-   else
-
-     sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v2.yaml
-     sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v2.yaml
    fi
 
    #logMsg "***IGNORE the 3 errors related to configmap below"
@@ -559,23 +557,24 @@ configureEM () {
 
   cd  $INSTALL_SCRIPT_FOLDER/
 
-  if [ X"$1" == "Xem1" ]; then
-    EM_SETUP_SCRIPT=$EM_SETUP_SCRIPT1
-    EM_UNIVERSE_NAME=$EM_UNIVERSE1_NAME
-    TIXCHANGE_NAMESPACE=$TIXCHANGE_NAMESPACE1
-    #TIX_WEB_INSTANCE=$TIX_WEB_INSTANCE1
-
   if [ -d $INSTALLATION_FOLDER/$EM_FOLDER ]; then
     rm -rf $INSTALLATION_FOLDER/$EM_FOLDER
   fi
 
   mkdir -p $INSTALLATION_FOLDER/$EM_FOLDER
 
+  if [ X"$1" == "Xem1" ]; then
+    EM_SETUP_SCRIPT=$EM_SETUP_SCRIPT1
+    EM_UNIVERSE_NAME=$EM_UNIVERSE1_NAME
+    TIXCHANGE_NAMESPACE=$TIXCHANGE_NAMESPACE1
+    #TIX_WEB_INSTANCE=$TIX_WEB_INSTANCE1
+    TIXCHANGE_MYSQL_RDS_HOSTNAME=$TIXCHANGE_MYSQL_RDS_HOSTNAME1
   else
     EM_SETUP_SCRIPT=$EM_SETUP_SCRIPT2
     EM_UNIVERSE_NAME=$EM_UNIVERSE2_NAME
     TIXCHANGE_NAMESPACE=$TIXCHANGE_NAMESPACE2
     #TIX_WEB_INSTANCE=$TIX_WEB_INSTANCE2
+    TIXCHANGE_MYSQL_RDS_HOSTNAME=$TIXCHANGE_MYSQL_RDS_HOSTNAME2
   
   fi
 
@@ -608,6 +607,9 @@ configureEM () {
   sed -i 's/EM_FOLDER/'$EM_FOLDER'/' $EM_SETUP_SCRIPT
   sed -i 's/VERSION_VAL/'$VERSION_VAL'/' $EM_SETUP_SCRIPT
 
+  
+  sed -i 's/TIXCHANGE_MYSQL_RDS_HOSTNAME/'$TIXCHANGE_MYSQL_RDS_HOSTNAME'/' $EM_SETUP_SCRIPT
+
 
   TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE |grep -v NAME |awk '{print $1}'|grep tix-web`
   TIXCHANGE_WS_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE |grep -v NAME |awk '{print $1}'|grep tix-ws`
@@ -627,42 +629,49 @@ configureEM () {
 }
 
 setupAWSMonitoring () {
-   logMsg "Setting up AWS Monitoring - pls wait"
 
-   cd $INSTALLATION_FOLDER/$AWS_FOLDER
+   if [ X"$AWS" != "X" ];then
 
-  if [ -d $INSTALLATION_FOLDER/$AWS_FOLDER ]; then
-    rm -rf $INSTALLATION_FOLDER/$AWS_FOLDER
-  fi
+      logMsg "Setting up AWS Monitoring - pls wait"
 
-  mkdir -p $INSTALLATION_FOLDER/$AWS_FOLDER
+      cd $INSTALL_SCRIPT_FOLDER//$AWS_FOLDER
 
-   cp -f $AWS_FOLDER/* $INSTALLATION_FOLDER/$AWS_FOLDER/
+     if [ -d $INSTALLATION_FOLDER/$AWS_FOLDER ]; then
+       rm -rf $INSTALLATION_FOLDER/$AWS_FOLDER
+     fi
 
-   ESCAPED_APM_MANAGER_URL_1=$(echo "$APM_MANAGER_URL_1"| sed 's/\//\\\//g')
-   sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
-   sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
-   sed -i 's/AWS_ACCESS_KEY/'$AWS_ACCESS_KEY'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
-   sed -i 's/AWS_SECRET_KEY/'$AWS_SECRET_KEY'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
-   sed -i 's/AWS_ACCOUNTS/'$AWS_ACCOUNTS'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
-   sed -i 's/AWS_BUNDLE_FOLDER/'$AWS_BUNDLE_FOLDER'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
-   sed -i 's/AWS_REGIONS/'$AWS_REGIONS'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
-   sed -i 's/AWS_SERVICES/'$.APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+     mkdir -p $INSTALLATION_FOLDER/$AWS_FOLDER
 
-  kubectl create ns aws
+      cp -f $AWS_FOLDER/* $INSTALLATION_FOLDER/$AWS_FOLDER/
 
-  kubectl create -f $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml -n aws
+      ESCAPED_APM_MANAGER_URL_1=$(echo "$APM_MANAGER_URL_1"| sed 's/\//\\\//g')
+      sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+      sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+      sed -i 's/AWS_ACCESS_KEY/'$AWS_ACCESS_KEY'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+      sed -i 's/AWS_SECRET_KEY/'$AWS_SECRET_KEY'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+      sed -i 's/AWS_ACCOUNTS/'$AWS_ACCOUNTS'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+      sed -i 's/AWS_BUNDLE_FOLDER/'$AWS_BUNDLE_FOLDER'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+      sed -i 's/AWS_REGIONS/'$AWS_REGIONS'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+      sed -i 's/AWS_SERVICES/'$AWS_SERVICES'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+
+     kubectl create ns aws
+   
+     kubectl create -f $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml -n aws
+   fi
 }
 
 removeAWSMonitoring () {
   
-   logMsg "Removing  AWS Monitoring - pls wait"
+   if [ X"$AWS" != "X" ];then
+     logMsg "Removing  AWS Monitoring - pls wait"
 
-   if [ -d $INSTALLATION_FOLDER/$AWS_FOLDER ]; then
-        kubectl delete -f $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
-	rm -rf $INSTALLATION_FOLDER/$AWS_FOLDER
-   fi
+
+     if [ -d $INSTALLATION_FOLDER/$AWS_FOLDER ]; then
+          kubectl delete -f $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml -n aws
+	  rm -rf $INSTALLATION_FOLDER/$AWS_FOLDER
+     fi
         kubectl delete ns aws
+   fi
     
 }
 

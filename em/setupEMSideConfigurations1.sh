@@ -35,7 +35,7 @@ curl -v -k -X POST \
                "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
             ],
             "filter":{
-                "Hostname": "TIXCHANGE1_MYSQL_DB_HOSTNAME"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME1"
             }
          },
          {
@@ -52,7 +52,7 @@ curl -v -k -X POST \
                "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
             ],
             "filter":{
-                "Hostname": "TIXCHANGE2_MYSQL_DB_HOSTNAME"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME2"
             }
          }
       ]
@@ -104,7 +104,7 @@ curl -v  -k -X POST \
                "Responses Per Interval"
             ],
             "filter":{
-                "Hostname": "TIXCHANGE1_MYSQL_DB_HOSTNAME"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME1"
             }
          },
 	{
@@ -121,7 +121,7 @@ curl -v  -k -X POST \
                "Responses Per Interval"
             ],
             "filter":{
-                "Hostname": "TIXCHANGE2_MYSQL_DB_HOSTNAME"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME2"
             }
          }
       ]

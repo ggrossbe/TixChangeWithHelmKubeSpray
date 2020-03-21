@@ -53,6 +53,11 @@ fi
 
 
 
+ if [ X"$TIXCHANGE_MYSQL_RDS_HOSTNAME1" == "X" ]; then
+    TIXCHANGE_MYSQL_RDS_HOSTNAME1=tixchange-mysql-conn-svc-1
+    TIXCHANGE_MYSQL_RDS_HOSTNAME2=tixchange-mysql-conn-svc-2
+ fi
+
 case $OPTION in 
    a) 
 
