@@ -117,7 +117,7 @@ curl -k -s  -X POST \
   -d '{
   "universeId": null,
   "name": "'$EM_UNIVERSE1'",
-"items": [
+  "items": [
     {
       "layer": {
         "value": "INFRASTRUCTURE"
@@ -134,11 +134,51 @@ curl -k -s  -X POST \
             "tixchange-v2",
             "ingress-nginx",
             "kube-system",
-            "caaiops"
+            "monitor",
+            "caaiops",
+            "aws"
           ],
           "btCoverage": null
         }
       ]
+    },
+    {
+      "operator": "AND",
+      "attributeName": "name",
+      "layer": {
+        "value": "ATC"
+      },
+      "values": [
+        "Apps|TIXCHANGE Web|URLs|shop/signon.shtml",
+        "/jtixchange_web/shop/signon.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/signoff.shtml",
+        "/jtixchange_web/shop/viewItem.shtml",
+        "/jtixchange_web/shop/newOrder.shtml",
+        "/jtixchange_web/shop/newOrderForm.shtml",
+        "/jtixchange_web/shop/viewProduct.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/newOrder.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/addItemToCart.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/signonForm.shtml",
+        "DATABASE : jtixchange on tixchange.cq3qfzsicvyi.us-east-2.rds.amazonaws.com-3306 (MySQL DB)",
+        "/jtixchange_web/shop/addItemToCart.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/viewCategory.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/checkout.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/viewProduct.shtml",
+        "Apps|TIXCHANGE Services|URLs|/JTiXChange_Services/services/",
+        "/jtixchange_web/shop/viewCategory.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/viewItem.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/newOrderForm.shtml",
+        "node1",
+        "/jtixchange_web/shop/checkout.shtml",
+        "node2",
+        "node3",
+        "/jtixchange_web/shop/signonForm.shtml",
+        "/jtixchange_web/shop/index.shtml",
+        "service.jtixchange.com|getAuthAccount",
+        "ActionServlet|service",
+        "Apps|TIXCHANGE Web|URLs|shop/index.shtml"
+      ],
+      "btCoverage": null
     },
     {
       "operator": "OR",
@@ -147,7 +187,9 @@ curl -k -s  -X POST \
         "value": "APM_INFRASTRUCTURE"
       },
       "values": [
-        "node2"
+        "node2",
+        "node3",
+        "node1"
       ],
       "btCoverage": null
     },
@@ -165,13 +207,28 @@ curl -k -s  -X POST \
         "caaiops"
       ],
       "btCoverage": null
+    },
+    {
+      "operator": "OR",
+      "attributeName": "type",
+      "layer": {
+        "value": "INFRASTRUCTURE"
+      },
+      "values": [
+        "AWS Account",
+        "AWS Service Type",
+        "AWS_RDS",
+        "AWS Region",
+        "AWS_S3"
+      ],
+      "btCoverage": null
     }
   ],
   "users": [],
   "includedVertices": [],
   "excludedVertices": [],
   "showEntry": false,
-  "lastUpdate": 1562419946426,
+  "lastUpdate": 1584825448975,
   "joins": [
     {
       "layer": {
