@@ -15,6 +15,7 @@ TIXCHANGE_FOLDER=tixChangeHelm
 HELM_FOLDER=helmInstaller
 HELM_RBAC_YAML=helm-rbac-config.yaml
 UMA_FOLDER=uma
+AWS_FOLDER=aws
 SELENIUM_FOLDER=selenium
 SELENIUM_UC=runSeleniumUC
 #For now keeping this as UC1 as all scripts are in UC1
@@ -307,6 +308,7 @@ stopDeleteAll () {
   stopDeletePromExporter
   stopDeleteUMA
   stopDeleteKubeSpray
+  removeAWSMonitoring
 
   rm -rf $INSTALLATION_FOLDER/*
 
@@ -323,6 +325,7 @@ stopDeleteAppComponents () {
   stopDeleteTixChange
   stopDeletePromExporter
   stopDeleteUMA
+  removeAWSMonitoring
   #rm -rf $INSTALLATION_FOLDER/logs/
 }
 
@@ -417,15 +420,24 @@ installTixChangeHelm () {
    #sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v1.yaml
    #sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v1.yaml
 
-   sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v1.yaml
-   sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v1.yaml
+     sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v1.yaml
+     sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v1.yaml
+     sed -i 's/TIXCHANGE1_MYSQL_DB_HOSTNAME/'$TIXCHANGE1_MYSQL_DB_HOSTNAME'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v1.yaml
+     sed -i 's/TIXCHANGE2_MYSQL_DB_HOSTNAME/'$TIXCHANGE2_MYSQL_DB_HOSTNAME'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v2.yaml
 
-   sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v2.yaml
-   sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v2.yaml
+     sed -i 's/TIXCHANGE2_MYSQL_DB_HOSTNAME/'$TIXCHANGE2_MYSQL_DB_HOSTNAME'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_configmap_apm_v1.yaml
+     sed -i 's/TIXCHANGE2_MYSQL_DB_HOSTNAME/'$TIXCHANGE2_MYSQL_DB_HOSTNAME'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_configmap_apm_v2.yaml
+  
+     sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v2.yaml
+     sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v2.yaml
+  
+   if [ $IS_AWS == "true" ]; then
+     rm -rf $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v*.yaml
+   else
 
-   sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v2.yaml
-   sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v2.yaml
-
+     sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v2.yaml
+     sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v2.yaml
+   fi
 
    #logMsg "***IGNORE the 3 errors related to configmap below"
    helm install  . --name tixchange 
@@ -573,6 +585,7 @@ configureEM () {
   cp -f $EM_FOLDER/$EM_SETUP_SCRIPT $INSTALLATION_FOLDER/$EM_FOLDER/
   cp -f $EM_FOLDER/jq-linux64 $INSTALLATION_FOLDER/$EM_FOLDER/
   cp -f $EM_FOLDER/TixChange.jar $INSTALLATION_FOLDER/$EM_FOLDER/
+  cp -f $EM_FOLDER/AWS.jar $INSTALLATION_FOLDER/$EM_FOLDER/
 
   cd $INSTALLATION_FOLDER/$EM_FOLDER
 
@@ -612,6 +625,47 @@ configureEM () {
   
   cd -
 }
+
+setupAWSMonitoring () {
+   logMsg "Setting up AWS Monitoring - pls wait"
+
+   cd $INSTALLATION_FOLDER/$AWS_FOLDER
+
+  if [ -d $INSTALLATION_FOLDER/$AWS_FOLDER ]; then
+    rm -rf $INSTALLATION_FOLDER/$AWS_FOLDER
+  fi
+
+  mkdir -p $INSTALLATION_FOLDER/$AWS_FOLDER
+
+   cp -f $AWS_FOLDER/* $INSTALLATION_FOLDER/$AWS_FOLDER/
+
+   ESCAPED_APM_MANAGER_URL_1=$(echo "$APM_MANAGER_URL_1"| sed 's/\//\\\//g')
+   sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+   sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+   sed -i 's/AWS_ACCESS_KEY/'$AWS_ACCESS_KEY'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+   sed -i 's/AWS_SECRET_KEY/'$AWS_SECRET_KEY'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+   sed -i 's/AWS_ACCOUNTS/'$AWS_ACCOUNTS'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+   sed -i 's/AWS_BUNDLE_FOLDER/'$AWS_BUNDLE_FOLDER'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+   sed -i 's/AWS_REGIONS/'$AWS_REGIONS'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+   sed -i 's/AWS_SERVICES/'$.APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+
+  kubectl create ns aws
+
+  kubectl create -f $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml -n aws
+}
+
+removeAWSMonitoring () {
+  
+   logMsg "Removing  AWS Monitoring - pls wait"
+
+   if [ -d $INSTALLATION_FOLDER/$AWS_FOLDER ]; then
+        kubectl delete -f $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+	rm -rf $INSTALLATION_FOLDER/$AWS_FOLDER
+   fi
+        kubectl delete ns aws
+    
+}
+
 
 runFinalSanityCheck () {
 

@@ -96,6 +96,8 @@ case $OPTION in
      configureEM em1
      configureEM em2
 
+     setupAWSMonitoring
+
      runFinalSanityCheck
 
 
@@ -147,7 +149,10 @@ case $OPTION in
      #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      installAndConfigureSelenium
-     
+
+    
+     setupAWSMonitoring
+    
      configureEM em1
      configureEM em2
 

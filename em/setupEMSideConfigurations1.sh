@@ -23,7 +23,7 @@ curl -v -k -X POST \
       "MYSQL_DB":[
          {
             "metricSpecifier":{
-               "format":"MYSQL\\|tixchange\\-mysql\\-conn\\-svc\\-1\\|jtixchange.*",
+               "format":"MYSQL\\|<Hostname>\\|jtixchange.*",
                "type":"REGEX"
             },
             "agentSpecifier":{
@@ -35,12 +35,12 @@ curl -v -k -X POST \
                "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
             ],
             "filter":{
-                "Hostname": "tixchange-mysql-conn-svc-1"
+                "Hostname": "TIXCHANGE1_MYSQL_DB_HOSTNAME"
             }
          },
          {
             "metricSpecifier":{
-               "format":"MYSQL\\|tixchange\\-mysql\\-conn\\-svc\\-2\\|jtixchange.*",
+               "format":"MYSQL\\|<Hostname>\\|jtixchange.*",
                "type":"REGEX"
             },
             "agentSpecifier":{
@@ -52,14 +52,14 @@ curl -v -k -X POST \
                "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
             ],
             "filter":{
-                "Hostname": "tixchange-mysql-conn-svc-2"
+                "Hostname": "TIXCHANGE2_MYSQL_DB_HOSTNAME"
             }
          }
       ]
    },
    "alertMappings":{
         "MYSQL_DB":[
-      "MYSQL|<Hostname>|jtixchange|Operations:Total Queries",
+      "MYSQL|<Hostname>|jtixchange|*",
       "MYSQL|<Hostname>|jtixchange:Availability"
       ]
    },
@@ -104,7 +104,7 @@ curl -v  -k -X POST \
                "Responses Per Interval"
             ],
             "filter":{
-                "Hostname": "tixchange-mysql-conn-svc-1"
+                "Hostname": "TIXCHANGE1_MYSQL_DB_HOSTNAME"
             }
          },
 	{
@@ -121,7 +121,7 @@ curl -v  -k -X POST \
                "Responses Per Interval"
             ],
             "filter":{
-                "Hostname": "tixchange-mysql-conn-svc-2"
+                "Hostname": "TIXCHANGE2_MYSQL_DB_HOSTNAME"
             }
          }
       ]
@@ -348,7 +348,7 @@ correlateAppToInfraForDBVertex () {
   echo "SQL POD $SQL_POD"
   if [ X"$SQL_POD" != "X" ]; then
 
-     CONTAINER_ID=`kubectl describe pod  $SQL_POD -n tixchange-v1 |sed -n '/'$1'/{n;p}'|grep "Container ID" |awk '{print $3}'|sed 's/docker:\/\///g'`
+     CONTAINER_ID=`kubectl describe pod  $SQL_POD -n tixchange-v1 |sed -n '/tix-mysql:/{n;p}'|grep "Container ID" |awk '{print $3}'|sed 's/docker:\/\///g'`
      echo "Container ID is $CONTAINER_ID"
   fi
 
@@ -510,8 +510,8 @@ curl -k -s -X PATCH \
 
 
 patchAVertex () {
-curl -k -s -X POST \
-  APM_SAAS_URL/apm/atc/api/private/attributes/assign \
+curl -k -s -X PATCH \
+  APM_SAAS_URL/apm/appmap/graph/vertex/ \
   -H 'Accept: */*' \
   -H 'Authorization: Bearer APM_API_TOKEN' \
   -H 'Cache-Control: no-cache' \
@@ -519,7 +519,15 @@ curl -k -s -X POST \
   -H 'Content-Type: application/json' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -d '{"vertexIds":["'$1'"],"attributeName":"containerId","attributeValue":"'$2'"}'
+  -d ' { "items" : [
+                {
+                                "id":"'$1'",
+                                "attributes": {
+                                "containerId":["'$2'"]
+        }
+    }
+  ]
+}'
 }
 
 
@@ -545,6 +553,8 @@ fi
 
 sleep 5
 importMgmtModule "TixChange.jar"
+sleep 2
+importMgmtModule "AWS.jar"
 
 echo "running Trxn Trace pls have patience"
 runTrxnTrace
