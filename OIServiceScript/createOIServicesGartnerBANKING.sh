@@ -6,8 +6,6 @@ echo ""
 echo "pls provide the OI token (this is OI token not APM - Go to Service Overview Page of the OI. Open browser dev mode and go to request header section under network tab for a request (say click on status circle) and look for Authorization Bearer token )"
 echo ""
 echo ""
-echo "####### make sure you replace \"\" in this file by running the following in \"vi\" \":%s///g\" before running the script ####"
-echo ""
 
 read OI_TOKEN
 
@@ -34,7 +32,7 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "APJ_Billing",
+        "name": "APJ_Commercial",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -47,14 +45,14 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service"
+          "Banking Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "APJ_Billing"
+      "externalId": "APJ_Commercial"
     },
     {
       "attributes": {
@@ -63,7 +61,7 @@ curl -v -X POST \
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service"
+          "Banking Service"
         ],
         "tags": [],
         "location": "",
@@ -75,7 +73,7 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_Billing",
+        "name": "NA_Commercial",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -88,30 +86,30 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service"
+          "Banking Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "NA_Billing"
+      "externalId": "NA_Commercial"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "Mobile Service",
+        "name": "Banking Service",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service"
+          "Banking Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "Mobile Service"
+      "externalId": "Banking Service"
     },
     {
       "attributes": {
@@ -120,7 +118,7 @@ curl -v -X POST \
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service"
+          "Banking Service"
         ],
         "tags": [],
         "location": "",
@@ -132,7 +130,7 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "LATAM_Billing",
+        "name": "LATAM_Commercial",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -145,19 +143,19 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service"
+          "Banking Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "LATAM_Billing"
+      "externalId": "LATAM_Commercial"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_Activation",
+        "name": "NA_Mobile",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -170,14 +168,14 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service"
+          "Banking Service"
         ],
         "tags": [],
         "location": "",
         "description": "test",
         "customProperties": []
       },
-      "externalId": "NA_Activation"
+      "externalId": "NA_Mobile"
     },
     {
       "attributes": {
@@ -186,7 +184,7 @@ curl -v -X POST \
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service"
+          "Banking Service"
         ],
         "tags": [],
         "location": "",
@@ -198,7 +196,7 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_Billing",
+        "name": "EMEA_Commercial",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -211,19 +209,19 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service"
+          "Banking Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_Billing"
+      "externalId": "EMEA_Commercial"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_Activation",
+        "name": "EMEA_Mobile",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -236,19 +234,19 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service"
+          "Banking Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_Activation"
+      "externalId": "EMEA_Mobile"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_Provisioning",
+        "name": "EMEA_Retail",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -261,19 +259,19 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service"
+          "Banking Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_Provisioning"
+      "externalId": "EMEA_Retail"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_Provisioning",
+        "name": "NA_Retail",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -286,14 +284,14 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service"
+          "Banking Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "NA_Provisioning"
+      "externalId": "NA_Retail"
     },
     {
       "attributes": {
@@ -302,7 +300,7 @@ curl -v -X POST \
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service"
+          "Banking Service"
         ],
         "tags": [],
         "location": "",
@@ -314,7 +312,7 @@ curl -v -X POST \
   ],
   "edges": [
     {
-      "targetExternalId": "EMEA_Billing",
+      "targetExternalId": "EMEA_Commercial",
       "sourceExternalId": "EMEA",
       "attributes": {
         "health_weight": 0.33299999999999996,
@@ -323,7 +321,7 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "EMEA_Provisioning",
+      "targetExternalId": "EMEA_Retail",
       "sourceExternalId": "EMEA",
       "attributes": {
         "health_weight": 0.33299999999999996,
@@ -332,7 +330,7 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "EMEA_Activation",
+      "targetExternalId": "EMEA_Mobile",
       "sourceExternalId": "EMEA",
       "attributes": {
         "health_weight": 0.33299999999999996,
@@ -342,7 +340,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "EMEA",
-      "sourceExternalId": "Mobile Service",
+      "sourceExternalId": "Banking Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -350,7 +348,7 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_Billing",
+      "targetExternalId": "NA_Commercial",
       "sourceExternalId": "NA",
       "attributes": {
         "health_weight": 0.33299999999999996,
@@ -359,7 +357,7 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_Provisioning",
+      "targetExternalId": "NA_Retail",
       "sourceExternalId": "NA",
       "attributes": {
         "health_weight": 0.33299999999999996,
@@ -369,7 +367,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "LATAM",
-      "sourceExternalId": "Mobile Service",
+      "sourceExternalId": "Banking Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -377,7 +375,7 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "LATAM_Billing",
+      "targetExternalId": "LATAM_Commercial",
       "sourceExternalId": "LATAM",
       "attributes": {
         "health_weight": 1,
@@ -386,7 +384,7 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "APJ_Billing",
+      "targetExternalId": "APJ_Commercial",
       "sourceExternalId": "APJ",
       "attributes": {
         "health_weight": 1,
@@ -396,7 +394,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "NA",
-      "sourceExternalId": "Mobile Service",
+      "sourceExternalId": "Banking Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -404,7 +402,7 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_Activation",
+      "targetExternalId": "NA_Mobile",
       "sourceExternalId": "NA",
       "attributes": {
         "health_weight": 0.33299999999999996,
@@ -414,7 +412,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "APJ",
-      "sourceExternalId": "Mobile Service",
+      "sourceExternalId": "Banking Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -428,26 +426,17 @@ echo "***sleeping for 10 sec"
 sleep 10
 
 curl -X POST \
-  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Provisioning \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Retail \
   -H 'Authorization: Bearer '$OI_TOKEN'' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -d '{
     "serviceContent": [{
-        "query": [{
-                                "attributeName": "agent",
-                "attributeValue": "TxChangeWeb_UC1|tomcat|Agent"
-        }]
-    },{
-        "query": [{
-                                "attributeName": "agent",
-                "attributeValue": "TxChangeSvc_UC1|tomcat|Agent"
-        }]
-    },{
-        "query": [{
-                                "attributeName": "agent",
-                "attributeValue": "node2|apmiaMySQL_UC1|Agent"
-        }]
+            "query": [
+              {
+                "attributeName": "applicationName",
+                "attributeValue": "Provisioning"
+              }]
     }]
 }'
 
@@ -455,7 +444,7 @@ echo "***sleeping for 5 sec"
 sleep 5
 
 curl -X POST \
-  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/EMEA_Provisioning \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/EMEA_Retail \
   -H 'Authorization: Bearer '$OI_TOKEN'' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
@@ -482,7 +471,7 @@ echo "***sleeping for 5 sec"
 sleep 5
 
 curl -X POST \
-  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Activation \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Mobile \
   -H 'Authorization: Bearer '$OI_TOKEN'' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \

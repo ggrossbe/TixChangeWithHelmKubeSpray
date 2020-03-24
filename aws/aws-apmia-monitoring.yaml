@@ -35,6 +35,10 @@ spec:
               value: AWS_SERVICES
             - name: APMENV_INTROSCOPE_AGENT_AGENTNAME
               value: apmia_aws_agent
+            - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_INTERVAL
+              value: "300"
+            - name: APMENV_INTROSCOPE_AGENT_HOSTNAME
+              value: apmia_aws_monitoring
         
           name: apmia
           image: caapm/apmia:latest
