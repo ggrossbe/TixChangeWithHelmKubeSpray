@@ -16,34 +16,43 @@ spec:
         - resources:
           env:
             - name: APMENV_LOG4J_LOGGER_INTROSCOPEAGENT
-              value: DEBUG,console, logfile
+              value: INFO, logfile
             - name: APMENV_AGENTMANAGER_URL_1
-              value: APM_MANAGER_URL_1
+              value: wss://cludgw.dxi-na1.saas.broadcom.com
             - name:  APMENV_AGENTMANAGER_CREDENTIAL
-              value: APM_MANAGER_CREDENTIAL
-            - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_ACCESSKEY
-              value: AWS_ACCESS_KEY
-            - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_SECRETKEY
-              value: AWS_SECRET_KEY
+              value: eyJ0OiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJhZ2VudCI6dHJ1ZSwiZXhwIjo5MjIzMzcyMDM2ODU0Nzc1LCJ0aWQiOjEwMjYsImp0aSI6ImU3NzM0ZmE0LTk0NDItNDY0NC1iZmNkLWI1N2Y2NzYwMmNlYiJ9.j_LIN0XmFMkJS5vzvotFFwTxXABBLTOqTMsTWvx4zDgMNLu75LNwV-THVJAmP7tk-Dptg60uguVVhu5CwM3_ig
+            #- name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_ACCESSKEY
+              #value: AKIAX5YRLGSDOTOSG45C
+            #- name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_SECRETKEY
+              #value: ISlEjkk9JwDJ3bbwZ00b7+SVT3OdI6M76exzw
+            #- name: APMENV_COM_CA_APM_AGENT_AWS_ACCESSKEY
+              #value: AKIRLGSDOTOSG45C
+            #- name: APMENV_COM_CA_APM_AGENT_AWS_SECRETKEY
+              #value: ISljiBEjkk9J3bbwZ00b7+SVT3OdI6M76exzw
+            #- name: APMENV_COM_CA_APM_AGENT_AWS_ACC_1
+              #value: "5461606"
+            - name: APMENV_COM_CA_APM_AGENT_AWS_ACC_1
+              value: "54461606:CAMROLE"
             - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_ACCOUNTS
-              value: "AWS_ACCOUNTS"
+              value: "54461606"
             - name: APMENV_INTROSCOPE_AGENT_EXTENSIONS_BUNDLES_BOOT_LOAD
-              value: AWS_BUNDLE_FOLDER
+              value: aws
             - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_REGIONLIST
-              value: AWS_REGIONS
+              value: us-east-1,us-east-2,us-west-1,us-west-2
+              #value: us-east-1,us-east-2,us-west-1,us-west-2,us-gov-east-1,us-gov-west-1
             - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_SCHEMALIST
-              value: AWS_SERVICES
-            - name: APMENV_INTROSCOPE_AGENT_AGENTNAME
-              value: apmia_aws_agent
+              value: aws_rds,aws_ec2,aws_ebs,aws_lambda,aws_dynamodb,aws_s3,aws_sns,aws_ecs,aws_sqs,aws_kinesis,aws_clb,aws_nlb,aws_alb,aws_redshift,aws_elasticache,aws_autoScaling,aws_billing,aws_apiGateway
             - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_INTERVAL
               value: "300"
             - name: APMENV_INTROSCOPE_AGENT_HOSTNAME
               value: apmia_aws_monitoring
-        
+            - name: APMENV_INTROSCOPE_AGENT_AGENTNAME
+              value: apmia_aws_agent
+
           name: apmia
           image: caapm/apmia:latest
           imagePullPolicy: Always
           resources:
            limits:
-            cpu: "0.7"
+            cpu: "0.9"
             memory: 700M
