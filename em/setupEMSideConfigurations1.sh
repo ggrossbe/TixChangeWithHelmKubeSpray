@@ -23,8 +23,8 @@ curl -v -k -X POST \
       "MYSQL_DB":[
          {
             "metricSpecifier":{
-               "format":"MYSQL\\|<Hostname>\\|jtixchange.*",
-               "type":"REGEX"
+               "format":"MYSQL|<Hostname>|jtixchange",
+               "type":"EXACT"
             },
             "agentSpecifier":{
                "format":"<agent>",
@@ -32,16 +32,16 @@ curl -v -k -X POST \
             },
             "section":"Database Metrics",
             "metricNames":[
-               "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
+               "Availability"
             ],
             "filter":{
-                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME1"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
             }
          },
          {
             "metricSpecifier":{
-               "format":"MYSQL\\|<Hostname>\\|jtixchange.*",
-               "type":"REGEX"
+               "format":"MYSQL|<Hostname>|jtixchange|Operations",
+               "type":"EXACT"
             },
             "agentSpecifier":{
                "format":"<agent>",
@@ -49,10 +49,10 @@ curl -v -k -X POST \
             },
             "section":"Database Metrics",
             "metricNames":[
-               "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
+               "Total Queries", "Total Requests", "Total Deletes",  "Total Inserts"
             ],
             "filter":{
-                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME2"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
             }
          }
       ]
@@ -104,24 +104,7 @@ curl -v  -k -X POST \
                "Responses Per Interval"
             ],
             "filter":{
-                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME1"
-            }
-         },
-	{
-            "metricSpecifier":{
-               "format":"Backends|<databasename>",
-               "type":"EXACT"
-            },
-            "agentSpecifier":{
-               "format":"TxChangeSvc_UC2|tomcat|Agent",
-               "type":"EXACT"
-            },
-            "section":"Database Metrics",
-            "metricNames":[
-               "Responses Per Interval"
-            ],
-            "filter":{
-                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME2"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
             }
          }
       ]
@@ -129,8 +112,7 @@ curl -v  -k -X POST \
    "alertMappings":{
 
    "INFERRED_DATABASE_WITH_AGENT":[
-     "TxChangeSvc_UC1|tomcat|Agent|Backends|<databasename>:Responses Per Interval",
-     "TxChangeSvc_UC2|tomcat|Agent|Backends|<databasename>:Responses Per Interval"
+     "TxChangeSvc_UC1|tomcat|Agent|Backends|<databasename>:Responses Per Interval"
       ]
    },
    "perspectives":[
@@ -197,7 +179,7 @@ curl -k -s  -X POST \
         "Apps|TIXCHANGE Web|URLs|shop/newOrder.shtml",
         "Apps|TIXCHANGE Web|URLs|shop/addItemToCart.shtml",
         "Apps|TIXCHANGE Web|URLs|shop/signonForm.shtml",
-        "DATABASE : jtixchange on tixchange.cq3qfzsicvyi.us-east-2.rds.amazonaws.com-3306 (MySQL DB)",
+        "DATABASE : jtixchange on TIXCHANGE_MYSQL_RDS_HOSTNAME-3306 (MySQL DB)",
         "/jtixchange_web/shop/addItemToCart.shtml",
         "Apps|TIXCHANGE Web|URLs|shop/viewCategory.shtml",
         "Apps|TIXCHANGE Web|URLs|shop/checkout.shtml",
@@ -257,6 +239,8 @@ curl -k -s  -X POST \
         "AWS Service Type",
         "AWS_RDS",
         "AWS Region",
+        "AWS_AutoScaling",
+        "AWS_LAMBDA",
         "AWS_S3"
       ],
       "btCoverage": null
@@ -331,7 +315,7 @@ curl -k  -s -X POST \
     "groupAttributes": [
       {
         "layer": "ATC",
-        "name": "applicationName"
+        "name": "Application Name"
       },
       {
         "layer": "ATC",
@@ -450,7 +434,7 @@ curl -k -s -X POST \
                      "itemType" : "attributeFilter",
                      "attributeName": "Hostname",
                      "attributeOperator": "MATCHES",
-                     "values": [ "tixchange-mysql-conn-svc-1*" ]
+                     "values": [ "TIXCHANGE_MYSQL_RDS_HOSTNAME*" ]
                  }
             ]
         }
@@ -486,7 +470,7 @@ curl -k -s -X POST \
                      "itemType" : "attributeFilter",
                      "attributeName": "Hostname",
                      "attributeOperator": "MATCHES",
-                     "values": [ "tixchange-mysql-conn-svc-1*" ]
+                     "values": [ "TIXCHANGE_MYSQL_RDS_HOSTNAME*" ]
                  }
             ]
         }
@@ -528,6 +512,72 @@ curl -k -s -X POST \
     ]
 }'
 
+}
+
+patchBTVerticesWithAppName () {
+
+    VERTEX_IDS=`getBTVertexIDs |./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
+
+    for VERTEX_ID in $VERTEX_IDS
+    do
+        echo "BT VERTICES are $VERTEX_ID"
+
+        if [ X"$VERTEX_ID" != "X" ]; then
+          patchABTVertex $VERTEX_ID
+        fi
+    done
+}
+
+
+getBTVertexIDs () {
+
+curl -k -s -X POST \
+  APM_SAAS_URL/apm/appmap/graph/vertex \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "includeStartPoint": false,
+    "orItems":[
+        {
+            "andItems":[
+                {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Type",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "BUSINESSTRANSACTION*" ]
+                 }
+            ]
+        }
+    ]
+}'
+
+}
+
+## Dont need this in em/setupEMSideConfigurations2.sh
+patchABTVertex () {
+curl -k -s -X PATCH \
+  APM_SAAS_URL/apm/appmap/graph/vertex/ \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d ' { "items" : [
+                {
+                                "id":"'$1'",
+                                "attributes": {
+                                "Application Name":["TIXCHANGE Web"]
+        }
+    }
+  ]
+}'
 }
 
 PatchHostToApmiaContainsReln () {
@@ -598,6 +648,10 @@ echo " UNIVERSE ID for  $EM_UNIVERSE1 is $UNIVERSE_ID"
 runTrxnTrace
 sleep 30
 
+patchBTVerticesWithAppName
+
+sleep 15
+
 # if universe does not exist
 if [ X"$UNIVERSE_ID" == "X" ]; then
   createUniverse 
@@ -611,15 +665,18 @@ fi
 
 sleep 5
 importMgmtModule "TixChange.jar"
-sleep 2
+sleep 3
 importMgmtModule "AWS.jar"
+sleep 3
+importMgmtModule "SaaSMM.jar"
 
 echo "running Trxn Trace pls have patience"
 runTrxnTrace
 sleep 30
+runTrxnTrace
 
 correlateAppToInfraForDBVertex tix-mysql
-correlateAppToInfraForDBVertex apmia-mysql
+#correlateAppToInfraForDBVertex apmia-mysql
 
 #PatchHostToApmiaContainsReln
 

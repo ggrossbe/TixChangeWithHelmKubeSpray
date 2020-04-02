@@ -9,8 +9,17 @@ echo ""
 
 read OI_TOKEN
 
-if [ X"$OI_TOKEN" == "X" ]; then
-   echo "Pls provide valid token"
+echo ""
+echo " Pls Provide MYSQL POD name OR RDS East Hostname if using AWS RDS deployment. e.g kubectl get pods -n tixchange-v2 OR tixchange:us-east-2:544960306 from AWS console"
+
+read TIXCHANGE_MYSQL_RDS_HOSTNAME
+
+echo ""
+
+sleep 2
+
+if [ X"$OI_TOKEN" == "X" ] || [ X"$TIXCHANGE_MYSQL_RDS_HOSTNAME" == "X" ]; then
+   echo "Pls provide valid token and Valid MYSQL RDS hostname/POD name "
    exit
 
 fi
@@ -57,7 +66,7 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "LATAM",
+        "name": "LATAM_Banking",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
@@ -68,7 +77,7 @@ curl -v -X POST \
         "description": "test",
         "customProperties": []
       },
-      "externalId": "LATAM"
+      "externalId": "LATAM_Banking"
     },
     {
       "attributes": {
@@ -114,7 +123,7 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA",
+        "name": "EMEA_Banking",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
@@ -125,7 +134,7 @@ curl -v -X POST \
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA"
+      "externalId": "EMEA_Banking"
     },
     {
       "attributes": {
@@ -180,7 +189,7 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "NA",
+        "name": "NA_Banking",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
@@ -191,7 +200,7 @@ curl -v -X POST \
         "description": "",
         "customProperties": []
       },
-      "externalId": "NA"
+      "externalId": "NA_Banking"
     },
     {
       "attributes": {
@@ -296,7 +305,7 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "APJ",
+        "name": "APJ_Banking",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
@@ -307,13 +316,13 @@ curl -v -X POST \
         "description": "",
         "customProperties": []
       },
-      "externalId": "APJ"
+      "externalId": "APJ_Banking"
     }
   ],
   "edges": [
     {
       "targetExternalId": "EMEA_Commercial",
-      "sourceExternalId": "EMEA",
+      "sourceExternalId": "EMEA_Banking",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -322,7 +331,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "EMEA_Retail",
-      "sourceExternalId": "EMEA",
+      "sourceExternalId": "EMEA_Banking",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -331,7 +340,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "EMEA_Mobile",
-      "sourceExternalId": "EMEA",
+      "sourceExternalId": "EMEA_Banking",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -339,7 +348,7 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "EMEA",
+      "targetExternalId": "EMEA_Banking",
       "sourceExternalId": "Banking Service",
       "attributes": {
         "health_weight": 0.25,
@@ -349,7 +358,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "NA_Commercial",
-      "sourceExternalId": "NA",
+      "sourceExternalId": "NA_Banking",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -358,7 +367,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "NA_Retail",
-      "sourceExternalId": "NA",
+      "sourceExternalId": "NA_Banking",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -366,7 +375,7 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "LATAM",
+      "targetExternalId": "LATAM_Banking",
       "sourceExternalId": "Banking Service",
       "attributes": {
         "health_weight": 0.25,
@@ -376,7 +385,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "LATAM_Commercial",
-      "sourceExternalId": "LATAM",
+      "sourceExternalId": "LATAM_Banking",
       "attributes": {
         "health_weight": 1,
         "risk_weight": 1,
@@ -385,7 +394,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "APJ_Commercial",
-      "sourceExternalId": "APJ",
+      "sourceExternalId": "APJ_Banking",
       "attributes": {
         "health_weight": 1,
         "risk_weight": 1,
@@ -393,7 +402,7 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA",
+      "targetExternalId": "NA_Banking",
       "sourceExternalId": "Banking Service",
       "attributes": {
         "health_weight": 0.25,
@@ -403,7 +412,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "NA_Mobile",
-      "sourceExternalId": "NA",
+      "sourceExternalId": "NA_Banking",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -411,7 +420,7 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "APJ",
+      "targetExternalId": "APJ_Banking",
       "sourceExternalId": "Banking Service",
       "attributes": {
         "health_weight": 0.25,
@@ -463,6 +472,11 @@ curl -X POST \
         "query": [{
                                 "attributeName": "agent",
                 "attributeValue": "node2|apmiaMySQL_UC2|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "hostname",
+                "attributeValue": "'$TIXCHANGE_MYSQL_RDS_HOSTNAME'"
         }]
     }]
 }'

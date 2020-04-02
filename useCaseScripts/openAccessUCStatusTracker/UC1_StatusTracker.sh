@@ -20,11 +20,11 @@ if [ X$1 == "XDONE" ]; then
          exit
 fi
 
-if [ X$IS_SLOW_LOGIN_UC != "X" ]; then
-       #echo its on
+if [ X"$IS_SLOW_LOGIN_UC" != "X" ]; then
+       echo its on
 	echo "ON" > $OA_UC_STATUS_FOLDER/$UC_STATUS
 else
-        #echo its off
+        echo its off
 	echo "OFF" > $OA_UC_STATUS_FOLDER/$UC_STATUS
 fi
 
@@ -33,7 +33,7 @@ sleep 30
 
 IS_SLOW_LOGIN_UC=`/usr/local/bin/kubectl logs  --tail=30  $SELENIUM_POD -n selenium|grep -i  "running slow UC1"`
 
-if [ X$IS_SLOW_LOGIN_UC != "X" ]; then
+if [ X"$IS_SLOW_LOGIN_UC" != "X" ]; then
        #echo its on
         echo "ON" > $OA_UC_STATUS_FOLDER/$UC_STATUS
 else

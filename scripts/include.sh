@@ -28,12 +28,27 @@ LOG_FILE_NAME=TixChangeInstallerLog`date +%Y_%m_%d_%H_%M`.log
 LOG_FILE=$INSTALLATION_FOLDER/logs/$LOG_FILE_NAME
 EM_FOLDER=em
 EM_SETUP_SCRIPT1=setupEMSideConfigurations1.sh
-EM_UNIVERSE1_NAME="NA_Provisioning"
 EM_SETUP_SCRIPT2=setupEMSideConfigurations2.sh
-EM_UNIVERSE2_NAME="EMEA_Provisioning"
 PROM_NAMESPACE=monitor
 PROM_FOLDER=prometheus
+EM_UNIVERSE1_NAME="NA_Provisioning"
+EM_UNIVERSE2_NAME="EMEA_Provisioning"
 
+#Univ name based on Industry
+if [ X"$INDUSTRY" == "XInsurance" ]; then
+  EM_UNIVERSE1_NAME="NA_Property"
+  EM_UNIVERSE2_NAME="EMEA_Property"
+fi 
+
+if [ X"$INDUSTRY" == "XBanking" ]; then
+  EM_UNIVERSE1_NAME="NA_Retail"
+  EM_UNIVERSE2_NAME="EMEA_Retail"
+fi 
+
+if [ X"$TIXCHANGE_MYSQL_RDS_HOSTNAME1" == "X" ]; then
+   TIXCHANGE_MYSQL_RDS_HOSTNAME1=tixchange-mysql-conn-svc-1
+   TIXCHANGE_MYSQL_RDS_HOSTNAME2=tixchange-mysql-conn-svc-2
+fi
 
 TIX_IP=` ip a |grep -E -e eth[0-9]+ -e ens[0-9]+|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
 
@@ -219,6 +234,12 @@ stopDeleteTixChange () {
       fi
   fi
 
+    ssh root@node3 "rm -rf $LOG_COLL_TIX_WEB_UC1_DIR"
+    ssh root@node3 "rm -rf $LOG_COLL_TIX_WEB_UC2_DIR"
+
+    ssh root@node1 "rm -rf $LOG_COLL_TIX_WS_UC1_DIR"
+    ssh root@node1 "rm -rf $LOG_COLL_TIX_WS_UC2_DIR"
+
  stopDeleteApmiaMySQL
 
   cd $INSTALL_SCRIPT_FOLDER
@@ -392,6 +413,12 @@ installTixChangeHelm () {
 
   if [ ! -d $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER ]; then
     mkdir -p $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER
+
+    ssh root@node3 "mkdir -p  $LOG_COLL_TIX_WEB_UC1_DIR"
+    ssh root@node3 "mkdir -p $LOG_COLL_TIX_WEB_UC2_DIR"
+
+    ssh root@node1 "mkdir -p $LOG_COLL_TIX_WS_UC1_DIR"
+    ssh root@node1 "mkdir -p $LOG_COLL_TIX_WS_UC2_DIR"
   fi
 
 
@@ -432,10 +459,18 @@ installTixChangeHelm () {
      sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v2.yaml
      sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_apmia_mysql_deploy_v2.yaml
   
+     sed -i 's/LOG_COLL_TIX_WEB_UC1_DIR/'$LOG_COLL_TIX_WEB_UC1_DIR'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_app_deploy_v1.yaml
+     sed -i 's/LOG_COLL_TIX_WS_UC1_DIR/'$LOG_COLL_TIX_WS_UC1_DIR'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_app_deploy_v1.yaml
+     sed -i 's/LOG_COLL_TIX_WEB_UC2_DIR/'$LOG_COLL_TIX_WEB_UC2_DIR'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_app_deploy_v2.yaml
+     sed -i 's/LOG_COLL_TIX_WS_UC2_DIR/'$LOG_COLL_TIX_WS_UC2_DIR'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_app_deploy_v2.yaml
+
+
      #Using RDS
-   if [ X$TIXCHANGE_MYSQL_RDS_HOSTNAME1 != "X" ]; then
-     rm -rf $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v*.yaml
+   if [ X"$TIXCHANGE_MYSQL_RDS_HOSTNAME1" != "Xtixchange-mysql-conn-svc-1" ]; then
+     rm -rf $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v1.yaml
+     rm -rf $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v2.yaml
    fi
+
 
    #logMsg "***IGNORE the 3 errors related to configmap below"
    helm install  . --name tixchange 
@@ -557,11 +592,7 @@ configureEM () {
 
   cd  $INSTALL_SCRIPT_FOLDER/
 
-  if [ -d $INSTALLATION_FOLDER/$EM_FOLDER ]; then
-    rm -rf $INSTALLATION_FOLDER/$EM_FOLDER
-  fi
 
-  mkdir -p $INSTALLATION_FOLDER/$EM_FOLDER
 
   if [ X"$1" == "Xem1" ]; then
     EM_SETUP_SCRIPT=$EM_SETUP_SCRIPT1
@@ -569,6 +600,13 @@ configureEM () {
     TIXCHANGE_NAMESPACE=$TIXCHANGE_NAMESPACE1
     #TIX_WEB_INSTANCE=$TIX_WEB_INSTANCE1
     TIXCHANGE_MYSQL_RDS_HOSTNAME=$TIXCHANGE_MYSQL_RDS_HOSTNAME1
+
+      if [ -d $INSTALLATION_FOLDER/$EM_FOLDER ]; then
+        rm -rf $INSTALLATION_FOLDER/$EM_FOLDER
+      fi
+
+    mkdir -p $INSTALLATION_FOLDER/$EM_FOLDER
+
   else
     EM_SETUP_SCRIPT=$EM_SETUP_SCRIPT2
     EM_UNIVERSE_NAME=$EM_UNIVERSE2_NAME
@@ -585,6 +623,11 @@ configureEM () {
   cp -f $EM_FOLDER/jq-linux64 $INSTALLATION_FOLDER/$EM_FOLDER/
   cp -f $EM_FOLDER/TixChange.jar $INSTALLATION_FOLDER/$EM_FOLDER/
   cp -f $EM_FOLDER/AWS.jar $INSTALLATION_FOLDER/$EM_FOLDER/
+  cp -f $EM_FOLDER/SaaSMM.jar $INSTALLATION_FOLDER/$EM_FOLDER/
+  
+  if [ $IS_AWS == "true" ]; then
+    cp -f $EM_FOLDER/TixChangeAWS.jar $INSTALLATION_FOLDER/$EM_FOLDER/TixChange.jar
+  fi
 
   cd $INSTALLATION_FOLDER/$EM_FOLDER
 
@@ -630,11 +673,11 @@ configureEM () {
 
 setupAWSMonitoring () {
 
-   if [ X"$AWS" != "X" ];then
+   if [ X"$IS_AWS" != "X" ];then
 
       logMsg "Setting up AWS Monitoring - pls wait"
 
-      cd $INSTALL_SCRIPT_FOLDER//$AWS_FOLDER
+      cd $INSTALL_SCRIPT_FOLDER/$AWS_FOLDER
 
      if [ -d $INSTALLATION_FOLDER/$AWS_FOLDER ]; then
        rm -rf $INSTALLATION_FOLDER/$AWS_FOLDER
@@ -642,14 +685,15 @@ setupAWSMonitoring () {
 
      mkdir -p $INSTALLATION_FOLDER/$AWS_FOLDER
 
-      cp -f $AWS_FOLDER/* $INSTALLATION_FOLDER/$AWS_FOLDER/
+      cp -f aws-apmia-monitoring.yaml $INSTALLATION_FOLDER/$AWS_FOLDER/
 
       ESCAPED_APM_MANAGER_URL_1=$(echo "$APM_MANAGER_URL_1"| sed 's/\//\\\//g')
       sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
       sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
-      sed -i 's/AWS_ACCESS_KEY/'$AWS_ACCESS_KEY'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
-      sed -i 's/AWS_SECRET_KEY/'$AWS_SECRET_KEY'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
-      sed -i 's/AWS_ACCOUNTS/'$AWS_ACCOUNTS'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+      #sed -i 's/AWS_ACCESS_KEY/'$AWS_ACCESS_KEY'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+      #sed -i 's/AWS_SECRET_KEY/'$AWS_SECRET_KEY'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+      sed -i 's/AWS_ACCOUNTS_NUMBS/'$AWS_ACCOUNTS_NUMBS'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
+      #sed -i 's/AWS_ACCOUNTS_AND_ROLE/'$AWS_ACCOUNTS_AND_ROLE'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
       sed -i 's/AWS_BUNDLE_FOLDER/'$AWS_BUNDLE_FOLDER'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
       sed -i 's/AWS_REGIONS/'$AWS_REGIONS'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
       sed -i 's/AWS_SERVICES/'$AWS_SERVICES'/' $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml
@@ -657,12 +701,13 @@ setupAWSMonitoring () {
      kubectl create ns aws
    
      kubectl create -f $INSTALLATION_FOLDER/$AWS_FOLDER/aws-apmia-monitoring.yaml -n aws
+
+    cd -
    fi
 }
 
 removeAWSMonitoring () {
   
-   if [ X"$AWS" != "X" ];then
      logMsg "Removing  AWS Monitoring - pls wait"
 
 
@@ -671,7 +716,6 @@ removeAWSMonitoring () {
 	  rm -rf $INSTALLATION_FOLDER/$AWS_FOLDER
      fi
         kubectl delete ns aws
-   fi
     
 }
 

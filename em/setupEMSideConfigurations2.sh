@@ -23,8 +23,8 @@ curl -v -k -X POST \
       "MYSQL_DB":[
          {
             "metricSpecifier":{
-               "format":"MYSQL\\|<Hostname>\\.com\\|jtixchange.*",
-               "type":"REGEX"
+               "format":"MYSQL|<Hostname>|jtixchange",
+               "type":"EXACT"
             },
             "agentSpecifier":{
                "format":"<agent>",
@@ -32,9 +32,27 @@ curl -v -k -X POST \
             },
             "section":"Database Metrics",
             "metricNames":[
-               "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
+                "Availability"
             ],
             "filter":{
+                    "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
+            }
+         },
+         {
+            "metricSpecifier":{
+               "format":"MYSQL|<Hostname>|jtixchange|Operations",
+               "type":"EXACT"
+            },
+            "agentSpecifier":{
+               "format":"<agent>",
+               "type":"EXACT"
+            },
+            "section":"Database Metrics",
+            "metricNames":[
+               "Total Queries", "Total Requests", "Total Deletes",  "Total Inserts"
+            ],
+            "filter":{
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
             }
          }
       ]
@@ -87,7 +105,7 @@ curl -v  -k -X POST \
                "Responses Per Interval"
             ],
             "filter":{
-                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME2"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
             }
          }
       ]
@@ -159,7 +177,7 @@ curl -k -s  -X POST \
         "Apps|TIXCHANGE Web|URLs|shop/newOrder.shtml",
         "Apps|TIXCHANGE Web|URLs|shop/addItemToCart.shtml",
         "Apps|TIXCHANGE Web|URLs|shop/signonForm.shtml",
-        "DATABASE : jtixchange on tixchange.cq3qfzsicvyi.us-east-2.rds.amazonaws.com-3306 (MySQL DB)",
+        "DATABASE : jtixchange on TIXCHANGE_MYSQL_RDS_HOSTNAME-3306 (MySQL DB)",
         "/jtixchange_web/shop/addItemToCart.shtml",
         "Apps|TIXCHANGE Web|URLs|shop/viewCategory.shtml",
         "Apps|TIXCHANGE Web|URLs|shop/checkout.shtml",
@@ -219,6 +237,8 @@ curl -k -s  -X POST \
         "AWS Service Type",
         "AWS_RDS",
         "AWS Region",
+        "AWS_AutoScaling",
+        "AWS_LAMBDA",
         "AWS_S3"
       ],
       "btCoverage": null
@@ -293,7 +313,7 @@ curl -k  -s -X POST \
     "groupAttributes": [
       {
         "layer": "ATC",
-        "name": "applicationName"
+        "name": "Application Name"
       },
       {
         "layer": "ATC",
@@ -385,6 +405,24 @@ correlateAppToInfraForDBVertex () {
 
 }
 
+correlateRDSToInfraForDBVertex () {
+   echo correlateRDSToInfraForDBVertex
+
+  RDS_VERTEX_ID=`getRDSVertexID |./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
+
+  if [ X"$RDS_VERTEX_ID" != "X" ]; then
+    INF_DB_VERTEX_ID=`getMySQLVertexID |./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
+
+    echo "RDS_VERTEX_ID $RDS_VERTEX_ID and INF_DB_VERTEX_ID is $INF_DB_VERTEX_ID"
+
+    if [ X"$INF_DB_VERTEX_ID" != "X" ]; then
+       correlateRDSINFDBVertex $RDS_VERTEX_ID $INF_DB_VERTEX_ID
+    fi
+
+  fi
+
+}
+
 
 getMySQLVertexID () {
 
@@ -412,7 +450,7 @@ curl -k -s -X POST \
                      "itemType" : "attributeFilter",
                      "attributeName": "Hostname",
                      "attributeOperator": "MATCHES",
-                     "values": [ "tixchange-mysql-conn-svc-2*" ]
+                     "values": [ "TIXCHANGE_MYSQL_RDS_HOSTNAME*" ]
                  }
             ]
         }
@@ -422,7 +460,7 @@ curl -k -s -X POST \
 }
 
 
-getApmiaMysqlVertexID () {
+getRDSVertexID () {
 
 curl -k -s -X POST \
   APM_SAAS_URL/apm/appmap/graph/vertex \
@@ -442,13 +480,13 @@ curl -k -s -X POST \
                      "itemType" : "attributeFilter",
                      "attributeName": "Type",
                      "attributeOperator": "MATCHES",
-                     "values": [ "MYSQL_DB*" ]
+                     "values": [ "AWS_RDS*" ]
                  },
                  {
                      "itemType" : "attributeFilter",
-                     "attributeName": "Hostname",
+                     "attributeName": "Host",
                      "attributeOperator": "MATCHES",
-                     "values": [ "tixchange-mysql-conn-svc-2*" ]
+                     "values": [ "TIXCHANGE_MYSQL_RDS_HOSTNAME*" ]
                  }
             ]
         }
@@ -456,6 +494,9 @@ curl -k -s -X POST \
 }'
 
 }
+
+
+
 
 getHostVertexID () {
 
@@ -550,6 +591,34 @@ curl -k -s -X PATCH \
 }'
 }
 
+correlateRDSINFDBVertex () {
+curl -k -s -X PATCH \
+  APM_SAAS_URL/apm/appmap/graph/vertex/ \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d ' { "items" : [
+                {
+                                "id":"'$1'",
+                                "attributes": {
+                                "cor.db.contains.from":["rdsEast"]
+                                 }
+                 },
+                 {
+                                "id":"'$2'",
+                                "attributes": {
+                                "cor.db.contains.to":["rdsEast"]
+                                 }
+                 }
+  ]
+}'
+}
+
+
 
 echo "running setupEMSideConfigurations2.sh"
 
@@ -575,19 +644,23 @@ sleep 5
 importMgmtModule "TixChange.jar"
 sleep 5
 importMgmtModule "AWS.jar"
+sleep 5
+importMgmtModule "SaaSMM.jar"
 
 echo "running Trxn Trace pls have patience"
 runTrxnTrace
 sleep 30
+runTrxnTrace
 
 correlateAppToInfraForDBVertex tix-mysql
-correlateAppToInfraForDBVertex apmia-mysql
+#correlateAppToInfraForDBVertex apmia-mysql
+correlateRDSToInfraForDBVertex
 
 #PatchHostToApmiaContainsReln
 
 
 sleep 10
 
-#configMySqlMetricAndAlertMapping
-#sleep 1
-#configInferredDBMetricAndAlertMapping
+configMySqlMetricAndAlertMapping
+sleep 2
+configInferredDBMetricAndAlertMapping

@@ -93,6 +93,8 @@ spec:
               mountPath: /opt/temp/j2ee.pbd
               subPath: j2ee.pbd
               readOnly: true
+            - name: log-collector-volume
+              mountPath: /usr/local/tomcat/logs
             - name: jtixchange-pbd
               mountPath: /opt/temp/jtixchange.pbd
               subPath: jtixchange.pbd
@@ -112,8 +114,11 @@ spec:
         - name: jtixchange-pbd
           configMap:
             name: jtixchange-pbd
-          #hostPath:
-            #path: /opt/ca/TixChangeK8sDemo/tixChangeHelm/default.basnippet
+        - name: log-collector-volume
+          hostPath:
+            #path: /opt/ca/TixChangeK8sDemo/tixChangeHelm/TomcatWebLogsUC1
+            path: LOG_COLL_TIX_WEB_UC2_DIR
+            type: Directory
       nodeSelector:
         kubernetes.io/hostname: node3
 
@@ -196,6 +201,9 @@ spec:
           - name: apmenv_introscope_agent_hostName
             value: TxChangeSvc_UC2
 {{ end }}
+          volumeMounts:
+            - name: log-collector-volume
+              mountPath: /usr/local/tomcat/logs
           resources:
             limits:
               cpu: "900m"
@@ -210,7 +218,11 @@ spec:
                 name: tix-ws-apm-config
           ports:
             - containerPort: 8080
-
+      volumes:
+        - name: log-collector-volume
+          hostPath:
+            path: LOG_COLL_TIX_WS_UC2_DIR
+            type: Directory
       nodeSelector:
         kubernetes.io/hostname: node1
 ---

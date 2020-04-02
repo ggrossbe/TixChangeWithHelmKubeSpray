@@ -9,8 +9,17 @@ echo ""
 
 read OI_TOKEN
 
-if [ X"$OI_TOKEN" == "X" ]; then
-   echo "Pls provide valid token"
+echo ""
+echo " Pls Provide MYSQL POD name OR RDS East Hostname if using AWS RDS deployment. e.g kubectl get pods -n tixchange-v2 OR tixchange:us-east-2:544960306 from AWS console"
+
+read TIXCHANGE_MYSQL_RDS_HOSTNAME
+
+echo ""
+
+sleep 2
+
+if [ X"$OI_TOKEN" == "X" ] || [ X"$TIXCHANGE_MYSQL_RDS_HOSTNAME" == "X" ]; then
+   echo "Pls provide valid token and Valid MYSQL RDS hostname/POD name "
    exit
 
 fi
@@ -45,7 +54,7 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Services"
+          "Consumer Insurance"
         ],
         "tags": [],
         "location": "",
@@ -57,18 +66,18 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "LATAM",
+        "name": "LATAM_Insurance",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Consumer Services"
+          "Consumer Insurance"
         ],
         "tags": [],
         "location": "",
         "description": "test",
         "customProperties": []
       },
-      "externalId": "LATAM"
+      "externalId": "LATAM_Insurance"
     },
     {
       "attributes": {
@@ -86,7 +95,7 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Services"
+          "Consumer Insurance"
         ],
         "tags": [],
         "location": "",
@@ -98,34 +107,34 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "Consumer Services",
+        "name": "Consumer Insurance",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Consumer Services"
+          "Consumer Insurance"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "Consumer Services"
+      "externalId": "Consumer Insurance"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA",
+        "name": "EMEA_Insurance",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Consumer Services"
+          "Consumer Insurance"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA"
+      "externalId": "EMEA_Insurance"
     },
     {
       "attributes": {
@@ -143,7 +152,7 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Services"
+          "Consumer Insurance"
         ],
         "tags": [],
         "location": "",
@@ -168,7 +177,7 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Services"
+          "Consumer Insurance"
         ],
         "tags": [],
         "location": "",
@@ -180,18 +189,18 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "NA",
+        "name": "NA_Insurance",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Consumer Services"
+          "Consumer Insurance"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "NA"
+      "externalId": "NA_Insurance"
     },
     {
       "attributes": {
@@ -209,7 +218,7 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Services"
+          "Consumer Insurance"
         ],
         "tags": [],
         "location": "",
@@ -234,7 +243,7 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Services"
+          "Consumer Insurance"
         ],
         "tags": [],
         "location": "",
@@ -259,7 +268,7 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Services"
+          "Consumer Insurance"
         ],
         "tags": [],
         "location": "",
@@ -284,7 +293,7 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Services"
+          "Consumer Insurance"
         ],
         "tags": [],
         "location": "",
@@ -296,24 +305,24 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "APJ",
+        "name": "APJ_Insurance",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Consumer Services"
+          "Consumer Insurance"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "APJ"
+      "externalId": "APJ_Insurance"
     }
   ],
   "edges": [
     {
       "targetExternalId": "EMEA_Life",
-      "sourceExternalId": "EMEA",
+      "sourceExternalId": "EMEA_Insurance",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -322,7 +331,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "EMEA_Property",
-      "sourceExternalId": "EMEA",
+      "sourceExternalId": "EMEA_Insurance",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -331,7 +340,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "EMEA_Vehicle",
-      "sourceExternalId": "EMEA",
+      "sourceExternalId": "EMEA_Insurance",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -339,8 +348,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "EMEA",
-      "sourceExternalId": "Consumer Services",
+      "targetExternalId": "EMEA_Insurance",
+      "sourceExternalId": "Consumer Insurance",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -349,7 +358,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "NA_Life",
-      "sourceExternalId": "NA",
+      "sourceExternalId": "NA_Insurance",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -358,7 +367,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "NA_Property",
-      "sourceExternalId": "NA",
+      "sourceExternalId": "NA_Insurance",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -366,8 +375,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "LATAM",
-      "sourceExternalId": "Consumer Services",
+      "targetExternalId": "LATAM_Insurance",
+      "sourceExternalId": "Consumer Insurance",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -376,7 +385,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "LATAM_Life",
-      "sourceExternalId": "LATAM",
+      "sourceExternalId": "LATAM_Insurance",
       "attributes": {
         "health_weight": 1,
         "risk_weight": 1,
@@ -385,7 +394,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "APJ_Life",
-      "sourceExternalId": "APJ",
+      "sourceExternalId": "APJ_Insurance",
       "attributes": {
         "health_weight": 1,
         "risk_weight": 1,
@@ -393,8 +402,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA",
-      "sourceExternalId": "Consumer Services",
+      "targetExternalId": "NA_Insurance",
+      "sourceExternalId": "Consumer Insurance",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -403,7 +412,7 @@ curl -v -X POST \
     },
     {
       "targetExternalId": "NA_Vehicle",
-      "sourceExternalId": "NA",
+      "sourceExternalId": "NA_Insurance",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -411,8 +420,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "APJ",
-      "sourceExternalId": "Consumer Services",
+      "targetExternalId": "APJ_Insurance",
+      "sourceExternalId": "Consumer Insurance",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -463,6 +472,11 @@ curl -X POST \
         "query": [{
                                 "attributeName": "agent",
                 "attributeValue": "node2|apmiaMySQL_UC2|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "hostname",
+                "attributeValue": "'$TIXCHANGE_MYSQL_RDS_HOSTNAME'"
         }]
     }]
 }'
