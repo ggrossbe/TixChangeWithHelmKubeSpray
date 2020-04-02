@@ -23,7 +23,7 @@ do
    ssh root@$HOST "systemctl daemon-reload"
    ssh root@$HOST "systemctl restart kubelet"
    ssh root@$HOST "systemctl disable yum-cron"
-   
+
 done
 
    yum -y --enablerepo=extras install epel-release
@@ -42,3 +42,5 @@ done
   #curl -sL https://rpm.nodesource.com/setup_10.x | sudo -E bash -
   #sudo yum install -y nodejs
   #npm install -g selenium-side-runner
+
+

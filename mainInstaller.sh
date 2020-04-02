@@ -53,6 +53,11 @@ fi
 
 
 
+ if [ X"$TIXCHANGE_MYSQL_RDS_HOSTNAME1" == "X" ]; then
+    TIXCHANGE_MYSQL_RDS_HOSTNAME1=tixchange-mysql-conn-svc-1
+    TIXCHANGE_MYSQL_RDS_HOSTNAME2=tixchange-mysql-conn-svc-2
+ fi
+
 case $OPTION in 
    a) 
 
@@ -95,6 +100,8 @@ case $OPTION in
 
      configureEM em1
      configureEM em2
+
+     setupAWSMonitoring
 
      runFinalSanityCheck
 
@@ -147,7 +154,10 @@ case $OPTION in
      #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      installAndConfigureSelenium
-     
+
+    
+     setupAWSMonitoring
+    
      configureEM em1
      configureEM em2
 

@@ -23,8 +23,8 @@ curl -v -k -X POST \
       "MYSQL_DB":[
          {
             "metricSpecifier":{
-               "format":"MYSQL\\|tixchange\\-mysql\\-conn\\-svc\\-1\\|jtixchange.*",
-               "type":"REGEX"
+               "format":"MYSQL|<Hostname>|jtixchange",
+               "type":"EXACT"
             },
             "agentSpecifier":{
                "format":"<agent>",
@@ -32,16 +32,16 @@ curl -v -k -X POST \
             },
             "section":"Database Metrics",
             "metricNames":[
-               "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
+               "Availability"
             ],
             "filter":{
-                "Hostname": "tixchange-mysql-conn-svc-1"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
             }
          },
          {
             "metricSpecifier":{
-               "format":"MYSQL\\|tixchange\\-mysql\\-conn\\-svc\\-2\\|jtixchange.*",
-               "type":"REGEX"
+               "format":"MYSQL|<Hostname>|jtixchange|Operations",
+               "type":"EXACT"
             },
             "agentSpecifier":{
                "format":"<agent>",
@@ -49,17 +49,17 @@ curl -v -k -X POST \
             },
             "section":"Database Metrics",
             "metricNames":[
-               "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
+               "Total Queries", "Total Requests", "Total Deletes",  "Total Inserts"
             ],
             "filter":{
-                "Hostname": "tixchange-mysql-conn-svc-2"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
             }
          }
       ]
    },
    "alertMappings":{
         "MYSQL_DB":[
-      "MYSQL|<Hostname>|jtixchange|Operations:Total Queries",
+      "MYSQL|<Hostname>|jtixchange|*",
       "MYSQL|<Hostname>|jtixchange:Availability"
       ]
    },
@@ -104,24 +104,7 @@ curl -v  -k -X POST \
                "Responses Per Interval"
             ],
             "filter":{
-                "Hostname": "tixchange-mysql-conn-svc-1"
-            }
-         },
-	{
-            "metricSpecifier":{
-               "format":"Backends|<databasename>",
-               "type":"EXACT"
-            },
-            "agentSpecifier":{
-               "format":"TxChangeSvc_UC2|tomcat|Agent",
-               "type":"EXACT"
-            },
-            "section":"Database Metrics",
-            "metricNames":[
-               "Responses Per Interval"
-            ],
-            "filter":{
-                "Hostname": "tixchange-mysql-conn-svc-2"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
             }
          }
       ]
@@ -129,8 +112,7 @@ curl -v  -k -X POST \
    "alertMappings":{
 
    "INFERRED_DATABASE_WITH_AGENT":[
-     "TxChangeSvc_UC1|tomcat|Agent|Backends|<databasename>:Responses Per Interval",
-     "TxChangeSvc_UC2|tomcat|Agent|Backends|<databasename>:Responses Per Interval"
+     "TxChangeSvc_UC1|tomcat|Agent|Backends|<databasename>:Responses Per Interval"
       ]
    },
    "perspectives":[
@@ -151,10 +133,11 @@ curl -k -s  -X POST \
   -H 'Content-Type: application/json;charset=UTF-8' \
   -H 'Host: APM_SAAS_URL_NO_PROTO' \
   -H 'cache-control: no-cache' \
-  -d '{
+  -d '
+  {
   "universeId": null,
   "name": "'$EM_UNIVERSE1'",
-"items": [
+  "items": [
     {
       "layer": {
         "value": "INFRASTRUCTURE"
@@ -168,14 +151,54 @@ curl -k -s  -X POST \
             "value": "INFRASTRUCTURE"
           },
           "values": [
-            "tixchange-v1",
+            "tixchange-v2",
             "ingress-nginx",
             "kube-system",
-            "caaiops"
+            "monitor",
+            "caaiops",
+            "aws"
           ],
           "btCoverage": null
         }
       ]
+    },
+    {
+      "operator": "AND",
+      "attributeName": "name",
+      "layer": {
+        "value": "ATC"
+      },
+      "values": [
+        "Apps|TIXCHANGE Web|URLs|shop/signon.shtml",
+        "/jtixchange_web/shop/signon.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/signoff.shtml",
+        "/jtixchange_web/shop/viewItem.shtml",
+        "/jtixchange_web/shop/newOrder.shtml",
+        "/jtixchange_web/shop/newOrderForm.shtml",
+        "/jtixchange_web/shop/viewProduct.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/newOrder.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/addItemToCart.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/signonForm.shtml",
+        "DATABASE : jtixchange on TIXCHANGE_MYSQL_RDS_HOSTNAME-3306 (MySQL DB)",
+        "/jtixchange_web/shop/addItemToCart.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/viewCategory.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/checkout.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/viewProduct.shtml",
+        "Apps|TIXCHANGE Services|URLs|/JTiXChange_Services/services/",
+        "/jtixchange_web/shop/viewCategory.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/viewItem.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/newOrderForm.shtml",
+        "node1",
+        "/jtixchange_web/shop/checkout.shtml",
+        "node2",
+        "node3",
+        "/jtixchange_web/shop/signonForm.shtml",
+        "/jtixchange_web/shop/index.shtml",
+        "service.jtixchange.com|getAuthAccount",
+        "ActionServlet|service",
+        "Apps|TIXCHANGE Web|URLs|shop/index.shtml"
+      ],
+      "btCoverage": null
     },
     {
       "operator": "OR",
@@ -184,7 +207,9 @@ curl -k -s  -X POST \
         "value": "APM_INFRASTRUCTURE"
       },
       "values": [
-        "node2"
+        "node2",
+        "node3",
+        "node1"
       ],
       "btCoverage": null
     },
@@ -195,11 +220,28 @@ curl -k -s  -X POST \
         "value": "INFRASTRUCTURE"
       },
       "values": [
-        "tixchange-v1",
+        "tixchange-v2",
         "ingress-nginx",
         "CA_INTERNAL_NULL",
         "kube-system",
         "caaiops"
+      ],
+      "btCoverage": null
+    },
+    {
+      "operator": "OR",
+      "attributeName": "type",
+      "layer": {
+        "value": "INFRASTRUCTURE"
+      },
+      "values": [
+        "AWS Account",
+        "AWS Service Type",
+        "AWS_RDS",
+        "AWS Region",
+        "AWS_AutoScaling",
+        "AWS_LAMBDA",
+        "AWS_S3"
       ],
       "btCoverage": null
     }
@@ -208,7 +250,7 @@ curl -k -s  -X POST \
   "includedVertices": [],
   "excludedVertices": [],
   "showEntry": false,
-  "lastUpdate": 1562419946426,
+  "lastUpdate": 1584825448975,
   "joins": [
     {
       "layer": {
@@ -273,7 +315,7 @@ curl -k  -s -X POST \
     "groupAttributes": [
       {
         "layer": "ATC",
-        "name": "applicationName"
+        "name": "Application Name"
       },
       {
         "layer": "ATC",
@@ -392,7 +434,7 @@ curl -k -s -X POST \
                      "itemType" : "attributeFilter",
                      "attributeName": "Hostname",
                      "attributeOperator": "MATCHES",
-                     "values": [ "tixchange-mysql-conn-svc-1*" ]
+                     "values": [ "TIXCHANGE_MYSQL_RDS_HOSTNAME*" ]
                  }
             ]
         }
@@ -428,7 +470,7 @@ curl -k -s -X POST \
                      "itemType" : "attributeFilter",
                      "attributeName": "Hostname",
                      "attributeOperator": "MATCHES",
-                     "values": [ "tixchange-mysql-conn-svc-1*" ]
+                     "values": [ "TIXCHANGE_MYSQL_RDS_HOSTNAME*" ]
                  }
             ]
         }
@@ -470,6 +512,72 @@ curl -k -s -X POST \
     ]
 }'
 
+}
+
+patchBTVerticesWithAppName () {
+
+    VERTEX_IDS=`getBTVertexIDs |./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
+
+    for VERTEX_ID in $VERTEX_IDS
+    do
+        echo "BT VERTICES are $VERTEX_ID"
+
+        if [ X"$VERTEX_ID" != "X" ]; then
+          patchABTVertex $VERTEX_ID
+        fi
+    done
+}
+
+
+getBTVertexIDs () {
+
+curl -k -s -X POST \
+  APM_SAAS_URL/apm/appmap/graph/vertex \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "includeStartPoint": false,
+    "orItems":[
+        {
+            "andItems":[
+                {
+                     "itemType" : "attributeFilter",
+                     "attributeName": "Type",
+                     "attributeOperator": "MATCHES",
+                     "values": [ "BUSINESSTRANSACTION*" ]
+                 }
+            ]
+        }
+    ]
+}'
+
+}
+
+## Dont need this in em/setupEMSideConfigurations2.sh
+patchABTVertex () {
+curl -k -s -X PATCH \
+  APM_SAAS_URL/apm/appmap/graph/vertex/ \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d ' { "items" : [
+                {
+                                "id":"'$1'",
+                                "attributes": {
+                                "Application Name":["TIXCHANGE Web"]
+        }
+    }
+  ]
+}'
 }
 
 PatchHostToApmiaContainsReln () {
@@ -540,6 +648,10 @@ echo " UNIVERSE ID for  $EM_UNIVERSE1 is $UNIVERSE_ID"
 runTrxnTrace
 sleep 30
 
+patchBTVerticesWithAppName
+
+sleep 15
+
 # if universe does not exist
 if [ X"$UNIVERSE_ID" == "X" ]; then
   createUniverse 
@@ -553,13 +665,18 @@ fi
 
 sleep 5
 importMgmtModule "TixChange.jar"
+sleep 3
+importMgmtModule "AWS.jar"
+sleep 3
+importMgmtModule "SaaSMM.jar"
 
 echo "running Trxn Trace pls have patience"
 runTrxnTrace
 sleep 30
+runTrxnTrace
 
 correlateAppToInfraForDBVertex tix-mysql
-correlateAppToInfraForDBVertex apmia-mysql
+#correlateAppToInfraForDBVertex apmia-mysql
 
 #PatchHostToApmiaContainsReln
 

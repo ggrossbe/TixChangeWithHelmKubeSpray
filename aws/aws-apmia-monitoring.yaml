@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: apmia-aws
+  labels:
+    tier: monitoring
+    app: caagent_apmia
+    version: v1
+spec:
+  template:
+    metadata:
+      labels:
+        app: caagent_apmia
+    spec:
+      containers:
+        - resources:
+          env:
+            - name: APMENV_LOG4J_LOGGER_INTROSCOPEAGENT
+              value: INFO,console, logfile
+            - name: APMENV_AGENTMANAGER_URL_1
+              value: APM_MANAGER_URL_1
+            - name:  APMENV_AGENTMANAGER_CREDENTIAL
+              value: APM_MANAGER_CREDENTIAL
+            - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_ACCOUNTS
+              value: "AWS_ACCOUNTS_NUMBS"
+            - name: APMENV_INTROSCOPE_AGENT_EXTENSIONS_BUNDLES_BOOT_LOAD
+              value: AWS_BUNDLE_FOLDER
+            - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_REGIONLIST
+              value: AWS_REGIONS
+            - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_SCHEMALIST
+              value: AWS_SERVICES
+            - name: APMENV_INTROSCOPE_AGENT_AGENTNAME
+              value: apmia_aws_agent
+            - name: APMENV_INTROSCOPE_AGENT_HOSTNAME
+              value: apmia_aws_monitoring
+            - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_INTERVAL
+              value: "300"
+          name: apmia
+          image: caapm/apmia:latest
+          imagePullPolicy: Always
+          resources:
+           limits:
+            cpu: "0.9"
+            memory: 700M

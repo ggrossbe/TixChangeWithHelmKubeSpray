@@ -23,8 +23,8 @@ curl -v -k -X POST \
       "MYSQL_DB":[
          {
             "metricSpecifier":{
-               "format":"MYSQL\\|tixchange\\-mysql\\-conn\\-svc\\-2\\|jtixchange.*",
-               "type":"REGEX"
+               "format":"MYSQL|<Hostname>|jtixchange",
+               "type":"EXACT"
             },
             "agentSpecifier":{
                "format":"<agent>",
@@ -32,16 +32,34 @@ curl -v -k -X POST \
             },
             "section":"Database Metrics",
             "metricNames":[
-               "Total Queries", "Total Requests", "Total Deletes", "Availability", "Total Inserts"
+                "Availability"
             ],
             "filter":{
+                    "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
+            }
+         },
+         {
+            "metricSpecifier":{
+               "format":"MYSQL|<Hostname>|jtixchange|Operations",
+               "type":"EXACT"
+            },
+            "agentSpecifier":{
+               "format":"<agent>",
+               "type":"EXACT"
+            },
+            "section":"Database Metrics",
+            "metricNames":[
+               "Total Queries", "Total Requests", "Total Deletes",  "Total Inserts"
+            ],
+            "filter":{
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
             }
          }
       ]
    },
    "alertMappings":{
         "MYSQL_DB_WITH_AGENT":[
-     "MYSQL|<Hostname>|jtixchange|Operations:Total Queries",
+     "MYSQL|<Hostname>|jtixchange|*",
       "MYSQL|<Hostname>|jtixchange:Availability"
       ]
    },
@@ -87,7 +105,7 @@ curl -v  -k -X POST \
                "Responses Per Interval"
             ],
             "filter":{
-                "Hostname": "tixchange-mysql-conn-svc-2"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
             }
          }
       ]
@@ -117,7 +135,7 @@ curl -k -s  -X POST \
   -d '{
   "universeId": null,
   "name": "'$EM_UNIVERSE1'",
-"items": [
+  "items": [
     {
       "layer": {
         "value": "INFRASTRUCTURE"
@@ -134,11 +152,51 @@ curl -k -s  -X POST \
             "tixchange-v2",
             "ingress-nginx",
             "kube-system",
-            "caaiops"
+            "monitor",
+            "caaiops",
+            "aws"
           ],
           "btCoverage": null
         }
       ]
+    },
+    {
+      "operator": "AND",
+      "attributeName": "name",
+      "layer": {
+        "value": "ATC"
+      },
+      "values": [
+        "Apps|TIXCHANGE Web|URLs|shop/signon.shtml",
+        "/jtixchange_web/shop/signon.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/signoff.shtml",
+        "/jtixchange_web/shop/viewItem.shtml",
+        "/jtixchange_web/shop/newOrder.shtml",
+        "/jtixchange_web/shop/newOrderForm.shtml",
+        "/jtixchange_web/shop/viewProduct.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/newOrder.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/addItemToCart.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/signonForm.shtml",
+        "DATABASE : jtixchange on TIXCHANGE_MYSQL_RDS_HOSTNAME-3306 (MySQL DB)",
+        "/jtixchange_web/shop/addItemToCart.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/viewCategory.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/checkout.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/viewProduct.shtml",
+        "Apps|TIXCHANGE Services|URLs|/JTiXChange_Services/services/",
+        "/jtixchange_web/shop/viewCategory.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/viewItem.shtml",
+        "Apps|TIXCHANGE Web|URLs|shop/newOrderForm.shtml",
+        "node1",
+        "/jtixchange_web/shop/checkout.shtml",
+        "node2",
+        "node3",
+        "/jtixchange_web/shop/signonForm.shtml",
+        "/jtixchange_web/shop/index.shtml",
+        "service.jtixchange.com|getAuthAccount",
+        "ActionServlet|service",
+        "Apps|TIXCHANGE Web|URLs|shop/index.shtml"
+      ],
+      "btCoverage": null
     },
     {
       "operator": "OR",
@@ -147,7 +205,9 @@ curl -k -s  -X POST \
         "value": "APM_INFRASTRUCTURE"
       },
       "values": [
-        "node2"
+        "node2",
+        "node3",
+        "node1"
       ],
       "btCoverage": null
     },
@@ -165,13 +225,30 @@ curl -k -s  -X POST \
         "caaiops"
       ],
       "btCoverage": null
+    },
+    {
+      "operator": "OR",
+      "attributeName": "type",
+      "layer": {
+        "value": "INFRASTRUCTURE"
+      },
+      "values": [
+        "AWS Account",
+        "AWS Service Type",
+        "AWS_RDS",
+        "AWS Region",
+        "AWS_AutoScaling",
+        "AWS_LAMBDA",
+        "AWS_S3"
+      ],
+      "btCoverage": null
     }
   ],
   "users": [],
   "includedVertices": [],
   "excludedVertices": [],
   "showEntry": false,
-  "lastUpdate": 1562419946426,
+  "lastUpdate": 1584825448975,
   "joins": [
     {
       "layer": {
@@ -236,7 +313,7 @@ curl -k  -s -X POST \
     "groupAttributes": [
       {
         "layer": "ATC",
-        "name": "applicationName"
+        "name": "Application Name"
       },
       {
         "layer": "ATC",
@@ -328,6 +405,24 @@ correlateAppToInfraForDBVertex () {
 
 }
 
+correlateRDSToInfraForDBVertex () {
+   echo correlateRDSToInfraForDBVertex
+
+  RDS_VERTEX_ID=`getRDSVertexID |./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
+
+  if [ X"$RDS_VERTEX_ID" != "X" ]; then
+    INF_DB_VERTEX_ID=`getMySQLVertexID |./jq-linux64|grep "\"id\""|awk '{ print $2 }'|sed 's/"//g'`
+
+    echo "RDS_VERTEX_ID $RDS_VERTEX_ID and INF_DB_VERTEX_ID is $INF_DB_VERTEX_ID"
+
+    if [ X"$INF_DB_VERTEX_ID" != "X" ]; then
+       correlateRDSINFDBVertex $RDS_VERTEX_ID $INF_DB_VERTEX_ID
+    fi
+
+  fi
+
+}
+
 
 getMySQLVertexID () {
 
@@ -355,7 +450,7 @@ curl -k -s -X POST \
                      "itemType" : "attributeFilter",
                      "attributeName": "Hostname",
                      "attributeOperator": "MATCHES",
-                     "values": [ "tixchange-mysql-conn-svc-2*" ]
+                     "values": [ "TIXCHANGE_MYSQL_RDS_HOSTNAME*" ]
                  }
             ]
         }
@@ -365,7 +460,7 @@ curl -k -s -X POST \
 }
 
 
-getApmiaMysqlVertexID () {
+getRDSVertexID () {
 
 curl -k -s -X POST \
   APM_SAAS_URL/apm/appmap/graph/vertex \
@@ -385,13 +480,13 @@ curl -k -s -X POST \
                      "itemType" : "attributeFilter",
                      "attributeName": "Type",
                      "attributeOperator": "MATCHES",
-                     "values": [ "MYSQL_DB*" ]
+                     "values": [ "AWS_RDS*" ]
                  },
                  {
                      "itemType" : "attributeFilter",
-                     "attributeName": "Hostname",
+                     "attributeName": "Host",
                      "attributeOperator": "MATCHES",
-                     "values": [ "tixchange-mysql-conn-svc-2*" ]
+                     "values": [ "TIXCHANGE_MYSQL_RDS_HOSTNAME*" ]
                  }
             ]
         }
@@ -399,6 +494,9 @@ curl -k -s -X POST \
 }'
 
 }
+
+
+
 
 getHostVertexID () {
 
@@ -493,6 +591,34 @@ curl -k -s -X PATCH \
 }'
 }
 
+correlateRDSINFDBVertex () {
+curl -k -s -X PATCH \
+  APM_SAAS_URL/apm/appmap/graph/vertex/ \
+  -H 'Accept: */*' \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: APM_SAAS_URL_NO_PROTO' \
+  -H 'cache-control: no-cache' \
+  -d ' { "items" : [
+                {
+                                "id":"'$1'",
+                                "attributes": {
+                                "cor.db.contains.from":["rdsEast"]
+                                 }
+                 },
+                 {
+                                "id":"'$2'",
+                                "attributes": {
+                                "cor.db.contains.to":["rdsEast"]
+                                 }
+                 }
+  ]
+}'
+}
+
+
 
 echo "running setupEMSideConfigurations2.sh"
 
@@ -516,19 +642,25 @@ fi
 
 sleep 5
 importMgmtModule "TixChange.jar"
+sleep 5
+importMgmtModule "AWS.jar"
+sleep 5
+importMgmtModule "SaaSMM.jar"
 
 echo "running Trxn Trace pls have patience"
 runTrxnTrace
 sleep 30
+runTrxnTrace
 
 correlateAppToInfraForDBVertex tix-mysql
-correlateAppToInfraForDBVertex apmia-mysql
+#correlateAppToInfraForDBVertex apmia-mysql
+correlateRDSToInfraForDBVertex
 
 #PatchHostToApmiaContainsReln
 
 
 sleep 10
 
-#configMySqlMetricAndAlertMapping
-#sleep 1
-#configInferredDBMetricAndAlertMapping
+configMySqlMetricAndAlertMapping
+sleep 2
+configInferredDBMetricAndAlertMapping

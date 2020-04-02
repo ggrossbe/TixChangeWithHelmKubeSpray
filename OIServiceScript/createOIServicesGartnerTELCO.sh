@@ -6,13 +6,20 @@ echo ""
 echo "pls provide the OI token (this is OI token not APM - Go to Service Overview Page of the OI. Open browser dev mode and go to request header section under network tab for a request (say click on status circle) and look for Authorization Bearer token )"
 echo ""
 echo ""
-echo "####### make sure you replace \"_#\" in this file by running the following in \"vi\" \":%s/_#//g\" before running the script ####"
-echo ""
 
 read OI_TOKEN
 
-if [ X"$OI_TOKEN" == "X" ]; then
-   echo "Pls provide valid token"
+echo ""
+echo " Pls Provide MYSQL POD name OR RDS East Hostname if using AWS RDS deployment. e.g kubectl get pods -n tixchange-v2 OR tixchange:us-east-2:544960306 from AWS console"
+
+read TIXCHANGE_MYSQL_RDS_HOSTNAME
+
+echo ""
+
+sleep 2
+
+if [ X"$OI_TOKEN" == "X" ] || [ X"$TIXCHANGE_MYSQL_RDS_HOSTNAME" == "X" ]; then
+   echo "Pls provide valid token and Valid MYSQL RDS hostname/POD name "
    exit
 
 fi
@@ -34,7 +41,7 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "APJ_#_Billing",
+        "name": "APJ_Billing",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -47,35 +54,35 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service_#"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "APJ_#_Billing"
+      "externalId": "APJ_Billing"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "LATAM_#",
+        "name": "LATAM_Mobile",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service_#"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "test",
         "customProperties": []
       },
-      "externalId": "LATAM_#"
+      "externalId": "LATAM_Mobile"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_#_Billing",
+        "name": "NA_Billing",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -88,51 +95,51 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service_#"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "NA_#_Billing"
+      "externalId": "NA_Billing"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "Mobile Service_#",
+        "name": "Mobile Service",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service_#"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "Mobile Service_#"
+      "externalId": "Mobile Service"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_#",
+        "name": "EMEA_Mobile",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service_#"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_#"
+      "externalId": "EMEA_Mobile"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "LATAM_#_Billing",
+        "name": "LATAM_Billing",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -145,19 +152,19 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service_#"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "LATAM_#_Billing"
+      "externalId": "LATAM_Billing"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_#_Activation",
+        "name": "NA_Activation",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -170,35 +177,35 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service_#"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "test",
         "customProperties": []
       },
-      "externalId": "NA_#_Activation"
+      "externalId": "NA_Activation"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_#",
+        "name": "NA_Mobile",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service_#"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "NA_#"
+      "externalId": "NA_Mobile"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_#_Billing",
+        "name": "EMEA_Billing",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -211,19 +218,19 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service_#"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_#_Billing"
+      "externalId": "EMEA_Billing"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_#_Activation",
+        "name": "EMEA_Activation",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -236,19 +243,19 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service_#"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_#_Activation"
+      "externalId": "EMEA_Activation"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_#_Provisioning",
+        "name": "EMEA_Provisioning",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -261,19 +268,19 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service_#"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_#_Provisioning"
+      "externalId": "EMEA_Provisioning"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_#_Provisioning",
+        "name": "NA_Provisioning",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -286,36 +293,36 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Mobile Service_#"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "NA_#_Provisioning"
+      "externalId": "NA_Provisioning"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "APJ_#",
+        "name": "APJ_Mobile",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Mobile Service_#"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "APJ_#"
+      "externalId": "APJ_Mobile"
     }
   ],
   "edges": [
     {
-      "targetExternalId": "EMEA_#_Billing",
-      "sourceExternalId": "EMEA_#",
+      "targetExternalId": "EMEA_Billing",
+      "sourceExternalId": "EMEA_Mobile",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -323,8 +330,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "EMEA_#_Provisioning",
-      "sourceExternalId": "EMEA_#",
+      "targetExternalId": "EMEA_Provisioning",
+      "sourceExternalId": "EMEA_Mobile",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -332,8 +339,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "EMEA_#_Activation",
-      "sourceExternalId": "EMEA_#",
+      "targetExternalId": "EMEA_Activation",
+      "sourceExternalId": "EMEA_Mobile",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -341,8 +348,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "EMEA_#",
-      "sourceExternalId": "Mobile Service_#",
+      "targetExternalId": "EMEA_Mobile",
+      "sourceExternalId": "Mobile Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -350,8 +357,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_#_Billing",
-      "sourceExternalId": "NA_#",
+      "targetExternalId": "NA_Billing",
+      "sourceExternalId": "NA_Mobile",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -359,8 +366,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_#_Provisioning",
-      "sourceExternalId": "NA_#",
+      "targetExternalId": "NA_Provisioning",
+      "sourceExternalId": "NA_Mobile",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -368,8 +375,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "LATAM_#",
-      "sourceExternalId": "Mobile Service_#",
+      "targetExternalId": "LATAM_Mobile",
+      "sourceExternalId": "Mobile Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -377,8 +384,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "LATAM_#_Billing",
-      "sourceExternalId": "LATAM_#",
+      "targetExternalId": "LATAM_Billing",
+      "sourceExternalId": "LATAM_Mobile",
       "attributes": {
         "health_weight": 1,
         "risk_weight": 1,
@@ -386,8 +393,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "APJ_#_Billing",
-      "sourceExternalId": "APJ_#",
+      "targetExternalId": "APJ_Billing",
+      "sourceExternalId": "APJ_Mobile",
       "attributes": {
         "health_weight": 1,
         "risk_weight": 1,
@@ -395,8 +402,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_#",
-      "sourceExternalId": "Mobile Service_#",
+      "targetExternalId": "NA_Mobile",
+      "sourceExternalId": "Mobile Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -404,8 +411,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_#_Activation",
-      "sourceExternalId": "NA_#",
+      "targetExternalId": "NA_Activation",
+      "sourceExternalId": "NA_Mobile",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -413,8 +420,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "APJ_#",
-      "sourceExternalId": "Mobile Service_#",
+      "targetExternalId": "APJ_Mobile",
+      "sourceExternalId": "Mobile Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -428,26 +435,17 @@ echo "***sleeping for 10 sec"
 sleep 10
 
 curl -X POST \
-  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_#_Provisioning \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Provisioning \
   -H 'Authorization: Bearer '$OI_TOKEN'' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -d '{
     "serviceContent": [{
-        "query": [{
-                                "attributeName": "agent",
-                "attributeValue": "TxChangeWeb_UC1|tomcat|Agent"
-        }]
-    },{
-        "query": [{
-                                "attributeName": "agent",
-                "attributeValue": "TxChangeSvc_UC1|tomcat|Agent"
-        }]
-    },{
-        "query": [{
-                                "attributeName": "agent",
-                "attributeValue": "node2|apmiaMySQL_UC1|Agent"
-        }]
+            "query": [
+              {
+                "attributeName": "applicationName",
+                "attributeValue": "Provisioning"
+              }]
     }]
 }'
 
@@ -455,7 +453,7 @@ echo "***sleeping for 5 sec"
 sleep 5
 
 curl -X POST \
-  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/EMEA_#_Provisioning \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/EMEA_Provisioning \
   -H 'Authorization: Bearer '$OI_TOKEN'' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
@@ -475,14 +473,20 @@ curl -X POST \
                                 "attributeName": "agent",
                 "attributeValue": "node2|apmiaMySQL_UC2|Agent"
         }]
+    },{
+        "query": [{
+                                "attributeName": "hostname",
+                "attributeValue": "'$TIXCHANGE_MYSQL_RDS_HOSTNAME'"
+        }]
     }]
 }'
+
 
 echo "***sleeping for 5 sec"
 sleep 5
 
 curl -X POST \
-  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_#_Activation \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Activation \
   -H 'Authorization: Bearer '$OI_TOKEN'' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
