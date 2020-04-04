@@ -1,6 +1,7 @@
 EM_UNIVERSE1=EM_UNIVERSE_NAME
 VERSION="VERSION_VAL"
 
+# need to setup both EM alert config here as filter doesnt work
 configMySqlMetricAndAlertMapping () {
 
 curl -v -k -X POST \
@@ -35,7 +36,7 @@ curl -v -k -X POST \
                "Availability"
             ],
             "filter":{
-                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME1"
             }
          },
          {
@@ -52,7 +53,41 @@ curl -v -k -X POST \
                "Total Queries", "Total Requests", "Total Deletes",  "Total Inserts"
             ],
             "filter":{
-                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME1"
+            }
+         },
+         {
+            "metricSpecifier":{
+               "format":"MYSQL|<Hostname>|jtixchange",
+               "type":"EXACT"
+            },
+            "agentSpecifier":{
+               "format":"<agent>",
+               "type":"EXACT"
+            },
+            "section":"Database Metrics",
+            "metricNames":[
+                "Availability"
+            ],
+            "filter":{
+                    "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME2"
+            }
+         },
+         {
+            "metricSpecifier":{
+               "format":"MYSQL|<Hostname>|jtixchange|Operations",
+               "type":"EXACT"
+            },
+            "agentSpecifier":{
+               "format":"<agent>",
+               "type":"EXACT"
+            },
+            "section":"Database Metrics",
+            "metricNames":[
+               "Total Queries", "Total Requests", "Total Deletes",  "Total Inserts"
+            ],
+            "filter":{
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME2"
             }
          }
       ]
@@ -88,7 +123,7 @@ curl -v  -k -X POST \
    },
 
    "metricSpecifiers":{
-      
+
     "INFERRED_DATABASE":[
          {
             "metricSpecifier":{
@@ -104,7 +139,24 @@ curl -v  -k -X POST \
                "Responses Per Interval"
             ],
             "filter":{
-                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME"
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME1"
+            }
+         },
+         {
+            "metricSpecifier":{
+               "format":"Backends|<databasename>",
+               "type":"EXACT"
+            },
+            "agentSpecifier":{
+               "format":"TxChangeSvc_UC2|tomcat|Agent",
+               "type":"EXACT"
+            },
+            "section":"Database Metrics",
+            "metricNames":[
+               "Responses Per Interval"
+            ],
+            "filter":{
+                "Hostname": "TIXCHANGE_MYSQL_RDS_HOSTNAME2"
             }
          }
       ]
@@ -112,12 +164,13 @@ curl -v  -k -X POST \
    "alertMappings":{
 
    "INFERRED_DATABASE_WITH_AGENT":[
-     "TxChangeSvc_UC1|tomcat|Agent|Backends|<databasename>:Responses Per Interval"
+     "TxChangeSvc_UC1|tomcat|Agent|Backends|<databasename>:Responses Per Interval",
+     "TxChangeSvc_UC2|tomcat|Agent|Backends|<databasename>:Responses Per Interval"
       ]
    },
    "perspectives":[
    ]
-}'  
+}'
 
 }
 
@@ -151,7 +204,7 @@ curl -k -s  -X POST \
             "value": "INFRASTRUCTURE"
           },
           "values": [
-            "tixchange-v1",
+            "tixchange-v2",
             "ingress-nginx",
             "kube-system",
             "monitor",
@@ -220,7 +273,7 @@ curl -k -s  -X POST \
         "value": "INFRASTRUCTURE"
       },
       "values": [
-        "tixchange-v1",
+        "tixchange-v2",
         "ingress-nginx",
         "CA_INTERNAL_NULL",
         "kube-system",
@@ -365,7 +418,7 @@ isMgmtModulePresent () {
     echo "no";
   else
     echo "yes";
-  fi 
+  fi
 }
 
 
@@ -378,7 +431,7 @@ importMgmtModule () {
   # not present
   if [ "$IS_PRESENT" == "no" ]; then
   echo "MGMT Module $MGMT_MODULE importing"
-  
+
    curl -k -s -X POST -H "Authorization: Bearer APM_API_TOKEN"  -F "file=@INSTALLATION_FOLDER/EM_FOLDER/$MGMT_MODULE" APM_SAAS_URL/apm/atc/api/private/mgmtmod/import
 
   fi
@@ -654,7 +707,7 @@ sleep 15
 
 # if universe does not exist
 if [ X"$UNIVERSE_ID" == "X" ]; then
-  createUniverse 
+  createUniverse
 
   sleep 10
   UNIVERSE_ID=`getUniverseIDFromName "$EM_UNIVERSE1"`

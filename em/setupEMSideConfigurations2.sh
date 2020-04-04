@@ -661,6 +661,6 @@ correlateRDSToInfraForDBVertex
 
 sleep 10
 
-configMySqlMetricAndAlertMapping
-sleep 2
-configInferredDBMetricAndAlertMapping
+#configMySqlMetricAndAlertMapping
+#sleep 2
+#configInferredDBMetricAndAlertMapping
