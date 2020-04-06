@@ -650,6 +650,13 @@ configureEM () {
   sed -i 's/EM_FOLDER/'$EM_FOLDER'/' $EM_SETUP_SCRIPT
   sed -i 's/VERSION_VAL/'$VERSION_VAL'/' $EM_SETUP_SCRIPT
 
+  if [ X"$INDUSTRY" == "XTelco" ]; then
+     sed -i 's/INDUSTRY/Mobile Service/' $EM_SETUP_SCRIPT
+  elif [ X"INDUSTRY" == "XBanking" ]; then
+     sed -i 's/INDUSTRY/Banking Service/' $EM_SETUP_SCRIPT
+  else
+     sed -i 's/INDUSTRY/Insurance Service/' $EM_SETUP_SCRIPT
+  fi
   
   sed -i 's/TIXCHANGE_MYSQL_RDS_HOSTNAME1/'$TIXCHANGE_MYSQL_RDS_HOSTNAME1'/' $EM_SETUP_SCRIPT
   sed -i 's/TIXCHANGE_MYSQL_RDS_HOSTNAME2/'$TIXCHANGE_MYSQL_RDS_HOSTNAME2'/' $EM_SETUP_SCRIPT

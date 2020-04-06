@@ -691,6 +691,93 @@ curl -k -s -X PATCH \
 }'
 }
 
+createCustomInfraPerspectives () {
+
+  echo "creating Custom Infra Perspective"
+
+curl -v -k -X POST \
+  APM_SAAS_URL/apm/atc/api/private/grouping \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H  'Content-Type: application/json' \
+  -d  '{
+     "id": "0",
+     "name": "INDUSTRY",
+     "groupBy": [
+       {
+         "layer": "INFRASTRUCTURE",
+         "attributeName": "type"
+       },
+       {
+         "layer": "INFRASTRUCTURE",
+         "attributeName": "AWS_Vpc"
+       },
+       {
+         "layer": "INFRASTRUCTURE",
+         "attributeName": "_BY_LAYER_OBJECT_ AWS_EC2"
+       },
+       {
+         "layer": "INFRASTRUCTURE",
+         "attributeName": "k8s_project"
+       },
+       {
+         "layer": "ATC",
+         "attributeName": "applicationName"
+       }
+     ],
+     "public": true,
+     "automaticGrouping": false,
+     "layers": [
+       "INFRASTRUCTURE"
+     ],
+     "owner": "SAAS_USER_ID"
+   }'
+
+
+}
+
+createCustomAppPerspectives () {
+
+  echo "creating Custom App Perspective"
+
+curl -v -k -X POST \
+  APM_SAAS_URL/apm/atc/api/private/grouping \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H  'Content-Type: application/json' \
+  -d  '{
+     "id": "0",
+       "name": "INDUSTRY",
+       "groupBy": [
+         {
+           "layer": "INFRASTRUCTURE",
+           "attributeName": "_BY_LAYER_OBJECT_ AWS_EC2"
+         },
+         {
+           "layer": "INFRASTRUCTURE",
+           "attributeName": "_BY_LAYER_OBJECT_ HOST"
+         },
+         {
+           "layer": "INFRASTRUCTURE",
+           "attributeName": "k8s_project"
+         },
+         {
+           "layer": "ATC",
+           "attributeName": "applicationName"
+         },
+         {
+           "layer": "ATC",
+           "attributeName": "endUser"
+         }
+       ],
+       "public": true,
+       "automaticGrouping": false,
+       "layers": [
+         "ATC"
+       ],
+       "owner": "SAAS_USER_ID"
+     }'
+
+}
+
 
 echo "running setupEMSideConfigurations1.sh"
 
@@ -739,3 +826,7 @@ sleep 10
 configMySqlMetricAndAlertMapping
 sleep 1
 configInferredDBMetricAndAlertMapping
+sleep 2
+createCustomAppPerspectives
+sleep 2
+createCustomInfraPerspectives
