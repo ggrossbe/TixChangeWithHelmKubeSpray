@@ -682,7 +682,7 @@ configureEM () {
 
 setupAWSMonitoring () {
 
-   if [ X"$IS_AWS" != "X" ];then
+   if [ X"$IS_AWS" != "Xtrue" ];then
 
       logMsg "Setting up AWS Monitoring - pls wait"
 

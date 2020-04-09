@@ -34,7 +34,7 @@ spec:
             - name: APMENV_INTROSCOPE_AGENT_HOSTNAME
               value: apmia_aws_monitoring
             - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_INTERVAL
-              value: "300"
+              value: "180"
           name: apmia
           image: caapm/apmia:latest
           imagePullPolicy: Always
