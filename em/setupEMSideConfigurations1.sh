@@ -404,6 +404,12 @@ runTrxnTrace () {
 }
 
 
+getCustomPerspectiveIDs () {
+
+  getAllCustomPerspectives | INSTALLATION_FOLDER/EM_FOLDER/jq-linux64|grep -B 1 "$*" |sed -e 's/.*: "//g'|sed -e 's/"\,//g'|sed -e 's/'"$*"'//g'|sed -e 's/\-\-//g'
+
+}
+
 getUniverseIDFromName () {
 
   listUniverses |INSTALLATION_FOLDER/EM_FOLDER/jq-linux64|grep -A 1 "$*" |sed -e '1d'|sed -e 's/.*: "//g'|sed -e 's/"\,//g'
@@ -691,6 +697,28 @@ curl -k -s -X PATCH \
 }'
 }
 
+
+deleteCustomPerspective () {
+   echo "delete perspective"
+
+   curl -v -k -X  DELETE \
+   APM_SAAS_URL/apm/atc/api/private/grouping/$1 \
+  -H 'Authorization: Bearer APM_API_TOKEN' \
+  -H  'Content-Type: application/json' \
+  -d  ''
+}
+
+getAllCustomPerspectives () {
+
+curl -k -s -X GET \
+   'APM_SAAS_URL/apm/atc/api/private/grouping' \
+   -H 'Accept: */*' \
+   -H 'Authorization: Bearer APM_API_TOKEN' \
+   -H 'Content-Type: application/json' \
+   -d ''
+}
+
+
 createCustomInfraPerspectives () {
 
   echo "creating Custom Infra Perspective"
@@ -826,6 +854,22 @@ sleep 10
 configMySqlMetricAndAlertMapping
 sleep 1
 configInferredDBMetricAndAlertMapping
+
+##First delete custom persp before creating otherwise it will create duplicate persp.
+
+PERSP_IDS=`getCustomPerspectiveIDs "INDUSTRY"`
+
+echo "Custom Perps INDUSTRY and ID's are $PERSP_IDS"
+
+for PERSP_ID in $PERSP_IDS
+do
+  echo "######deleting perspective id $PERSP_ID"
+  sleep 1
+  deleteCustomPerspective $PERSP_ID
+
+done
+
+
 sleep 2
 createCustomAppPerspectives
 sleep 2
