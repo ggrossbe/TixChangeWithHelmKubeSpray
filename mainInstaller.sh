@@ -29,6 +29,10 @@ if [ X$1 != "Xt" ]; then
 	logMsg "2. Make sure ssh key is setup among all your nodes to connect from this box without passwd"
 	logMsg "3. Make sure you have 40G available in the install folder ($INSTALLATION_FOLDER) volume"
 	logMsg "4. Make sure you run this as root"
+        logMsg ""
+	logMsg "####5. Delete SaaS, TixChange and AWS Mgmt Mod (if present), Delete EMEA_... and NA_... universes created by auto tix####"
+	logMsg "6. Domain Specific OI service creation scripts are available in OIServiceScript folder. Run then separately for OI services"
+        logMsg ""
 	logMsg " *********"
 	
 	logMsg "Press y to proceed"
