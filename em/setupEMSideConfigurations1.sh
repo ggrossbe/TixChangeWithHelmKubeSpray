@@ -776,6 +776,10 @@ curl -v -k -X POST \
        "name": "INDUSTRY",
        "groupBy": [
          {
+           "layer": "ATC",
+           "attributeName": "endUser"
+         },
+         {
            "layer": "INFRASTRUCTURE",
            "attributeName": "_BY_LAYER_OBJECT_ AWS_EC2"
          },
@@ -790,10 +794,6 @@ curl -v -k -X POST \
          {
            "layer": "ATC",
            "attributeName": "applicationName"
-         },
-         {
-           "layer": "ATC",
-           "attributeName": "endUser"
          }
        ],
        "public": true,
