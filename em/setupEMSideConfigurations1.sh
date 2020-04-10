@@ -204,7 +204,7 @@ curl -k -s  -X POST \
             "value": "INFRASTRUCTURE"
           },
           "values": [
-            "tixchange-v2",
+            "tixchange-v1",
             "ingress-nginx",
             "kube-system",
             "monitor",
@@ -273,7 +273,7 @@ curl -k -s  -X POST \
         "value": "INFRASTRUCTURE"
       },
       "values": [
-        "tixchange-v2",
+        "tixchange-v1",
         "ingress-nginx",
         "CA_INTERNAL_NULL",
         "kube-system",
