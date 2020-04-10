@@ -313,7 +313,7 @@ curl -k  -s -X POST \
     "groupAttributes": [
       {
         "layer": "ATC",
-        "name": "Application Name"
+        "name": "applicationName"
       },
       {
         "layer": "ATC",

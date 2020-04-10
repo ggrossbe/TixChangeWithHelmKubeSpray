@@ -368,7 +368,7 @@ curl -k  -s -X POST \
     "groupAttributes": [
       {
         "layer": "ATC",
-        "name": "Application Name"
+        "name": "applicationName"
       },
       {
         "layer": "ATC",
@@ -816,9 +816,9 @@ echo " UNIVERSE ID for  $EM_UNIVERSE1 is $UNIVERSE_ID"
 runTrxnTrace
 sleep 30
 
-patchBTVerticesWithAppName
+#patchBTVerticesWithAppName
 
-sleep 15
+#sleep 15
 
 # if universe does not exist
 if [ X"$UNIVERSE_ID" == "X" ]; then
