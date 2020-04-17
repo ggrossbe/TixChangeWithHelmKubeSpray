@@ -548,7 +548,7 @@ installAndConfigureSelenium () {
   logMsg "configuring the use cases"
   ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
   sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC
-  sed -i 's/APM_API_TOKEN/'$APM_MANAGER_CREDENTIAL'/' $SELENIUM_UC
+  sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $SELENIUM_UC
 
    
    TIXCHANGE_WEB_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep tix-web`
