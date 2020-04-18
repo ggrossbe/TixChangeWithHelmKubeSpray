@@ -1,7 +1,9 @@
-Automated TixChange Version: 20.2.1
-Release Date: Apr 3, 2020
+Automated TixChange Version: 20.2.3
+Release Date: Apr 17, 2020
 Key features in this release:
   Now with Mobile Tix Support for AXA use cases
+  Mobile Mgmt Mod
   Automatic Perspective Creation
+  Fix Trxn Trace API issue
 
 https://cawiki.ca.com/display/SASWAT/Automated+Tixchange+in+K8s+-+V2.0
