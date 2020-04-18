@@ -10,7 +10,7 @@ echo ""
 read OI_TOKEN
 
 echo ""
-echo " Pls Provide MYSQL POD name OR RDS East Hostname if using AWS RDS deployment. e.g kubectl get pods -n tixchange-v2 OR tixchange:us-east-2:544960306 from AWS console"
+echo " Pls Provide MYSQL POD name OR RDS East Hostname if using AWS RDS deployment. e.g kubectl get pods -n tixchange-v2|grep tix-mysql OR tixchange:us-east-2:544960306 from AWS console"
 
 read TIXCHANGE_MYSQL_RDS_HOSTNAME
 
