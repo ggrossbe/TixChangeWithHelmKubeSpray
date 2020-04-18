@@ -790,6 +790,8 @@ runFinalSanityCheck () {
    fi
 
      logMsg "Sanity Passed"
+     logMsg "If you want a Biz Service modeled  - go to OIServiceScript folder and run Domain Specific (Banking, Telco, Insurance) OI script"
+     logMsg ""
 
 	cd -
 }
