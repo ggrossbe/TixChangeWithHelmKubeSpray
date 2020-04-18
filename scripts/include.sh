@@ -624,6 +624,7 @@ configureEM () {
   cp -f $EM_FOLDER/TixChange.jar $INSTALLATION_FOLDER/$EM_FOLDER/
   cp -f $EM_FOLDER/AWS.jar $INSTALLATION_FOLDER/$EM_FOLDER/
   cp -f $EM_FOLDER/SaaSMM.jar $INSTALLATION_FOLDER/$EM_FOLDER/
+  cp -f $EM_FOLDER/MobileTixChange.jar $INSTALLATION_FOLDER/$EM_FOLDER/
   
   if [ $IS_AWS == "true" ]; then
     cp -f $EM_FOLDER/TixChangeAWS.jar $INSTALLATION_FOLDER/$EM_FOLDER/TixChange.jar
