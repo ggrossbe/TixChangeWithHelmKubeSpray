@@ -640,12 +640,14 @@ if [ X"$UNIVERSE_ID" == "X" ]; then
 
 fi
 
-sleep 5
-importMgmtModule "TixChange.jar"
-sleep 5
-importMgmtModule "AWS.jar"
-sleep 5
-importMgmtModule "SaaSMM.jar"
+#sleep 5
+#importMgmtModule "TixChange.jar"
+#sleep 5
+#importMgmtModule "AWS.jar"
+#sleep 5
+#importMgmtModule "SaaSMM.jar"
+#sleep 5
+#importMgmtModule "MobileTixChange.jar"
 
 echo "running Trxn Trace pls have patience"
 runTrxnTrace

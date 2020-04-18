@@ -837,6 +837,9 @@ sleep 3
 importMgmtModule "AWS.jar"
 sleep 3
 importMgmtModule "SaaSMM.jar"
+sleep 3
+importMgmtModule "MobileTixChange.jar"
+
 
 echo "running Trxn Trace pls have patience"
 runTrxnTrace
