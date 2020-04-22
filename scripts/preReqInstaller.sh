@@ -8,6 +8,17 @@ for HOST in $HOST_IPS;
 do 
    logMsg "**** running yum update -y on host $HOST"
    
+
+   logMsg "**** running yum docker update $HOST"
+   
+   ssh root@$HOST " if [ ! -d /etc/yum.repos.d ]; then mkdir /etc/yum.repos.d; fi"
+   scp $SCRIPTS_FOLDER/docker.repo root@$HOST:/etc/yum.repos.d 
+
+   sleep 5 
+
+   ssh root@$HOST " yum install -y docker-ce"
+   ssh root@$HOST " yum update -y docker-ce"
+
    ssh root@$HOST "yum update -y"
    ssh root@$HOST "yum install unzip -y"
 

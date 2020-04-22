@@ -68,7 +68,7 @@ spec:
               cpu: "600m"
               memory: "600Mi"
           #image: omaro/tixchange_web:2.1
-          image: srikns/tixchange-web8:ios
+          image: srikns/tixchange-web8:20.2.2
           lifecycle:
             postStart: 
               exec:
