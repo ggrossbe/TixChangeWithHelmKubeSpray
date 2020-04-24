@@ -71,5 +71,5 @@ spec:
   - port: 6514 
     name: log-collector
     targetPort: 6514
-    nodePort: 31615
+    nodePort: 31651
 

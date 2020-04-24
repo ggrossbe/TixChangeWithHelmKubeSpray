@@ -107,10 +107,14 @@ stopDeleteUMA () {
 }
 
 stopDeleteBPA () {
-	logMsg "***deleting BPA if present***"
+	logMsg "***deleting BPA if present - may take a minute or two***"
   	
 	cd $INSTALLATION_FOLDER/bpa
-	kubectl delete -f tix_bpa_deploy_v1.yaml -n tixchange-v1
+	kubectl delete -f tix_bpa_deploy_v1.yaml -n bpa
+        
+        sleep 5
+
+        kubectl delete ns bpa
 	cd $INSTALL_SCRIPT_FOLDER
 }
 
@@ -146,7 +150,9 @@ installBPA () {
           sed -i "s/TENANT_ID_VAL/$TENANT_ID/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
           sed -i "s/DXC_URL_VAL/$ESCAPED_DXC_URL/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
   
-	  kubectl create -f tix_bpa_deploy_v1.yaml -n tixchange-v1
+          kubectl create ns bpa
+          sleep 2
+	  kubectl create -f tix_bpa_deploy_v1.yaml -n bpa
   
 	  logMsg "*** BPA proxy and Listener installed - pls configure EM side if not done**"
           cd $INSTALL_SCRIPT_FOLDER
@@ -778,6 +784,8 @@ removeLogCollector () {
      kubectl delete ns log-collector
    fi
 
+   sed  -i '/######## CA OI LogCollector Settings/, $d' /etc/rsyslog.conf
+
 
      if [ -d $INSTALLATION_FOLDER/$LOG_COLL_FOLDER ]; then
         rm -rf $INSTALLATION_FOLDER/$LOG_COLL_FOLDER
@@ -809,7 +817,9 @@ setupLogCollector () {
      sleep 15
 
      TENANT_ID=`echo $BA_SNIPPET_UC1 |awk -F [:/] '{print $11}'`
-     LOG_COLL_IP_PORT="$TIX_IP:31654"
+
+     # the port is hard coded as log_collector.yaml has it as a nodeport
+     LOG_COLL_IP_PORT="$TIX_IP:31651"
      LOG_COLL_TIX_WEB_UC_DIR=$LOG_COLL_TIX_WEB_UC2_DIR
      LOG_COLL_TIX_WS_UC_DIR=$LOG_COLL_TIX_WS_UC2_DIR
 
