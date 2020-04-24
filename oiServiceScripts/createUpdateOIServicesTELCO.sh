@@ -1,39 +1,12 @@
-clear
-echo ""
-echo "***********"
-echo "create service in GCP SaaS instance"
-echo ""
-echo "pls provide the OI token (this is OI token not APM - Go to Service Overview Page of the OI. Open browser dev mode and go to request header section under network tab for a request (say click on status circle) and look for Authorization Bearer token )"
-echo ""
-echo ""
+### NOT A standalone script any more - pls run this as part of mainInstaller.sh
 
-read OI_TOKEN
+CREATE_UPDATE="$1"
 
-echo ""
-echo " Pls Provide MYSQL POD name OR RDS East Hostname if using AWS RDS deployment. e.g kubectl get pods -n tixchange-v2|grep tix-mysql OR tixchange:us-east-2:544960306 from AWS console"
-
-read TIXCHANGE_MYSQL_RDS_HOSTNAME
-
-echo ""
-
-sleep 2
-
-if [ X"$OI_TOKEN" == "X" ] || [ X"$TIXCHANGE_MYSQL_RDS_HOSTNAME" == "X" ]; then
-   echo "Pls provide valid token and Valid MYSQL RDS hostname/POD name "
-   exit
-
-fi
-
-echo " "
-
-echo " This will create an OI service - give it a minute or two and refresh your browser"
-echo ""
-
-echo ""
+createOIServices () {
 
 curl -v -X POST \
   https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/save \
-  -H 'Authorization: Bearer '$OI_TOKEN'' \
+  -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -d '{
@@ -41,7 +14,7 @@ curl -v -X POST \
     {
       "attributes": {
         "type": "saService",
-        "name": "APJ_Life",
+        "name": "APJ_Billing",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -54,35 +27,35 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Insurance"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "APJ_Life"
+      "externalId": "APJ_Billing"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "LATAM_Insurance",
+        "name": "LATAM_Mobile",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Consumer Insurance"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "test",
         "customProperties": []
       },
-      "externalId": "LATAM_Insurance"
+      "externalId": "LATAM_Mobile"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_Life",
+        "name": "NA_Billing",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -95,51 +68,51 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Insurance"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "NA_Life"
+      "externalId": "NA_Billing"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "Consumer Insurance",
+        "name": "Mobile Service",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Consumer Insurance"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "Consumer Insurance"
+      "externalId": "Mobile Service"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_Insurance",
+        "name": "EMEA_Mobile",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Consumer Insurance"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_Insurance"
+      "externalId": "EMEA_Mobile"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "LATAM_Life",
+        "name": "LATAM_Billing",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -152,19 +125,19 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Insurance"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "LATAM_Life"
+      "externalId": "LATAM_Billing"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_Vehicle",
+        "name": "NA_Activation",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -177,35 +150,35 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Insurance"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "test",
         "customProperties": []
       },
-      "externalId": "NA_Vehicle"
+      "externalId": "NA_Activation"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_Insurance",
+        "name": "NA_Mobile",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Consumer Insurance"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "NA_Insurance"
+      "externalId": "NA_Mobile"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_Life",
+        "name": "EMEA_Billing",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -218,19 +191,19 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Insurance"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_Life"
+      "externalId": "EMEA_Billing"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_Vehicle",
+        "name": "EMEA_Activation",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -243,19 +216,19 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Insurance"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_Vehicle"
+      "externalId": "EMEA_Activation"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "EMEA_Property",
+        "name": "EMEA_Provisioning",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -268,19 +241,19 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Insurance"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "EMEA_Property"
+      "externalId": "EMEA_Provisioning"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "NA_Property",
+        "name": "NA_Provisioning",
         "state": "ACTIVE",
         "serviceContent": [
           {
@@ -293,36 +266,36 @@ curl -v -X POST \
           }
         ],
         "root_service": [
-          "Consumer Insurance"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "NA_Property"
+      "externalId": "NA_Provisioning"
     },
     {
       "attributes": {
         "type": "saService",
-        "name": "APJ_Insurance",
+        "name": "APJ_Mobile",
         "state": "ACTIVE",
         "serviceContent": [],
         "root_service": [
-          "Consumer Insurance"
+          "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
         "customProperties": []
       },
-      "externalId": "APJ_Insurance"
+      "externalId": "APJ_Mobile"
     }
   ],
   "edges": [
     {
-      "targetExternalId": "EMEA_Life",
-      "sourceExternalId": "EMEA_Insurance",
+      "targetExternalId": "EMEA_Billing",
+      "sourceExternalId": "EMEA_Mobile",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -330,8 +303,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "EMEA_Property",
-      "sourceExternalId": "EMEA_Insurance",
+      "targetExternalId": "EMEA_Provisioning",
+      "sourceExternalId": "EMEA_Mobile",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -339,8 +312,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "EMEA_Vehicle",
-      "sourceExternalId": "EMEA_Insurance",
+      "targetExternalId": "EMEA_Activation",
+      "sourceExternalId": "EMEA_Mobile",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -348,8 +321,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "EMEA_Insurance",
-      "sourceExternalId": "Consumer Insurance",
+      "targetExternalId": "EMEA_Mobile",
+      "sourceExternalId": "Mobile Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -357,8 +330,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_Life",
-      "sourceExternalId": "NA_Insurance",
+      "targetExternalId": "NA_Billing",
+      "sourceExternalId": "NA_Mobile",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -366,8 +339,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_Property",
-      "sourceExternalId": "NA_Insurance",
+      "targetExternalId": "NA_Provisioning",
+      "sourceExternalId": "NA_Mobile",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -375,8 +348,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "LATAM_Insurance",
-      "sourceExternalId": "Consumer Insurance",
+      "targetExternalId": "LATAM_Mobile",
+      "sourceExternalId": "Mobile Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -384,8 +357,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "LATAM_Life",
-      "sourceExternalId": "LATAM_Insurance",
+      "targetExternalId": "LATAM_Billing",
+      "sourceExternalId": "LATAM_Mobile",
       "attributes": {
         "health_weight": 1,
         "risk_weight": 1,
@@ -393,8 +366,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "APJ_Life",
-      "sourceExternalId": "APJ_Insurance",
+      "targetExternalId": "APJ_Billing",
+      "sourceExternalId": "APJ_Mobile",
       "attributes": {
         "health_weight": 1,
         "risk_weight": 1,
@@ -402,8 +375,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_Insurance",
-      "sourceExternalId": "Consumer Insurance",
+      "targetExternalId": "NA_Mobile",
+      "sourceExternalId": "Mobile Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -411,8 +384,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "NA_Vehicle",
-      "sourceExternalId": "NA_Insurance",
+      "targetExternalId": "NA_Activation",
+      "sourceExternalId": "NA_Mobile",
       "attributes": {
         "health_weight": 0.33299999999999996,
         "risk_weight": 0.33299999999999996,
@@ -420,8 +393,8 @@ curl -v -X POST \
       }
     },
     {
-      "targetExternalId": "APJ_Insurance",
-      "sourceExternalId": "Consumer Insurance",
+      "targetExternalId": "APJ_Mobile",
+      "sourceExternalId": "Mobile Service",
       "attributes": {
         "health_weight": 0.25,
         "risk_weight": 0.25,
@@ -431,12 +404,14 @@ curl -v -X POST \
   ]
 }
 '
-echo "***sleeping for 10 sec"
-sleep 10
+}
+
+updateOIServices {
+
 
 curl -X POST \
-  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Property \
-  -H 'Authorization: Bearer '$OI_TOKEN'' \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Provisioning \
+  -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -d '{
@@ -453,8 +428,8 @@ echo "***sleeping for 5 sec"
 sleep 5
 
 curl -X POST \
-  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/EMEA_Property \
-  -H 'Authorization: Bearer '$OI_TOKEN'' \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/EMEA_Provisioning \
+  -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -d '{
@@ -476,17 +451,18 @@ curl -X POST \
     },{
         "query": [{
                                 "attributeName": "hostname",
-                "attributeValue": "'$TIXCHANGE_MYSQL_RDS_HOSTNAME'"
+                "attributeValue": "EMEA_DB_HOST_POD_NAME"
         }]
     }]
 }'
+
 
 echo "***sleeping for 5 sec"
 sleep 5
 
 curl -X POST \
-  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Vehicle \
-  -H 'Authorization: Bearer '$OI_TOKEN'' \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Activation \
+  -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -d '{
@@ -497,3 +473,18 @@ curl -X POST \
         }]
     }]
 }'
+}
+
+echo "***** create update OI services - $1 and  OI_TOKEN and EMEA_DB_HOST_POD_NAME - EMEA_DB_HOST_POD_NAME"
+
+exit
+
+if [ X"$CREATE_UPDATE" == "Xcreate" ]; then
+  createOIServices
+
+  sleep 10
+
+  updateOIServices
+else
+  updateOIServices
+fi

@@ -8,7 +8,9 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 
 INSTALL_SCRIPT_FOLDER=$PWD/$SCRIPTS_FOLDER/..
 
+LOG_COLL_FOLDER=logcollector
 BPA_FOLDER=bpa
+OI_SCRIPTS_FOLDER=oiServiceScripts
 SELENIUM_STND_ALN_YML=selenium-standalone.yml
 KUBESPRAY_FOLDER=kubespray
 TIXCHANGE_FOLDER=tixChangeHelm
@@ -105,7 +107,7 @@ stopDeleteUMA () {
 }
 
 stopDeleteBPA () {
-	logMsg "***deleting BPA***"
+	logMsg "***deleting BPA if present***"
   	
 	cd $INSTALLATION_FOLDER/bpa
 	kubectl delete -f tix_bpa_deploy_v1.yaml -n tixchange-v1
@@ -114,38 +116,41 @@ stopDeleteBPA () {
 
 
 installBPA () {
-	logMsg "***installing BPA***"
-        mkdir $INSTALLATION_FOLDER/bpa 2> /dev/null
-
-  	cp -f $SCRIPTS_FOLDER/../bpa/* $INSTALLATION_FOLDER/bpa
-
-	IS_HTTPS=`echo $BA_SNIPPET_UC1|grep -v grep |grep https`
-	if [ X"IS_HTTPS" == "X" ]; then
-		
-		DXC_URL="http://"`echo $BA_SNIPPET_UC1 |awk -F [/] '{print $11}'`
-	else
-		DXC_URL="https://"`echo $BA_SNIPPET_UC1 |awk -F [/] '{print $11}'`
-        fi
-
-        TENANT_ID=`echo $BA_SNIPPET_UC1 |awk -F [:/] '{print $11}'`
-
-	TIX_WEB_SVC_IP=`kubectl get svc  -n tixchange-v1|grep -v NAME |grep webp |awk '{print $3}'`
 
 
-       logMsg "*** BPA TENANT ID $TENANT_ID, DXC URL $DXC_URL, TIX SVC IP $TIX_WEB_SVC_IP**"
-
-        cd $INSTALLATION_FOLDER/bpa
-
-   	ESCAPED_DXC_URL=$(echo "$DXC_URL"| sed 's/\//\\\//g')
-
-        sed -i "s/TIX_IP_VAL/$TIX_WEB_SVC_IP/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
-        sed -i "s/TENANT_ID_VAL/$TENANT_ID/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
-        sed -i "s/DXC_URL_VAL/$ESCAPED_DXC_URL/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
-
-	kubectl create -f tix_bpa_deploy_v1.yaml -n tixchange-v1
-
-	logMsg "*** BPA proxy and Listener installed - pls configure EM side if not done**"
-        cd $INSTALL_SCRIPT_FOLDER
+	  logMsg "***installing BPA***"
+          mkdir $INSTALLATION_FOLDER/bpa 2> /dev/null
+  
+  	  cp -f $SCRIPTS_FOLDER/../bpa/* $INSTALLATION_FOLDER/bpa
+  
+	  IS_HTTPS=`echo $BA_SNIPPET_UC1|grep -v grep |grep https`
+	  if [ X"IS_HTTPS" == "X" ]; then
+	  	
+		  DXC_URL="http://"`echo $BA_SNIPPET_UC1 |awk -F [/] '{print $11}'`
+	  else
+		  DXC_URL="https://"`echo $BA_SNIPPET_UC1 |awk -F [/] '{print $11}'`
+          fi
+  
+          TENANT_ID=`echo $BA_SNIPPET_UC1 |awk -F [:/] '{print $11}'`
+  
+	  TIX_WEB_SVC_IP=`kubectl get svc  -n tixchange-v1|grep -v NAME |grep webp |awk '{print $3}'`
+  
+  
+         logMsg "*** BPA TENANT ID $TENANT_ID, DXC URL $DXC_URL, TIX SVC IP $TIX_WEB_SVC_IP**"
+  
+          cd $INSTALLATION_FOLDER/bpa
+  
+   	  ESCAPED_DXC_URL=$(echo "$DXC_URL"| sed 's/\//\\\//g')
+  
+          sed -i "s/TIX_IP_VAL/$TIX_WEB_SVC_IP/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
+          sed -i "s/TENANT_ID_VAL/$TENANT_ID/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
+          sed -i "s/DXC_URL_VAL/$ESCAPED_DXC_URL/g" $INSTALLATION_FOLDER/bpa/tix_bpa_deploy_v1.yaml
+  
+	  kubectl create -f tix_bpa_deploy_v1.yaml -n tixchange-v1
+  
+	  logMsg "*** BPA proxy and Listener installed - pls configure EM side if not done**"
+          cd $INSTALL_SCRIPT_FOLDER
+  
 }
 
 
@@ -330,6 +335,8 @@ stopDeleteAll () {
   stopDeleteUMA
   stopDeleteKubeSpray
   removeAWSMonitoring
+  stopDeleteBPA
+  removeLogCollector
 
   rm -rf $INSTALLATION_FOLDER/*
 
@@ -347,6 +354,8 @@ stopDeleteAppComponents () {
   stopDeletePromExporter
   stopDeleteUMA
   removeAWSMonitoring
+ stopDeleteBPA
+ removeLogCollector
   #rm -rf $INSTALLATION_FOLDER/logs/
 }
 
@@ -362,6 +371,8 @@ Usage () {
   echo "  e : EM side configuration: Setup Universes, import mgmt module etc"
   #echo "  b : install and configure HTTPD, BT Listener for BPA"
   echo "  r_ut : remove UMA and TixChange - to deploy them manually for Say for a demo"
+  echo "  o : Create Domain Based (Telco, Banking, Insurance) OI Service Model "
+  echo "   l : Setup log Collector"
   echo "  c : cleanup and unintsall everything"
 
 }
@@ -714,6 +725,116 @@ setupAWSMonitoring () {
 
     cd -
    fi
+}
+
+createUpdateOIServices () {
+  logMsg " create update OI Services - pls wait"
+
+     if [ ! -d $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER ]; then
+        rm -rf $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER
+        
+       mkdir -p $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER
+     fi
+
+     cd $INSTALL_SCRIPT_FOLDER/$OI_SCRIPTS_FOLDER
+     
+     cp -f create*.sh $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER
+
+     INDUSTRY_UPPER=`echo $INDUSTRY | tr '[:lower:]' '[:upper:]'`
+
+     OI_SCRIPT_FILE=`echo createUpdateOIServices"$INDUSTRY_UPPER".sh`
+
+    # replace OI token and RDS mysql pod name
+
+    # use mysql pod name in tixchange-v2 namespace or RDS shortened hostname for DB name
+    EMEA_DB_HOST_POD_NAME=`kubectl get pods -n tixchange-v2|grep tix-mysql |awk '{ print $1 }'`
+   
+    if [ X"$EMEA_DB_HOST_POD_NAME" == "X" ]; then
+       # its RDS tix-oaccess-east:us-east-2:54938494845740 
+       EMEA_DB_HOST_POD_NAME=`echo tix-oaccess-west.cq3qfzsicvyi.us-east-2.rds.amazonaws.com |awk -F"." '{ print $1":"$3":"'$AWS_ACCOUNTS_NUMBS' }'`
+    fi
+
+    logMsg " OI Script - OI token is $OI_TOKEN and DB POD/Hostname is $DB_POD_HOSTNAME"
+
+    sed -i 's/OI_TOKEN/'$OI_TOKEN'/' $INSTALLATION_FOLDER/$OI_SCIRPTS_FOLDER/$OI_SCRIPT_FILE
+    sed -i 's/EMEA_DB_HOST_POD_NAME/'$EMEA_DB_HOST_POD_NAME'/' $INSTALLATION_FOLDER/$OI_SCIRPTS_FOLDER/$OI_SCRIPT_FILE
+
+   ./$OI_SCRIPT_FILE $1
+
+    cd - 
+
+     
+}
+
+removeLogCollector () {
+
+    logMsg " delete  log collector - may take a minute or two"
+
+   IS_LC_TRUE=`kubectl get ns|grep log-collector`
+
+
+   if [ X"$IS_LC_TRUE" != "X" ]; then
+     kubectl delete -f $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/log_collector.yaml -n log-collector
+     kubectl delete ns log-collector
+   fi
+
+
+     if [ -d $INSTALLATION_FOLDER/$LOG_COLL_FOLDER ]; then
+        rm -rf $INSTALLATION_FOLDER/$LOG_COLL_FOLDER
+     fi
+}
+
+
+setupLogCollector () {
+    logMsg " In setup Log Collector and rsys  method"
+
+    removeLogCollector
+
+     if [ ! -d $INSTALLATION_FOLDER/$LOG_COLL_FOLDER ]; then
+        rm -rf $INSTALLATION_FOLDER/$LOG_COLL_FOLDER
+
+       mkdir -p $INSTALLATION_FOLDER/$LOG_COLL_FOLDER
+     fi
+
+     cd $INSTALL_SCRIPT_FOLDER/$LOG_COLL_FOLDER
+
+     cp -fr *  $INSTALLATION_FOLDER/$LOG_COLL_FOLDER
+
+
+     logMsg "starting with log collector"
+     #config log Collector
+     kubectl create ns log-collector
+     kubectl create -f $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/log_collector.yaml -n log-collector
+     
+     sleep 15
+
+     TENANT_ID=`echo $BA_SNIPPET_UC1 |awk -F [:/] '{print $11}'`
+     LOG_COLL_IP_PORT="$TIX_IP:31654"
+     LOG_COLL_TIX_WEB_UC_DIR=$LOG_COLL_TIX_WEB_UC2_DIR
+     LOG_COLL_TIX_WS_UC_DIR=$LOG_COLL_TIX_WS_UC2_DIR
+
+
+     #rsyslog config
+     sed -i 's/TENANT_ID/'$TENANT_ID'/' $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/rsyslog_logCollecgtorw.conf
+     sed -i 's/LOG_COLL_TIX_WEB_UC_DIR/'$LOG_COLL_TIX_WEB_UC_DIR'/' $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/rsyslog_logCollecgtorw.conf
+     sed -i 's/LOG_COLL_TIX_WS_UC_DIR/'$LOG_COLL_TIX_WS_UC_DIR'/' $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/rsyslog_logCollecgtorw.conf
+     sed -i 's/LOG_COLL_IP_PORT/'$LOG_COLL_IP_PORT'/' $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/rsyslog_logCollecgtorw.conf
+
+     
+     IS_SYSLOG_CONFIGURED=`grep "OI LogCollector Settings" /etc/rsyslog.conf`
+
+     if [ X"$IS_SYSLOG_CONFIGURED" == "X" ]; then
+        cat $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/rsyslog_logCollecgtorw.conf >> /etc/rsyslog.conf
+     fi
+
+     logMsg "re-starting rsyslogd"
+
+     systemctl restart rsyslog
+
+     cd -
+
+    sleep 10
+
 }
 
 removeAWSMonitoring () {

@@ -1,0 +1,169 @@
+#######################################
+# axa_log_gateway pattern			  #
+#######################################
+SPLIT_LOG_MSG "%{NOTSPACE:tenant_id} %{NOTSPACE:origin} %{WORD:logtype} %{HOSTNAME:sender_hostname} %{IP:sender_ipaddress} (?<sender_tags>[%{WORD},\s-]+) %{GREEDYDATA:sender_filename}\_eof (?<msg>(.|\r|\n)*)
+
+ORIGIN ([a-zA-Z0-9._-]+)
+SOURCE %{IPORHOST}
+SOURCE_ORIG %{IPORHOST}
+SOURCE_RECV %{IPORHOST}
+
+EVERYTHING (.*)
+SSS (?:[\d]{3})
+MYTIME %{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND},%{SSS} 
+MYTIMENEW %{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}
+TOMCATLOG2 \[%{MYTIME:timestamp}\] %{LOGLEVEL:loglevel} \| %{JAVACLASS:class} %{JAVALOGMESSAGE:logmessage} 
+
+#######################################
+#			 Syslog pattern    		  #
+#######################################
+SYSLOGBASE %{SYSLOGTIMESTAMP:timestamp} (?:%{SYSLOGFACILITY} )?%{SYSLOGHOST:logsource} %{SYSLOGPROG}:
+SYSLOGCOMMON <%{POSINT:syslog_pri}>%{SYSLOGTIMESTAMP:syslog_timestamp} (%{HOSTNAME:syslog_hostname}|%{SYSLOGHOST:syslog_hostname}) %{DATA:syslog_program}(?:\[%{POSINT:syslog_pid}\])?: %{GREEDYDATA:syslog_msg}
+SYSLOG_MSG_COMMON %{GREEDYDATA:syslog_msg}
+SYSLOG_MSG_1 %{CISCOTIMESTAMP:origin_timestamp}: %{SYSLOGPROG:origin_facility_code}-%{POSINT:origin_severity}-%{WORD:origin_message_number}: %{GREEDYDATA:origin_syslog_msg}
+SYSLOG_MSG_2 %{CISCOTIMESTAMP:origin_timestamp} %{WORD:origin_syslog_timezone}: %{SYSLOGPROG:origin_facility_code}-%{POSINT:origin_severity}-%{WORD:origin_message_number}: %{GREEDYDATA:origin_syslog_msg}
+
+#######################################
+# 		Apache Access log pattern     #
+#######################################
+COMMONAPACHELOG %{IPORHOST:clientip} %{USER:ident} %{USER:auth} \[%{HTTPDATE:timestamp}\] "(?:%{WORD:http_method} %{NOTSPACE:request}(?: HTTP/%{NUMBER:http_version})?|%{DATA:rawrequest})" %{NUMBER:response_code} (?:%{NUMBER:bytes:int}|-)
+CUSTOMAPACHELOG %{COMMONAPACHELOG} %{NUMBER:response_time}
+COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:user_agent}
+COMMONAPACHELOG_1 %{IPORHOST:clientip} %{USER:ident} %{USER:auth} \[%{HTTPDATE_1:timestamp}\] (\\)?"(?:%{WORD:http_method} %{NOTSPACE:request}(?: HTTP %{NUMBER:http_version})?|%{DATA:rawrequest})(\\)?" %{NUMBER:response_code} (?:%{NUMBER:bytes}|-)
+COMBINEDAPACHELOG_1 %{COMMONAPACHELOG_1} %{QS:referrer} %{QS:user_agent}
+COMBINEDAPACHELOG_2 %{IPORHOST:clientip} %{HTTPDATE_2:timestamp} %{WORD:http_method} %{NOTSPACE:request} %{NUMBER:response_code} (?:%{NUMBER:bytes}|-) %{NUMBER:response_time}
+COMBINEDAPACHELOG_3 %{IPORHOST:clientip} %{USER:ident} %{USER:auth} \[%{HTTPDATE:timestamp}\] - %{NUMBER:http_port} - "(?:%{WORD:http_method} %{NOTSPACE:request}(?: HTTP/%{NUMBER:http_version})?|%{DATA:rawrequest})" %{NUMBER:response_code} (?:%{NUMBER:bytes:int}|-) %{QS:referrer} %{QS:user_agent} %{NOTSPACE:params2} %{NUMBER:response_time}
+
+HTTPDATE_1 %{MONTHDAY}/%{MONTH}/%{YEAR}:%{TIME}
+HTTPDATE_2 %{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{TIME}
+
+#######################################
+# 		    Tomcat pattern   		  # 
+#######################################
+CATALINALOG %{CATALINA_DATESTAMP:timestamp} %{JAVACLASS:class} %{JAVALOGMESSAGE:logmessage}
+TOMCATLOG %{TOMCAT_DATESTAMP:timestamp} \| %{LOGLEVEL:loglevel} \| %{JAVACLASS:class} - %{JAVALOGMESSAGE:logmessage}
+CATALINALOGNEW %{CATALINA_DATESTAMP:timestamp} %{JAVACLASS:class} %{GREEDYDATA:method}\n%{LOGLEVEL:loglevel}:\s%{JAVALOGMESSAGE:logmessage}
+CATALINALOG_P1 %{CATALINA_DATESTAMP:timestamp} %{JAVACLASS:class} %{NOTSPACE:method}\n%{WORD:loglevel}:\s%{JAVALOGMESSAGE:logmessage}
+CATALINALOG_P2 %{CATALINA_DATESTAMP:timestamp} %{JAVACLASS:class} %{NOTSPACE:method}
+
+CATALINA_DATESTAMP %{MONTH} %{MONTHDAY}, 20%{YEAR} %{HOUR}:?%{MINUTE}(?::?%{SECOND}) (?:AM|PM)
+TOMCAT_DATESTAMP %{HOUR}:?%{MINUTE}(?::?%{SECOND}) %{ISO8601_TIMEZONE}
+
+JAVACLASS (?:[a-zA-Z0-9-]+\.)+[A-Za-z0-9$]+
+JAVALOGMESSAGE (.*)
+
+#######################################
+# 		SqlServerError log pattern    #
+#######################################
+DATESTAMP_SQLSERVER %{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}
+SQLSERVER_LOG %{DATESTAMP_SQLSERVER:datestamp} %{WORD:process} %{GREEDYDATA:error_message} \[CLIENT: %{IP:clientip}\]
+SQLSERVER_ERROR_LOG %{DATESTAMP_SQLSERVER:datestamp} %{WORD:process} %{GREEDYDATA:error_message}
+
+#######################################
+# ApacheError log pattern    	  	  #
+#######################################
+
+APACHE_ERROR_TIME %{DAY} %{MONTH} %{MONTHDAY} %{TIME} %{YEAR}|%{MONTHDAY}/%{MONTH}/%{YEAR}:%{TIME}
+APACHE_ERROR_LOG \[%{APACHE_ERROR_TIME:timestamp}\] \[%{LOGLEVEL:loglevel}\] (?:\[client %{IPORHOST:clientip}\] ){0,1}%{GREEDYDATA:error_message}
+
+#######################################
+# 	  iis log pattern 			 	  #
+#######################################
+
+IIS_W3C1 %{TIMESTAMP_ISO8601:timestamp} %{IPORHOST:server_sitename} %{IPORHOST:server_computername} %{IPORHOST:server_ip} %{WORD:http_method} %{URIPATH:request} %{NOTSPACE:uri_query} %{NUMBER:server_port} %{NOTSPACE:username} %{IPORHOST:clientip} HTTP/%{NUMBER:http_version} %{NOTSPACE:user_agent} %{NOTSPACE:cookie} %{NOTSPACE:referrer} %{NOTSPACE:sender_host} %{NUMBER:response_code} %{NUMBER:sc-substatus:int} %{NUMBER:sc-win32-status:int} %{NUMBER:sc-bytes:int} %{NUMBER:bytes:int} %{NUMBER:response_time:float}
+IIS_W3C2 %{TIMESTAMP_ISO8601:timestamp} %{NOTSPACE:server_sitename} %{WORD:http_method} %{URIPATH:request} %{NOTSPACE:uri_query} %{NUMBER:server_port} %{NOTSPACE:username} %{IPORHOST:clientip} %{NOTSPACE:user_agent} %{NOTSPACE:cookie} %{NOTSPACE:referrer} %{NOTSPACE:sender_host} %{NUMBER:response_code} %{NUMBER:sc-substatus:int} %{NUMBER:sc-win32-status:int} %{NUMBER:sc-bytes:int} %{NUMBER:bytes:int} %{NUMBER:response_time:float}
+IIS_W3C3 %{TIMESTAMP_ISO8601:timestamp} %{WORD:http_method} %{URIPATH:request} %{NOTSPACE:post-data} %{NUMBER:server_port} %{IPORHOST:clientip} HTTP/%{NUMBER:http_version} %{NOTSPACE:user_agent} %{NOTSPACE:cookie} %{NOTSPACE:referrer} %{NOTSPACE:sender_host} %{NUMBER:response_code} %{NUMBER:sc-bytes:int} %{NUMBER:bytes:int} %{NUMBER:response_time:float}
+IIS_W3C4 %{TIMESTAMP_ISO8601:timestamp} %{IPORHOST:server_sitename} %{WORD:http_method} %{URIPATH:request} %{NOTSPACE:uri_query} %{NUMBER:server_port} %{NOTSPACE:username} %{IPORHOST:clientip} %{NOTSPACE:user_agent} %{NOTSPACE:referrer} %{NUMBER:response:int} %{NUMBER:sc-substatus:int} %{NUMBER:sc-substatus:int} %{NUMBER:response_time:float}
+IIS_W3C5 %{TIMESTAMP_ISO8601:timestamp} %{IPORHOST:clientip} %{NOTSPACE:username} %{IPORHOST:server_ip} %{NUMBER:server_port} %{WORD:http_method} %{URIPATH:request} %{NOTSPACE:uri_query} %{NUMBER:response_code} %{NUMBER:sc-bytes:int} %{NUMBER:bytes:int} %{NUMBER:response_time:float} %{NOTSPACE:user_agent(User-user_agent)} %{NOTSPACE:referrer}
+IIS_W3C6 %{TIMESTAMP_ISO8601:timestamp} %{IPORHOST:clientip} %{NOTSPACE:username} %{IPORHOST:server_ip} %{NUMBER:server_port} %{WORD:http_method} %{URIPATH:request} %{NOTSPACE:uri_query} %{NUMBER:response_code} %{NOTSPACE:user_agent(User-user_agent)}
+IIS_W3C7 %{TIME:timestamp} %{IPORHOST:clientip} %{WORD:http_method} %{URIPATH:request} %{NUMBER:response_code}
+IIS_W3C8 %{TIME:timestamp} %{IPORHOST:clientip} %{DATA:http_method} %{NOTSPACE:request} %{NUMBER:response_code}
+URISPLIT %{URIPROTO:protocol}://(?:%{USER}(?::[^@]*)?@)?(?:%{URIHOST:uri_host})?(?:%{URIPATHPARAM:uri_path})?
+
+#cs : Client to server
+#sc : Server to client
+
+# Replaced
+#-----------
+#cs-uri-stem => request
+#s-ip => server_ip
+#cs-method => http_method
+#cs-uri-query => uri_query
+#s-port => server_port
+#cs-username => username
+#c-ip => clientip
+#c-http-version => http_version
+#cs(User-user_agent) => user_agent
+#cs(Cookie) => cookie
+#cs_referrer(Referer) => referrer
+#sc-status:int => response_code
+
+###################################
+# 		 log4j log pattern    	  #
+###################################
+LOG4J_P1 %{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:severity} \[%{WORD:category}\] %{JAVACLASS:method}.* - %{GREEDYDATA:msg}
+LOG4J_P2 %{TIMESTAMP_ISO8601:timestamp} \[%{LOGLEVEL:severity}\] \[%{WORD:category}\] %{JAVACLASS:method}.* - %{GREEDYDATA:msg}
+LOG4J_P3 %{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:severity} \[%{GREEDYDATA:thread}\] %{JAVACLASS:class} - %{GREEDYDATA:msg}
+LOG4J_P4 %{TIMESTAMP_ISO8601:timestamp} \[%{JAVALOGMESSAGE:class},%{HOSTNAME:method}\] %{LOGLEVEL:severity} - %{GREEDYDATA:msg}
+LOG4J_P5 \[%{LOGLEVEL:severity}] %{TIMESTAMP_ISO8601:timestamp} %{JAVACLASS:class} %{WORD:method} - %{GREEDYDATA:msg}
+LOG4J_P6 %{LOGLEVEL:severity} %{TIMESTAMP_ISO8601:timestamp} %{JAVACLASS:class} %{WORD:method} - %{GREEDYDATA:msg}
+LOG4J_P7 %{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:severity} \[%{GREEDYDATA:thread}\] %{GREEDYDATA:msg}
+LOG4J_P8 %{SYSLOGTIMESTAMP:timestamp} %{LOGLEVEL:severity} {1,2}\[%{WORD:thread}, %{JAVACLASS:class}\] %{GREEDYDATA:msg}
+LOG4J_P9 %{SYSLOGTIMESTAMP:timestamp} %{LOGLEVEL:severity} %{SYSLOG5424SD:thread}, %{JAVACLASS:class}] %{GREEDYDATA:msg}
+LOG4J_P10 %{SYSLOGTIMESTAMP:timestamp} %{LOGLEVEL:severity} %{SYSLOG5424SD:thread} %{GREEDYDATA:msg}
+LOG4J_P11 \[%{MYTIME:timestamp}\] {1,3}%{LOGLEVEL:severity} - {1,4}%{JAVACLASS:class} - %{GREEDYDATA:msg}
+LOG4J_P12 \[%{TIMESTAMP_ISO8601:timestamp}\] {0,}\[%{LOGLEVEL:severity} {0,}\]\[%{JAVACLASS:class} {0,}\] %{GREEDYDATA:msg}
+# For Jarvis Indexer and Verifier Logs
+LOG4J_P13 %{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:severity} {0,}%{JAVALOGMESSAGE:class}:%{NUMBER} - %{SYSLOG5424SD:thread} %{GREEDYDATA:msg}
+# For IntroscopeEnterpriseManager.log - APM log file + EMS log file
+LOG4J_P14 %{SYSLOGTIMESTAMP:timestamp} {0,2}\[%{WORD:thread}, %{JAVALOGMESSAGE:class}\] %{GREEDYDATA:msg}
+LOG4J_P15 \[%{TIMESTAMP_ISO8601:timestamp}\]\[%{LOGLEVEL:severity} \]\[%{JAVACLASS:class} {0,20}\] \[%{WORD:thread}-\] %{GREEDYDATA:msg}
+# For APM logs
+LOG4J_P16 %{LOG4J_APM_TIME:timestamp} \[%{LOGLEVEL:severity}\] \[%{GREEDYDATA:thread}\] \[%{GREEDYDATA:class}\] %{GREEDYDATA:msg}
+LOG4J_P17 %{LOG4J_APM_TIME:timestamp} \[%{LOGLEVEL:severity}\] \[%{GREEDYDATA:thread}\] \[%{GREEDYDATA:class}\]
+# For API Logs
+LOG4J_P18 %{LOG4J_API_TIME:timestamp} %{LOGLEVEL:severity} {0,}%{JAVALOGMESSAGE:class}:%{NUMBER} - %{GREEDYDATA:msg}
+LOG4J_P19 %{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:severity} {0,3}\(%{GREEDYDATA:thread}\) \[%{NOTSPACE:method}\]\[%{NOTSPACE:class}\] %{GREEDYDATA:msg}
+LOG4J_P20 %{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:severity} {0,3}\(%{GREEDYDATA:thread}\) \[\]\[%{NOTSPACE:class}\] %{GREEDYDATA:msg}
+
+MYTIME %{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND},%{SSS}
+LOG4J_APM_TIME %{MONTHNUM}/%{MONTHDAY}/%{YEAR} %{HOUR}:%{MINUTE}:%{SECOND}.%{SSS} (AM|PM) %{TZ}
+LOG4J_API_TIME %{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}
+
+###################################
+# 		 Oracle Audit log pattern #
+###################################
+ORACLE_AUDIT_P1 %{QS:length} SESSIONID:\[%{NUMBER}\] %{QS:session_id} ENTRYID:\[%{NUMBER}\] %{QS:entry_id} USERID:\[%{NUMBER}\] %{QS:user_id} ACTION:\[%{NUMBER}\] %{QS:action} RETURNCODE:\[%{NUMBER}\] %{QS:return_code} LOGOFFSPREAD:\[%{NUMBER}\] %{QS:logoffspread} LOGOFFSLREAD:\[%{NUMBER}\] %{QS:logoffslread} LOGOFFSLWRITE:\[%{NUMBER}\] %{QS:logoffslwrite} LOGOFFSDEAD:\[%{NUMBER}\] %{QS:logoffsdead} DBID:\[%{NUMBER}\] %{QS:dbid} SESSIONCPU:\[%{NUMBER}\] %{QS:session_cpu}
+ORACLE_AUDIT_P2 %{QS:length} ACTION :\[%{NUMBER}\] %{QS:action} DATABASE USER:\[%{NUMBER}\] %{QS:user_id} PRIVILEGE :\[%{NUMBER}\] %{QS:dbuser_previliges} CLIENT USER:\[%{NUMBER}\] %{QS:client_user} CLIENT TERMINAL:\[%{NUMBER}\] %{QS:client_terminal} STATUS:\[%{NUMBER}\] %{QS:status} DBID:\[%{NUMBER}\] %{QS:dbid}
+ORACLE_AUDIT_P3 %{QS:length} ACTION :\[%{NUMBER}\] (?<action>(.|  DATA)*) DATABASE USER:\[%{NUMBER}\] %{QS:user_id} PRIVILEGE :\[%{NUMBER}\] %{QS:dbuser_previliges} CLIENT USER:\[%{NUMBER}\] %{QS:client_user} CLIENT TERMINAL:\[%{NUMBER}\] %{QS:client_terminal} STATUS:\[%{NUMBER}\] %{QS:status} DBID:\[%{NUMBER}\] %{QS:dbid}
+ORACLE_AUDIT_P4 %{QS:length} SESSIONID:\[%{NUMBER}\] %{QS:session_id} ENTRYID:\[%{NUMBER}\] %{QS:entry_id} STATEMENT:\[%{NUMBER}\] %{QS:statement} USERID:\[%{NUMBER}\] %{QS:user_id} USERHOST:\[%{NUMBER}\] %{QS:userhost} TERMINAL:\[%{NUMBER}\] %{QS:client_terminal} ACTION:\[%{NUMBER}\] %{QS:action} RETURNCODE:\[%{NUMBER}\] %{QS:return_code} COMMENTSTEXT:\[%{NUMBER}\] %{QS:commentstext} OSSUSERID:\[%{NUMBER}\] %{QS:osuserid} DBID:\[%{NUMBER}\] %{QS:dbid}
+ORACLE_AUDIT_P5 %{QS:length} SESSIONID:\[%{NUMBER}\] %{QS:session_id} ENTRYID:\[%{NUMBER}\] %{QS:entry_id} STATEMENT:\[%{NUMBER}\] %{QS:statement} USERID:\[%{NUMBER}\] %{QS:user_id} USERHOST:\[%{NUMBER}\] %{QS:userhost} TERMINAL:\[%{NUMBER}\] %{QS:client_terminal} ACTION:\[%{NUMBER}\] %{QS:action} RETURNCODE:\[%{NUMBER}\] %{QS:return_code} COMMENTSTEXT:\[%{NUMBER}\] %{QS:commentstext} OSSUSERID:\[%{NUMBER}\] %{QS:osuserid} DBID:\[%{NUMBER}\] %{QS:dbid} PRIVSUSED:\[%{NUMBER}\] %{QS:privused}
+
+###################################
+# 	Docker Daemon log pattern 	  #
+###################################
+DOCKER_SYSLOG_MSG time=%{QS:doc_time} level=%{WORD:log_level} msg=%{QS:msg}
+DOCKER_SPLIT_MSG_P1 %{WORD:method} /%{URIHOST:version}/%{WORD:endpoint}%{URIPATHPARAM:urlpath} %{GREEDYDATA:doc_msg}
+DOCKER_SPLIT_MSG_P2 %{WORD:method} /%{URIHOST:version}/%{WORD:endpoint}%{URIPATHPARAM:urlpath}
+DOCKER_SPLIT_MSG_P3 %{WORD:method} /%{URIHOST:version}/%{WORD:endpoint}/%{WORD:containerid} %{GREEDYDATA:doc_msg}
+DOCKER_SPLIT_MSG_P4 %{WORD:method} /%{URIHOST:version}/%{WORD:endpoint}/%{WORD:containerid}
+DOCKER_SPLIT_MSG_P5 %{WORD:method}, /%{URIHOST:version}/%{WORD:endpoint}
+DOCKER_SPLIT_MSG_P6 %{WORD:method} /%{URIHOST:version}/%{WORD:endpoint}
+
+###################################
+# 	Mainframe syslog pattern 	  #
+###################################
+NGUSER ([a-zA-Z0-9@!#\$\^%&*()+=\-\[\]\\\';,\.\/\{\}\|\":<>\?$~`]+)
+MF_MSG_1 %{WORD:record_request_type} %{WORD:routing_code} %{WORD:system_name}     %{NUMBER:julian_date} %{TIME:timestamp} %{WORD:jobid} %{WORD:user_exit_flag}  %{NGUSER:messageID} %{GREEDYDATA:msg}
+MF_MSG_2 %{WORD:record_request_type} %{WORD:routing_code} %{WORD:system_name}     %{NUMBER:julian_date} %{TIME:timestamp}          %{NUMBER:user_exit_flag}  %{NGUSER:messageID} %{GREEDYDATA:msg}
+MF_MSG_3 %{WORD:record_request_type} %{WORD:routing_code} %{WORD:system_name}     %{NUMBER:julian_date} %{TIME:timestamp} %{WORD:jobid} %{WORD:user_exit_flag}  %{GREEDYDATA:msg}
+
+#######################################
+# NGINX Access log pattern            #
+#######################################
+COMBINEDNGNIXLOG %{IPORHOST:clientip} %{USER:ident} %{USER:auth} \[%{HTTPDATE:timestamp}\] "(?:%{WORD:http_method} %{NOTSPACE:request}(?: HTTP/%{NUMBER:http_version})?|%{DATA:rawrequest})" %{NUMBER:response_code} (?:%{NUMBER:byte_value}|0) "(?:%{NUMBER:response_time}|-)" "%{GREEDYDATA:referrer}"
+
+#######################################
+# AWS Cloudtrail log pattern          #
+#######################################
+SPLIT_LOG_MSG_AWS %{NOTSPACE:tenant_id} %{WORD:type} %{NOTSPACE:origin} %{HOSTNAME:robot} %{IPORHOST:host} %{IPORHOST:ip} %{NOTSPACE:file} (?<msg>(.|\r|\n)*)
