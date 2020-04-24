@@ -110,7 +110,7 @@ stopDeleteBPA () {
 	logMsg "***deleting BPA if present - may take a minute or two***"
   	
 	cd $INSTALLATION_FOLDER/bpa
-	kubectl delete -f tix_bpa_deploy_v1.yaml -n bpa
+	kubectl delete -f tix_bpa_deploy_v1.yaml -n tixchange-v1
         
         sleep 5
 
@@ -152,7 +152,7 @@ installBPA () {
   
           kubectl create ns bpa
           sleep 2
-	  kubectl create -f tix_bpa_deploy_v1.yaml -n bpa
+	  kubectl create -f tix_bpa_deploy_v1.yaml -n tixchange-v1
   
 	  logMsg "*** BPA proxy and Listener installed - pls configure EM side if not done**"
           cd $INSTALL_SCRIPT_FOLDER
