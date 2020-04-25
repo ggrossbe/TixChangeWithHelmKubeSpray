@@ -65,6 +65,10 @@ fi
 case $OPTION in 
    a) 
 
+    logMsg ""
+    logMsg "Make sure OI_TOKEN in config.ini is most recent as it changes frequently *** Press ENTER to Proceed or Ctrl-C to exit"
+    read 
+
      stopDeleteAll
 
      cd $INSTALL_SCRIPT_FOLDER
@@ -137,6 +141,10 @@ case $OPTION in
 
    r)
 
+    logMsg ""
+    logMsg "Make sure OI_TOKEN in config.ini is most recent as it changes frequently *** Press ENTER to Proceed or Ctrl-C to exit"
+    read 
+
      stopDeleteAppComponents
 
      logMsg " Now Re-installing just the Application components (Tixchange, UMA, Selenium, EM Side - MM, Univ, Exp View) "
@@ -185,6 +193,10 @@ case $OPTION in
      installUMA
      ;;
    t) 
+
+    logMsg ""
+    logMsg "Make sure OI_TOKEN in config.ini is most recent as it changes frequently *** Press ENTER to Proceed or Ctrl-C to exit"
+    read 
 
      stopDeleteTixChange
 
@@ -260,6 +272,10 @@ case $OPTION in
     
      ;;
    o)
+    logMsg ""
+    logMsg "Make sure OI_TOKEN in config.ini is most recent as it changes frequently *** Press ENTER to Proceed or Ctrl-C to exit"
+    read 
+
      logMsg "Creating OI service modelfor $INDUSTRY - if its already there then it may complaint and exit"
 
      createUpdateOIServices create
