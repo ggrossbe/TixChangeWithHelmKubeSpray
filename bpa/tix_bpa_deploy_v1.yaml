@@ -34,6 +34,8 @@ spec:
       containers:
         - name: tix-bpa
           env:
+          - name: CA_APM_MONITORING_ENABLED
+            value: "false"
           - name: TIX_IP
             value: TIX_IP_VAL
           - name: TENANT_ID
