@@ -757,7 +757,7 @@ createUpdateOIServices () {
    
     if [ X"$EMEA_DB_HOST_POD_NAME" == "X" ]; then
        # its RDS tix-oaccess-east:us-east-2:54938494845740 
-       EMEA_DB_HOST_POD_NAME=`echo tix-oaccess-west.cq3qfzsicvyi.us-east-2.rds.amazonaws.com |awk -F"." '{ print $1":"$3":"'$AWS_ACCOUNTS_NUMBS' }'`
+       EMEA_DB_HOST_POD_NAME=`echo $TIXCHANGE_MYSQL_RDS_HOSTNAME2 |awk -F"." '{ print $1":"$3":"'$AWS_ACCOUNTS_NUMBS' }'`
     fi
 
     logMsg " OI Script - OI token is $OI_TOKEN and DB POD/Hostname is $DB_POD_HOSTNAME"
