@@ -404,11 +404,15 @@ curl -v -X POST \
   ]
 }
 '
+
+echo ""
 }
 
 
 
 updateOIServices () {
+
+echo ""
 
 curl -X POST \
   https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Property \
@@ -473,6 +477,8 @@ curl -X POST \
         }]
     }]
 }'
+
+echo ""
 }
 
 echo "***** create update OI services - $1 and  OI_TOKEN and EMEA_DB_HOST_POD_NAME - EMEA_DB_HOST_POD_NAME"

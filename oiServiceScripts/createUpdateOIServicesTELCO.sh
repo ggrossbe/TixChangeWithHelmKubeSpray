@@ -404,9 +404,13 @@ curl -v -X POST \
   ]
 }
 '
+
+echo ""
 }
 
 updateOIServices () {
+
+echo ""
 
 
 curl -X POST \
@@ -473,6 +477,8 @@ curl -X POST \
         }]
     }]
 }'
+
+echo ""
 }
 
 echo "***** create update OI services - $1 and  OI_TOKEN and EMEA_DB_HOST_POD_NAME - EMEA_DB_HOST_POD_NAME"

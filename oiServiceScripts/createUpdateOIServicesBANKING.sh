@@ -405,11 +405,14 @@ curl -v -X POST \
   ]
 }
 '
+echo ""
 }
 
 
 
 updateOIServices () {
+
+echo ""
 
 curl -X POST \
   https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Retail \
@@ -474,6 +477,8 @@ curl -X POST \
         }]
     }]
 }'
+
+echo ""
 
 }
 
