@@ -406,7 +406,7 @@ curl -v -X POST \
 '
 }
 
-updateOIServices {
+updateOIServices () {
 
 
 curl -X POST \
@@ -477,7 +477,6 @@ curl -X POST \
 
 echo "***** create update OI services - $1 and  OI_TOKEN and EMEA_DB_HOST_POD_NAME - EMEA_DB_HOST_POD_NAME"
 
-exit
 
 if [ X"$CREATE_UPDATE" == "Xcreate" ]; then
   createOIServices
