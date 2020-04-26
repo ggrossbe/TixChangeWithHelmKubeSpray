@@ -30,7 +30,8 @@ spec:
           env:
           - name: CA_APM_MONITORING_ENABLED
             value: "false"
-          image: srikns/logcollector:1.3.3_doi.24
+          #image: srikns/logcollector:1.3.3_doi.24
+          image: docker-release-candidate-local.artifactory-lvn.broadcom.net/doi/1.3.3_doi/logcollector:1.3.3_doi.24
           imagePullPolicy: Always
           ports:
             - name: log-coll-port
@@ -40,8 +41,8 @@ spec:
               mountPath: /logcollector_config
             - name: log-collector-logs
               mountPath: /opt/caemm/logs 
-      imagePullSecrets:
-        - name: registrypullsecret
+      #imagePullSecrets:
+        #- name: registrypullsecret
       nodeSelector:
         kubernetes.io/hostname: node1
       volumes:
@@ -51,7 +52,7 @@ spec:
             type: Directory
         - name: log-collector-logs
           hostPath:
-            path: /root/TixChangeWithHelmKubeSpray/logcollector/logcollector_logs
+            path: /opt/ca/TixChangeK8sDemo/logcollector/logcollector_logs
             type: Directory
 
 ---
