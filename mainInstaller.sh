@@ -65,6 +65,10 @@ fi
 case $OPTION in 
    a) 
 
+    logMsg ""
+    logMsg "Make sure OI_TOKEN in config.ini is most recent as it changes frequently *** Press ENTER to Proceed or Ctrl-C to exit"
+    read 
+
      stopDeleteAll
 
      cd $INSTALL_SCRIPT_FOLDER
@@ -79,11 +83,8 @@ case $OPTION in
      cd $INSTALL_SCRIPT_FOLDER
      installTixChangeHelm
 
-     sleep 10
-     #logMsg "reinstall BPA "
-     #stopDeleteBPA
-     #sleep 3
-     #installBPA
+     sleep 30
+     installBPA
 
      sleep 10
      installPromExporter
@@ -105,7 +106,14 @@ case $OPTION in
      configureEM em1
      configureEM em2
 
+     setup 2
      setupAWSMonitoring
+
+     sleep 2
+     createUpdateOIServices create
+
+     sleep 2
+     setupLogCollector
 
      runFinalSanityCheck
 
@@ -133,6 +141,10 @@ case $OPTION in
 
    r)
 
+    logMsg ""
+    logMsg "Make sure OI_TOKEN in config.ini is most recent as it changes frequently *** Press ENTER to Proceed or Ctrl-C to exit"
+    read 
+
      stopDeleteAppComponents
 
      logMsg " Now Re-installing just the Application components (Tixchange, UMA, Selenium, EM Side - MM, Univ, Exp View) "
@@ -142,8 +154,8 @@ case $OPTION in
      cd $INSTALL_SCRIPT_FOLDER
      installTixChangeHelm
 
-     #sleep 10
-     #installBPA
+     sleep 30
+     installBPA
 
      sleep 10
      installPromExporter
@@ -165,6 +177,12 @@ case $OPTION in
      configureEM em1
      configureEM em2
 
+     createUpdateOIServices update
+
+     sleep 2
+     setupLogCollector
+
+
      runFinalSanityCheck
      ;;
    u) 
@@ -176,16 +194,20 @@ case $OPTION in
      ;;
    t) 
 
+    logMsg ""
+    logMsg "Make sure OI_TOKEN in config.ini is most recent as it changes frequently *** Press ENTER to Proceed or Ctrl-C to exit"
+    read 
+
      stopDeleteTixChange
 
      logMsg " Installing just the TixChange components + Selenium + EM side MM,ExpView, Univ"
      installTixChangeHelm
     
-     #sleep 10 
-     #logMsg "reinstall BPA "
-     #stopDeleteBPA 
-     #sleep 3
-     #installBPA
+     sleep 30 
+     logMsg "reinstall BPA "
+     stopDeleteBPA 
+     sleep 3
+     installBPA
 
      logMsg " re-installaing Selenium"
      stopDeleteSelenium
@@ -195,6 +217,8 @@ case $OPTION in
      
      configureEM em1
      configureEM em2
+
+     createUpdateOIServices update
 
      runFinalSanityCheck
      ;;
@@ -239,13 +263,28 @@ case $OPTION in
      ;;
    b)
      logMsg "BPA is disabled for now"
-     #logMsg "installing and configuring HTTPD, BT Listener for BPA"
+     logMsg "installing and configuring HTTPD, BT Listener for BPA"
     
     
-     #stopDeleteBPA 
-     #sleep 3
-     #installBPA
+     stopDeleteBPA 
+     sleep 3
+     installBPA
     
+     ;;
+   o)
+    logMsg ""
+    logMsg "Make sure OI_TOKEN in config.ini is most recent as it changes frequently *** Press ENTER to Proceed or Ctrl-C to exit"
+    read 
+
+     logMsg "Creating OI service modelfor $INDUSTRY - if its already there then it may complaint and exit"
+
+     createUpdateOIServices create
+
+     ;;
+   l)
+     logMsg "setting up just log Collector"
+
+     setupLogCollector
      ;;
    *) 
      logMsg "Not a valid option"

@@ -1,0 +1,18 @@
+SYSLOG5424PRINTASCII [!-~]+
+
+#SYSLOGBASE2 (?:%{SYSLOGTIMESTAMP:syslog_timestamp}|%{TIMESTAMP_ISO8601:syslog_timestamp}) (?:%{SYSLOGFACILITY} )?%{SYSLOGHOST:syslog_hostname} %{SYSLOGPROG:syslog_program}:
+SYSLOGBASE2 (?:%{SYSLOGTIMESTAMP:syslog_timestamp}|%{TIMESTAMP_ISO8601:syslog_timestamp}) (?:%{SYSLOGFACILITY} )?%{SYSLOGHOST:syslog_hostname} %{PROG:syslog_program}(?:\[%{POSINT:syslog_pid}\])?:
+
+SYSLOGPAMSESSION %{SYSLOGBASE} (?=%{GREEDYDATA:message})%{WORD:pam_module}\(%{DATA:pam_caller}\): session %{WORD:pam_session_state} for user %{USERNAME:username}(?: by %{GREEDYDATA:pam_by})?
+
+CRON_ACTION [A-Z ]+
+CRONLOG %{SYSLOGBASE} \(%{USER:user}\) %{CRON_ACTION:action} \(%{DATA:message}\)
+
+SYSLOGLINE %{SYSLOGBASE2} %{GREEDYDATA:syslog_msg}
+
+# IETF 5424 syslog(8) format (see http://www.rfc-editor.org/info/rfc5424)
+SYSLOG5424PRI <%{NONNEGINT:syslog_pri}>
+SYSLOG5424SD \[%{DATA}\]+
+SYSLOG5424BASE %{SYSLOG5424PRI}%{NONNEGINT:syslog_ver} +(?:%{TIMESTAMP_ISO8601:syslog_timestamp}|-) +(?:%{HOSTNAME:syslog_hostname}|-) +(-|%{SYSLOG5424PRINTASCII:syslog_program}) +(-|%{SYSLOG5424PRINTASCII:syslog_pid}) +(-|%{SYSLOG5424PRINTASCII:syslog_msgid}) +(?:%{SYSLOG5424SD:syslog_sd}|-|)
+
+SYSLOG5424LINE %{SYSLOG5424BASE} +%{GREEDYDATA:syslog_msg}

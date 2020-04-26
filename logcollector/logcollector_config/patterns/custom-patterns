@@ -1,0 +1,93 @@
+
+#######################################
+#			 Syslog pattern    		  #
+#######################################
+SYSLOGBASE %{SYSLOGTIMESTAMP:timestamp} (?:%{SYSLOGFACILITY} )?%{SYSLOGHOST:logsource} %{SYSLOGPROG}:
+SYSLOGCOMMON <%{POSINT:syslog_pri}>%{SYSLOGTIMESTAMP:syslog_timestamp} (%{HOSTNAME:syslog_hostname}|%{SYSLOGHOST:syslog_hostname}) %{DATA:syslog_program}(?:\[%{POSINT:syslog_pid}\])?: %{GREEDYDATA:syslog_message}
+
+#######################################
+# 		Apache Access log pattern     #
+#######################################
+COMMONAPACHELOG %{IPORHOST:clientip} %{USER:ident} %{USER:auth} \[%{HTTPDATE:timestamp}\] "(?:%{WORD:http_method} %{NOTSPACE:request}(?: HTTP/%{NUMBER:http_version})?|%{DATA:rawrequest})" %{NUMBER:response_code} (?:%{NUMBER:bytes}|-)
+CUSTOMAPACHELOG %{COMMONAPACHELOG} %{NUMBER:response_time}
+COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:user_agent}
+
+#######################################
+# 		    Tomcat pattern   		  #
+#######################################
+CATALINALOG %{TENANTID:@tenant} %{CATALINA_DATESTAMP:timestamp} %{JAVACLASS:class} %{JAVALOGMESSAGE:logmessage}
+TOMCATLOG %{TENANTID:@tenant} \| %{TOMCAT_DATESTAMP:timestamp} \| %{LOGLEVEL:loglevel} \| %{JAVACLASS:class} - %{JAVALOGMESSAGE:logmessage}
+
+RAWTENANTLOG %{UUID:tenant_id} %{RAWMESSAGE:log_message}
+
+CATALINA_DATESTAMP %{MONTH} %{MONTHDAY}, 20%{YEAR} %{HOUR}:?%{MINUTE}(?::?%{SECOND}) (?:AM|PM)
+#TOMCAT_DATESTAMP 20%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:?%{MINUTE}(?::?%{SECOND}) %{ISO8601_TIMEZONE}
+TOMCAT_DATESTAMP %{HOUR}:?%{MINUTE}(?::?%{SECOND}) %{ISO8601_TIMEZONE}
+
+JAVACLASS (?:[a-zA-Z0-9-]+\.)+[A-Za-z0-9$]+
+JAVALOGMESSAGE (.*)
+RAWMESSAGE (.*)
+
+CUSTOMAPACHELOG %{IPORHOST:clientip} %{USER:ident} %{USER:auth} \[%{HTTPDATE:timestamp}\] "(?:%{WORD:http_method} %{NOTSPACE:request}(?: HTTP/%{NUMBER:http_version})?|%{DATA:rawrequest})" %{NUMBER:response_code} (?:%{NUMBER:bytes}|-) %{NUMBER:response_time}
+
+#SPLIT_APACHE_MSG %{ORIGIN:origin} %{IPORHOST:received_host} %{SOURCE:host} %{LOGTYPE:logtype} %{GREEDYDATA:msg}
+SPLIT_APACHE_MSG  %{UUID:tenant_id} %{ORIGIN:origin} %{IPORHOST:hub_host} %{IPORHOST:received_host} %{SOURCE:host} %{LOGTYPE:logtype} %{GREEDYDATA:msg}
+#SPLIT_LOG_MSG %{ORIGIN:origin} %{IPORHOST:received_host} %{SOURCE:ip} %{SOURCE:host} %{LOGTYPE:logtype} %{GREEDYDATA:msg}
+SPLIT_LOG_MSG %{UUID:tenant_id} %{IPORHOST:received_host} %{SOURCE:ip} %{SOURCE:host} %{LOGTYPE:logtype} %{GREEDYDATA:msg}
+
+
+ORIGIN %{WORD}
+SOURCE %{IPORHOST}
+
+EVERYTHING (.*)
+SSS (?:[\d]{3})
+MYTIME %{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND},%{SSS} 
+TOMCATLOG2 \[%{MYTIME:timestamp}\] %{LOGLEVEL:loglevel} \| %{JAVACLASS:class} %{JAVALOGMESSAGE:logmessage} 
+
+
+
+#######################################
+# Start SqlServerError log pattern    #
+#######################################
+DATESTAMP_SQLSERVER %{YEAR}-%{MONTHDAY}-%{MONTHNUM} %{HOUR}:%{MINUTE}:%{SECOND}
+SQLSERVER_LOG %{DATESTAMP_SQLSERVER:datestamp} %{WORD:process} %{GREEDYDATA:error_message} %{IP:clientip}
+SQLSERVER_ERROR_LOG %{DATESTAMP_SQLSERVER:datestamp} %{WORD:process} %{GREEDYDATA:error_message}
+
+#######################################
+# Start ApacheError log pattern    	  #
+#######################################
+
+APACHE_ERROR_TIME %{DAY} %{MONTH} %{MONTHDAY} %{TIME} %{YEAR}
+APACHE_ERROR_LOG \[%{APACHE_ERROR_TIME:timestamp}\] \[%{LOGLEVEL:loglevel}\] (?:\[client %{IPORHOST:clientip}\] ){0,1}%{GREEDYDATA:error_message}
+
+#######################################
+# Start iis_logs log pattern    	  #
+#######################################
+
+IIS_W3C1 %{TIMESTAMP_ISO8601:timestamp} %{NOTSPACE:server_sitename} %{NOTSPACE:server_computername} %{IPORHOST:server_ip} %{WORD:http_method} %{URIPATH:request} %{NOTSPACE:uri_query} %{NUMBER:server_port} %{NOTSPACE:username} %{IPORHOST:clientip} HTTP/%{NUMBER:http_version} %{NOTSPACE:user_agent} %{NOTSPACE:cookie} %{NOTSPACE:referrer} %{NOTSPACE:sender_host} %{NUMBER:response_code} %{NUMBER:sc-substatus:int} %{NUMBER:sc-win32-status:int} %{NUMBER:sc-bytes:int} %{NUMBER:bytes:int} %{NUMBER:response_time:float}
+IIS_W3C2 %{TIMESTAMP_ISO8601:timestamp} %{NOTSPACE:server_sitename} %{WORD:http_method} %{URIPATH:request} %{NOTSPACE:uri_query} %{NUMBER:server_port} %{NOTSPACE:username} %{IPORHOST:clientip} %{NOTSPACE:user_agent} %{NOTSPACE:cookie} %{NOTSPACE:referrer} %{NOTSPACE:sender_host} %{NUMBER:response_code} %{NUMBER:sc-substatus:int} %{NUMBER:sc-win32-status:int} %{NUMBER:sc-bytes:int} %{NUMBER:bytes:int} %{NUMBER:response_time:float}
+IIS_W3C3 %{TIMESTAMP_ISO8601:timestamp} %{WORD:http_method} %{URIPATH:request} %{NOTSPACE:post-data} %{NUMBER:server_port} %{IPORHOST:clientip} HTTP/%{NUMBER:http_version} %{NOTSPACE:user_agent} %{NOTSPACE:cookie} %{NOTSPACE:referrer} %{NOTSPACE:sender_host} %{NUMBER:response_code} %{NUMBER:sc-bytes:int} %{NUMBER:bytes:int} %{NUMBER:response_time:float}
+IIS_W3C4 %{TIMESTAMP_ISO8601:timestamp} %{IPORHOST:server_sitename} %{WORD:http_method} %{URIPATH:request} %{NOTSPACE:uri_query} %{NUMBER:server_port} %{NOTSPACE:username} %{IPORHOST:clientip} %{NOTSPACE:user_agent} %{NOTSPACE:referrer} %{NUMBER:response:int} %{NUMBER:sc-substatus:int} %{NUMBER:sc-substatus:int} %{NUMBER:response_time:float}
+IIS_W3C5 %{TIMESTAMP_ISO8601:timestamp} %{IPORHOST:clientip} %{NOTSPACE:username} %{IPORHOST:server_ip} %{NUMBER:server_port} %{WORD:http_method} %{URIPATH:request} %{NOTSPACE:uri_query} %{NUMBER:response_code} %{NUMBER:sc-bytes:int} %{NUMBER:bytes:int} %{NUMBER:response_time:float} %{NOTSPACE:user_agent(User-user_agent)} %{NOTSPACE:referrer}
+IIS_W3C6 %{TIMESTAMP_ISO8601:timestamp} %{IPORHOST:clientip} %{NOTSPACE:username} %{IPORHOST:server_ip} %{NUMBER:server_port} %{WORD:http_method} %{URIPATH:request} %{NOTSPACE:uri_query} %{NUMBER:response_code} %{NOTSPACE:user_agent(User-user_agent)}
+IIS_W3C7 %{TIME:timestamp} %{IPORHOST:clientip} %{WORD:http_method} %{URIPATH:request} %{NUMBER:response_code}
+IIS_W3C8 %{TIME:timestamp} %{IPORHOST:clientip} %{DATA:http_method} %{NOTSPACE:request} %{NUMBER:response_code}
+URISPLIT %{URIPROTO:protocol}://(?:%{USER}(?::[^@]*)?@)?(?:%{URIHOST:uri_host})?(?:%{URIPATHPARAM:uri_path})?
+
+#cs : Client to server
+#sc : Server to client
+
+# Replaced
+#-----------
+#cs-uri-stem => request
+#s-ip => server_ip
+#cs-method => http_method
+#cs-uri-query => uri_query
+#s-port => server_port
+#cs-username => username
+#c-ip => clientip
+#c-http-version => http_version
+#cs(User-user_agent) => user_agent
+#cs(Cookie) => cookie
+#cs_referrer(Referer) => referrer
+#sc-status:int => response_code

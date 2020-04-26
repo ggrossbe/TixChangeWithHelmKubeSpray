@@ -1,0 +1,75 @@
+# ------------------- log collector  Deployment ------------------- #
+
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2. I'm running 1.11.0
+kind: Deployment
+metadata:
+  name: log-collector
+  namespace: log-collector
+  labels:
+    app: log-collector
+spec:
+  selector:
+    matchLabels:
+      app: log-collector
+  replicas: 1 
+  revisionHistoryLimit: 9 # how many revisions
+  strategy:
+    rollingUpdate:
+      maxSurge: 1 # how many on top of replicas you want
+      maxUnavailable: 1 # how many you can afford to be down
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: log-collector
+      annotations:
+        ver: "1.0"
+    spec:
+      containers:
+        - name: log-collector
+          env:
+          - name: CA_APM_MONITORING_ENABLED
+            value: "false"
+          image: srikns/logcollector:1.3.3_doi.24
+          imagePullPolicy: Always
+          ports:
+            - name: log-coll-port
+              containerPort: 6514
+          volumeMounts:
+            - name: log-collector-config
+              mountPath: /logcollector_config
+            - name: log-collector-logs
+              mountPath: /opt/caemm/logs 
+      imagePullSecrets:
+        - name: registrypullsecret
+      nodeSelector:
+        kubernetes.io/hostname: node1
+      volumes:
+        - name: log-collector-config
+          hostPath:
+            path: /opt/ca/TixChangeK8sDemo/logcollector/logcollector_config
+            type: Directory
+        - name: log-collector-logs
+          hostPath:
+            path: /root/TixChangeWithHelmKubeSpray/logcollector/logcollector_logs
+            type: Directory
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: log-collector-svc
+  namespace: log-collector
+  labels:
+    app: log-collector-svc
+spec:
+  type: NodePort
+  selector:
+    app: log-collector
+  ports:
+  - port: 6514 
+    name: log-collector
+    targetPort: 6514
+    nodePort: 31651
+

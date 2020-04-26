@@ -1,0 +1,15 @@
+[docker-ce]
+name=Docker-CE Repository
+baseurl=https://download.docker.com/linux/centos/7/$basearch/stable
+enabled=1
+gpgcheck=1
+keepcache=0
+gpgkey=https://download.docker.com/linux/centos/gpg
+
+[docker-engine]
+name=Docker-Engine Repository
+baseurl=https://download.docker.com/linux/centos/7/$basearch/stable
+enabled=1
+gpgcheck=1
+keepcache=0
+gpgkey=https://yum.dockerproject.org/gpg

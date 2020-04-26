@@ -1,3 +1,7 @@
+echo "DEPRECATED - Ignore"
+
+exit
+
 echo ""
 echo "***********"
 echo "create service in GCP SaaS instance"

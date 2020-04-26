@@ -1,39 +1,12 @@
-clear
-echo ""
-echo "***********"
-echo "create service in GCP SaaS instance"
-echo ""
-echo "pls provide the OI token (this is OI token not APM - Go to Service Overview Page of the OI. Open browser dev mode and go to request header section under network tab for a request (say click on status circle) and look for Authorization Bearer token )"
-echo ""
-echo ""
+### NOT A standalone script any more - pls run this as part of mainInstaller.sh
 
-read OI_TOKEN
+CREATE_UPDATE="$1"
 
-echo ""
-echo " Pls Provide MYSQL POD name OR RDS East Hostname if using AWS RDS deployment. e.g kubectl get pods -n tixchange-v2|grep tix-mysql OR tixchange:us-east-2:544960306 from AWS console"
-
-read TIXCHANGE_MYSQL_RDS_HOSTNAME
-
-echo ""
-
-sleep 2
-
-if [ X"$OI_TOKEN" == "X" ] || [ X"$TIXCHANGE_MYSQL_RDS_HOSTNAME" == "X" ]; then
-   echo "Pls provide valid token and Valid MYSQL RDS hostname/POD name "
-   exit
-
-fi
-
-echo " "
-
-echo " This will create an OI service - give it a minute or two and refresh your browser"
-echo ""
-
-echo ""
+createOIServices () {
 
 curl -v -X POST \
   https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/save \
-  -H 'Authorization: Bearer '$OI_TOKEN'' \
+  -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -d '{
@@ -431,12 +404,19 @@ curl -v -X POST \
   ]
 }
 '
-echo "***sleeping for 10 sec"
-sleep 10
+
+echo ""
+}
+
+
+
+updateOIServices () {
+
+echo ""
 
 curl -X POST \
   https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Property \
-  -H 'Authorization: Bearer '$OI_TOKEN'' \
+  -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -d '{
@@ -454,7 +434,7 @@ sleep 5
 
 curl -X POST \
   https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/EMEA_Property \
-  -H 'Authorization: Bearer '$OI_TOKEN'' \
+  -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -d '{
@@ -476,7 +456,7 @@ curl -X POST \
     },{
         "query": [{
                                 "attributeName": "hostname",
-                "attributeValue": "'$TIXCHANGE_MYSQL_RDS_HOSTNAME'"
+                "attributeValue": "EMEA_DB_HOST_POD_NAME"
         }]
     }]
 }'
@@ -486,7 +466,7 @@ sleep 5
 
 curl -X POST \
   https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Vehicle \
-  -H 'Authorization: Bearer '$OI_TOKEN'' \
+  -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -d '{
@@ -497,3 +477,19 @@ curl -X POST \
         }]
     }]
 }'
+
+echo ""
+}
+
+echo "***** create update OI services - $1 and  OI_TOKEN and EMEA_DB_HOST_POD_NAME - EMEA_DB_HOST_POD_NAME"
+
+
+if [ X"$CREATE_UPDATE" == "Xcreate" ]; then
+  createOIServices
+
+  sleep 10
+
+  updateOIServices
+else
+  updateOIServices
+fi
