@@ -783,6 +783,7 @@ removeLogCollector () {
 
    if [ X"$IS_LC_TRUE" != "X" ]; then
      kubectl delete -f $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/log_collector.yaml -n log-collector
+     kubectl delete -f $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/registry_pull_secret.yaml -n log-collector
      kubectl delete ns log-collector
    fi
 
@@ -810,11 +811,16 @@ setupLogCollector () {
 
      cp -fr *  $INSTALLATION_FOLDER/$LOG_COLL_FOLDER
 
+     cd $INSTALLATION_FOLDER/$LOG_COLL_FOLDER
+    
+     mkdir $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/logcollector_logs/
+     chmod 777 $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/logcollector_logs/
 
      logMsg "starting with log collector"
      #config log Collector
      kubectl create ns log-collector
      kubectl create -f $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/log_collector.yaml -n log-collector
+     kubectl create -f $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/registry_pull_secret.yaml -n log-collector
      
      sleep 15
 
