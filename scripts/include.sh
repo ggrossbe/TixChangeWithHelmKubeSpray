@@ -813,7 +813,7 @@ setupLogCollector () {
 
      cd $INSTALLATION_FOLDER/$LOG_COLL_FOLDER
     
-     mkdir $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/logcollector_logs/
+     mkdir $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/logcollector_logs/ 2> /dev/null
      chmod 777 $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/logcollector_logs/
 
      logMsg "starting with log collector"
