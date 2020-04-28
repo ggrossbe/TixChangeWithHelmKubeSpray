@@ -644,8 +644,10 @@ configureEM () {
   
   if [ $IS_AWS == "true" ]; then
     cp -f $EM_FOLDER/AWS.jar $INSTALLATION_FOLDER/$EM_FOLDER/
-    cp -f $EM_FOLDER/TixChangeAWS.jar $INSTALLATION_FOLDER/$EM_FOLDER/TixChange.jar
   fi
+
+  # Copy this irrespective will remove the other MM later
+  cp -f $EM_FOLDER/TixChangeAWS.jar $INSTALLATION_FOLDER/$EM_FOLDER/TixChange.jar
 
   cd $INSTALLATION_FOLDER/$EM_FOLDER
 
