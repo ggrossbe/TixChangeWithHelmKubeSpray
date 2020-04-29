@@ -790,6 +790,7 @@ removeLogCollector () {
    fi
 
    sed  -i '/######## CA OI LogCollector Settings/, $d' /etc/rsyslog.conf
+   scp /etc/rsyslog.conf root@node3:/etc/rsyslog.conf
 
 
      if [ -d $INSTALLATION_FOLDER/$LOG_COLL_FOLDER ]; then
@@ -845,11 +846,15 @@ setupLogCollector () {
 
      if [ X"$IS_SYSLOG_CONFIGURED" == "X" ]; then
         cat $INSTALLATION_FOLDER/$LOG_COLL_FOLDER/rsyslog_logCollecgtorw.conf >> /etc/rsyslog.conf
+      
+       scp /etc/rsyslog.conf root@node3:/etc/rsyslog.conf
+
      fi
 
      logMsg "re-starting rsyslogd"
 
      systemctl restart rsyslog
+     ssh root@node3 "systemctl restart rsyslog"
 
      cd -
 
