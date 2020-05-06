@@ -1,0 +1,20 @@
+Started on May 3, 2020 8:01:06 PM
+Started by event from 10.74.121.188 ⇒ http://10.74.121.188:8080/github-webhook/ on Sun May 03 20:01:06 UTC 2020
+Using strategy: Default
+[poll] Last Built Revision: Revision cae383a1057d7463ebb1aa0ed403f49a86522444 (refs/remotes/origin/master)
+using credential 660a7868-ef5b-47e7-9f5b-bc4183ad8052
+ > git --version # timeout=10
+using GIT_SSH to set credentials git hub private key
+ > git ls-remote -h -- git@github.gwd.broadcom.net:ESD/TixChangeEndToEnd.git # timeout=10
+Found 1 remote heads on git@github.gwd.broadcom.net:ESD/TixChangeEndToEnd.git
+[poll] Latest remote head revision on refs/heads/master is: 957ba2ec9b2eecf496684b61cedcccd551d97986
+Using strategy: Default
+[poll] Last Built Revision: Revision cae383a1057d7463ebb1aa0ed403f49a86522444 (refs/remotes/origin/master)
+using credential 660a7868-ef5b-47e7-9f5b-bc4183ad8052
+ > git --version # timeout=10
+using GIT_SSH to set credentials git hub private key
+ > git ls-remote -h -- git@github.gwd.broadcom.net:ESD/TixChangeEndToEnd.git # timeout=10
+Found 1 remote heads on git@github.gwd.broadcom.net:ESD/TixChangeEndToEnd.git
+[poll] Latest remote head revision on refs/heads/master is: 957ba2ec9b2eecf496684b61cedcccd551d97986
+Done. Took 1 sec
+Changes found

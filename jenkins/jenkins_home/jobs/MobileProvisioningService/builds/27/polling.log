@@ -1,0 +1,12 @@
+Started on May 5, 2020 2:44:59 PM
+Started by event from 10.74.121.188 ⇒ http://10.74.121.188:8080/github-webhook/ on Tue May 05 14:44:59 UTC 2020
+Using strategy: Default
+[poll] Last Built Revision: Revision 479a61a0d0a13ce0c5bbb7bb68572fd44ab9d8a1 (refs/remotes/origin/master)
+using credential 660a7868-ef5b-47e7-9f5b-bc4183ad8052
+ > git --version # timeout=10
+using GIT_SSH to set credentials git hub private key
+ > git ls-remote -h -- git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git # timeout=10
+Found 1 remote heads on git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git
+[poll] Latest remote head revision on refs/heads/master is: 67ad087d3ca01bfe79cbeed9a49af6769e33cdf1
+Done. Took 0.9 sec
+Changes found

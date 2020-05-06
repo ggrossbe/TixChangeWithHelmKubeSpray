@@ -1,0 +1,48 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jenkins-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      containers:
+      - name: jenkins
+        image: jenkins/jenkins:lts
+        env:
+        - name: CA_APM_MONITORING_ENABLED
+          value: "false"
+        - name: JAVA_OPTS
+          value: "-Dhudson.model.DirectoryBrowserSupport.CSP="
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - name: jenkins-home
+            mountPath: /var/jenkins_home
+      volumes:
+        - name: jenkins-home
+          hostPath: 
+            path: /root/TixChangeWithHelmKubeSpray/jenkins/jenkins_home
+            type: Directory 
+      nodeSelector:
+        kubernetes.io/hostname: node1
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 31080
+  selector:
+    app: jenkins

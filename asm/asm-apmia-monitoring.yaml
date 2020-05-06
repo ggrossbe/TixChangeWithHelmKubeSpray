@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: apmia-asm
+  labels:
+    tier: monitoring
+    app: caagent_apmia_asm
+    version: v1
+spec:
+  template:
+    metadata:
+      labels:
+        app: caagent_apmia_asm
+    spec:
+      containers:
+        - resources:
+          env:
+            - name: CA_APM_MONITORING_ENABLED
+              value: "false"
+            - name: APMENV_LOG4J_LOGGER_INTROSCOPEAGENT
+              value: INFO,console, logfile
+            - name: APMENV_AGENTMANAGER_URL_1
+              value: APM_MANAGER_URL_1
+            - name:  APMENV_AGENTMANAGER_CREDENTIAL
+              value: APM_MANAGER_CREDENTIAL
+            - name: APMENV_INTROSCOPE_AGENT_ASM_USEREMAIL
+              value: "ASM_USER_EMAIL"
+            - name: APMENV_INTROSCOPE_AGENT_EXTENSIONS_BUNDLES_BOOT_LOAD
+              value: AWS_BUNDLE_FOLDER
+            - name: APMENV_INTROSCOPE_AGENT_ASM_APIPASSWORD
+              value: ASM_API_PASSWORD
+            - name: APMENV_INTROSCOPE_AGENT_AGENTNAME
+              value: apmia_asm_agent
+            - name: APMENV_INTROSCOPE_AGENT_HOSTNAME
+              value: apmia_asm_monitoring
+            - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_INTERVAL
+              value: "60"
+          name: apmia_asm
+          image: srikns/ca-asm:latest
+          imagePullPolicy: Always
+          resources:
+           limits:
+            cpu: "0.7"
+            memory: 700M
