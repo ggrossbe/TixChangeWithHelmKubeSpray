@@ -8,6 +8,7 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 
 INSTALL_SCRIPT_FOLDER=$PWD/$SCRIPTS_FOLDER/..
 
+ASM_FOLDER=asm
 LOG_COLL_FOLDER=logcollector
 BPA_FOLDER=bpa
 OI_SCRIPTS_FOLDER=oiServiceScripts
@@ -341,6 +342,7 @@ stopDeleteAll () {
   stopDeleteUMA
   stopDeleteKubeSpray
   removeAWSMonitoring
+  removeASMMonitoring
   stopDeleteBPA
   removeLogCollector
 
@@ -360,6 +362,7 @@ stopDeleteAppComponents () {
   stopDeletePromExporter
   stopDeleteUMA
   removeAWSMonitoring
+  removeASMMonitoring
  stopDeleteBPA
  removeLogCollector
   #rm -rf $INSTALLATION_FOLDER/logs/
@@ -370,7 +373,7 @@ Usage () {
   echo "Options: "
   echo "  a : install all (K8s,Helm, UMA, TixChange, BPA Selenium, EM side - Universes, Exp View, Mgmt Mod)"
   #echo "  p : run the pre-req"
-   echo "  r : re-install & run just app components (helm, uma, tixchange, BPA, selenium, EM side - Universes, Exp View, Mgmt Mod)"
+   echo "  r : re-install & run just app components (helm, uma, tixchange, BPA, AWS, ASM, selenium, EM side - Universes, Exp View, Mgmt Mod)"
    echo "  u : install & run just uma"
    echo "  t : install & run just tixChange"
   echo "  s : install & run just selenium"
@@ -378,7 +381,7 @@ Usage () {
   #echo "  b : install and configure HTTPD, BT Listener for BPA"
   echo "  r_ut : remove UMA and TixChange - to deploy them manually for Say for a demo"
   echo "  o : Create Domain Based (Telco, Banking, Insurance) OI Service Model "
-  echo "   l : Setup log Collector"
+  echo "  l : Setup log Collector"
   echo "  c : cleanup and unintsall everything"
 
 }
@@ -735,6 +738,37 @@ setupAWSMonitoring () {
    fi
 }
 
+
+setupASMMonitoring () {
+   if [ X"$IS_ASM" != "Xfalse" ]; then
+     logMsg "Setting up ASM monitoring - pls wait"
+
+     cd $INSTALL_SCRIPT_FOLDER/$ASM_FOLDER
+
+     if [ -d $INSTALLATION_FOLDER/$ASM_FOLDER ]; then
+       rm -rf $INSTALLATION_FOLDER/$ASM_FOLDER
+     fi
+
+     mkdir -p $INSTALLATION_FOLDER/$ASM_FOLDER
+
+    cp -f asm-apmia-monitoring.yaml $INSTALLATION_FOLDER/$ASM_FOLDER/ 
+    
+    ESCAPED_APM_MANAGER_URL_1=$(echo "$APM_MANAGER_URL_1"| sed 's/\//\\\//g')
+      sed -i 's/APM_MANAGER_URL_1/'$ESCAPED_APM_MANAGER_URL_1'/' $INSTALLATION_FOLDER/$ASM_FOLDER/asm-apmia-monitoring.yaml
+      sed -i 's/APM_MANAGER_CREDENTIAL/'$APM_MANAGER_CREDENTIAL'/' $INSTALLATION_FOLDER/$ASM_FOLDER/asm-apmia-monitoring.yaml
+      sed -i 's/ASM_USER_EMAIL/'$ASM_USER_EMAIL'/' $INSTALLATION_FOLDER/$ASM_FOLDER/asm-apmia-monitoring.yaml
+      sed -i 's/ASM_API_PASSWORD/'$ASM_API_PASSWORD'/' $INSTALLATION_FOLDER/$ASM_FOLDER/asm-apmia-monitoring.yaml
+
+     kubectl create ns asm
+
+     kubectl create -f $INSTALLATION_FOLDER/$ASM_FOLDER/asm-apmia-monitoring.yaml -n asm
+
+    cd -
+
+   fi
+}
+
+
 createUpdateOIServices () {
   logMsg " create update OI Services - pls wait"
 
@@ -875,6 +909,19 @@ removeAWSMonitoring () {
     
 }
 
+removeASMMonitoring () {
+
+     logMsg "Removing  ASM Monitoring - pls wait"
+
+
+     if [ -d $INSTALLATION_FOLDER/$ASM_FOLDER ]; then
+          kubectl delete -f $INSTALLATION_FOLDER/$ASM_FOLDER/asm-apmia-monitoring.yaml -n asm
+          rm -rf $INSTALLATION_FOLDER/$ASM_FOLDER
+     fi
+        kubectl delete ns asm
+
+}
+
 
 runFinalSanityCheck () {
 
@@ -936,7 +983,6 @@ runFinalSanityCheck () {
    fi
 
      logMsg "Sanity Passed"
-     logMsg "If you want a Biz Service modeled  - go to OIServiceScript folder and run Domain Specific (Banking, Telco, Insurance) OI script"
      logMsg ""
 
 	cd -

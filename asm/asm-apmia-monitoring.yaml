@@ -25,16 +25,17 @@ spec:
               value: APM_MANAGER_CREDENTIAL
             - name: APMENV_INTROSCOPE_AGENT_ASM_USEREMAIL
               value: "ASM_USER_EMAIL"
-            - name: APMENV_INTROSCOPE_AGENT_EXTENSIONS_BUNDLES_BOOT_LOAD
-              value: AWS_BUNDLE_FOLDER
             - name: APMENV_INTROSCOPE_AGENT_ASM_APIPASSWORD
               value: ASM_API_PASSWORD
+            - name: APMENV_INTROSCOPE_AGENT_EXTENSIONS_BUNDLES_BOOT_LOAD
+              value: asm-monitor
+            # ASM agent cannot change
             - name: APMENV_INTROSCOPE_AGENT_AGENTNAME
-              value: apmia_asm_agent
+              value: "App Synthetic Monitor Agent"
             - name: APMENV_INTROSCOPE_AGENT_HOSTNAME
               value: apmia_asm_monitoring
             - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_INTERVAL
-              value: "60"
+              value: "15"
           name: apmia_asm
           image: srikns/ca-asm:latest
           imagePullPolicy: Always
