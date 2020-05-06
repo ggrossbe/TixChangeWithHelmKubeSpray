@@ -1,13 +1,7 @@
-Automated TixChange Version: 20.3.0
-Release Date: Apr 27, 2020
+Automated TixChange Version: 20.3.1
+Release Date: May 6, 2020
 Key features in this release:
-  Log Collector - rsyslog is integrated and reports k8s and tomcat logs to your tenant automatically
-  Business Process Analysizer: BPA Integrated for uc1.jtixchange.com
-  Mobile (iOS) Support for Mobile->AXA-> APM use cases 
-  OI Service Model: gets automatically created. No more manual run of service creation script
-  Takes care of major docker download issue due to the change of docker yum download repo
-  Mobile Mgmt Mod
-  New Domain (Telco, Banking, Insurance) based perspective create 
-  Fix Trxn Trace API issue
+  ASM - added ASM Integration
+  OI Service Model: updated to include availability from ASM
 
 https://cawiki.ca.com/display/SASWAT/Automated+Tixchange+in+K8s+-+V2.0
