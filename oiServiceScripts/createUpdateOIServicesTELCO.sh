@@ -246,15 +246,7 @@ curl -v -X POST \
         "tags": [],
         "location": "",
         "description": "",
-        "customProperties": [],
-         "metrics": [
-          {
-            "type": "availability",
-            "sourceName": "ASM_AGENT_NAME",
-            "attributeName": "ASM_METRIC_NAME",
-            "threshold": 0.5
-          }
-        ]
+        "customProperties": []
       },
       "externalId": "EMEA_Provisioning"
     },
@@ -465,13 +457,15 @@ curl -X POST \
                                 "attributeName": "hostname",
                 "attributeValue": "EMEA_DB_HOST_POD_NAME"
         }]
-    },{
-        "metrics": [{
-                 "type": "availability",
-                "sourceName": "ASM_AGENT_NAME",
-                "attributeValue": "ASM_METRIC_NAME"
-        }]
-    }]
+    }],
+   "metrics": [
+    {
+      "type": "availability",
+      "sourceName": "ASM_AGENT_NAME"
+      "attributeName": "ASM_METRIC_NAME"
+      "threshold": 0.5
+     }
+     ]
 }'
 
 
