@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<hudson.plugins.blazemeter.BlazeMeterPerformanceBuilderDescriptor plugin="BlazeMeterJenkinsPlugin@4.7">
+  <NO__CREDENTIALS>No Credentials</NO__CREDENTIALS>
+  <NO__WORKSPACE>No Workspace</NO__WORKSPACE>
+  <SELECT__WORKSPACE>Select workspace</SELECT__WORKSPACE>
+  <SELECT__TEST>Select test</SELECT__TEST>
+  <NO__TESTS__IN__WORKSPACE>No tests in workspace</NO__TESTS__IN__WORKSPACE>
+  <NO__WORKSPACES__IN__ACCOUNT>No workspaces in account</NO__WORKSPACES__IN__ACCOUNT>
+  <CHECK__CREDENTIALS__PROXY>Check credentials, proxy settings</CHECK__CREDENTIALS__PROXY>
+  <blazeMeterURL>https://a.blazemeter.com</blazeMeterURL>
+  <isUnstableIfHasFails>false</isUnstableIfHasFails>
+  <name>My BlazeMeter Account</name>
+</hudson.plugins.blazemeter.BlazeMeterPerformanceBuilderDescriptor>

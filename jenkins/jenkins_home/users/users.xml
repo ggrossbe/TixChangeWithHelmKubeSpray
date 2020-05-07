@@ -1,0 +1,14 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<hudson.model.UserIdMapper>
+  <version>1</version>
+  <idToDirectoryNameMap class="concurrent-hash-map">
+    <entry>
+      <string>admin</string>
+      <string>admin_7522335765922603986</string>
+    </entry>
+    <entry>
+      <string>noreply@github.gwd.broadcom.net</string>
+      <string>noreplygithubg_4655405200942029595</string>
+    </entry>
+  </idToDirectoryNameMap>
+</hudson.model.UserIdMapper>

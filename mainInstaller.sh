@@ -109,6 +109,9 @@ case $OPTION in
      setup 2
      setupAWSMonitoring
 
+     setup 2
+     setupASMMonitoring
+
      sleep 2
      createUpdateOIServices create
 
@@ -172,7 +175,10 @@ case $OPTION in
      installAndConfigureSelenium
 
     
+     sleep 2
      setupAWSMonitoring
+     sleep 2
+     setupASMMonitoring
     
      configureEM em1
      configureEM em2
