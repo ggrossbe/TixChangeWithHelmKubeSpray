@@ -34,8 +34,6 @@ spec:
               value: "App Synthetic Monitor Agent"
             - name: APMENV_INTROSCOPE_AGENT_HOSTNAME
               value: apmia_asm_monitoring
-            - name: APMENV_INTROSCOPE_AGENT_AWS_PROFILES_AWS_INTERVAL
-              value: "15"
           name: apmia-asm
           image: srikns/ca-asm:latest
           imagePullPolicy: Always
