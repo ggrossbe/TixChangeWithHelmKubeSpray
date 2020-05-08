@@ -461,8 +461,8 @@ curl -X POST \
    "metrics": [
     {
       "type": "availability",
-      "sourceName": "ASM_AGENT_NAME"
-      "attributeName": "ASM_METRIC_NAME"
+      "sourceName": "ASM_AGENT_NAME",
+      "attributeName": "ASM_METRIC_NAME",
       "threshold": 0.5
      }
      ]
