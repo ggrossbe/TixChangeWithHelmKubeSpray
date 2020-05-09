@@ -490,7 +490,7 @@ echo ""
 
 }
 
-echo "***** create update OI services - $1 and  OI_TOKEN and EMEA_DB_HOST_POD_NAME - EMEA_DB_HOST_POD_NAME"
+echo "***** create update OI services - $1 and  OI_TOKEN and EMEA_DB_HOST_POD_NAME - $EMEA_DB_HOST_POD_NAME"
 
 
 if [ X"$CREATE_UPDATE" == "Xcreate" ]; then
