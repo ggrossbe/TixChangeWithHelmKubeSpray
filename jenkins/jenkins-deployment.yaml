@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: jenkins
-        image: jenkins/jenkins:lts
+        image: srikns/jenkins:latest
         env:
         - name: CA_APM_MONITORING_ENABLED
           value: "false"
@@ -25,7 +25,13 @@ spec:
         volumeMounts:
           - name: jenkins-home
             mountPath: /var/jenkins_home
+          - name: kube-config
+            mountPath: /root/.kube/
       volumes:
+        - name: kube-config
+          hostPath: 
+            path: /root/.kube/
+            type: Directory 
         - name: jenkins-home
           hostPath: 
             path: /root/TixChangeWithHelmKubeSpray/jenkins/jenkins_home
