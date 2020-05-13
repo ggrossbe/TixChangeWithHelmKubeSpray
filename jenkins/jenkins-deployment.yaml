@@ -25,6 +25,8 @@ spec:
         volumeMounts:
           - name: jenkins-home
             mountPath: /var/jenkins_home
+          - name: selenium
+            mountPath: /root/selenium
           - name: kube-config
             mountPath: /root/.kube/
       volumes:
@@ -35,6 +37,10 @@ spec:
         - name: jenkins-home
           hostPath: 
             path: /root/TixChangeWithHelmKubeSpray/jenkins/jenkins_home
+            type: Directory 
+        - name: selenium 
+          hostPath: 
+            path: /opt/ca/TixChangeK8sDemo/selenium/
             type: Directory 
       nodeSelector:
         kubernetes.io/hostname: node1
