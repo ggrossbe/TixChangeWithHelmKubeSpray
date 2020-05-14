@@ -13,6 +13,7 @@ LOG_COLL_FOLDER=logcollector
 BPA_FOLDER=bpa
 OI_SCRIPTS_FOLDER=oiServiceScripts
 SELENIUM_STND_ALN_YML=selenium-standalone.yml
+SELENIUM_STND_ALN_SLOW_YML=selenium-standalone-slow.yml
 KUBESPRAY_FOLDER=kubespray
 TIXCHANGE_FOLDER=tixChangeHelm
 HELM_FOLDER=helmInstaller
@@ -21,6 +22,7 @@ UMA_FOLDER=uma
 AWS_FOLDER=aws
 SELENIUM_FOLDER=selenium
 SELENIUM_UC=runSeleniumUC
+SELENIUM_UC_SLOW=runSeleniumUC.slow
 #For now keeping this as UC1 as all scripts are in UC1
 #SELENIUM_UC2=runSeleniumUC1
 UC1_URL=uc1.jtixchange.com
@@ -309,11 +311,12 @@ stopDeleteSelenium () {
          logMsg "Deleting Selenium"
          
          kubectl delete -f $SELENIUM_STND_ALN_YML -n selenium 
+         kubectl delete -f $SELENIUM_STND_ALN_SLOW_YML -n selenium 
 
          kubectl delete ns selenium
 
          cd ..
-         rm -rf $SELENIUM_FOLDER
+         rm -rf $SELENIUM_FOLDER/*
                 
          sleep 5
                 
@@ -570,6 +573,9 @@ installAndConfigureSelenium () {
   sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC
   sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $SELENIUM_UC
 
+  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC_SLOW
+  sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $SELENIUM_UC_SLOW
+
    
    TIXCHANGE_WEB_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep tix-web`
    TIXCHANGE_WS_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep tix-ws`
@@ -587,6 +593,7 @@ installAndConfigureSelenium () {
     kubectl create ns selenium
   sleep 2
    sed -i 's/HOST_IP/'$TIX_IP'/' $SELENIUM_STND_ALN_YML
+   sed -i 's/HOST_IP/'$TIX_IP'/' $SELENIUM_STND_ALN_SLOW_YML
   kubectl create -f $SELENIUM_STND_ALN_YML -n selenium
 
   sleep 10
