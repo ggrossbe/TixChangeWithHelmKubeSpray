@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: selenium-standalone
+  name: selenium-standalone-slow
   #namespace: selenium
   labels:
-    app: selenium-standalone
+    app: selenium-standalone-slow
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: selenium-standalone
+      app: selenium-standalone-slow
   template:
     metadata:
       labels:
-        app: selenium-standalone
+        app: selenium-standalone-slow
     spec:
       volumes:
       - name: seleniumfolder
@@ -25,7 +25,7 @@ spec:
         - "uc1.jtixchange.com"
         - "uc2.jtixchange.com"
       containers:
-      - name: selenium-standalone
+      - name: selenium-standalone-slow
         image: srikns/selenium-standalone:2.0
         imagePullPolicy: Always
         #image: selenium/node-chrome:3.141.59-oxygen
