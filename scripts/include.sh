@@ -8,6 +8,7 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 
 INSTALL_SCRIPT_FOLDER=$PWD/$SCRIPTS_FOLDER/..
 
+JENKINS_FOLDER=jenkins
 ASM_FOLDER=asm
 LOG_COLL_FOLDER=logcollector
 BPA_FOLDER=bpa
@@ -338,6 +339,7 @@ stopDeleteSelenium () {
 
 stopDeleteAll () {
 
+  removeJenkins
   stopDeleteSelenium
   #stopDeleteBPA
   stopDeleteTixChange
@@ -359,6 +361,7 @@ stopDeleteAll () {
 
 stopDeleteAppComponents () {
 
+  removeJenkins
   stopDeleteSelenium
   #stopDeleteBPA
   stopDeleteTixChange
@@ -376,7 +379,7 @@ Usage () {
   echo "Options: "
   echo "  a : install all (K8s,Helm, UMA, TixChange, BPA Selenium, EM side - Universes, Exp View, Mgmt Mod)"
   #echo "  p : run the pre-req"
-   echo "  r : re-install & run just app components (helm, uma, tixchange, BPA, AWS, ASM, selenium, EM side - Universes, Exp View, Mgmt Mod)"
+   echo "  r : re-install & run just app components (helm, uma, tixchange, BPA, AWS, ASM, Jenkins, selenium, EM side - Universes, Exp View, Mgmt Mod)"
    echo "  u : install & run just uma"
    echo "  t : install & run just tixChange"
   echo "  s : install & run just selenium"
@@ -385,6 +388,7 @@ Usage () {
   echo "  r_ut : remove UMA and TixChange - to deploy them manually for Say for a demo"
   echo "  o : Create Domain Based (Telco, Banking, Insurance) OI Service Model "
   echo "  l : Setup log Collector"
+  echo "  j : Setup Jenkins"
   echo "  c : cleanup and unintsall everything"
 
 }
@@ -774,6 +778,42 @@ setupASMMonitoring () {
 
    fi
 }
+
+
+setupJenkins () {
+    logMsg "Setting up Jenkins - pls wait"
+
+     cd $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER
+
+     if [ -d $INSTALLATION_FOLDER/$JENKINS_FOLDER ]; then
+       rm -rf $INSTALLATION_FOLDER/$JENKINS_FOLDER
+     fi
+
+     mkdir -p $INSTALLATION_FOLDER/$JENKINS_FOLDER   
+
+    cp -rf * $INSTALLATION_FOLDER/$JENKINS_FOLDER
+
+    kubectl create ns jenkins
+    kubectl create -f $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins-deployment.yaml -n jenkins
+
+   cd -
+}
+
+
+removeJenkins () {
+  
+   
+     logMsg "Removing  Jenkins - pls wait"
+
+
+     if [ -d $INSTALLATION_FOLDER/$JENKINS_FOLDER ]; then
+          kubectl delete -f $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins-deployment.yaml -n jenkins
+          rm -rf $INSTALLATION_FOLDER/$JENKINS_FOLDER
+     fi
+        kubectl delete ns jenkins
+
+}
+
 
 
 createUpdateOIServices () {
