@@ -1,7 +1,8 @@
 Automated TixChange Version: 20.3.1
 Release Date: May 6, 2020
 Key features in this release:
-  ASM - added ASM Integration
+  Jenkins - Fully pre-configured (include CA APM Plugin, pipleline project etc ) for DevOps UC
+  ASM - added ASM Integration for OI Availability
   OI Service Model: updated to include availability from ASM
 
 https://cawiki.ca.com/display/SASWAT/Automated+Tixchange+in+K8s+-+V2.0
