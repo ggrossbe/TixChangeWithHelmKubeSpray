@@ -29,6 +29,8 @@ spec:
             mountPath: /root/selenium
           - name: kube-config
             mountPath: /root/.kube/
+          - name: ssh
+            mountPath: /root/.ssh/
       volumes:
         - name: kube-config
           hostPath: 
@@ -42,6 +44,10 @@ spec:
           hostPath: 
             path: /opt/ca/TixChangeK8sDemo/selenium/
             type: Directory 
+        - name: ssh
+          hostPath:
+            path: /opt/ca/TixChangeK8sDemo/jenkins/jenkins_ssh
+            type: Directory
       nodeSelector:
         kubernetes.io/hostname: node1
 ---

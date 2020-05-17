@@ -420,11 +420,25 @@ curl -X POST \
   -H 'cache-control: no-cache' \
   -d '{
     "serviceContent": [{
-            "query": [
-              {
-                "attributeName": "applicationName",
-                "attributeValue": "Provisioning"
-              }]
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "TxChangeWeb_UC1|tomcat|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "TxChangeSvc_UC1|tomcat|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "node2|apmiaMySQL_UC1|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "hostname",
+                "attributeValue": "NA_DB_HOST_POD_NAME"
+        }]
     }]
 }'
 
@@ -489,7 +503,7 @@ curl -X POST \
 echo ""
 }
 
-echo "***** create update OI services - $1 and  OI_TOKEN and EMEA_DB_HOST_POD_NAME - $EMEA_DB_HOST_POD_NAME"
+echo "***** create update OI services - $1 and  OI_TOKEN and EMEA_DB_HOST_POD_NAME - $EMEA_DB_HOST_POD_NAME, NA_DB_HOST_POD_NAME is $NA_DB_HOST_POD_NAME"
 
 
 if [ X"$CREATE_UPDATE" == "Xcreate" ]; then
