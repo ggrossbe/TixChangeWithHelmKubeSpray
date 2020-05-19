@@ -1,0 +1,441 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-build plugin="workflow-job@2.39">
+  <actions>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.model.Cause_-UserIdCause>
+            <userId>admin</userId>
+          </hudson.model.Cause_-UserIdCause>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <hudson.plugins.git.util.BuildData plugin="git@4.2.2">
+      <buildsByBranchName>
+        <entry>
+          <string>refs/remotes/origin/master</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@3.2.1">
+              <sha1>243df36ed8001f0bedcbbf2d4cc003c3437d92f5</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>refs/remotes/origin/master</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision reference="../marked"/>
+            <hudsonBuildNumber>1</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry/hudson.plugins.git.util.Build"/>
+      <remoteUrls>
+        <string>git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git</string>
+      </remoteUrls>
+    </hudson.plugins.git.util.BuildData>
+    <hudson.plugins.git.GitTagAction plugin="git@4.2.2">
+      <tags class="hudson.util.CopyOnWriteMap$Tree">
+        <entry>
+          <string>refs/remotes/origin/master</string>
+          <list/>
+        </entry>
+      </tags>
+      <ws>/var/jenkins_home/workspace/MobileProvisioningService@script</ws>
+    </hudson.plugins.git.GitTagAction>
+    <org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState plugin="workflow-scm-step@2.11">
+      <revisionStates>
+        <entry>
+          <string>git git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git</string>
+          <hudson.scm.SCMRevisionState_-None/>
+        </entry>
+      </revisionStates>
+    </org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState>
+    <org.jenkinsci.plugins.workflow.libs.LibrariesAction plugin="workflow-cps-global-lib@2.16">
+      <libraries/>
+    </org.jenkinsci.plugins.workflow.libs.LibrariesAction>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.ExecutionModelAction plugin="pipeline-model-definition@1.6.0">
+      <stagesUUID>64d76882-855e-436b-9e39-b1241a002648</stagesUUID>
+      <pipelineDefs>
+        <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef plugin="pipeline-model-api@1.6.0">
+          <stages>
+            <stages>
+              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+                <name>build</name>
+                <branches>
+                  <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+                    <name>default</name>
+                    <steps>
+                      <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock>
+                        <name>script</name>
+                        <args class="org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTNamedArgumentList">
+                          <arguments class="linked-hash-map">
+                            <entry>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                                <key>scriptBlock</key>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                                <value class="string">echo &quot;Maven Build&quot;
+            sleep(time:15,unit:&quot;SECONDS&quot;)</value>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                            </entry>
+                          </arguments>
+                        </args>
+                      </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock>
+                    </steps>
+                  </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+                </branches>
+              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+                <name>deploy</name>
+                <branches>
+                  <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+                    <name>default</name>
+                    <steps>
+                      <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock>
+                        <name>script</name>
+                        <args class="org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTNamedArgumentList">
+                          <arguments class="linked-hash-map">
+                            <entry>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                                <key>scriptBlock</key>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                                <value class="string">echo &quot;Maven deploy&quot;
+            sleep(time:25,unit:&quot;SECONDS&quot;)</value>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                            </entry>
+                          </arguments>
+                        </args>
+                      </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock>
+                    </steps>
+                  </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+                </branches>
+              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+                <name>Selenium</name>
+                <branches>
+                  <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+                    <name>default</name>
+                    <steps>
+                      <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock>
+                        <name>script</name>
+                        <args class="org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTNamedArgumentList">
+                          <arguments class="linked-hash-map">
+                            <entry>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                                <key>scriptBlock</key>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                                <value class="string">dir (&quot;/root/selenium&quot;) {
+            echo &quot;running Selenium Test&quot;
+           sh &quot;kubectl create -f selenium-standalone-slow.yml -n selenium&quot;
+             sleep(time:10,unit:&quot;SECONDS&quot;)
+             
+            loadGeneratorName = env.STAGE_NAME;
+            loadGeneratorStartTime = System.currentTimeMillis();
+            blazeMeterTest credentialsId:&apos;aa2b41eb-23f3-4045-afe5-374a0b28d202&apos;,
+            serverUrl:&apos;https://blazemeter.ca.com&apos;,
+            //testId:&apos;6518001&apos;,
+            testId: &apos;8026832&apos;,
+            notes:&apos;&apos;,
+            sessionProperties:&apos;&apos;,
+            jtlPath:&apos;&apos;,
+            junitPath:&apos;&apos;,
+            getJtl:false,
+            getJunit:false
+            loadGeneratorEndTime = System.currentTimeMillis();
+
+                         map = [jenkinsPluginName: &quot;CAAPM&quot;];
+             
+           sleep(time:6,unit:&quot;SECONDS&quot;)
+             
+           sh &quot;kubectl delete -f selenium-standalone-slow.yml -n selenium&quot;
+             echo &quot;Done Blazemeter Test&quot;
+         }</value>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-ConstantValue>
+                            </entry>
+                          </arguments>
+                        </args>
+                      </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTScriptBlock>
+                    </steps>
+                  </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+                </branches>
+              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+                <name>CAAPMPerformanceComparator</name>
+                <branches>
+                  <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+                    <name>default</name>
+                    <steps>
+                      <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStep>
+                        <name>caapmplugin</name>
+                        <args class="org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTNamedArgumentList">
+                          <arguments class="linked-hash-map">
+                            <entry>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                                <key>performanceComparatorProperties</key>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-GStringValue>
+                                <value class="string">&quot;${env.WORKSPACE}/caapm-performance-comparator/properties/performance-comparator.properties&quot;</value>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-GStringValue>
+                            </entry>
+                            <entry>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                                <key>loadGeneratorStartTime</key>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-GStringValue>
+                                <value class="string">&quot;${loadGeneratorStartTime}&quot;</value>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-GStringValue>
+                            </entry>
+                            <entry>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                                <key>loadGeneratorEndTime</key>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-GStringValue>
+                                <value class="string">&quot;$loadGeneratorEndTime&quot;</value>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-GStringValue>
+                            </entry>
+                            <entry>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                                <key>loadGeneratorName</key>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-GStringValue>
+                                <value class="string">&quot;$loadGeneratorName&quot;</value>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-GStringValue>
+                            </entry>
+                            <entry>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                                <key>attribsStr</key>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTKey>
+                              <org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-GStringValue>
+                                <value class="string">&quot;$map&quot;</value>
+                              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTValue_-GStringValue>
+                            </entry>
+                          </arguments>
+                        </args>
+                      </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStep>
+                    </steps>
+                  </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTBranch>
+                </branches>
+              </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTStage>
+            </stages>
+            <uuid>64d76882-855e-436b-9e39-b1241a002648</uuid>
+          </stages>
+          <agent>
+            <agentType>
+              <key>any</key>
+            </agentType>
+          </agent>
+        </org.jenkinsci.plugins.pipeline.modeldefinition.ast.ModelASTPipelineDef>
+      </pipelineDefs>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.ExecutionModelAction>
+    <org.jenkinsci.plugins.workflow.cps.EnvActionImpl plugin="workflow-cps@2.80">
+      <env class="tree-map"/>
+    </org.jenkinsci.plugins.workflow.cps.EnvActionImpl>
+    <hudson.plugins.blazemeter.PerformanceBuildAction plugin="BlazeMeterJenkinsPlugin@4.7">
+      <run class="flow-build" reference="../../.."/>
+      <reportUrl>https://a.blazemeter.com/app/?public-token=kMlCBiuGedKjgXk3TspHWDZu7Pu4YE1HAQKUxvRl16prkrA4Ro#/masters/28488240/summary</reportUrl>
+      <linkName>BlazeMeter report: MobileProvisioni..</linkName>
+      <masterId>28488240</masterId>
+    </hudson.plugins.blazemeter.PerformanceBuildAction>
+    <hudson.model.ParametersAction>
+      <safeParameters class="sorted-set"/>
+      <parameters>
+        <hudson.model.StringParameterValue>
+          <name>jenkinsPluginName</name>
+          <value>CAAPM</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>GIT_COMMIT_MESSAGE</name>
+          <value>Update Jenkinsfile</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>loadGeneratorEndTime</name>
+          <value>1589858025610</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>loadGeneratorStartTime</name>
+          <value>1589857866656</value>
+        </hudson.model.StringParameterValue>
+      </parameters>
+      <parameterDefinitionNames class="empty-list"/>
+    </hudson.model.ParametersAction>
+  </actions>
+  <queueId>1</queueId>
+  <timestamp>1589857800262</timestamp>
+  <startTime>1589857800285</startTime>
+  <result>SUCCESS</result>
+  <duration>232329</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <execution class="org.jenkinsci.plugins.workflow.cps.CpsFlowExecution">
+    <result>SUCCESS</result>
+    <script>pipeline {
+ agent any
+ stages {
+    stage(&apos;build&apos;) {
+         steps{
+           script {
+            echo &quot;Maven Build&quot;
+            sleep(time:15,unit:&quot;SECONDS&quot;)
+           }
+         }
+    }
+    stage(&apos;deploy&apos;) {
+         steps{
+           script {
+            echo &quot;Maven deploy&quot;
+            sleep(time:25,unit:&quot;SECONDS&quot;)
+           }
+         }
+    }
+  /*
+    stage(&apos;Blazemeter&apos;){
+        steps{
+           script {
+            loadGeneratorName = env.STAGE_NAME;
+            loadGeneratorStartTime = System.currentTimeMillis();
+            blazeMeterTest credentialsId:&apos;ae0fe96b-5b1e-4c32-9dc6-06b219da766d&apos;,
+            serverUrl:&apos;https://blazemeter.ca.com&apos;,
+            //testId:&apos;6518001&apos;,
+            testId:&apos;7389604&apos;,
+            notes:&apos;&apos;,
+            sessionProperties:&apos;&apos;,
+            jtlPath:&apos;&apos;,
+            junitPath:&apos;&apos;,
+            getJtl:false,
+            getJunit:false
+            loadGeneratorEndTime = System.currentTimeMillis();
+
+                         map = [jenkinsPluginName: &quot;CAAPM&quot;];
+          }
+        }
+    }
+    */
+    
+    stage(&apos;Selenium&apos;) {
+         steps{
+           script {
+            dir (&quot;/root/selenium&quot;) {
+            echo &quot;running Selenium Test&quot;
+           sh &quot;kubectl create -f selenium-standalone-slow.yml -n selenium&quot;
+             sleep(time:10,unit:&quot;SECONDS&quot;)
+             
+            loadGeneratorName = env.STAGE_NAME;
+            loadGeneratorStartTime = System.currentTimeMillis();
+            blazeMeterTest credentialsId:&apos;aa2b41eb-23f3-4045-afe5-374a0b28d202&apos;,
+            serverUrl:&apos;https://blazemeter.ca.com&apos;,
+            //testId:&apos;6518001&apos;,
+            testId: &apos;8026832&apos;,
+            notes:&apos;&apos;,
+            sessionProperties:&apos;&apos;,
+            jtlPath:&apos;&apos;,
+            junitPath:&apos;&apos;,
+            getJtl:false,
+            getJunit:false
+            loadGeneratorEndTime = System.currentTimeMillis();
+
+                         map = [jenkinsPluginName: &quot;CAAPM&quot;];
+             
+           sleep(time:6,unit:&quot;SECONDS&quot;)
+             
+           sh &quot;kubectl delete -f selenium-standalone-slow.yml -n selenium&quot;
+             echo &quot;Done Blazemeter Test&quot;
+         } 
+        }
+      }
+    }
+  
+     
+    stage(&apos;CAAPMPerformanceComparator&apos;) {
+        steps { 
+             caapmplugin performanceComparatorProperties: &quot;${env.WORKSPACE}/caapm-performance-comparator/properties/performance-comparator.properties&quot;,
+              loadGeneratorStartTime: &quot;${loadGeneratorStartTime}&quot;,
+             loadGeneratorEndTime: &quot;$loadGeneratorEndTime&quot;,
+             loadGeneratorName: &quot;$loadGeneratorName&quot;,
+
+                            attribsStr: &quot;$map&quot;;
+        }
+    }  
+    
+  
+   /*  stage (&apos;Publish CA APM Comparison Reports&apos;) {
+        steps{
+      echo &quot; chart folder is ${env.BUILD_NUMBER}/&quot;
+      echo &quot; ....  ${env.JOB_NAME}/&quot;
+         
+         sleep(time:105,unit:&quot;SECONDS&quot;)
+
+     publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: false, reportDir: &quot;${env.BUILD_NUMBER}/&quot;, reportFiles: &apos;chart-output.html&apos;, reportName: &apos;CA APM Comparison Reports&apos;, reportTitles: &apos;&apos;])
+ }
+
+   } 
+ */
+   
+  }
+ }
+</script>
+    <loadedScripts class="map"/>
+    <durabilityHint>MAX_SURVIVABILITY</durabilityHint>
+    <timings class="map">
+      <entry>
+        <string>flowNode</string>
+        <long>573467326</long>
+      </entry>
+      <entry>
+        <string>classLoad</string>
+        <long>8002040381</long>
+      </entry>
+      <entry>
+        <string>run</string>
+        <long>7078886904</long>
+      </entry>
+      <entry>
+        <string>parse</string>
+        <long>2509577027</long>
+      </entry>
+      <entry>
+        <string>saveProgram</string>
+        <long>992610178</long>
+      </entry>
+    </timings>
+    <sandbox>true</sandbox>
+    <iota>60</iota>
+    <head>1:60</head>
+    <done>true</done>
+    <resumeBlocked>false</resumeBlocked>
+  </execution>
+  <completed>true</completed>
+  <checkouts class="hudson.util.PersistedList">
+    <org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+      <scm class="hudson.plugins.git.GitSCM" plugin="git@4.2.2">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git</url>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>*/master</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions/>
+      </scm>
+      <node></node>
+      <workspace>/var/jenkins_home/workspace/MobileProvisioningService@script</workspace>
+      <changelogFile>/var/jenkins_home/jobs/MobileProvisioningService/builds/1/changelog8859739549553004874.xml</changelogFile>
+      <pollingBaseline class="hudson.scm.SCMRevisionState$None" reference="../../../actions/org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState/revisionStates/entry/hudson.scm.SCMRevisionState_-None"/>
+    </org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+    <org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+      <scm class="hudson.plugins.git.GitSCM" reference="../../org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout/scm"/>
+      <node></node>
+      <workspace>/var/jenkins_home/workspace/MobileProvisioningService</workspace>
+      <pollingBaseline class="hudson.scm.SCMRevisionState$None" reference="../../../actions/org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState/revisionStates/entry/hudson.scm.SCMRevisionState_-None"/>
+    </org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+  </checkouts>
+</flow-build>

@@ -792,6 +792,7 @@ setupJenkins () {
      mkdir -p $INSTALLATION_FOLDER/$JENKINS_FOLDER   
 
     cp -rf * $INSTALLATION_FOLDER/$JENKINS_FOLDER
+    chmod 600 $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_ssh/*
 
     kubectl create ns jenkins
     kubectl create -f $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins-deployment.yaml -n jenkins

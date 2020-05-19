@@ -8,17 +8,12 @@
       <parameters/>
       <options/>
     </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
-    <org.jenkinsci.plugins.workflow.multibranch.JobPropertyTrackerAction plugin="workflow-multibranch@2.21">
-      <jobPropertyDescriptors>
-        <string>org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty</string>
-      </jobPropertyDescriptors>
-    </org.jenkinsci.plugins.workflow.multibranch.JobPropertyTrackerAction>
   </actions>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.30.0">
-      <projectUrl>https://github.gwd.broadcom.net/ESD/MobileProvisioningService.git/</projectUrl>
+      <projectUrl>https://github.gwd.broadcom.net/ESD/MobileProvisioningService/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
@@ -35,7 +30,7 @@
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
           <name>origin</name>
-          <refspec>+refs/heads/master:refs/remotes/origin/master</refspec>
+          <refspec>+refs/heads/master:refs/remotes/origin/master </refspec>
           <url>git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git</url>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>

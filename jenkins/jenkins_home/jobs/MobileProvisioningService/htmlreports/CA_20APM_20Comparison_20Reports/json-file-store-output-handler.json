@@ -1,0 +1,5170 @@
+{"strategy_results": [{
+ "result": {"result": {".*": {
+  "slowEntries": [
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 291,
+      "max": 291,
+      "count": 1,
+      "value": 291,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 339,
+      "max": 339,
+      "count": 1,
+      "value": 339,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 561,
+      "max": 561,
+      "count": 1,
+      "value": 561,
+      "frequency": 15000
+     },
+     {
+      "min": 287,
+      "max": 287,
+      "count": 1,
+      "value": 287,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1246,
+      "max": 1246,
+      "count": 1,
+      "value": 1246,
+      "frequency": 15000
+     },
+     {
+      "min": 255,
+      "max": 255,
+      "count": 1,
+      "value": 255,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 369,
+      "max": 369,
+      "count": 1,
+      "value": 369,
+      "frequency": 15000
+     },
+     {
+      "min": 279,
+      "max": 279,
+      "count": 1,
+      "value": 279,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 54.71,
+    "expectedValue": 195.36,
+    "actualValue": 302.25,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/viewProduct.shtml|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 341,
+      "max": 341,
+      "count": 1,
+      "value": 341,
+      "frequency": 15000
+     },
+     {
+      "min": 449,
+      "max": 449,
+      "count": 1,
+      "value": 449,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 263,
+      "max": 263,
+      "count": 1,
+      "value": 263,
+      "frequency": 15000
+     },
+     {
+      "min": 304,
+      "max": 304,
+      "count": 1,
+      "value": 304,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 265,
+      "max": 265,
+      "count": 1,
+      "value": 265,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 283,
+      "max": 283,
+      "count": 1,
+      "value": 283,
+      "frequency": 15000
+     },
+     {
+      "min": 244,
+      "max": 244,
+      "count": 1,
+      "value": 244,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 1,
+      "max": 8,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 5,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 22,
+      "count": 30,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 24,
+      "count": 15,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 6,
+      "count": 30,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 28,
+      "count": 30,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 3,
+      "max": 22,
+      "count": 15,
+      "value": 3,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 8,
+      "count": 30,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 3,
+      "max": 31,
+      "count": 30,
+      "value": 3,
+      "frequency": 15000
+     },
+     {
+      "min": 5,
+      "max": 34,
+      "count": 15,
+      "value": 5,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 10,
+      "count": 30,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 7,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 17.07,
+    "expectedValue": 1.64,
+    "actualValue": 1.92,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/signonForm.shtml_HTMLResources_uc1.jtixchange.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 2,
+      "max": 14,
+      "count": 15,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 3,
+      "max": 22,
+      "count": 15,
+      "value": 3,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 14,
+      "count": 30,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 8,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 3,
+      "max": 40,
+      "count": 30,
+      "value": 3,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 13,
+      "count": 30,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 11,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 18,
+      "count": 30,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 11,
+      "count": 30,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 11,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 14,
+      "count": 30,
+      "value": 1,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 3,
+      "max": 24,
+      "count": 21,
+      "value": 3,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 16,
+      "count": 42,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 16,
+      "count": 21,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 10,
+      "count": 42,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 3,
+      "max": 17,
+      "count": 42,
+      "value": 3,
+      "frequency": 15000
+     },
+     {
+      "min": 6,
+      "max": 25,
+      "count": 21,
+      "value": 6,
+      "frequency": 15000
+     },
+     {
+      "min": 3,
+      "max": 17,
+      "count": 42,
+      "value": 3,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 21,
+      "count": 42,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 8,
+      "max": 24,
+      "count": 21,
+      "value": 8,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 17,
+      "count": 42,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 13,
+      "count": 42,
+      "value": 2,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 15.51,
+    "expectedValue": 2.45,
+    "actualValue": 2.83,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/signon.shtml_HTMLResources_uc1.jtixchange.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 1,
+      "max": 11,
+      "count": 21,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 7,
+      "count": 21,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 3,
+      "max": 22,
+      "count": 42,
+      "value": 3,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 8,
+      "count": 21,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 3,
+      "max": 20,
+      "count": 42,
+      "value": 3,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 33,
+      "count": 42,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 3,
+      "max": 35,
+      "count": 21,
+      "value": 3,
+      "frequency": 15000
+     },
+     {
+      "min": 3,
+      "max": 23,
+      "count": 42,
+      "value": 3,
+      "frequency": 15000
+     },
+     {
+      "min": 3,
+      "max": 19,
+      "count": 21,
+      "value": 6,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 45,
+      "count": 42,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 11,
+      "count": 42,
+      "value": 1,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 2,
+      "max": 29,
+      "count": 15,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 8,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 12,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 9,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 7,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 4,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 7,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 7,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 16.67,
+    "expectedValue": 0.36,
+    "actualValue": 0.42,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/viewCategory.shtml_HTMLResources_uc1.jtixchange.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 1,
+      "max": 19,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 8,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 18,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 11,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 6,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 4,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 5,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 392,
+      "max": 392,
+      "count": 1,
+      "value": 392,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 238,
+      "max": 238,
+      "count": 1,
+      "value": 238,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 244,
+      "max": 244,
+      "count": 1,
+      "value": 244,
+      "frequency": 15000
+     },
+     {
+      "min": 243,
+      "max": 243,
+      "count": 1,
+      "value": 243,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 200,
+      "max": 200,
+      "count": 1,
+      "value": 200,
+      "frequency": 15000
+     },
+     {
+      "min": 258,
+      "max": 258,
+      "count": 1,
+      "value": 258,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 220,
+      "max": 220,
+      "count": 1,
+      "value": 220,
+      "frequency": 15000
+     },
+     {
+      "min": 1162,
+      "max": 1162,
+      "count": 1,
+      "value": 1162,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 50.84,
+    "expectedValue": 163.36,
+    "actualValue": 246.42,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/addItemToCart.shtml|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 259,
+      "max": 259,
+      "count": 1,
+      "value": 259,
+      "frequency": 15000
+     },
+     {
+      "min": 247,
+      "max": 247,
+      "count": 1,
+      "value": 247,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 328,
+      "max": 328,
+      "count": 1,
+      "value": 328,
+      "frequency": 15000
+     },
+     {
+      "min": 279,
+      "max": 279,
+      "count": 1,
+      "value": 279,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 250,
+      "max": 250,
+      "count": 1,
+      "value": 250,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 220,
+      "max": 220,
+      "count": 1,
+      "value": 220,
+      "frequency": 15000
+     },
+     {
+      "min": 214,
+      "max": 214,
+      "count": 1,
+      "value": 214,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 1598,
+      "max": 1598,
+      "count": 1,
+      "value": 1598,
+      "frequency": 15000
+     },
+     {
+      "min": 310,
+      "max": 310,
+      "count": 1,
+      "value": 310,
+      "frequency": 15000
+     },
+     {
+      "min": 305,
+      "max": 356,
+      "count": 2,
+      "value": 330,
+      "frequency": 15000
+     },
+     {
+      "min": 344,
+      "max": 344,
+      "count": 1,
+      "value": 344,
+      "frequency": 15000
+     },
+     {
+      "min": 311,
+      "max": 312,
+      "count": 2,
+      "value": 311,
+      "frequency": 15000
+     },
+     {
+      "min": 298,
+      "max": 332,
+      "count": 2,
+      "value": 315,
+      "frequency": 15000
+     },
+     {
+      "min": 319,
+      "max": 319,
+      "count": 1,
+      "value": 319,
+      "frequency": 15000
+     },
+     {
+      "min": 255,
+      "max": 323,
+      "count": 2,
+      "value": 289,
+      "frequency": 15000
+     },
+     {
+      "min": 435,
+      "max": 538,
+      "count": 2,
+      "value": 486,
+      "frequency": 15000
+     },
+     {
+      "min": 292,
+      "max": 292,
+      "count": 1,
+      "value": 292,
+      "frequency": 15000
+     },
+     {
+      "min": 319,
+      "max": 353,
+      "count": 2,
+      "value": 336,
+      "frequency": 15000
+     },
+     {
+      "min": 336,
+      "max": 336,
+      "count": 1,
+      "value": 336,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 12.73,
+    "expectedValue": 389.27,
+    "actualValue": 438.83,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/signonForm.shtml|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 159,
+      "max": 159,
+      "count": 1,
+      "value": 159,
+      "frequency": 15000
+     },
+     {
+      "min": 286,
+      "max": 286,
+      "count": 1,
+      "value": 286,
+      "frequency": 15000
+     },
+     {
+      "min": 293,
+      "max": 373,
+      "count": 2,
+      "value": 333,
+      "frequency": 15000
+     },
+     {
+      "min": 330,
+      "max": 330,
+      "count": 1,
+      "value": 330,
+      "frequency": 15000
+     },
+     {
+      "min": 317,
+      "max": 349,
+      "count": 2,
+      "value": 333,
+      "frequency": 15000
+     },
+     {
+      "min": 265,
+      "max": 278,
+      "count": 2,
+      "value": 271,
+      "frequency": 15000
+     },
+     {
+      "min": 316,
+      "max": 316,
+      "count": 1,
+      "value": 316,
+      "frequency": 15000
+     },
+     {
+      "min": 277,
+      "max": 1445,
+      "count": 2,
+      "value": 861,
+      "frequency": 15000
+     },
+     {
+      "min": 273,
+      "max": 877,
+      "count": 2,
+      "value": 575,
+      "frequency": 15000
+     },
+     {
+      "min": 520,
+      "max": 520,
+      "count": 1,
+      "value": 520,
+      "frequency": 15000
+     },
+     {
+      "min": 287,
+      "max": 309,
+      "count": 2,
+      "value": 298,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 494,
+      "count": 2,
+      "value": 247,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 492,
+      "count": 2,
+      "value": 246,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 742,
+      "count": 4,
+      "value": 333,
+      "frequency": 15000
+     },
+     {
+      "min": 575,
+      "max": 582,
+      "count": 2,
+      "value": 578,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 786,
+      "count": 3,
+      "value": 262,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 582,
+      "count": 4,
+      "value": 290,
+      "frequency": 15000
+     },
+     {
+      "min": 584,
+      "max": 584,
+      "count": 1,
+      "value": 584,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 511,
+      "count": 4,
+      "value": 250,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 500,
+      "count": 3,
+      "value": 332,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 587,
+      "count": 2,
+      "value": 293,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 589,
+      "count": 4,
+      "value": 291,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 492,
+      "count": 2,
+      "value": 246,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 68.97,
+    "expectedValue": 194.91,
+    "actualValue": 329.33,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/index.shtml_HTMLResources_ajax.googleapis.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 581,
+      "count": 2,
+      "value": 290,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 579,
+      "count": 2,
+      "value": 289,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 103,
+      "count": 4,
+      "value": 51,
+      "frequency": 15000
+     },
+     {
+      "min": 95,
+      "max": 95,
+      "count": 1,
+      "value": 95,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 93,
+      "count": 3,
+      "value": 30,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 603,
+      "count": 3,
+      "value": 394,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 578,
+      "count": 2,
+      "value": 289,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 102,
+      "count": 4,
+      "value": 47,
+      "frequency": 15000
+     },
+     {
+      "min": 104,
+      "max": 127,
+      "count": 2,
+      "value": 115,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 747,
+      "count": 3,
+      "value": 249,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 604,
+      "count": 4,
+      "value": 295,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1362,
+      "max": 1362,
+      "count": 1,
+      "value": 1362,
+      "frequency": 15000
+     },
+     {
+      "min": 306,
+      "max": 306,
+      "count": 1,
+      "value": 306,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 248,
+      "max": 248,
+      "count": 1,
+      "value": 248,
+      "frequency": 15000
+     },
+     {
+      "min": 301,
+      "max": 301,
+      "count": 1,
+      "value": 301,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 230,
+      "max": 230,
+      "count": 1,
+      "value": 230,
+      "frequency": 15000
+     },
+     {
+      "min": 285,
+      "max": 285,
+      "count": 1,
+      "value": 285,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 255,
+      "max": 255,
+      "count": 1,
+      "value": 255,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 6.67,
+    "expectedValue": 233.36,
+    "actualValue": 248.92,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/newOrderForm.shtml|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 508,
+      "max": 508,
+      "count": 1,
+      "value": 508,
+      "frequency": 15000
+     },
+     {
+      "min": 390,
+      "max": 390,
+      "count": 1,
+      "value": 390,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 313,
+      "max": 313,
+      "count": 1,
+      "value": 313,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 573,
+      "max": 573,
+      "count": 1,
+      "value": 573,
+      "frequency": 15000
+     },
+     {
+      "min": 269,
+      "max": 269,
+      "count": 1,
+      "value": 269,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 279,
+      "max": 279,
+      "count": 1,
+      "value": 279,
+      "frequency": 15000
+     },
+     {
+      "min": 235,
+      "max": 235,
+      "count": 1,
+      "value": 235,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   }
+  ],
+  "successEntries": [
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 409,
+      "max": 409,
+      "count": 1,
+      "value": 409,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 261,
+      "max": 261,
+      "count": 1,
+      "value": 261,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 212,
+      "max": 212,
+      "count": 1,
+      "value": 212,
+      "frequency": 15000
+     },
+     {
+      "min": 266,
+      "max": 266,
+      "count": 1,
+      "value": 266,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 206,
+      "max": 206,
+      "count": 1,
+      "value": 206,
+      "frequency": 15000
+     },
+     {
+      "min": 228,
+      "max": 228,
+      "count": 1,
+      "value": 228,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 274,
+      "max": 274,
+      "count": 1,
+      "value": 274,
+      "frequency": 15000
+     },
+     {
+      "min": 268,
+      "max": 268,
+      "count": 1,
+      "value": 268,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": -5.76,
+    "expectedValue": 187.82,
+    "actualValue": 177,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/viewItem.shtml|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 356,
+      "max": 356,
+      "count": 1,
+      "value": 356,
+      "frequency": 15000
+     },
+     {
+      "min": 287,
+      "max": 287,
+      "count": 1,
+      "value": 287,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 320,
+      "max": 320,
+      "count": 1,
+      "value": 320,
+      "frequency": 15000
+     },
+     {
+      "min": 238,
+      "max": 238,
+      "count": 1,
+      "value": 238,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 247,
+      "max": 247,
+      "count": 1,
+      "value": 247,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 393,
+      "max": 393,
+      "count": 1,
+      "value": 393,
+      "frequency": 15000
+     },
+     {
+      "min": 225,
+      "max": 225,
+      "count": 1,
+      "value": 225,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 500,
+      "max": 500,
+      "count": 1,
+      "value": 500,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 377,
+      "max": 6976,
+      "count": 2,
+      "value": 3676,
+      "frequency": 15000
+     },
+     {
+      "min": 6668,
+      "max": 6668,
+      "count": 1,
+      "value": 6668,
+      "frequency": 15000
+     },
+     {
+      "min": 358,
+      "max": 7363,
+      "count": 2,
+      "value": 3860,
+      "frequency": 15000
+     },
+     {
+      "min": 342,
+      "max": 7143,
+      "count": 2,
+      "value": 3742,
+      "frequency": 15000
+     },
+     {
+      "min": 7169,
+      "max": 7169,
+      "count": 1,
+      "value": 7169,
+      "frequency": 15000
+     },
+     {
+      "min": 248,
+      "max": 6920,
+      "count": 2,
+      "value": 3584,
+      "frequency": 15000
+     },
+     {
+      "min": 736,
+      "max": 6535,
+      "count": 2,
+      "value": 3635,
+      "frequency": 15000
+     },
+     {
+      "min": 7041,
+      "max": 7041,
+      "count": 1,
+      "value": 7041,
+      "frequency": 15000
+     },
+     {
+      "min": 1102,
+      "max": 6602,
+      "count": 2,
+      "value": 3852,
+      "frequency": 15000
+     },
+     {
+      "min": 311,
+      "max": 6888,
+      "count": 2,
+      "value": 3599,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": -15.61,
+    "expectedValue": 4673.27,
+    "actualValue": 3943.83,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/signon.shtml|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 370,
+      "max": 370,
+      "count": 1,
+      "value": 370,
+      "frequency": 15000
+     },
+     {
+      "min": 6881,
+      "max": 6881,
+      "count": 1,
+      "value": 6881,
+      "frequency": 15000
+     },
+     {
+      "min": 1576,
+      "max": 7309,
+      "count": 2,
+      "value": 4442,
+      "frequency": 15000
+     },
+     {
+      "min": 7117,
+      "max": 7117,
+      "count": 1,
+      "value": 7117,
+      "frequency": 15000
+     },
+     {
+      "min": 507,
+      "max": 6929,
+      "count": 2,
+      "value": 3718,
+      "frequency": 15000
+     },
+     {
+      "min": 350,
+      "max": 6980,
+      "count": 2,
+      "value": 3665,
+      "frequency": 15000
+     },
+     {
+      "min": 7205,
+      "max": 7205,
+      "count": 1,
+      "value": 7205,
+      "frequency": 15000
+     },
+     {
+      "min": 364,
+      "max": 6934,
+      "count": 2,
+      "value": 3649,
+      "frequency": 15000
+     },
+     {
+      "min": 6848,
+      "max": 6848,
+      "count": 1,
+      "value": 6848,
+      "frequency": 15000
+     },
+     {
+      "min": 413,
+      "max": 7024,
+      "count": 2,
+      "value": 3718,
+      "frequency": 15000
+     },
+     {
+      "min": 431,
+      "max": 7155,
+      "count": 2,
+      "value": 3793,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 0,
+    "expectedValue": 0,
+    "actualValue": 0,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/newOrder.shtml_HTMLResources_uc1.jtixchange.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 0,
+    "expectedValue": 0,
+    "actualValue": 0,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/addItemToCart.shtml_HTMLResources_ajax.googleapis.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 269,
+      "max": 269,
+      "count": 1,
+      "value": 269,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 273,
+      "max": 273,
+      "count": 1,
+      "value": 273,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 203,
+      "max": 203,
+      "count": 1,
+      "value": 203,
+      "frequency": 15000
+     },
+     {
+      "min": 219,
+      "max": 219,
+      "count": 1,
+      "value": 219,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 227,
+      "max": 227,
+      "count": 1,
+      "value": 227,
+      "frequency": 15000
+     },
+     {
+      "min": 244,
+      "max": 244,
+      "count": 1,
+      "value": 244,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 277,
+      "max": 277,
+      "count": 1,
+      "value": 277,
+      "frequency": 15000
+     },
+     {
+      "min": 262,
+      "max": 262,
+      "count": 1,
+      "value": 262,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": -15.21,
+    "expectedValue": 194,
+    "actualValue": 164.5,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/viewCategory.shtml|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 560,
+      "max": 560,
+      "count": 1,
+      "value": 560,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 348,
+      "max": 348,
+      "count": 1,
+      "value": 348,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 273,
+      "max": 273,
+      "count": 1,
+      "value": 273,
+      "frequency": 15000
+     },
+     {
+      "min": 225,
+      "max": 225,
+      "count": 1,
+      "value": 225,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 207,
+      "max": 207,
+      "count": 1,
+      "value": 207,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 268,
+      "max": 268,
+      "count": 1,
+      "value": 268,
+      "frequency": 15000
+     },
+     {
+      "min": 253,
+      "max": 253,
+      "count": 1,
+      "value": 253,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 0,
+    "expectedValue": 0,
+    "actualValue": 0,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/signon.shtml_HTMLResources_ajax.googleapis.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 0,
+    "expectedValue": 0,
+    "actualValue": 0,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/viewItem.shtml_HTMLResources_ajax.googleapis.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 0,
+    "expectedValue": 0,
+    "actualValue": 0,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/checkout.shtml_HTMLResources_ajax.googleapis.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 0,
+    "expectedValue": 0,
+    "actualValue": 0,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/newOrder.shtml_HTMLResources_ajax.googleapis.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 0,
+    "expectedValue": 0,
+    "actualValue": 0,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/newOrderForm.shtml_HTMLResources_uc1.jtixchange.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 1,
+      "max": 9,
+      "count": 19,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 11,
+      "count": 19,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 9,
+      "count": 19,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 9,
+      "count": 19,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 7,
+      "count": 19,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 3,
+      "max": 26,
+      "count": 19,
+      "value": 3,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 13,
+      "count": 19,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 10,
+      "count": 19,
+      "value": 1,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": -15.25,
+    "expectedValue": 1.18,
+    "actualValue": 1,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/addItemToCart.shtml_HTMLResources_uc1.jtixchange.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 12,
+      "count": 19,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 17,
+      "count": 19,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 4,
+      "max": 30,
+      "count": 19,
+      "value": 4,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 14,
+      "count": 19,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 8,
+      "count": 19,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 15,
+      "count": 19,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 14,
+      "count": 19,
+      "value": 1,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 138,
+      "max": 138,
+      "count": 1,
+      "value": 138,
+      "frequency": 15000
+     },
+     {
+      "min": 105,
+      "max": 105,
+      "count": 1,
+      "value": 105,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 132,
+      "max": 132,
+      "count": 1,
+      "value": 132,
+      "frequency": 15000
+     },
+     {
+      "min": 101,
+      "max": 101,
+      "count": 1,
+      "value": 101,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 166,
+      "max": 166,
+      "count": 1,
+      "value": 166,
+      "frequency": 15000
+     },
+     {
+      "min": 114,
+      "max": 114,
+      "count": 1,
+      "value": 114,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 97,
+      "max": 97,
+      "count": 1,
+      "value": 97,
+      "frequency": 15000
+     },
+     {
+      "min": 106,
+      "max": 106,
+      "count": 1,
+      "value": 106,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": -30.94,
+    "expectedValue": 115.73,
+    "actualValue": 79.92,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/checkout.shtml|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 132,
+      "max": 132,
+      "count": 1,
+      "value": 132,
+      "frequency": 15000
+     },
+     {
+      "min": 185,
+      "max": 185,
+      "count": 1,
+      "value": 185,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 351,
+      "max": 351,
+      "count": 1,
+      "value": 351,
+      "frequency": 15000
+     },
+     {
+      "min": 137,
+      "max": 137,
+      "count": 1,
+      "value": 137,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 106,
+      "max": 106,
+      "count": 1,
+      "value": 106,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 262,
+      "max": 262,
+      "count": 1,
+      "value": 262,
+      "frequency": 15000
+     },
+     {
+      "min": 100,
+      "max": 100,
+      "count": 1,
+      "value": 100,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 13,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 5,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 7,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 6,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 13,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 12,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 5,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 7,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": -54.55,
+    "expectedValue": 0.55,
+    "actualValue": 0.25,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/checkout.shtml_HTMLResources_uc1.jtixchange.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 26,
+      "count": 15,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 6,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 12,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 23,
+      "count": 15,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 8,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 4,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 5,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 176,
+      "max": 356,
+      "count": 2,
+      "value": 266,
+      "frequency": 15000
+     },
+     {
+      "min": 184,
+      "max": 1248,
+      "count": 2,
+      "value": 716,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 192,
+      "max": 793,
+      "count": 2,
+      "value": 492,
+      "frequency": 15000
+     },
+     {
+      "min": 160,
+      "max": 303,
+      "count": 2,
+      "value": 231,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 177,
+      "max": 390,
+      "count": 2,
+      "value": 283,
+      "frequency": 15000
+     },
+     {
+      "min": 212,
+      "max": 334,
+      "count": 2,
+      "value": 273,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 158,
+      "max": 391,
+      "count": 2,
+      "value": 274,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": -20.09,
+    "expectedValue": 264.36,
+    "actualValue": 211.25,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/newOrder.shtml|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 215,
+      "max": 380,
+      "count": 2,
+      "value": 297,
+      "frequency": 15000
+     },
+     {
+      "min": 308,
+      "max": 428,
+      "count": 2,
+      "value": 368,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 323,
+      "max": 1364,
+      "count": 2,
+      "value": 843,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 144,
+      "max": 293,
+      "count": 2,
+      "value": 218,
+      "frequency": 15000
+     },
+     {
+      "min": 231,
+      "max": 519,
+      "count": 2,
+      "value": 375,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 175,
+      "max": 293,
+      "count": 2,
+      "value": 234,
+      "frequency": 15000
+     },
+     {
+      "min": 437,
+      "max": 710,
+      "count": 2,
+      "value": 573,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 2,
+      "max": 25,
+      "count": 16,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 13,
+      "count": 16,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 10,
+      "count": 16,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 10,
+      "count": 16,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 7,
+      "count": 16,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 18,
+      "count": 16,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 9,
+      "count": 16,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 13,
+      "count": 16,
+      "value": 1,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": -8.22,
+    "expectedValue": 0.73,
+    "actualValue": 0.67,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/viewItem.shtml_HTMLResources_uc1.jtixchange.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 12,
+      "count": 16,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 25,
+      "count": 16,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 26,
+      "count": 16,
+      "value": 2,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 7,
+      "count": 16,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 11,
+      "count": 16,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 18,
+      "count": 16,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 12,
+      "count": 16,
+      "value": 1,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 155,
+      "max": 754,
+      "count": 2,
+      "value": 454,
+      "frequency": 15000
+     },
+     {
+      "min": 104,
+      "max": 991,
+      "count": 2,
+      "value": 547,
+      "frequency": 15000
+     },
+     {
+      "min": 103,
+      "max": 1325,
+      "count": 4,
+      "value": 628,
+      "frequency": 15000
+     },
+     {
+      "min": 714,
+      "max": 885,
+      "count": 2,
+      "value": 799,
+      "frequency": 15000
+     },
+     {
+      "min": 104,
+      "max": 1000,
+      "count": 3,
+      "value": 404,
+      "frequency": 15000
+     },
+     {
+      "min": 109,
+      "max": 903,
+      "count": 4,
+      "value": 485,
+      "frequency": 15000
+     },
+     {
+      "min": 733,
+      "max": 733,
+      "count": 1,
+      "value": 733,
+      "frequency": 15000
+     },
+     {
+      "min": 110,
+      "max": 817,
+      "count": 4,
+      "value": 442,
+      "frequency": 15000
+     },
+     {
+      "min": 198,
+      "max": 925,
+      "count": 3,
+      "value": 676,
+      "frequency": 15000
+     },
+     {
+      "min": 237,
+      "max": 728,
+      "count": 2,
+      "value": 482,
+      "frequency": 15000
+     },
+     {
+      "min": 106,
+      "max": 853,
+      "count": 4,
+      "value": 471,
+      "frequency": 15000
+     },
+     {
+      "min": 313,
+      "max": 754,
+      "count": 2,
+      "value": 533,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": -12.8,
+    "expectedValue": 635.91,
+    "actualValue": 554.5,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/index.shtml|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 136,
+      "max": 1017,
+      "count": 2,
+      "value": 576,
+      "frequency": 15000
+     },
+     {
+      "min": 187,
+      "max": 980,
+      "count": 2,
+      "value": 583,
+      "frequency": 15000
+     },
+     {
+      "min": 122,
+      "max": 836,
+      "count": 4,
+      "value": 576,
+      "frequency": 15000
+     },
+     {
+      "min": 886,
+      "max": 886,
+      "count": 1,
+      "value": 886,
+      "frequency": 15000
+     },
+     {
+      "min": 153,
+      "max": 846,
+      "count": 3,
+      "value": 424,
+      "frequency": 15000
+     },
+     {
+      "min": 133,
+      "max": 807,
+      "count": 3,
+      "value": 577,
+      "frequency": 15000
+     },
+     {
+      "min": 145,
+      "max": 728,
+      "count": 2,
+      "value": 436,
+      "frequency": 15000
+     },
+     {
+      "min": 113,
+      "max": 988,
+      "count": 4,
+      "value": 552,
+      "frequency": 15000
+     },
+     {
+      "min": 851,
+      "max": 1092,
+      "count": 2,
+      "value": 971,
+      "frequency": 15000
+     },
+     {
+      "min": 104,
+      "max": 1275,
+      "count": 3,
+      "value": 742,
+      "frequency": 15000
+     },
+     {
+      "min": 102,
+      "max": 1650,
+      "count": 4,
+      "value": 672,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 0,
+    "expectedValue": 0,
+    "actualValue": 0,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/viewProduct.shtml_HTMLResources_ajax.googleapis.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 6,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 9,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 5,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 9,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 5,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 7,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 6,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 7,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": -69.09,
+    "expectedValue": 0.55,
+    "actualValue": 0.17,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/viewProduct.shtml_HTMLResources_uc1.jtixchange.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 7,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 12,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 19,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 10,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 4,
+      "count": 15,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 1,
+      "max": 9,
+      "count": 15,
+      "value": 1,
+      "frequency": 15000
+     },
+     {
+      "min": 2,
+      "max": 25,
+      "count": 15,
+      "value": 2,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 0,
+    "expectedValue": 0,
+    "actualValue": 0,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/signonForm.shtml_HTMLResources_ajax.googleapis.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 11,
+      "max": 60,
+      "count": 40,
+      "value": 12,
+      "frequency": 15000
+     },
+     {
+      "min": 14,
+      "max": 51,
+      "count": 40,
+      "value": 14,
+      "frequency": 15000
+     },
+     {
+      "min": 26,
+      "max": 96,
+      "count": 80,
+      "value": 26,
+      "frequency": 15000
+     },
+     {
+      "min": 8,
+      "max": 48,
+      "count": 38,
+      "value": 28,
+      "frequency": 15000
+     },
+     {
+      "min": 10,
+      "max": 61,
+      "count": 61,
+      "value": 10,
+      "frequency": 15000
+     },
+     {
+      "min": 11,
+      "max": 42,
+      "count": 80,
+      "value": 11,
+      "frequency": 15000
+     },
+     {
+      "min": 4,
+      "max": 33,
+      "count": 19,
+      "value": 21,
+      "frequency": 15000
+     },
+     {
+      "min": 14,
+      "max": 53,
+      "count": 80,
+      "value": 14,
+      "frequency": 15000
+     },
+     {
+      "min": 15,
+      "max": 41,
+      "count": 59,
+      "value": 16,
+      "frequency": 15000
+     },
+     {
+      "min": 13,
+      "max": 49,
+      "count": 40,
+      "value": 13,
+      "frequency": 15000
+     },
+     {
+      "min": 12,
+      "max": 47,
+      "count": 80,
+      "value": 12,
+      "frequency": 15000
+     },
+     {
+      "min": 12,
+      "max": 48,
+      "count": 40,
+      "value": 12,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": -21.6,
+    "expectedValue": 20.09,
+    "actualValue": 15.75,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/index.shtml_HTMLResources_uc1.jtixchange.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 16,
+      "max": 58,
+      "count": 40,
+      "value": 16,
+      "frequency": 15000
+     },
+     {
+      "min": 12,
+      "max": 52,
+      "count": 40,
+      "value": 12,
+      "frequency": 15000
+     },
+     {
+      "min": 16,
+      "max": 67,
+      "count": 80,
+      "value": 16,
+      "frequency": 15000
+     },
+     {
+      "min": 4,
+      "max": 41,
+      "count": 19,
+      "value": 26,
+      "frequency": 15000
+     },
+     {
+      "min": 12,
+      "max": 82,
+      "count": 61,
+      "value": 12,
+      "frequency": 15000
+     },
+     {
+      "min": 26,
+      "max": 105,
+      "count": 59,
+      "value": 26,
+      "frequency": 15000
+     },
+     {
+      "min": 15,
+      "max": 66,
+      "count": 40,
+      "value": 18,
+      "frequency": 15000
+     },
+     {
+      "min": 19,
+      "max": 59,
+      "count": 80,
+      "value": 19,
+      "frequency": 15000
+     },
+     {
+      "min": 8,
+      "max": 103,
+      "count": 38,
+      "value": 53,
+      "frequency": 15000
+     },
+     {
+      "min": 6,
+      "max": 38,
+      "count": 61,
+      "value": 6,
+      "frequency": 15000
+     },
+     {
+      "min": 17,
+      "max": 59,
+      "count": 80,
+      "value": 17,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 0,
+    "expectedValue": 0,
+    "actualValue": 0,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/newOrderForm.shtml_HTMLResources_ajax.googleapis.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   },
+   {
+    "currentBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "percentageChange": 0,
+    "expectedValue": 0,
+    "actualValue": 0,
+    "metricPath": "SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|By Business Service|uc1.jtixchange.com/80|/jtixchange_web/shop/viewCategory.shtml_HTMLResources_ajax.googleapis.com/80|Browser:Average Response Time (ms)",
+    "benchMarkBuildTimeSliceValues": [
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     },
+     {
+      "min": 0,
+      "max": 0,
+      "count": 0,
+      "value": 0,
+      "frequency": 15000
+     }
+    ],
+    "thresholdPercentage": 2
+   }
+  ]
+ }}},
+ "strategyName": "art",
+ "frequency": 15000
+}]}
