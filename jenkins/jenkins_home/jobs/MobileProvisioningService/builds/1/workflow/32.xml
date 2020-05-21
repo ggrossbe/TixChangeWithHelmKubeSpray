@@ -13,13 +13,13 @@
       <arguments>
         <entry>
           <string>name</string>
-          <string>Selenium</string>
+          <string>Blazemeter</string>
         </entry>
       </arguments>
       <isUnmodifiedBySanitization>true</isUnmodifiedBySanitization>
     </cps.a.ArgumentsActionImpl>
     <wf.a.TimingAction plugin="workflow-api@2.40">
-      <startTime>1589857855782</startTime>
+      <startTime>1590074533553</startTime>
     </wf.a.TimingAction>
   </actions>
 </Tag>

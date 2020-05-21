@@ -1,54 +1,15 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <Tag plugin="workflow-support@3.4">
-  <node class="cps.n.StepAtomNode" plugin="workflow-cps@2.80">
+  <node class="cps.n.StepEndNode" plugin="workflow-cps@2.80">
     <parentIds>
       <string>60</string>
     </parentIds>
     <id>61</id>
-    <descriptorId>htmlpublisher.workflow.PublishHTMLStep</descriptorId>
+    <startId>54</startId>
   </node>
   <actions>
-    <cps.a.ArgumentsActionImpl plugin="workflow-cps@2.80">
-      <arguments>
-        <entry>
-          <string>target</string>
-          <linked-hash-map>
-            <entry>
-              <string>allowMissing</string>
-              <boolean>false</boolean>
-            </entry>
-            <entry>
-              <string>alwaysLinkToLastBuild</string>
-              <boolean>true</boolean>
-            </entry>
-            <entry>
-              <string>keepAll</string>
-              <boolean>false</boolean>
-            </entry>
-            <entry>
-              <string>reportDir</string>
-              <string>2/</string>
-            </entry>
-            <entry>
-              <string>reportFiles</string>
-              <string>chart-output.html</string>
-            </entry>
-            <entry>
-              <string>reportName</string>
-              <string>CA APM Comparison Reports</string>
-            </entry>
-            <entry>
-              <string>reportTitles</string>
-              <string></string>
-            </entry>
-          </linked-hash-map>
-        </entry>
-      </arguments>
-      <isUnmodifiedBySanitization>true</isUnmodifiedBySanitization>
-    </cps.a.ArgumentsActionImpl>
     <wf.a.TimingAction plugin="workflow-api@2.40">
-      <startTime>1589859497667</startTime>
+      <startTime>1590077764552</startTime>
     </wf.a.TimingAction>
-    <s.a.LogStorageAction/>
   </actions>
 </Tag>

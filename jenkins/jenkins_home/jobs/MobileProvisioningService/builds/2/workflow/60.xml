@@ -1,29 +1,16 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <Tag plugin="workflow-support@3.4">
-  <node class="cps.n.StepAtomNode" plugin="workflow-cps@2.80">
+  <node class="cps.n.StepEndNode" plugin="workflow-cps@2.80">
     <parentIds>
       <string>59</string>
     </parentIds>
     <id>60</id>
-    <descriptorId>org.jenkinsci.plugins.workflow.steps.SleepStep</descriptorId>
+    <startId>55</startId>
   </node>
   <actions>
-    <cps.a.ArgumentsActionImpl plugin="workflow-cps@2.80">
-      <arguments>
-        <entry>
-          <string>unit</string>
-          <string>SECONDS</string>
-        </entry>
-        <entry>
-          <string>time</string>
-          <int>105</int>
-        </entry>
-      </arguments>
-      <isUnmodifiedBySanitization>true</isUnmodifiedBySanitization>
-    </cps.a.ArgumentsActionImpl>
+    <wf.a.BodyInvocationAction plugin="workflow-api@2.40"/>
     <wf.a.TimingAction plugin="workflow-api@2.40">
-      <startTime>1589859392628</startTime>
+      <startTime>1590077764503</startTime>
     </wf.a.TimingAction>
-    <s.a.LogStorageAction/>
   </actions>
 </Tag>

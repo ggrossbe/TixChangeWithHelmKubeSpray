@@ -12,13 +12,13 @@
       <arguments>
         <entry>
           <string>message</string>
-          <string>Maven Build</string>
+          <string>Validating Feature Flag</string>
         </entry>
       </arguments>
       <isUnmodifiedBySanitization>true</isUnmodifiedBySanitization>
     </cps.a.ArgumentsActionImpl>
     <wf.a.TimingAction plugin="workflow-api@2.40">
-      <startTime>1589859157130</startTime>
+      <startTime>1590077000906</startTime>
     </wf.a.TimingAction>
     <s.a.LogStorageAction/>
   </actions>

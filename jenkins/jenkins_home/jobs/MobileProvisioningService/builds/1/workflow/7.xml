@@ -48,6 +48,14 @@
                   <org.jenkinsci.plugins.structs.describable.UninstantiatedDescribable>
                     <arguments class="tree-map">
                       <entry>
+                        <string>name</string>
+                        <string>origin</string>
+                      </entry>
+                      <entry>
+                        <string>refspec</string>
+                        <string>+refs/heads/master:refs/remotes/origin/master </string>
+                      </entry>
+                      <entry>
                         <string>url</string>
                         <string>git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git</string>
                       </entry>
@@ -68,7 +76,7 @@
       <isUnmodifiedBySanitization>true</isUnmodifiedBySanitization>
     </cps.a.ArgumentsActionImpl>
     <wf.a.TimingAction plugin="workflow-api@2.40">
-      <startTime>1589857813134</startTime>
+      <startTime>1590074503973</startTime>
     </wf.a.TimingAction>
     <s.a.LogStorageAction/>
   </actions>

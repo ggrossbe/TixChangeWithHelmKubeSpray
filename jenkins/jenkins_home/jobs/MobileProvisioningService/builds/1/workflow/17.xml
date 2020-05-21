@@ -5,24 +5,20 @@
       <string>16</string>
     </parentIds>
     <id>17</id>
-    <descriptorId>org.jenkinsci.plugins.workflow.steps.SleepStep</descriptorId>
+    <descriptorId>org.jenkinsci.plugins.workflow.steps.durable_task.ShellStep</descriptorId>
   </node>
   <actions>
     <cps.a.ArgumentsActionImpl plugin="workflow-cps@2.80">
       <arguments>
         <entry>
-          <string>unit</string>
-          <string>SECONDS</string>
-        </entry>
-        <entry>
-          <string>time</string>
-          <int>15</int>
+          <string>script</string>
+          <string>sleep 11</string>
         </entry>
       </arguments>
       <isUnmodifiedBySanitization>true</isUnmodifiedBySanitization>
     </cps.a.ArgumentsActionImpl>
     <wf.a.TimingAction plugin="workflow-api@2.40">
-      <startTime>1589857815440</startTime>
+      <startTime>1590074505773</startTime>
     </wf.a.TimingAction>
     <s.a.LogStorageAction/>
   </actions>

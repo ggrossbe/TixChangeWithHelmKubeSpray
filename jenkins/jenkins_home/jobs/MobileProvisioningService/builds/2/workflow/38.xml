@@ -12,13 +12,13 @@
       <arguments>
         <entry>
           <string>message</string>
-          <string>running Selenium Test</string>
+          <string>running Tests</string>
         </entry>
       </arguments>
       <isUnmodifiedBySanitization>true</isUnmodifiedBySanitization>
     </cps.a.ArgumentsActionImpl>
     <wf.a.TimingAction plugin="workflow-api@2.40">
-      <startTime>1589859197763</startTime>
+      <startTime>1590077026676</startTime>
     </wf.a.TimingAction>
     <s.a.LogStorageAction/>
   </actions>
