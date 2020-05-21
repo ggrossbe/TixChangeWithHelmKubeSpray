@@ -38,7 +38,9 @@
     <hudson.search.UserSearchProperty>
       <insensitiveSearch>true</insensitiveSearch>
     </hudson.search.UserSearchProperty>
-    <hudson.model.TimeZoneProperty/>
+    <hudson.model.TimeZoneProperty>
+      <timeZoneName>America/New_York</timeZoneName>
+    </hudson.model.TimeZoneProperty>
     <hudson.security.HudsonPrivateSecurityRealm_-Details>
       <passwordHash>#jbcrypt:$2a$10$OjdMQbl1qL8bkCiosjnfU.eg.SmaQlUs3r88HFF2Gt3Sl94NeZNem</passwordHash>
     </hudson.security.HudsonPrivateSecurityRealm_-Details>
