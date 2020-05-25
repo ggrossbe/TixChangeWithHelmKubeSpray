@@ -794,6 +794,27 @@ setupJenkins () {
     cp -rf * $INSTALLATION_FOLDER/$JENKINS_FOLDER
     chmod 600 $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_ssh/*
 
+    GIT_PROJECT_HTTPS=`echo "$GIT_PROJECT"|sed 's/:/\//g'|sed 's/git@/https:\/\//g'|sed 's/\.git/\//g'`
+    ESCAPED_GIT_PROJECT_HTTPS=$(echo "$GIT_PROJECT_HTTPS"| sed 's/\//\\\//g')
+    ESCAPED_GIT_PROJECT=$(echo "$GIT_PROJECT"| sed 's/\//\\\//g')
+    sed -i 's/GIT_PROJECT_HTTPS/'$ESCAPED_GIT_PROJECT_HTTPS'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/config.xml
+    sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/config.xml
+
+   echo "$INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/config.xml"
+   cat $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/config.xml
+
+
+
+
+    /bin/cp -f $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties.template $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties
+
+    ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
+    sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties
+    sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties
+
+    TENANT_ID=`echo $BA_SNIPPET_UC1 |awk -F [:/] '{print $11}'`
+    sed -i "s/TENANT_ID/$TENANT_ID/g" $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties
+
     kubectl create ns jenkins
     kubectl create -f $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins-deployment.yaml -n jenkins
 

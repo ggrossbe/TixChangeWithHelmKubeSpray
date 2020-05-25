@@ -13,7 +13,7 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.30.0">
-      <projectUrl>https://github.gwd.broadcom.net/ESD/MobileProvisioningService/</projectUrl>
+      <projectUrl>GIT_PROJECT_HTTPS</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
@@ -31,7 +31,7 @@
         <hudson.plugins.git.UserRemoteConfig>
           <name>origin</name>
           <refspec>+refs/heads/master:refs/remotes/origin/master </refspec>
-          <url>git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git</url>
+          <url>GIT_PROJECT</url>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
