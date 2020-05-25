@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jenkins-ci.plugins</groupId>
   <artifactId>credentials-binding</artifactId>
-  <version>1.22</version>
+  <version>1.23</version>
   <packaging>hpi</packaging>
   <name>Credentials Binding Plugin</name>
   <description>Allows credentials to be bound to environment variables for use from miscellaneous build steps.</description>
@@ -19,7 +19,7 @@
   <scm>
     <connection>scm:git:git://github.com/jenkinsci/credentials-binding-plugin.git</connection>
     <developerConnection>scm:git:git@github.com:jenkinsci/credentials-binding-plugin.git</developerConnection>
-    <tag>credentials-binding-1.22</tag>
+    <tag>credentials-binding-1.23</tag>
     <url>https://github.com/jenkinsci/credentials-binding-plugin</url>
   </scm>
   <distributionManagement>

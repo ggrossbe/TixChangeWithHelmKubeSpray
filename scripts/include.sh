@@ -8,11 +8,13 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 
 INSTALL_SCRIPT_FOLDER=$PWD/$SCRIPTS_FOLDER/..
 
+JENKINS_FOLDER=jenkins
 ASM_FOLDER=asm
 LOG_COLL_FOLDER=logcollector
 BPA_FOLDER=bpa
 OI_SCRIPTS_FOLDER=oiServiceScripts
 SELENIUM_STND_ALN_YML=selenium-standalone.yml
+SELENIUM_STND_ALN_SLOW_YML=selenium-standalone-slow.yml
 KUBESPRAY_FOLDER=kubespray
 TIXCHANGE_FOLDER=tixChangeHelm
 HELM_FOLDER=helmInstaller
@@ -21,6 +23,7 @@ UMA_FOLDER=uma
 AWS_FOLDER=aws
 SELENIUM_FOLDER=selenium
 SELENIUM_UC=runSeleniumUC
+SELENIUM_UC_SLOW=runSeleniumUC.slow
 #For now keeping this as UC1 as all scripts are in UC1
 #SELENIUM_UC2=runSeleniumUC1
 UC1_URL=uc1.jtixchange.com
@@ -309,11 +312,12 @@ stopDeleteSelenium () {
          logMsg "Deleting Selenium"
          
          kubectl delete -f $SELENIUM_STND_ALN_YML -n selenium 
+         kubectl delete -f $SELENIUM_STND_ALN_SLOW_YML -n selenium 
 
          kubectl delete ns selenium
 
          cd ..
-         rm -rf $SELENIUM_FOLDER
+         rm -rf $SELENIUM_FOLDER/*
                 
          sleep 5
                 
@@ -335,6 +339,7 @@ stopDeleteSelenium () {
 
 stopDeleteAll () {
 
+  removeJenkins
   stopDeleteSelenium
   #stopDeleteBPA
   stopDeleteTixChange
@@ -356,6 +361,7 @@ stopDeleteAll () {
 
 stopDeleteAppComponents () {
 
+  removeJenkins
   stopDeleteSelenium
   #stopDeleteBPA
   stopDeleteTixChange
@@ -373,7 +379,7 @@ Usage () {
   echo "Options: "
   echo "  a : install all (K8s,Helm, UMA, TixChange, BPA Selenium, EM side - Universes, Exp View, Mgmt Mod)"
   #echo "  p : run the pre-req"
-   echo "  r : re-install & run just app components (helm, uma, tixchange, BPA, AWS, ASM, selenium, EM side - Universes, Exp View, Mgmt Mod)"
+   echo "  r : re-install & run just app components (helm, uma, tixchange, BPA, AWS, ASM, Jenkins, selenium, EM side - Universes, Exp View, Mgmt Mod)"
    echo "  u : install & run just uma"
    echo "  t : install & run just tixChange"
   echo "  s : install & run just selenium"
@@ -382,6 +388,7 @@ Usage () {
   echo "  r_ut : remove UMA and TixChange - to deploy them manually for Say for a demo"
   echo "  o : Create Domain Based (Telco, Banking, Insurance) OI Service Model "
   echo "  l : Setup log Collector"
+  echo "  j : Setup Jenkins"
   echo "  c : cleanup and unintsall everything"
 
 }
@@ -570,6 +577,9 @@ installAndConfigureSelenium () {
   sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC
   sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $SELENIUM_UC
 
+  sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $SELENIUM_UC_SLOW
+  sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $SELENIUM_UC_SLOW
+
    
    TIXCHANGE_WEB_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep tix-web`
    TIXCHANGE_WS_POD1=`kubectl get pods -n $TIXCHANGE_NAMESPACE1 |grep -v NAME |awk '{print $1}'|grep tix-ws`
@@ -587,6 +597,7 @@ installAndConfigureSelenium () {
     kubectl create ns selenium
   sleep 2
    sed -i 's/HOST_IP/'$TIX_IP'/' $SELENIUM_STND_ALN_YML
+   sed -i 's/HOST_IP/'$TIX_IP'/' $SELENIUM_STND_ALN_SLOW_YML
   kubectl create -f $SELENIUM_STND_ALN_YML -n selenium
 
   sleep 10
@@ -769,6 +780,64 @@ setupASMMonitoring () {
 }
 
 
+setupJenkins () {
+    if [ X$IS_JENKINS == "Xtrue" ]; then
+
+    logMsg "Setting up Jenkins - pls wait"
+
+     cd $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER
+
+     if [ -d $INSTALLATION_FOLDER/$JENKINS_FOLDER ]; then
+       rm -rf $INSTALLATION_FOLDER/$JENKINS_FOLDER
+     fi
+
+     mkdir -p $INSTALLATION_FOLDER/$JENKINS_FOLDER   
+
+    cp -rf * $INSTALLATION_FOLDER/$JENKINS_FOLDER
+    chmod 600 $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_ssh/*
+
+    GIT_PROJECT_HTTPS=`echo "$GIT_PROJECT"|sed 's/:/\//g'|sed 's/git@/https:\/\//g'|sed 's/\.git/\//g'`
+    ESCAPED_GIT_PROJECT_HTTPS=$(echo "$GIT_PROJECT_HTTPS"| sed 's/\//\\\//g')
+    ESCAPED_GIT_PROJECT=$(echo "$GIT_PROJECT"| sed 's/\//\\\//g')
+    sed -i 's/GIT_PROJECT_HTTPS/'$ESCAPED_GIT_PROJECT_HTTPS'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/config.xml
+    sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/config.xml
+
+
+    /bin/cp -f $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties.template $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties
+
+    ESCAPED_APM_SAAS_URL=$(echo "$APM_SAAS_URL"| sed 's/\//\\\//g')
+    sed -i 's/APM_SAAS_URL/'$ESCAPED_APM_SAAS_URL'/' $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties
+    sed -i 's/APM_API_TOKEN/'$APM_API_TOKEN'/' $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties
+
+    TENANT_ID=`echo $BA_SNIPPET_UC1 |awk -F [:/] '{print $11}'`
+    sed -i "s/TENANT_ID/$TENANT_ID/g" $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties
+
+    kubectl create ns jenkins
+    kubectl create -f $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins-deployment.yaml -n jenkins
+
+   cd -
+   fi
+}
+
+
+removeJenkins () {
+  
+   
+    if [ X$IS_JENKINS == "Xtrue" ]; then
+     logMsg "Removing  Jenkins - pls wait"
+
+
+     if [ -d $INSTALLATION_FOLDER/$JENKINS_FOLDER ]; then
+          kubectl delete -f $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins-deployment.yaml -n jenkins
+          rm -rf $INSTALLATION_FOLDER/$JENKINS_FOLDER
+     fi
+        kubectl delete ns jenkins
+
+     fi
+}
+
+
+
 createUpdateOIServices () {
   logMsg " create update OI Services - pls wait"
 
@@ -790,16 +859,23 @@ createUpdateOIServices () {
 
     # use mysql pod name in tixchange-v2 namespace or RDS shortened hostname for DB name
     EMEA_DB_HOST_POD_NAME=`kubectl get pods -n tixchange-v2|grep tix-mysql |awk '{ print $1 }'`
+    NA_DB_HOST_POD_NAME="node2"
    
     if [ X"$EMEA_DB_HOST_POD_NAME" == "X" ]; then
        # its RDS tix-oaccess-east:us-east-2:54938494845740 
        EMEA_DB_HOST_POD_NAME=`echo $TIXCHANGE_MYSQL_RDS_HOSTNAME2 |awk -F"." '{ print $1":"$3":"'$AWS_ACCOUNTS_NUMBS' }'`
     fi
 
+    if [ X"$NA_DB_HOST_POD_NAME" == "X" ]; then
+       # its RDS tix-oaccess-west:us-east-2:54938494845740 
+       NA_DB_HOST_POD_NAME=`echo $TIXCHANGE_MYSQL_RDS_HOSTNAME1 |awk -F"." '{ print $1":"$3":"'$AWS_ACCOUNTS_NUMBS' }'`
+    fi
+
     logMsg " OI Script - OI token is $OI_TOKEN and DB POD/Hostname is $EMEA_DB_HOST_POD_NAME"
 
     sed -i 's/OI_TOKEN/'$OI_TOKEN'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
     sed -i 's/EMEA_DB_HOST_POD_NAME/'$EMEA_DB_HOST_POD_NAME'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
+    sed -i 's/NA_DB_HOST_POD_NAME/'$NA_DB_HOST_POD_NAME'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
 
     if [ X"$IS_ASM" != "Xfalse" ]; then
        sed -i 's/ASM_METRIC_NAME/'"$ASM_METRIC_NAME"'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE

@@ -102,6 +102,9 @@ case $OPTION in
      installAndConfigureSelenium
      sleep 10
 
+     setupJenkins
+     sleep 10
+
 
      configureEM em1
      configureEM em2
@@ -135,6 +138,12 @@ case $OPTION in
      logMsg "2. This is a Blue/Green deployment - with UC1 running on $UC1_URL/jtixchange_web/shop/index.shtml and UC2 $UC2_URL/jtixchange_web/shop/index.shtml"
      logMsg "3. Selenium is generating load for both. Access TixChange from browser at $UC1_URL/jtixchange_web/shop/index.shtml"
      logMsg "4. Log File is available under $INSTALLATION_FOLDER/logs"
+     logMsg "5. You may have to configure Jenkins pipeline project with your own if not on Open Access - pls see auto tix wiki"
+     logMsg "6. pls checkin $jenkins/performance-comparator.properties to your git hub MobileProvisioningService/caapm-performance-comparator/properties/ project"
+     echo ""
+     logMsg "7. add the following public key to your git hub account for jenkins pod to access "
+           cat jenkins/jenkins_ssh/id_rsa.pub
+     echo ""
      logMsg ""
      logMsg ""
      logMsg "************************"
@@ -173,6 +182,10 @@ case $OPTION in
      #echo "6pwd is $PWD. $INSTALL_SCRIPT_FOLDER"
      cd $INSTALL_SCRIPT_FOLDER
      installAndConfigureSelenium
+
+     sleep 5
+     setupJenkins
+     sleep 5
 
     
      sleep 2
@@ -291,6 +304,20 @@ case $OPTION in
      logMsg "setting up just log Collector"
 
      setupLogCollector
+     ;;
+   j)
+     logMsg "setting up just Jenkins"
+
+      removeJenkins
+      sleep 5
+      setupJenkins
+
+      logMsg "If you are not on Open Access 1 tenant (OPEN-ACCESS) then you may have to configure Jenkins pipeline project to include your git repo. More details in Auto Tix Wiki"
+      echo ""
+      logMsg "add the following ssh public key to your git hub settings. More info in Auto Tix wiki"
+      cat jenkins/jenkins_ssh/id_rsa.pub
+      echo ""
+      logMsg "pls checkin jenkins/performance-comparator.properties to your git hub MobileProvisioningService/caapm-performance-comparator/properties/ project"
      ;;
    *) 
      logMsg "Not a valid option"

@@ -1,19 +1,19 @@
 Manifest-Version: 1.0
 Archiver-Version: Plexus Archiver
 Created-By: Apache Maven
-Built-By: pa674029
-Build-Jdk: 1.8.0_211
+Built-By: sv672317
+Build-Jdk: 1.8.0_171
 Extension-Name: ca-apm
 Specification-Title: This plug-in does performance comparison and expo
  rts outputs to various formats based upon the configuration
 Implementation-Title: ca-apm
-Implementation-Version: 2.1.3
+Implementation-Version: 2.1.3-SNAPSHOT
 Group-Id: org.jenkins-ci.plugins
 Short-Name: ca-apm
 Long-Name: CA-APM Plugin
 Url: https://wiki.jenkins-ci.org/display/JENKINS/CA+APM+Plugin
 Compatible-Since-Version: 2.0
-Plugin-Version: 2.1.3
+Plugin-Version: 2.1.3-SNAPSHOT (private-6a3e2fb3-sv672317)
 Hudson-Version: 2.60.1
 Jenkins-Version: 2.60.1
 Plugin-Developers: Srikant Noorani:srikns:srikns@yahoo.com,Pramod Anar

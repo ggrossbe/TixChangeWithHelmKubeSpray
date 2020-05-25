@@ -1,0 +1,49 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<Tag plugin="workflow-support@3.4">
+  <node class="cps.n.StepAtomNode" plugin="workflow-cps@2.80">
+    <parentIds>
+      <string>50</string>
+    </parentIds>
+    <id>51</id>
+    <descriptorId>org.jenkinsci.plugins.workflow.steps.CoreStep</descriptorId>
+  </node>
+  <actions>
+    <cps.a.ArgumentsActionImpl plugin="workflow-cps@2.80">
+      <arguments>
+        <entry>
+          <string>delegate</string>
+          <org.jenkinsci.plugins.structs.describable.UninstantiatedDescribable plugin="structs@1.20">
+            <symbol>caapmplugin</symbol>
+            <arguments class="tree-map">
+              <entry>
+                <string>attribsStr</string>
+                <string>[jenkinsPluginName:CAAPM]</string>
+              </entry>
+              <entry>
+                <string>loadGeneratorEndTime</string>
+                <string>1590075263753</string>
+              </entry>
+              <entry>
+                <string>loadGeneratorName</string>
+                <string>Blazemeter</string>
+              </entry>
+              <entry>
+                <string>loadGeneratorStartTime</string>
+                <string>1590074543725</string>
+              </entry>
+              <entry>
+                <string>performanceComparatorProperties</string>
+                <string>/var/jenkins_home/workspace/MobileProvisioningService/caapm-performance-comparator/properties/performance-comparator.properties</string>
+              </entry>
+            </arguments>
+          </org.jenkinsci.plugins.structs.describable.UninstantiatedDescribable>
+        </entry>
+      </arguments>
+      <isUnmodifiedBySanitization>true</isUnmodifiedBySanitization>
+    </cps.a.ArgumentsActionImpl>
+    <wf.a.TimingAction plugin="workflow-api@2.40">
+      <startTime>1590075274001</startTime>
+    </wf.a.TimingAction>
+    <s.a.LogStorageAction/>
+  </actions>
+</Tag>
