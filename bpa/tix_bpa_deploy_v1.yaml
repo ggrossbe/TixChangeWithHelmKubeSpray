@@ -32,7 +32,7 @@ spec:
         ver: "1.0"
     spec:
       containers:
-        - name: tix-bpa
+        - name: tix-bpa-btl
           env:
           - name: CA_APM_MONITORING_ENABLED
             value: "false"
@@ -42,7 +42,22 @@ spec:
             value: TENANT_ID_VAL
           - name: DXC_URL
             value: DXC_URL_VAL
-          image: srikns/bpa-httpd:20.4
+          image: srikns/bpa-btl:20.5
+          imagePullPolicy: Always
+          #ports:
+            #- name: bpa-port
+              #containerPort: 80
+        - name: tix-bpa-proxy
+          env:
+          - name: CA_APM_MONITORING_ENABLED
+            value: "false"
+          - name: TIX_IP
+            value: TIX_IP_VAL
+          - name: TENANT_ID
+            value: TENANT_ID_VAL
+          - name: DXC_URL
+            value: DXC_URL_VAL
+          image: srikns/bpa-proxy:20.5
           imagePullPolicy: Always
           ports:
             - name: bpa-port
