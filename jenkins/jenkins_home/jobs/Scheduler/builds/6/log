@@ -1,0 +1,13 @@
+Started by user [8mha:////4FmvjhSmmR2ziVBQFMUCRl+VlnyTOxW8dEw5LmE4+axNAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/Scheduler
+[Scheduler] $ /bin/bash /tmp/jenkins1809614783928049309.sh
+workspace is /var/jenkins_home/workspace/Scheduler
+enabled is 5G_Provisioning_Flag=enabled
+LTS_Provisioning_Flag=enabled
+MOD is 2
+[master 10d6dbc] North America 5G provisioning Feature Flag Enabled
+ 2 files changed, 4 insertions(+), 5 deletions(-)
+To github.gwd.broadcom.net:ESD/MobileProvisioningService.git
+   1bf9318..10d6dbc  master -> master
+Finished: SUCCESS
