@@ -3,7 +3,16 @@
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>20</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -15,7 +24,11 @@
     <hudson.tasks.Shell>
       <command>#!/bin/bash
 
-#git clone git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git
+if [ -d $WORKSPACE/MobileProvisioningService ]; then
+   /bin/rm -rf $WORKSPACE/MobileProvisioningService
+fi
+
+git clone git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git
 
 echo &quot;workspace is $WORKSPACE&quot;
 
@@ -25,10 +38,12 @@ ENABLED=`cat NA_Feature_Flag.config |grep enabled`
 
 echo &quot;enabled is $ENABLED&quot;
 
+
+
 if [ X&quot;$ENABLED&quot; == &quot;X&quot; ]; then
-   sed -i &apos;s/enable/enabled/g&apos; NA_Feature_Flag.config
+   sed -i &apos;s/enable/enabled/g&apos; NA_Feature_Flag.config
 else
-   sed -i &apos;s/enabled/enable/g&apos; NA_Feature_Flag.config
+   sed -i &apos;s/enabled/enable/g&apos; NA_Feature_Flag.config
 fi
 
 cd $WORKSPACE/MobileProvisioningService/caapm-performance-comparator/properties
@@ -38,30 +53,27 @@ MOD=$(($BUILD_NUMBER%4))
 echo &quot;MOD is $MOD&quot;
 
 if [ $MOD -eq 0 ]; then
-  sed -i &apos;s/build.fail=false/build.fail=true/g&apos; performance-comparator.properties
+  sed -i &apos;s/build.fail=false/build.fail=true/g&apos; performance-comparator.properties
 else
-  sed -i &apos;s/build.fail=true/build.fail=false/g&apos; performance-comparator.properties
+  sed -i &apos;s/build.fail=true/build.fail=false/g&apos; performance-comparator.properties
 fi
 
 cd $WORKSPACE/MobileProvisioningService/
 
 if [ $MOD -eq 0 ]; then
-  sed -i &apos;s/#sh \&quot;kubectl/\/\/sh \&quot;kubectl/g&apos; Jenkinsfile
+  sed -i &apos;s/#sh \&quot;kubectl/\/\/sh \&quot;kubectl/g&apos; Jenkinsfile
 else
-  sed -i &apos;s/sh \&quot;kubectl/\/\/sh \&quot;kubectl/g&apos; Jenkinsfile
+  sed -i &apos;s/sh \&quot;kubectl/\/\/sh \&quot;kubectl/g&apos; Jenkinsfile
 fi
-
 
 git config --global user.email &quot;you@example.com&quot;
 git config --global user.name &quot;Your Name&quot;
-  
-  
+  
 git add $WORKSPACE/MobileProvisioningService/config/NA_Feature_Flag.config $WORKSPACE/MobileProvisioningService/caapm-performance-comparator/properties/performance-comparator.properties $WORKSPACE/MobileProvisioningService/Jenkinsfile
 
 git commit -m &quot;North America 5G provisioning Feature Flag Enabled&quot;
 
-git push origin master
-</command>
+git push origin master</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

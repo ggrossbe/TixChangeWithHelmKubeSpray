@@ -802,6 +802,14 @@ setupJenkins () {
     sed -i 's/GIT_PROJECT_HTTPS/'$ESCAPED_GIT_PROJECT_HTTPS'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/config.xml
     sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/config.xml
 
+    EPOCH_TIME=`date +%s%3N`
+    UTC_TIME=`date -u '+%Y-%m-%dT%H:%M:%S+0000'`
+
+    sed -i "s/TENANT_ID/$TENANT_ID/g" $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/workspace/MobileProvisioningService/OIJenkinsChangeEvent.sh
+    sed -i "s/EPOCH_TIME/$EPOCH_TIME/g" $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/workspace/MobileProvisioningService/OIJenkinsChangeEvent.sh
+    #sed -i "s/BUILD_NUMBER/$BUILD_NUMBER/g" $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/workspace/MobileProvisioningService/OIJenkinsChangeEvent.sh
+    sed -i "s/UTC_TIME/$UTC_TIME/g" $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/workspace/MobileProvisioningService/OIJenkinsChangeEvent.sh
+
 
     /bin/cp -f $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties.template $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties
 
