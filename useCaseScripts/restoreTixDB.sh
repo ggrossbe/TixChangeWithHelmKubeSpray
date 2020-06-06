@@ -7,6 +7,7 @@ cd $UC_FOLDER/../
 
 #Automic recommendation confidence API
 
+automicRecommendationScore () {
 curl -v --request POST ''$OI_AUTOMIC_URL'' \
 -H 'Authorization: Bearer '$OI_TOKEN'' \
 -H 'Content-Type: application/json' \
@@ -39,7 +40,10 @@ curl -v --request POST ''$OI_AUTOMIC_URL'' \
   ]
 }
 '
+}
 
+
+#automicRecommendationScore
 
 ./mainInstaller.sh t
 

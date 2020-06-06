@@ -196,7 +196,7 @@ case $OPTION in
      configureEM em1
      configureEM em2
 
-     createUpdateOIServices update
+     createUpdateOIServices create
 
      sleep 2
      setupLogCollector
@@ -214,8 +214,11 @@ case $OPTION in
    t) 
 
     logMsg ""
-    logMsg "Make sure OI_TOKEN in config.ini is most recent as it changes frequently *** Press ENTER to Proceed or Ctrl-C to exit"
-    read 
+    logMsg "Make sure OI_TOKEN in config.ini is most recent as it changes frequently"
+    logMsg ""
+    logMsg ""
+
+     sleep 5
 
      stopDeleteTixChange
 

@@ -1,0 +1,20 @@
+Started by user [8mha:////4FmvjhSmmR2ziVBQFMUCRl+VlnyTOxW8dEw5LmE4+axNAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0madmin
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/Scheduler
+[Scheduler] $ /bin/bash /tmp/jenkins5581586795365438449.sh
+fatal: destination path 'MobileProvisioningService' already exists and is not an empty directory.
+workspace is /var/jenkins_home/workspace/Scheduler
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'root@jenkins-deployment-6fd947b789-x6v92.(none)')
+Everything up-to-date
+Finished: SUCCESS

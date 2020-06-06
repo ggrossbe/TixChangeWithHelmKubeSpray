@@ -1,4 +1,4 @@
-Automated TixChange Version: 20.5.1
+Automated TixChange Version: 20.5.0
 Release Date: May 25, 2020
 Key features in this release:
   Jenkins - Fully pre-configured (include CA APM Plugin, pipleline project, Blazemeter Integration etc ) for DevOps UC

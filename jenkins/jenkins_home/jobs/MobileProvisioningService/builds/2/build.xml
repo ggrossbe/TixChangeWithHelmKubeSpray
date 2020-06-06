@@ -32,6 +32,7 @@
         </entry>
       </buildsByBranchName>
       <lastBuild reference="../buildsByBranchName/entry/hudson.plugins.git.util.Build"/>
+      <scmName></scmName>
       <remoteUrls>
         <string>git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git</string>
       </remoteUrls>
@@ -408,6 +409,7 @@
         <reportTitles></reportTitles>
         <keepAll>false</keepAll>
         <allowMissing>false</allowMissing>
+        <includes>**/*</includes>
       </actualHtmlPublisherTarget>
     </htmlpublisher.HtmlPublisherTarget_-HTMLPublishedForProjectMarkerAction>
   </actions>
@@ -417,7 +419,7 @@
   <result>SUCCESS</result>
   <duration>778105</duration>
   <charset>UTF-8</charset>
-  <keepLog>false</keepLog>
+  <keepLog>true</keepLog>
   <execution class="org.jenkinsci.plugins.workflow.cps.CpsFlowExecution">
     <result>SUCCESS</result>
     <script>pipeline {
@@ -516,7 +518,7 @@
     <timings class="map">
       <entry>
         <string>flowNode</string>
-        <long>471246762</long>
+        <long>713704008</long>
       </entry>
       <entry>
         <string>classLoad</string>
