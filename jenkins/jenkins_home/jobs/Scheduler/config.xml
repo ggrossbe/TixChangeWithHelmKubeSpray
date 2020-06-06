@@ -18,7 +18,11 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>30 * * * *</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
@@ -66,7 +70,7 @@ fi
 cd $WORKSPACE/MobileProvisioningService/
 
 if [ $MOD -eq 0 ]; then
-sed -i &apos;s/#sh \&quot;kubectl/\/\/sh \&quot;kubectl/g&apos; Jenkinsfile
+sed -i &apos;s/\/\+ *sh \&quot;kubectl/sh \&quot;kubectl/g&apos; Jenkinsfile
 else
 sed -i &apos;s/sh \&quot;kubectl/\/\/sh \&quot;kubectl/g&apos; Jenkinsfile
 fi
@@ -84,7 +88,16 @@ git add $WORKSPACE/MobileProvisioningService/Jenkinsfile
 git commit -m &quot;North America 5G provisioning Feature Flag Enabled&quot;
 
 
-git push origin master</command>
+git push origin master
+
+
+sleep 600
+
+SLOW_SELENIUM=`kubectl get pods -n selenium |grep slow`
+
+if [ X&quot;$SLOW_SELENIUM&quot; != &quot;X&quot; ]; then
+sh &quot;kubectl delete -f selenium-standalone-slow.yml -n selenium&quot;
+fi</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
