@@ -18,7 +18,11 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>30 * * * *</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
@@ -66,7 +70,7 @@ fi
 cd $WORKSPACE/MobileProvisioningService/
 
 if [ $MOD -eq 0 ]; then
-sed -i &apos;s/#sh \&quot;kubectl/\/\/sh \&quot;kubectl/g&apos; Jenkinsfile
+sed -i &apos;s/\/\+ *sh \&quot;kubectl/sh \&quot;kubectl/g&apos; Jenkinsfile
 else
 sed -i &apos;s/sh \&quot;kubectl/\/\/sh \&quot;kubectl/g&apos; Jenkinsfile
 fi
