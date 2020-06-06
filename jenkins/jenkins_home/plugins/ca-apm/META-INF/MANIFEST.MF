@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Archiver-Version: Plexus Archiver
 Created-By: Apache Maven
 Built-By: sv672317
-Build-Jdk: 1.8.0_171
+Build-Jdk: 1.8.0_231
 Extension-Name: ca-apm
 Specification-Title: This plug-in does performance comparison and expo
  rts outputs to various formats based upon the configuration

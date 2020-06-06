@@ -196,7 +196,7 @@ case $OPTION in
      configureEM em1
      configureEM em2
 
-     createUpdateOIServices update
+     createUpdateOIServices create
 
      sleep 2
      setupLogCollector

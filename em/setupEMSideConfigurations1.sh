@@ -832,7 +832,9 @@ if [ X"$UNIVERSE_ID" == "X" ]; then
 fi
 
 sleep 5
-importMgmtModule "TixChange.jar"
+importMgmtModule "TixChangeUC1.jar"
+sleep 5
+importMgmtModule "TixChangeUC2.jar"
 sleep 3
 importMgmtModule "AWS.jar"
 sleep 3
