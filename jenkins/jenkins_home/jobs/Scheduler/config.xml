@@ -97,10 +97,9 @@ SLOW_SELENIUM=`kubectl get pods -n selenium |grep slow`
 
 echo &quot;slow selenium output $SLOW_SELENIUM&quot;
 
-cd /root/selenium
 
 if [ X&quot;$SLOW_SELENIUM&quot; != &quot;X&quot; ]; then
-sh &quot;kubectl delete -f selenium-standalone-slow.yml -n selenium&quot;
+sh &quot;kubectl delete deployment selenium-standalone-slow -n selenium&quot;
 fi</command>
     </hudson.tasks.Shell>
   </builders>
