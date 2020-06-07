@@ -870,7 +870,7 @@ createUpdateOIServices () {
 
     # use mysql pod name in tixchange-v2 namespace or RDS shortened hostname for DB name
     EMEA_DB_HOST_POD_NAME=`kubectl get pods -n tixchange-v2|grep tix-mysql |awk '{ print $1 }'`
-    NA_DB_HOST_POD_NAME="node2"
+    NA_DB_HOST_POD_NAME=`kubectl get pods -n tixchange-v1|grep tix-mysql |awk '{ print $1 }'`
    
     if [ X"$EMEA_DB_HOST_POD_NAME" == "X" ]; then
        # its RDS tix-oaccess-east:us-east-2:54938494845740 
@@ -880,6 +880,9 @@ createUpdateOIServices () {
     if [ X"$NA_DB_HOST_POD_NAME" == "X" ]; then
        # its RDS tix-oaccess-west:us-east-2:54938494845740 
        NA_DB_HOST_POD_NAME=`echo $TIXCHANGE_MYSQL_RDS_HOSTNAME1 |awk -F"." '{ print $1":"$3":"'$AWS_ACCOUNTS_NUMBS' }'`
+    else
+       # for UC1 if its local deployment then node2 else RDS west
+       NA_DB_HOST_POD_NAME="node2"
     fi
 
     logMsg " OI Script - OI token is $OI_TOKEN and DB POD/Hostname is $EMEA_DB_HOST_POD_NAME"
