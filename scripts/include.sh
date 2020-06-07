@@ -803,6 +803,7 @@ setupJenkins () {
     ESCAPED_GIT_PROJECT=$(echo "$GIT_PROJECT"| sed 's/\//\\\//g')
     sed -i 's/GIT_PROJECT_HTTPS/'$ESCAPED_GIT_PROJECT_HTTPS'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/config.xml
     sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/config.xml
+    sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/Scheduler/config.xml
 
 
     /bin/cp -f $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties.template $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties
