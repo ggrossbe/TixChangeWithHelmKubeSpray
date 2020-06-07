@@ -36,7 +36,7 @@ echo &quot;$WORKSPACE/MobileProvisioningService/ exists&quot;
 
 fi
 
-git clone GIT_PROJECT
+git clone git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git
 
 echo &quot;workspace is $WORKSPACE&quot;
 
@@ -94,6 +94,8 @@ git push origin master
 sleep 600
 
 SLOW_SELENIUM=`kubectl get pods -n selenium |grep slow`
+
+echo &quot;slow selenium output $SLOW_SELENIUM&quot;
 
 if [ X&quot;$SLOW_SELENIUM&quot; != &quot;X&quot; ]; then
 sh &quot;kubectl delete -f selenium-standalone-slow.yml -n selenium&quot;
