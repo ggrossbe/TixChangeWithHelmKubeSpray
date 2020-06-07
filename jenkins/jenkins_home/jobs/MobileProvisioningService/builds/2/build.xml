@@ -34,7 +34,7 @@
       <lastBuild reference="../buildsByBranchName/entry/hudson.plugins.git.util.Build"/>
       <scmName></scmName>
       <remoteUrls>
-        <string>git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git</string>
+        <string>GIT_PROJECT</string>
       </remoteUrls>
     </hudson.plugins.git.util.BuildData>
     <hudson.plugins.git.GitTagAction plugin="git@4.2.2">
@@ -49,7 +49,7 @@
     <org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState plugin="workflow-scm-step@2.11">
       <revisionStates>
         <entry>
-          <string>git git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git</string>
+          <string>git GIT_PROJECT</string>
           <hudson.scm.SCMRevisionState_-None/>
         </entry>
       </revisionStates>
@@ -552,7 +552,7 @@
           <hudson.plugins.git.UserRemoteConfig>
             <name>origin</name>
             <refspec>+refs/heads/master:refs/remotes/origin/master </refspec>
-            <url>git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git</url>
+            <url>GIT_PROJECT</url>
           </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
         <branches>

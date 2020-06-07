@@ -18,7 +18,7 @@
             <string>GIT_COMMIT=26a49dc40db4b64be8fd6cb5fb7cedd1b98e1adb</string>
             <string>GIT_PREVIOUS_COMMIT=37a2134d48a88a41ec00dd3dc810e422a46c1c4d</string>
             <string>GIT_PREVIOUS_SUCCESSFUL_COMMIT=37a2134d48a88a41ec00dd3dc810e422a46c1c4d</string>
-            <string>GIT_URL=git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git</string>
+            <string>GIT_URL=GIT_PROJECT</string>
           </list>
         </entry>
       </arguments>
