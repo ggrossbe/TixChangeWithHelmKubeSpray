@@ -806,6 +806,13 @@ setupJenkins () {
     sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/Scheduler/config.xml
     sed -i 's/JENKINS_IP/'$JENKINS_IP'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jenkins.model.JenkinsLocationConfiguration.xml
 
+    sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/builds/1/workflow/7.xml
+    sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/builds/1/workflow/10.xml
+    sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/builds/2/workflow/7.xml
+    sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/builds/2/workflow/10.xml
+
+    sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/builds/1/build.xml
+    sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/builds/2/build.xml
 
     /bin/cp -f $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties.template $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER/performance-comparator.properties
 

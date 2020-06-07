@@ -57,7 +57,7 @@
                       </entry>
                       <entry>
                         <string>url</string>
-                        <string>git@github.gwd.broadcom.net:ESD/MobileProvisioningService.git</string>
+                        <string>GIT_PROJECT</string>
                       </entry>
                     </arguments>
                     <model resolves-to="org.jenkinsci.plugins.structs.describable.DescribableModel$SerializedForm">
