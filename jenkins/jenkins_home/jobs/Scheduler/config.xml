@@ -99,7 +99,7 @@ echo &quot;slow selenium output $SLOW_SELENIUM&quot;
 
 
 if [ X&quot;$SLOW_SELENIUM&quot; != &quot;X&quot; ]; then
-sh &quot;kubectl delete deployment selenium-standalone-slow -n selenium&quot;
+kubectl delete deployment selenium-standalone-slow -n selenium
 fi</command>
     </hudson.tasks.Shell>
   </builders>
