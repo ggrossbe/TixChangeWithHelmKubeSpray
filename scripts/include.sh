@@ -561,10 +561,11 @@ installAndConfigureSelenium () {
   logMsg "Install and Config Selenium"
 
   if [ -d $INSTALLATION_FOLDER/$SELENIUM_FOLDER ]; then
-    /bin/rm -rf $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+    /bin/rm -rf $INSTALLATION_FOLDER/$SELENIUM_FOLDER/*
+  else
+    mkdir -p $INSTALLATION_FOLDER/$SELENIUM_FOLDER
   fi
 
-    mkdir -p $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
   /bin/cp -rf $SCRIPTS_FOLDER/../selenium/* $INSTALLATION_FOLDER/$SELENIUM_FOLDER
   #cp $SCRIPTS_FOLDER/../selenium/TixChangeSelenium*.side $INSTALLATION_FOLDER/$SELENIUM_FOLDER
@@ -792,10 +793,11 @@ setupJenkins () {
      cd $INSTALL_SCRIPT_FOLDER/$JENKINS_FOLDER
 
      if [ -d $INSTALLATION_FOLDER/$JENKINS_FOLDER ]; then
-       rm -rf $INSTALLATION_FOLDER/$JENKINS_FOLDER
+       rm -rf $INSTALLATION_FOLDER/$JENKINS_FOLDER/*
+     else 
+      mkdir -p $INSTALLATION_FOLDER/$JENKINS_FOLDER   
      fi
 
-     mkdir -p $INSTALLATION_FOLDER/$JENKINS_FOLDER   
 
     cp -rf * $INSTALLATION_FOLDER/$JENKINS_FOLDER
     chmod 600 $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_ssh/*
