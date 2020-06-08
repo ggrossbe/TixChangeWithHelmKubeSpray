@@ -561,10 +561,11 @@ installAndConfigureSelenium () {
   logMsg "Install and Config Selenium"
 
   if [ -d $INSTALLATION_FOLDER/$SELENIUM_FOLDER ]; then
-    /bin/rm -rf $INSTALLATION_FOLDER/$SELENIUM_FOLDER
+    /bin/rm -rf $INSTALLATION_FOLDER/$SELENIUM_FOLDER/*
+  else
+    mkdir -p $INSTALLATION_FOLDER/$SELENIUM_FOLDER
   fi
 
-    mkdir -p $INSTALLATION_FOLDER/$SELENIUM_FOLDER
 
   /bin/cp -rf $SCRIPTS_FOLDER/../selenium/* $INSTALLATION_FOLDER/$SELENIUM_FOLDER
   #cp $SCRIPTS_FOLDER/../selenium/TixChangeSelenium*.side $INSTALLATION_FOLDER/$SELENIUM_FOLDER
