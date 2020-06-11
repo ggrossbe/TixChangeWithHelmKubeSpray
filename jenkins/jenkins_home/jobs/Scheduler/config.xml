@@ -36,7 +36,7 @@ echo &quot;$WORKSPACE/MobileProvisioningService/ exists&quot;
 
 fi
 
-git clone git@github.gwd.broadcom.net:ns657061/MobileProvisioningService.git
+git clone GIT_PROJECT
 
 echo &quot;workspace is $WORKSPACE&quot;
 
