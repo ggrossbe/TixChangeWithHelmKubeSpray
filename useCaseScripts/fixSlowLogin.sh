@@ -46,4 +46,4 @@ curl -v --request POST ''$OI_AUTOMIC_URL'' \
 
 kubectl delete -f selenium-standalone-slow.yml -n selenium
 
-#$UC_FOLDER/openAccessUCStatusTracker/UC2_StatusTracker.sh OFF
+echo OFF > /opt/ca/TixChangeK8sDemo/open-access/UC1_STATUS
