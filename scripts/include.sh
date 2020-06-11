@@ -830,7 +830,7 @@ setupJenkins () {
     #EPOCH_TIME=`date +%s%3N`
     #UTC_TIME=`date -u '+%Y-%m-%dT%H:%M:%S+0000'`
 
-    $sed -i "s/TENANT_ID/$TENANT_ID/g" $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/workspace/MobileProvisioningService/OIJenkinsChangeEvent.sh
+    #sed -i "s/TENANT_ID/$TENANT_ID/g" $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/workspace/MobileProvisioningService/OIJenkinsChangeEvent.sh
     #sed -i "s/EPOCH_TIME/$EPOCH_TIME/g" $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/workspace/MobileProvisioningService/OIJenkinsChangeEvent.sh
     #sed -i "s/BUILD_NUMBER/$BUILD_NUMBER/g" $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/workspace/MobileProvisioningService/OIJenkinsChangeEvent.sh
     #sed -i "s/UTC_TIME/$UTC_TIME/g" $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/workspace/MobileProvisioningService/OIJenkinsChangeEvent.sh
