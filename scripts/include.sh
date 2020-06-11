@@ -328,12 +328,12 @@ stopDeleteSelenium () {
 
  #removing OpenAcc UC status cron job
   
-  sed -i 's/.*openAcc.*//g' /var/spool/cron/root
+  #sed -i 's/.*openAcc.*//g' /var/spool/cron/root
   
-  sleep 5
+  #sleep 5
   
   # set the UC status to off
-  $INSTALL_SCRIPT_FOLDER/useCaseScripts/openAccessUCStatusTracker/UC1_StatusTracker.sh DONE
+  #$INSTALL_SCRIPT_FOLDER/useCaseScripts/openAccessUCStatusTracker/UC1_StatusTracker.sh DONE
 }
 
 
@@ -619,7 +619,7 @@ installAndConfigureSelenium () {
   cd -
 
    # add open access UC status job
-   echo "*/1 * * * * /bin/sh $INSTALL_SCRIPT_FOLDER/useCaseScripts/openAccessUCStatusTracker/UC1_StatusTracker.sh >/dev/null 2>&1" > /var/spool/cron/root
+   #echo "*/1 * * * * /bin/sh $INSTALL_SCRIPT_FOLDER/useCaseScripts/openAccessUCStatusTracker/UC1_StatusTracker.sh >/dev/null 2>&1" > /var/spool/cron/root
 }
 
 configureEM () {
@@ -839,6 +839,12 @@ setupJenkins () {
     kubectl create -f $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins-deployment.yaml -n jenkins
 
    cd -
+
+   if [ ! -d $INSTALLATION_FOLDER/open-access ]; then
+	mkdir $INSTALLATION_FOLDER/open-access
+	chmod 777 $INSTALLATION_FOLDER/open-access
+   fi
+
    fi
 }
 
