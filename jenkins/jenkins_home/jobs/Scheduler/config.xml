@@ -51,7 +51,7 @@ echo &quot;enabled is $ENABLED&quot;
 if [ X&quot;$ENABLED&quot; == &quot;X&quot; ]; then
 sed -i &apos;s/disabled/enabled/g&apos; NA_Feature_Flag.config
 else
-sed -i &apos;s/enabled/enable/g&apos; NA_Feature_Flag.config
+sed -i &apos;s/enabled/disabled/g&apos; NA_Feature_Flag.config
 fi
 
 cd &quot;$WORKSPACE/MobileProvisioningService/caapm-performance-comparator/properties&quot;
@@ -104,8 +104,13 @@ echo $CRUMB
 
 curl -X POST -H &quot;$CRUMB&quot; http://admin:118788150017c96442621379f5440aa8b2@localhost:8080/job/MobileProvisioningService/disable
 
+cd &quot;$WORKSPACE/MobileProvisioningService/config/&quot;
 sed -i &apos;s/enabled/disabled/g&apos; NA_Feature_Flag.config
+
+cd &quot;$WORKSPACE/MobileProvisioningService/caapm-performance-comparator/properties&quot;
 sed -i &apos;s/build.fail=false/build.fail=true/g&apos; performance-comparator.properties
+
+cd &quot;$WORKSPACE/MobileProvisioningService/&quot;
 sed -i &apos;s/\/\+ *sh \&quot;kubectl/sh \&quot;kubectl/g&apos; Jenkinsfile
 
 git add $WORKSPACE/MobileProvisioningService/config/NA_Feature_Flag.config
@@ -127,6 +132,8 @@ echo $CRUMB
 
 curl -X POST -H &quot;$CRUMB&quot; http://admin:118788150017c96442621379f5440aa8b2@localhost:8080/job/MobileProvisioningService/enable
 
+
+echo &quot;sleeping 40 mts to allow slow logon UC continue&quot;
 
 sleep 2400
 
