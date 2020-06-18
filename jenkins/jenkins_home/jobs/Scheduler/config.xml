@@ -56,11 +56,29 @@ fi
 
 cd &quot;$WORKSPACE/MobileProvisioningService/caapm-performance-comparator/properties&quot;
 
-HOUR=`date +%H`
+# bunch of dummy changes to force MobileServiceProvisioning Project to checkout files
+DUMMY=`cat performance-comparator.properties |grep &quot;=FINER&quot;`
+
+if [ X&quot;$DUMMY&quot; == &quot;X&quot; ]; then
+sed -i &apos;s/logging.level=FINE/logging.level=FINER/g&apos; performance-comparator.properties
+else
+sed -i &apos;s/logging.level=FINER/logging.level=FINE/g&apos; performance-comparator.properties
+fi
+#Dummy Change end
+
+HOUR_TEMP=`date +%H`
+
+HOUR=${HOUR_TEMP#0}
 
 MOD=$(($HOUR%2))
 
-echo &quot;MOD is $MOD&quot;
+if [ $BUILD_NUMBER == &quot;3&quot; ]; then
+MOD=1
+fi
+
+
+echo &quot;BUILD # is $BUILD_NUMBER Hour is $HOUR MOD is $MOD&quot;
+
 
 if [ $MOD -eq 0 ]; then
 sed -i &apos;s/build.fail=false/build.fail=true/g&apos; performance-comparator.properties
@@ -70,6 +88,17 @@ fi
 
 
 cd $WORKSPACE/MobileProvisioningService/
+
+# bunch of dummy changes to force MobileServiceProvisioning Project to checkout files
+DUMMY=`cat  Jenkinsfile|grep Ignore`
+
+if [ X&quot;$DUMMY&quot; == &quot;X&quot; ]; then
+sed -i &apos;s/ignore/Ignore/g&apos; Jenkinsfile
+else
+sed -i &apos;s/Ignore/ignore/g&apos; Jenkinsfile
+fi
+
+# Dummy change end
 
 if [ $MOD -eq 0 ]; then
 sed -i &apos;s/\/\+ *sh \&quot;kubectl/sh \&quot;kubectl/g&apos; Jenkinsfile
