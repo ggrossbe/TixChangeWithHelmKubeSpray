@@ -161,6 +161,11 @@ echo $CRUMB
 
 curl -X POST -H &quot;$CRUMB&quot; http://admin:118788150017c96442621379f5440aa8b2@localhost:8080/job/MobileProvisioningService/enable
 
+if [ $BUILD_NUMBER == 3 ]; then
+echo &quot; ensure mobile prov service build 3 is undeletable&quot;
+curl -X POST -d &quot;$CRUMB&quot; http://admin:118788150017c96442621379f5440aa8b2@localhost:8080/job/MobileProvisioningService/3/toggleLogKeep
+curl -X POST -d &quot;$CRUMB&quot; http://admin:118788150017c96442621379f5440aa8b2@localhost:8080/job/Scheduler/3/toggleLogKeep
+fi
 
 echo &quot;sleeping 40 mts to allow slow logon UC continue&quot;
 
