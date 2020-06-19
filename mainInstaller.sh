@@ -83,6 +83,9 @@ case $OPTION in
      cd $INSTALL_SCRIPT_FOLDER
      installTixChangeHelm
 
+     sleep 10
+     setupOpenTracingMonitoring
+
      sleep 30
      installBPA
 
@@ -166,6 +169,9 @@ case $OPTION in
      cd $INSTALL_SCRIPT_FOLDER
      installTixChangeHelm
 
+     sleep 10
+     setupOpenTracingMonitoring
+
      sleep 30
      installBPA
 
@@ -224,6 +230,9 @@ case $OPTION in
 
      logMsg " Installing just the TixChange components + Selenium + EM side MM,ExpView, Univ"
      installTixChangeHelm
+
+     sleep 10
+     setupOpenTracingMonitoring
     
      sleep 30 
      logMsg "reinstall BPA "

@@ -68,7 +68,7 @@ spec:
               cpu: "600m"
               memory: "600Mi"
           #image: omaro/tixchange_web:2.1
-          image: srikns/tixchange-web8:20.2.2
+          image: srikns/tixchange-web8:20.6
           lifecycle:
             postStart: 
               exec:
@@ -211,7 +211,7 @@ spec:
             requests:
               cpu: "500m"
               memory: "500Mi"
-          image: srikns/tixchange-service8
+          image: srikns/tixchange-service8:20.6
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:

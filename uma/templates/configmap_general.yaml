@@ -32,6 +32,7 @@ data:
   agentNaming_deployment_prometheus_agent: "{{ .Values.agentNaming.deployment.prometheus.agent }}"
   agentNaming_daemonset_apmia_host: "{{ .Values.agentNaming.daemonset.apmia.host }}"
   agentNaming_daemonset_apmia_process: "{{ .Values.agentNaming.daemonset.apmia.process }}"
-  agentNaming_daemonset_apmia_agent:  "{{ .Values.agentNaming.daemonset.apmia.agent }}"
+  agentNaming_daemonset_apmia_agent: "{{ .Values.agentNaming.daemonset.apmia.agent }}"
+  opentracing_grpc_hostport: "{{ .Values.monitor.application.opentracing.grpc.hostport }}"
 
 {{ end }}

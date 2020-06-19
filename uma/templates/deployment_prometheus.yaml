@@ -2,7 +2,11 @@
 # Prometheus based Deployment. What is the Agent triplet name ?
 # Agent from Container1 will be reported to <Cluster_Name>|ClusterMonitoring|Prometheus Agent
 
+{{- if or .Values.k8slegacy }}
+apiVersion: apps/v1beta1
+{{ else }}
 apiVersion: apps/v1
+{{ end }}
 kind: Deployment
 metadata:
   name: cluster-performance-prometheus
@@ -17,6 +21,7 @@ spec:
       labels:
         app: prometheus-deployment
     spec:
+      serviceAccountName: uma
       initContainers:
         - name: init-clusterinfo
           image:  {{ or .Values.imageName .Values.image }}
@@ -73,7 +78,7 @@ spec:
         - name: apmenv_com_ca_apm_kubernetes_remote_monitor_type
           value: prometheus
         - name: apmenv_com_ca_apm_kubernetes_prometheus_datafile
-          value: haproxy,kube-state-metric,coredns
+          value: haproxy,kube-state-metric,coredns,etcd
         - name: apmenv_introscope_agent_agentName
 {{- if or .Values.agentNaming.deployment.prometheus.agent }}
           valueFrom:
@@ -211,7 +216,7 @@ spec:
         - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_polling_frequency
           value: {{ .Values.monitor.container.prometheus.backend.endPoint.pollInterval | default "30" | quote }}
         - name: apmenv_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_config_files
-          value: "{{ .Values.monitor.container.prometheus.backend.endPoint.configFiles | default "k8s-cluster-mapdata.yaml,k8s-container-mapdata.yaml,k8s-container-metrics.yaml,k8s-container-resource-cpu-limit-mapdata.yaml,k8s-container-resource-cpu-request-mapdata.yaml,k8s-container-resource-memory-limit-mapdata.yaml,k8s-container-resource-memory-request-mapdata.yaml, k8s-namespace-labels-mapdata.yaml,k8s-namespace-mapdata.yaml,k8s-node.yaml,k8s-node-labels-mapdata.yaml,k8s-pod-labels-mapdata.yaml,k8s-pod-mapdata.yaml" }}"
+          value: "{{ .Values.monitor.container.prometheus.backend.endPoint.configFiles | default "k8s-cluster.yaml,k8s-container.yaml,k8s-pod.yaml,k8s-namespace.yaml,k8s-node.yaml,k8s-istio.yaml" }}"
         - name: apmenv_prometheus_metric_name_alias
           value: "{{ .Values.monitor.container.prometheus.backend.endPoint.metricAlias }}"
         - name: apmenv_prometheus_metric_name_alias_exception
