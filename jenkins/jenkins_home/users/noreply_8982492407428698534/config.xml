@@ -1,42 +1,21 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <user>
   <version>10</version>
-  <id>admin</id>
-  <fullName>admin</fullName>
-  <description></description>
+  <id>noreply</id>
+  <fullName>noreply</fullName>
   <properties>
     <jenkins.security.ApiTokenProperty>
       <tokenStore>
-        <tokenList>
-          <jenkins.security.apitoken.ApiTokenStore_-HashedToken>
-            <uuid>149a74b6-3389-4cc1-a1b1-f652b3c5e0a4</uuid>
-            <name>adminToken</name>
-            <creationDate>2020-06-14 17:29:21.787 UTC</creationDate>
-            <value>
-              <version>11</version>
-              <hash>bc71d30c9703777dd8672b7ae9f7c7979d95e1d0a057c4f9de1bed8c3a67d588</hash>
-            </value>
-          </jenkins.security.apitoken.ApiTokenStore_-HashedToken>
-        </tokenList>
+        <tokenList/>
       </tokenStore>
     </jenkins.security.ApiTokenProperty>
     <com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty plugin="credentials@2.3.7">
       <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash"/>
     </com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty>
-    <hudson.tasks.Mailer_-UserProperty plugin="mailer@1.32">
-      <emailAddress>admin@admin.com</emailAddress>
-    </hudson.tasks.Mailer_-UserProperty>
     <hudson.plugins.emailext.watching.EmailExtWatchAction_-UserProperty plugin="email-ext@2.69">
       <triggers/>
     </hudson.plugins.emailext.watching.EmailExtWatchAction_-UserProperty>
-    <jenkins.security.LastGrantedAuthoritiesProperty>
-      <roles>
-        <string>authenticated</string>
-      </roles>
-      <timestamp>1589857579472</timestamp>
-    </jenkins.security.LastGrantedAuthoritiesProperty>
     <hudson.model.MyViewsProperty>
-      <primaryViewName></primaryViewName>
       <views>
         <hudson.model.AllView>
           <owner class="hudson.model.MyViewsProperty" reference="../../.."/>
@@ -53,20 +32,15 @@
     <hudson.model.PaneStatusProperties>
       <collapsed/>
     </hudson.model.PaneStatusProperties>
-    <hudson.security.HudsonPrivateSecurityRealm_-Details>
-      <passwordHash>#jbcrypt:$2a$10$OjdMQbl1qL8bkCiosjnfU.eg.SmaQlUs3r88HFF2Gt3Sl94NeZNem</passwordHash>
-    </hudson.security.HudsonPrivateSecurityRealm_-Details>
-    <org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
-      <authorizedKeys></authorizedKeys>
-    </org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
     <jenkins.security.seed.UserSeedProperty>
-      <seed>1d843dbe94e2f5b2</seed>
+      <seed>fc8efde095fdedd2</seed>
     </jenkins.security.seed.UserSeedProperty>
     <hudson.search.UserSearchProperty>
       <insensitiveSearch>true</insensitiveSearch>
     </hudson.search.UserSearchProperty>
-    <hudson.model.TimeZoneProperty>
-      <timeZoneName>America/New_York</timeZoneName>
-    </hudson.model.TimeZoneProperty>
+    <hudson.model.TimeZoneProperty/>
+    <hudson.tasks.Mailer_-UserProperty plugin="mailer@1.32">
+      <emailAddress>noreply@github.gwd.broadcom.net</emailAddress>
+    </hudson.tasks.Mailer_-UserProperty>
   </properties>
 </user>

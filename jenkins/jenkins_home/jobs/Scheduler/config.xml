@@ -49,18 +49,36 @@ echo &quot;enabled is $ENABLED&quot;
 
 
 if [ X&quot;$ENABLED&quot; == &quot;X&quot; ]; then
-sed -i &apos;s/enable/enabled/g&apos; NA_Feature_Flag.config
+sed -i &apos;s/disabled/enabled/g&apos; NA_Feature_Flag.config
 else
-sed -i &apos;s/enabled/enable/g&apos; NA_Feature_Flag.config
+sed -i &apos;s/enabled/disabled/g&apos; NA_Feature_Flag.config
 fi
 
 cd &quot;$WORKSPACE/MobileProvisioningService/caapm-performance-comparator/properties&quot;
 
-HOUR=`date +%H`
+# bunch of dummy changes to force MobileServiceProvisioning Project to checkout files
+DUMMY=`cat performance-comparator.properties |grep &quot;=FINER&quot;`
+
+if [ X&quot;$DUMMY&quot; == &quot;X&quot; ]; then
+sed -i &apos;s/logging.level=FINE/logging.level=FINER/g&apos; performance-comparator.properties
+else
+sed -i &apos;s/logging.level=FINER/logging.level=FINE/g&apos; performance-comparator.properties
+fi
+#Dummy Change end
+
+HOUR_TEMP=`date +%H`
+
+HOUR=${HOUR_TEMP#0}
 
 MOD=$(($HOUR%2))
 
-echo &quot;MOD is $MOD&quot;
+if [ $BUILD_NUMBER == &quot;3&quot; ]; then
+MOD=1
+fi
+
+
+echo &quot;BUILD # is $BUILD_NUMBER Hour is $HOUR MOD is $MOD&quot;
+
 
 if [ $MOD -eq 0 ]; then
 sed -i &apos;s/build.fail=false/build.fail=true/g&apos; performance-comparator.properties
@@ -70,6 +88,17 @@ fi
 
 
 cd $WORKSPACE/MobileProvisioningService/
+
+# bunch of dummy changes to force MobileServiceProvisioning Project to checkout files
+DUMMY=`cat  Jenkinsfile|grep Ignore`
+
+if [ X&quot;$DUMMY&quot; == &quot;X&quot; ]; then
+sed -i &apos;s/ignore/Ignore/g&apos; Jenkinsfile
+else
+sed -i &apos;s/Ignore/ignore/g&apos; Jenkinsfile
+fi
+
+# Dummy change end
 
 if [ $MOD -eq 0 ]; then
 sed -i &apos;s/\/\+ *sh \&quot;kubectl/sh \&quot;kubectl/g&apos; Jenkinsfile
@@ -96,6 +125,51 @@ git push origin master
 
 
 sleep 600
+
+CRUMB=$(curl -s &apos;http://admin:118788150017c96442621379f5440aa8b2@localhost:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,&quot;:&quot;,//crumb)&apos;)
+
+
+echo $CRUMB
+
+curl -X POST -H &quot;$CRUMB&quot; http://admin:118788150017c96442621379f5440aa8b2@localhost:8080/job/MobileProvisioningService/disable
+
+cd &quot;$WORKSPACE/MobileProvisioningService/config/&quot;
+sed -i &apos;s/enabled/disabled/g&apos; NA_Feature_Flag.config
+
+cd &quot;$WORKSPACE/MobileProvisioningService/caapm-performance-comparator/properties&quot;
+sed -i &apos;s/build.fail=false/build.fail=true/g&apos; performance-comparator.properties
+
+cd &quot;$WORKSPACE/MobileProvisioningService/&quot;
+sed -i &apos;s/\/\+ *sh \&quot;kubectl/sh \&quot;kubectl/g&apos; Jenkinsfile
+
+git add $WORKSPACE/MobileProvisioningService/config/NA_Feature_Flag.config
+git add $WORKSPACE/MobileProvisioningService/caapm-performance-comparator/properties/performance-comparator.properties
+git add $WORKSPACE/MobileProvisioningService/Jenkinsfile
+
+
+git commit -m &quot;Restoring to orignal state&quot;
+
+
+git push origin master
+
+sleep 20
+
+CRUMB=$(curl -s &apos;http://admin:118788150017c96442621379f5440aa8b2@localhost:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,&quot;:&quot;,//crumb)&apos;)
+
+
+echo $CRUMB
+
+curl -X POST -H &quot;$CRUMB&quot; http://admin:118788150017c96442621379f5440aa8b2@localhost:8080/job/MobileProvisioningService/enable
+
+if [ $BUILD_NUMBER == 3 ]; then
+echo &quot; ensure mobile prov service build 3 is undeletable&quot;
+curl -X POST -d &quot;$CRUMB&quot; http://admin:118788150017c96442621379f5440aa8b2@localhost:8080/job/MobileProvisioningService/3/toggleLogKeep
+curl -X POST -d &quot;$CRUMB&quot; http://admin:118788150017c96442621379f5440aa8b2@localhost:8080/job/Scheduler/3/toggleLogKeep
+fi
+
+echo &quot;sleeping 40 mts to allow slow logon UC continue&quot;
+
+sleep 2400
 
 SLOW_SELENIUM=`kubectl get pods -n selenium |grep slow`
 
