@@ -10,14 +10,14 @@
       "id": "bf6dcff5-f499-48d7-8390-c44b4dd95e3a",
       "comment": "",
       "command": "open",
-      "target": "jtixchange_web/shop/confirmOrder.shtml",
+      "target": "jtixchange_web/shop/confirmPrice.shtml",
       "targets": [],
       "value": ""
     },{
       "id": "bf6dcff5-f499-48d7-8390-c44b4dd95e3a",
       "comment": "",
       "command": "open",
-      "target": "jtixchange_web/shop/confirmOrder.shtml",
+      "target": "jtixchange_web/shop/confirmPrice.shtml",
       "targets": [],
       "value": ""
     }]
@@ -31,6 +31,6 @@
     "timeout": 300,
     "tests": ["d060aa52-f8e8-4711-a8d8-1a513f85e372"]
   }],
-  "urls": ["https://10.74.240.132/", "https://10.74.240.132/https://10.74.240.132/jtixchange_web/shop/confirmOrder.shtml", "https://10.74.240.132/jtixchange_web/shop/confirmOrder.shtml", "http://uc1.jtixchange.com/"],
+  "urls": ["https://10.74.240.132/", "https://10.74.240.132/https://10.74.240.132/jtixchange_web/shop/confirmPrice.shtml", "https://10.74.240.132/jtixchange_web/shop/confirmPrice.shtml", "http://uc1.jtixchange.com/"],
   "plugins": []
 }
