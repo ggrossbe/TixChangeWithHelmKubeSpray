@@ -259,15 +259,15 @@ spec:
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2. I'm running 1.11.0
 kind: Deployment
 metadata:
-  name: nodejs-web-deploy
+  name: pricing-web-deploy
   namespace: tixchange-v1
   labels:
-    app: nodejs-web
+    app: pricing-web
     tier: frontend
 spec:
   selector:
     matchLabels:
-      app: nodejs-web
+      app: pricing-web
       tier: frontend
   replicas: 1
   revisionHistoryLimit: 9 # how many revisions
@@ -279,14 +279,14 @@ spec:
   template:
     metadata:
       labels:
-        app: nodejs-web
+        app: pricing-web
         tier: frontend
         apm: enabled
       annotations:
         ver: "1.0"
     spec:
       containers:
-        - name: nodejs-web
+        - name: pricing-web
           env:
           - name: JAEGER_ENDPOINT
             #value: http://10.74.121.188:31426/api/traces
@@ -295,23 +295,25 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
+      nodeSelector:
+        kubernetes.io/hostname: node2
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodejs-svc
+  name: pricing-svc
   namespace: tixchange-v1
   labels:
-    app: nodejs-web
+    app: pricing-web
     tier: frontend
 spec:
   selector:
-    app: nodejs-web
+    app: pricing-web
     tier: frontend
   ports:
   - port: 3000
-    name: nodejs-web
+    name: pricing-web
     targetPort: 3000
 
 ---

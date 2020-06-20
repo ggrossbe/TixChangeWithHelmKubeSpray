@@ -228,6 +228,8 @@ case $OPTION in
 
      stopDeleteTixChange
 
+     removeOpenTracingMonitoring
+
      logMsg " Installing just the TixChange components + Selenium + EM side MM,ExpView, Univ"
      installTixChangeHelm
 
