@@ -295,10 +295,17 @@ spec:
           imagePullPolicy: Always
           livenessProbe:
             httpGet:
-              path: /pricingGatewayCompute?op=add&op1=1&op2=2
+              path: /
               port: 3000
             initialDelaySeconds: 15
             periodSeconds: 10
+          resources:
+           limits:
+            cpu: "2"
+            memory: 1G
+           requests:
+            cpu: 500m
+            memory: 600Mi
           ports:
             - containerPort: 3000
       nodeSelector:
