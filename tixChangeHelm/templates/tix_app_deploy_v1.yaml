@@ -293,6 +293,12 @@ spec:
             value: JAEGER_ENDPOINT_URL
           image: srikns/nodejs-opentracing:20.6
           imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /pricingGatewayCompute?op=add&op1=1&op2=2
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 10
           ports:
             - containerPort: 3000
       nodeSelector:
