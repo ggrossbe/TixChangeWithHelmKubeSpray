@@ -1,9 +1,9 @@
-Automated TixChange Version: 20.5.1
-Release Date: Jun 5th, 2020
+Automated TixChange Version: 20.6.0
+Release Date: Jun 20th, 2020
 Key features in this release:
-  Jenkins - automted regular build every 3 hours with every 4th build marked as failed
-     Mapped to NA_Provisioning service
-     Start and End change event with build status in OI
-  BPA - proxy and BT listener now deployed as side car container
+  Open Tracing - Integrated with Jaeger Backend and Jaeger Client
+     - New UMA that stitches UMA instrumented java traces with Open Tracking Spans 
+     - A new service is added to TixChange "pricingService" that calls a new NodeJS backend that is instrumented with Jaeger client
+  Jenkins - more improvements and bug fixes and include automated trigger with alternate pass and fail build.
 
 https://cawiki.ca.com/display/SASWAT/Automated+Tixchange+in+K8s+-+V2.0

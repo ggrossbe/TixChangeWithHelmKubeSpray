@@ -8,6 +8,7 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 
 INSTALL_SCRIPT_FOLDER=$PWD/$SCRIPTS_FOLDER/..
 
+OT_FOLDER=opentracing
 JENKINS_FOLDER=jenkins
 ASM_FOLDER=asm
 LOG_COLL_FOLDER=logcollector
@@ -350,6 +351,7 @@ stopDeleteAll () {
   removeASMMonitoring
   stopDeleteBPA
   removeLogCollector
+  removeOpenTracingMonitoring
 
   rm -rf $INSTALLATION_FOLDER/*
 
@@ -371,6 +373,7 @@ stopDeleteAppComponents () {
   removeASMMonitoring
  stopDeleteBPA
  removeLogCollector
+  removeOpenTracingMonitoring
   #rm -rf $INSTALLATION_FOLDER/logs/
 }
 
@@ -417,6 +420,7 @@ installUMA () {
 
    sed -i 's/credential.*$/credential: '$APM_MANAGER_CREDENTIAL'/' values.yaml
    sed -i 's/clusterName.*$/clusterName: '$UMA_K8S_CLUSTER_NAME'/' values.yaml
+   sed -i 's/JAEGER_ENDPOINT_HTTP/'$TIX_IP':31668/' values.yaml
 
    helm install  . --name uma --namespace caaiops
    
@@ -490,6 +494,14 @@ installTixChangeHelm () {
      sed -i 's/LOG_COLL_TIX_WS_UC1_DIR/'$LOG_COLL_TIX_WS_UC1_DIR'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_app_deploy_v1.yaml
      sed -i 's/LOG_COLL_TIX_WEB_UC2_DIR/'$LOG_COLL_TIX_WEB_UC2_DIR'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_app_deploy_v2.yaml
      sed -i 's/LOG_COLL_TIX_WS_UC2_DIR/'$LOG_COLL_TIX_WS_UC2_DIR'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_app_deploy_v2.yaml
+
+     #OPEN TRACING AND NODE JS related
+     JAEGER_ENDPOINT_URL="http://$TIX_IP:31426/api/traces"
+     ESCAPED_JAEGER_ENDPOINT_URL=$(echo "$JAEGER_ENDPOINT_URL"| sed 's/\//\\\//g')
+
+     logMsg "JAEGER END POINT IS $ESCAPED_JAEGER_ENDPOINT_URL"
+
+     sed -i 's/JAEGER_ENDPOINT_URL/'$ESCAPED_JAEGER_ENDPOINT_URL'/' $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_app_deploy_v1.yaml
 
 
      #Using RDS
@@ -755,6 +767,46 @@ setupAWSMonitoring () {
 }
 
 
+setupOpenTracingMonitoring () {
+
+   logMsg "Setting up OpenTracing Backend  Monitoring - pls wait"
+
+      cd $INSTALL_SCRIPT_FOLDER/$OT_FOLDER
+
+     if [ -d $INSTALLATION_FOLDER/$OT_FOLDER ]; then
+       rm -rf $INSTALLATION_FOLDER/$OT_FOLDER
+     fi
+
+     mkdir -p $INSTALLATION_FOLDER/$OT_FOLDER
+
+    cp -f jaeger_backend_deploy.yaml  $INSTALLATION_FOLDER/$OT_FOLDER/
+
+    kubectl create ns jaeger
+
+    kubectl create -f $INSTALLATION_FOLDER/$OT_FOLDER/jaeger_backend_deploy.yaml -n jaeger
+
+    cd -
+
+}
+
+
+
+
+removeOpenTracingMonitoring () {
+
+     logMsg "Removing  Open Tracing Monitoring - pls wait"
+
+
+     if [ -d $INSTALLATION_FOLDER/$OT_FOLDER ]; then
+          kubectl delete -f $INSTALLATION_FOLDER/$OT_FOLDER/jaeger_backend_deploy.yaml -n jaeger
+          rm -rf $INSTALLATION_FOLDER/$OT_FOLDER
+     fi
+        kubectl delete ns jaeger
+
+}
+
+
+
 setupASMMonitoring () {
    if [ X"$IS_ASM" != "Xfalse" ]; then
      logMsg "Setting up ASM monitoring - pls wait"
@@ -915,7 +967,7 @@ createUpdateOIServices () {
 
    ./$OI_SCRIPT_FILE $1
 
-    cd - 
+     cd - 
 
      
 }

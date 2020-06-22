@@ -1,9 +1,13 @@
 {{- if and (or .Values.agentManager.url .Values.agentManager_url_1) }}
-{{- if or .Values.monitor.application.java.enabled .Values.autoattach_enabled .Values.monitor.application.jmx.enabled .Values.kubernetes_remote_jmx_enabled .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled .Values.monitor.container.prometheus.exporter.enabled }}
+{{- if or .Values.monitor.application.autoattach.java.enabled .Values.autoattach_java_enabled .Values.monitor.application.autoattach.dotnet.enabled .Values.autoattach_dotnet_enabled .Values.monitor.application.jmx.enabled .Values.kubernetes_remote_jmx_enabled .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled .Values.monitor.container.prometheus.exporter.enabled }}
 # DaemonSet Configuration
 # Agent from Container1 will be reported to <Node_Name>|Infrastructure|Agent
 # Agent from Container2 will be reported to <Node_Name>|Application|JMX Agent
+{{- if or .Values.k8slegacy }}
+apiVersion: extensions/v1beta1
+{{ else }}
 apiVersion: apps/v1
+{{ end }}
 kind: DaemonSet
 metadata:
   name: app-container-monitor
@@ -44,12 +48,10 @@ spec:
       - env:
 {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }}
         - name: containerflow
-          value: enabled
+          value: disabled
 {{ end }}
         - name: apmenv_autoattach_docker_free_memory_threshold
           value: "15.00"
-        - name: apmenv_autoattach_filter_jvms
-          value: "false"
         - name: agentManager_url_1
           valueFrom:
             configMapKeyRef:
@@ -99,52 +101,71 @@ spec:
           value: {{ .Values.type }}
         - name: interval
           value: "60"
+        - name: DOCKERSTATS_CGROUP_MODE
+          value: enabled
         - name: apmenv_introscope_agent_extensions_bundles_load
-          value: {{ if or .Values.monitor.application.java.enabled .Values.autoattach_enabled }} AutoAttach,{{end}}{{ if and ( or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled) }}OpenshiftMonitor,HostMonitor,{{end}}{{ if or .Values.monitor.container.prometheus.exporter.enabled .Values.monitor.application.jmx.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}KubernetesRemoteMonitor,{{end}}
-{{- if or .Values.monitor.application.java.enabled .Values.autoattach_enabled }}
+          value: {{ if or .Values.monitor.application.autoattach.java.enabled .Values.autoattach_java_enabled }} java-attach,{{end}}{{ if or .Values.monitor.application.autoattach.dotnet.enabled .Values.autoattach_dotnet_enabled }} dotnet-attach,{{end}}kubernetes-overrider,{{ if and ( or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled) }}OpenshiftMonitor,HostMonitor,{{end}}{{ if or .Values.monitor.container.prometheus.exporter.enabled .Values.monitor.application.jmx.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}KubernetesRemoteMonitor,{{end}}
+{{- if or .Values.monitor.application.autoattach.java.enabled .Values.autoattach_java_enabled .Values.monitor.application.autoattach.dotnet.enabled .Values.autoattach_dotnet_enabled }}
         ##########################
         # Auto Attach properties:
         ##########################
         - name: apmenv_autoattach_enable_agentNameSuffix
           value: "false"
-        - name: apmenv_autoattach_enabled_applications
-          value: " "
+        # Free memory threshold required for attaching to containers (%)
+        - name: apmenv_autoattach_free_memory_threshold
+          value: "50.00"
+        # Interval for attaching to memory unbounded containers (sec). One unbounded container will be attached to per interval.
+        - name: apmenv_autoattach_unbounded_container_attach_interval
+          value: "300"
         # Operation Mode for Auto Attach (whitelist/blacklist).
         # whitelist: will only attach to processes marked with env variable CA_APM_MONITORING_ENABLED=true
         # blacklist: will attach to all processes except those marked with env variable CA_APM_MONITORING_ENABLED=false
         - name: apmenv_autoattach_filter_type
-          value: "{{ default "whitelist" (or .Values.monitor.application.java.filterType .Values.autoattach_filter_type) }}"
+          value: "{{ default "whitelist" (or .Values.monitor.application.autoattach.filterType .Values.autoattach_filter_type) }}"
+{{- if or .Values.monitor.application.autoattach.java.enabled .Values.autoattach_java_enabled }}
+        - name: apmenv_autoattach_java_enabled_applications
+          value: " "
         # Properties for aggressively monitoring every JVM
-        - name: apmenv_autoattach_proactiveMode_enabled
+        - name: apmenv_autoattach_java_proactiveMode_enabled
           value: "true"
-        - name: apmenv_autoattach_proactiveMode_vmpattern
-          value: "java"
-        - name: apmenv_autoattach_proactiveMode_agent_directory
-          value: "/usr/local/openshift/apmia/java-agent/wily"
-        - name: apmenv_autoattach_proactiveMode_agent_profile
-          value: "IntroscopeAgentMicro.profile"
-{{- if or (or .Values.monitor.application.java.propertiesOverride .Values.autoattach_agent_extra_properties) .Values.agentManager.version }}
-        - name: apmenv_autoattach_proactiveMode_agent_extra_properties
-          value: {{ if or .Values.agentManager.version }}introscope.agent.connection.compatibility.version=10.7,{{end}}{{ or .Values.monitor.application.java.propertiesOverride .Values.autoattach_agent_extra_properties}}
+        - name: apmenv_autoattach_java_proactiveMode_agent_load_delay
+          value: "300"
+{{- if or (or .Values.monitor.application.autoattach.java.propertiesOverride .Values.autoattach_java_agent_extra_properties) .Values.monitor.application.opentracing.correlation.enabled }}
+        - name: apmenv_autoattach_java_proactiveMode_agent_extra_properties
+          value: {{ if or .Values.monitor.application.opentracing.correlation.enabled }}introscope.agent.opentracing.enable=true,{{end}}{{ or .Values.monitor.application.autoattach.java.propertiesOverride .Values.autoattach_java_agent_extra_properties}}
 {{ end }}
-
+{{ end }}
+{{- if or .Values.monitor.application.autoattach.dotnet.enabled .Values.autoattach_dotnet_enabled }}
+        - name: apmenv_autoattach_dotnet_enabled_applications
+          value: " "
+        # Properties for aggressively monitoring every.NET Runtime
+        - name: apmenv_autoattach_dotnet_proactiveMode_enabled
+          value: "true"
+        - name: apmenv_autoattach_dotnet_proactiveMode_agent_load_delay
+          value: "30"
+{{- if or (or .Values.monitor.application.autoattach.dotnet.propertiesOverride .Values.autoattach_dotnet_agent_extra_properties) }}
+        - name: apmenv_autoattach_dotnet_proactiveMode_agent_extra_properties
+          value: {{ or .Values.monitor.application.autoattach.dotnet.propertiesOverride .Values.autoattach_dotnet_agent_extra_properties}}
+{{ end }}
+{{ end }}
 
 {{end}}
 {{- if or .Values.monitor.application.jmx.enabled  .Values.monitor.container.prometheus.exporter.enabled .Values.kubernetes_remote_jmx_enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
         - name: apmenv_com_ca_apm_kubernetes_remote_monitor_type
           value: {{ if or .Values.monitor.application.jmx.enabled .Values.kubernetes_remote_jmx_enabled }}jmx,{{end}}{{ if and (or .Values.monitor.container.prometheus.exporter.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled) }}prometheus{{end}}
+        - name: apmenv_com_ca_apm_kubernetes_autodiscovery_local
+          value: "true"
+{{end}}
+        - name: nodename
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
         - name: apmenv_com_ca_apm_kubernetes_clusterName
           valueFrom:
             configMapKeyRef:
               key: cluster_name
               name: caaiops-config-common
-        - name: apmenv_com_ca_apm_kubernetes_autodiscovery_local
-          value: "true"
-        - name: nodename
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-{{end}}
+
 {{- if or .Values.monitor.container.prometheus.exporter.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled}}
         - name: apmenv_com_ca_apm_kubernetes_prometheus_datafile
           value: node-exporter, cadvisor
@@ -181,6 +202,15 @@ spec:
           value: "64"
         - name: apmenv_introscope_epagent_config_httpServerPort
           value: "8888"
+        - name: REDUCE_METRIC_EXPLOSION
+          value: "false"
+        - name: apmenv_com_ca_apm_kubernetes_monitor_legacy
+          value: {{ if .Values.agentManager.version }} "true" {{ else }} "false" {{ end }}
+{{- if .Values.namespaces }}
+        - name: KUBERNETES_NAMESPACE_MONITOR_LIST
+          value: "{{ .Values.namespaces }}"
+{{ end }}
+
         name: podmonitor
         image:  {{ or .Values.imageName .Values.image }}
 {{- if or .Values.EnableResourceLimits .Values.kubernetes_resource_bound }}
@@ -216,9 +246,25 @@ spec:
         - name: dockersock
           mountPath: /var/run/docker.sock
           readOnly: true
+        - name: dev
+          mountPath: /host/dev
+          readOnly: true
+        - name: run
+          mountPath: /host/run
+          readOnly: true
+        - name: sys
+          mountPath: /host/sys
+          readOnly: true
+        - name: boot
+          mountPath: /host/boot
+          readOnly: true
+        - name: home
+          mountPath: /host/home
+          readOnly: true
         - name: proc
           mountPath: /host/proc
           readOnly: true
+
 {{- if or .Values.monitor.container.prometheus.exporter.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
         - name: config-volume
           mountPath: /usr/local/openshift/apmia/extensions/KubernetesRemoteMonitor/config/prometheus
@@ -227,6 +273,21 @@ spec:
       - name: dockersock
         hostPath:
           path: /var/run/docker.sock
+      - name: dev
+        hostPath:
+          path: /dev
+      - name: run
+        hostPath:
+          path: /run
+      - name: sys
+        hostPath:
+          path: /sys
+      - name: boot
+        hostPath:
+          path: /boot
+      - name: home
+        hostPath:
+          path: /home
       - name: proc
         hostPath:
           path: /proc

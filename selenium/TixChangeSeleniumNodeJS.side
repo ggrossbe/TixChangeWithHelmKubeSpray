@@ -1,0 +1,36 @@
+{
+  "id": "6da13a18-ccbb-441b-95c6-d740fe29d2d2",
+  "version": "2.0",
+  "name": "TixChangeSeleniumNodeJS",
+  "url": "http://uc1.jtixchange.com/",
+  "tests": [{
+    "id": "d060aa52-f8e8-4711-a8d8-1a513f85e372",
+    "name": "EndToEnd",
+    "commands": [{
+      "id": "bf6dcff5-f499-48d7-8390-c44b4dd95e3a",
+      "comment": "",
+      "command": "open",
+      "target": "jtixchange_web/shop/confirmPrice.shtml",
+      "targets": [],
+      "value": ""
+    },{
+      "id": "bf6dcff5-f499-48d7-8390-c44b4dd95e3a",
+      "comment": "",
+      "command": "open",
+      "target": "jtixchange_web/shop/confirmPrice.shtml",
+      "targets": [],
+      "value": ""
+    }]
+
+  }],
+  "suites": [{
+    "id": "37d9d671-3ce5-4b13-a9a4-9797a1a369d5",
+    "name": "TixChangeNormal",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["d060aa52-f8e8-4711-a8d8-1a513f85e372"]
+  }],
+  "urls": ["https://10.74.240.132/", "https://10.74.240.132/https://10.74.240.132/jtixchange_web/shop/confirmPrice.shtml", "https://10.74.240.132/jtixchange_web/shop/confirmPrice.shtml", "http://uc1.jtixchange.com/"],
+  "plugins": []
+}

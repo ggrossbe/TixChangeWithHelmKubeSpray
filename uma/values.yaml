@@ -7,20 +7,30 @@ agentManager:
     username:
     password:
 
-clusterName: SandBox
+clusterName: KubernetesOpenTracing
 
-imageName: caapm/universalmonitoragent:latest
+imageName: caapm/universalmonitoragent:stable
 
 
 
 monitor:
   application:
-    java:
-      enabled: true
-      filterType: Blacklist
-      propertiesOverride: introscope.agent.defaultProcessName=tomcat,introscope.agent.agentAutoNamingEnabled=true,introscope.agent.external.biz.enabled=true,introscope.agent.browseragent.autoInjectionEnabled=true
+    autoattach:
+      filterType: blacklist
+      java:
+        enabled: true
+        propertiesOverride: introscope.agent.defaultProcessName=tomcat,introscope.agent.agentAutoNamingEnabled=true,introscope.agent.external.biz.enabled=true,introscope.agent.browseragent.autoInjectionEnabled=true
+      dotnet:
+        enabled: true
+        propertiesOverride:
     jmx:
       enabled: true
+    opentracing:
+      enabled: true
+      grpc:
+        hostport: JAEGER_ENDPOINT_HTTP
+      correlation:
+        enabled: true
   container:
     prometheus:
       exporter:
@@ -46,7 +56,7 @@ monitor:
 
 
 type: Kubernetes
-
+prefix: k8s
 EnableResourceLimits: true
 
 agentNaming:
@@ -65,3 +75,4 @@ agentNaming:
       host:
       process:
       agent:
+

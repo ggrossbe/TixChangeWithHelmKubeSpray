@@ -1,6 +1,10 @@
 {{- if or .Values.agentManager.url .Values.agentManager_url_1 }}
   # Cluster Discovery Service
+{{- if or .Values.k8slegacy }}
+apiVersion: apps/v1beta1
+{{ else }}
 apiVersion: apps/v1
+{{ end }}
 kind: Deployment
 metadata:
   name: clusterinfo
@@ -24,6 +28,22 @@ spec:
       containers:
       - name: clusterinfo
         image:  {{ or .Values.imageName .Values.image }}
+        env:
+{{- if or .Values.k8slegacy }}
+          - name: KUBERNETES_LEGACY_VERSION
+            value: "true"
+{{ end }}
+          - name: type
+            value: {{ .Values.type }}
+{{- if .Values.namespaces }}
+          - name: KUBERNETES_NAMESPACE_MONITOR_LIST
+            value: "{{ .Values.namespaces }}"
+{{ end }}
+          - name: cluster_name
+            valueFrom:
+              configMapKeyRef:
+                key: cluster_name
+                name: caaiops-config-common
 {{- if .Values.EnableResourceLimits }}
         resources:
           limits:

@@ -234,6 +234,7 @@ curl -k -s  -X POST \
         "Apps|TIXCHANGE Web|URLs|shop/signonForm.shtml",
         "DATABASE : jtixchange on TIXCHANGE_MYSQL_RDS_HOSTNAME-3306 (MySQL DB)",
         "/jtixchange_web/shop/addItemToCart.shtml",
+        "Apps|pricingService|pricingGatewayCompute",
         "Apps|TIXCHANGE Web|URLs|shop/viewCategory.shtml",
         "Apps|TIXCHANGE Web|URLs|shop/checkout.shtml",
         "Apps|TIXCHANGE Web|URLs|shop/viewProduct.shtml",

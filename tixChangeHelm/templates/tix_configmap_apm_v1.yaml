@@ -39,12 +39,15 @@ data:
   #DB_PORT: "3306"
   DB_HOST: TIXCHANGE_MYSQL_RDS_HOSTNAME1
   DB_PORT: "3306"
+  NODEJS_HOST: pricing-svc
+  NODEJS_PORT: "3000"
+  NODEJS_PATH: pricingGatewayCompute
 
   #
   # APM Agent Env Variables
   #
   RELEASE_VERSION: "1.0"
-  CATALINA_OPTS: " -Xms128m -Xmx256m   -DUSE.CASE.1=true " 
+  CATALINA_OPTS: " -Xms128m -Xmx256m   -DUSE.CASE.1=true -Djtixchange.nodejs.host=${NODEJS_HOST} -Djtixchange.nodejs.port=${NODEJS_PORT} -Djtixchange.nodejs.path=${NODEJS_PATH} " 
 
 ---
 
@@ -79,7 +82,7 @@ data:
   apmenv_introscope_agent_deep_automatic_trace_clamp: "25"
   apmenv_introscope_agent_transactiontracer_sampling_enabled: "true"
   apmenv_introscope_agent_transactiontracer_userid_method: "HttpSession.getValue"
-  apmenv_introscope_agent_transactiontracer_userid_key: "username"
+  apmenv_introscope_agent_transactiontracer_userid_key: "axa_customerId"
   apmenv_introscope_agent_errorsnapshots_identicalerror_period_time: "1"
   apmenv_introscope_agent_sqlagent_sql_turnoffmetrics: "false"
   apmenv_introscope_agent_sqlagent_sql_artonly: "false"

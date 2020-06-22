@@ -3,7 +3,11 @@
 # APMIA based Deployment.
 # Agent from Container1 will be reported to <Cluster_Name>|ClusterMonitoring|Infrastructure Agent
 
+{{- if or .Values.k8slegacy }}
+apiVersion: apps/v1beta1
+{{ else }}
 apiVersion: apps/v1
+{{ end }}
 kind: Deployment
 metadata:
   name: container-monitor
@@ -20,6 +24,10 @@ spec:
         deployment.name: container-monitor
     spec:
       serviceAccountName: uma
+      initContainers:
+      - name: init-clusterinfo
+        image: {{ .Values.imageName }}
+        command: ['bash', '-c', 'until [ $(curl --connect-timeout 5 --max-time 10 --write-out %{http_code} --silent --output /dev/null ${CLUSTERINFO_SERVICE_HOST}:${CLUSTERINFO_SERVICE_PORT}/up) -eq 200 ]; do sleep 2; done']
       containers:
       - env:
         - name: agentManager_url_1
@@ -79,11 +87,29 @@ spec:
         - name: apmenv_introscope_epagent_config_httpServerPort
           value: "8888"
         - name: REDUCE_METRIC_EXPLOSION
-          value: "false"
+          value: {{ if .Values.agentManager.version }} "true" {{ else }} "false" {{ end }}
         - name: type
           value: {{ .Values.type | default "Kubernetes" | quote }}
         - name: HostMonitoring
           value: disabled
+        - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_cluster
+          value: {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_cluster_clustername)
+        - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_node
+          value: {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_node_clustername), {{ .Values.prefix }}_pod_nodename=(name), {{ .Values.prefix }}_node_agentpath=(agent)
+        - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_namespace
+          value: {{ .Values.prefix }}_project=(name), {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_namespace_clustername)
+        - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_pod
+          value: {{ .Values.prefix }}_pod_name=(name), {{ .Values.prefix }}_project=({{ .Values.prefix }}_pod_namespace), {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_pod_clustername)
+        - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_deployment
+          value: {{ .Values.prefix }}_project=({{ .Values.prefix }}_deployment_namespace), {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_deployment_clustername)
+        - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_daemonset
+          value: {{ .Values.prefix }}_project=({{ .Values.prefix }}_daemonset_namespace), {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_daemonset_clustername)
+        - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_container
+          value: {{ .Values.prefix }}_pod_nodename=({{ .Values.prefix }}_container_nodename), {{ .Values.prefix }}_pod_container_name=(name), {{ .Values.prefix }}_pod_name=({{ .Values.prefix }}_container_podname),{{ .Values.prefix }}_project=({{ .Values.prefix }}_container_namespace),{{ .Values.prefix }}_pod_container_id=({{ .Values.prefix }}_container_id),  {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_container_clustername)
+        - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_replicaset
+          value: {{ .Values.prefix }}_project=({{ .Values.prefix }}_replicaset_namespace),  {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_replicaset_clustername)
+        - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_service
+          value: {{ .Values.prefix }}_project=({{ .Values.prefix }}_service_namespace),  {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_service_clustername)
         - name: apmenv_cluster_name
           valueFrom:
             configMapKeyRef:
@@ -124,7 +150,7 @@ spec:
 #              fieldPath: metadata.labels['deployment.name']
 {{ end }}
         - name: apmenv_introscope_agent_extensions_bundles_load
-          value: OpenTracing, {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }} OpenshiftMonitor, {{end}}
+          value: {{- if or .Values.monitor.application.opentracing.enabled }} OpenTracing, {{end}} {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }} {{ if .Values.agentManager.version }} OpenshiftMonitor, {{ else }} ClusterDataReporter, {{ end }} {{end}}
         - name: MIN_HEAP_VAL_IN_MB
           value: "64"
         - name: cluster_name
@@ -138,6 +164,13 @@ spec:
         - name: apmenv_com_ca_apm_kubernetes_monitor_namespace_list
           value: {{ quote .Values.namespaces }}
 {{ end }}
+{{- if or .Values.monitor.application.opentracing.enabled }}
+        - name: apmenv_introscope_agent_opentracing_grpc_server_hostport
+          valueFrom:
+            configMapKeyRef:
+              key: opentracing_grpc_hostport
+              name: caaiops-config-common
+{{ end }}              
         name: {{ .Chart.Name }}
         image:  {{ or .Values.imageName .Values.image }}
         livenessProbe:
