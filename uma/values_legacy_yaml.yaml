@@ -1,45 +1,38 @@
 agentManager:
-  url:
-  credential:
+  url: localhost:5001
+  credential: credential
+  version: 10.7
   httpProxy:
     host:
     port:
     username:
     password:
 
-clusterName: KubernetesOpenTracing
+clusterName: http_//<prometheusurl>_<port>
 
-imageName: bhaab01/universalmonitoragent:nextgen
+imageName: caapm/universalmonitoragent:latest
 
+namespaces:
 
+EnableResourceLimits: true
 
 monitor:
   application:
-    autoattach:
-      filterType: blacklist
-      java:
-        enabled: true
-        propertiesOverride: introscope.agent.defaultProcessName=tomcat,introscope.agent.agentAutoNamingEnabled=true,introscope.agent.external.biz.enabled=true,introscope.agent.browseragent.autoInjectionEnabled=true
-      dotnet:
-        enabled: true
-        propertiesOverride:
+    java:
+      enabled: true
+      filterType: Whitelist
+      propertiesOverride:
     jmx:
       enabled: true
-    opentracing:
-      enabled: true
-      grpc:
-        hostport: JAEGER_ENDPOINT_HTTP
-      correlation:
-        enabled: true
   container:
     prometheus:
       exporter:
         enabled: true
 
       backend:
-        enabled: false
+        enabled: true
         endPoint:
-          url:
+          url: http://<prometheusurl>:<port>
           username:
           password:
           token:
@@ -53,11 +46,10 @@ monitor:
       enabled: true
   clusterPerformance:
     enabled: true
-
-
+  aws:
+    enabled: false
 type: Kubernetes
 prefix: k8s
-EnableResourceLimits: true
 
 agentNaming:
   deployment:
@@ -75,4 +67,3 @@ agentNaming:
       host:
       process:
       agent:
-

@@ -136,15 +136,15 @@ spec:
 {{ end }}
 {{ end }}
 {{- if or .Values.monitor.application.autoattach.dotnet.enabled .Values.autoattach_dotnet_enabled }}
-        - name: apmenv_autoattach_dotnet_enabled_applications
+        - name: apmenv_autoattach_net_enabled_applications
           value: " "
         # Properties for aggressively monitoring every.NET Runtime
-        - name: apmenv_autoattach_dotnet_proactiveMode_enabled
+        - name: apmenv_autoattach_net_proactiveMode_enabled
           value: "true"
-        - name: apmenv_autoattach_dotnet_proactiveMode_agent_load_delay
+        - name: apmenv_autoattach_net_proactiveMode_agent_load_delay
           value: "30"
 {{- if or (or .Values.monitor.application.autoattach.dotnet.propertiesOverride .Values.autoattach_dotnet_agent_extra_properties) }}
-        - name: apmenv_autoattach_dotnet_proactiveMode_agent_extra_properties
+        - name: apmenv_autoattach_net_proactiveMode_agent_extra_properties
           value: {{ or .Values.monitor.application.autoattach.dotnet.propertiesOverride .Values.autoattach_dotnet_agent_extra_properties}}
 {{ end }}
 {{ end }}
