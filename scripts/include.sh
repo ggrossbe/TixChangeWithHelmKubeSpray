@@ -888,6 +888,8 @@ setupJenkins () {
     #sed -i "s/UTC_TIME/$UTC_TIME/g" $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/workspace/MobileProvisioningService/OIJenkinsChangeEvent.sh
 
     kubectl create ns jenkins
+    kubectl annotate ns jenkins "ca.broadcom.com/autoattach.enabled=false"
+    #kubectl annotate ns jenkins "ca.broadcom.com/ca.apm.monitoring.enabled=false"
     kubectl create -f $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins-deployment.yaml -n jenkins
 
    cd -

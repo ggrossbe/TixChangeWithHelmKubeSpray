@@ -291,7 +291,7 @@ spec:
           - name: JAEGER_ENDPOINT
             #value: http://10.74.121.188:31426/api/traces
             value: JAEGER_ENDPOINT_URL
-          image: srikns/nodejs-opentracing:20.6
+          image: srikns/nodejs-opentracing:20.8
           imagePullPolicy: Always
           livenessProbe:
             httpGet:

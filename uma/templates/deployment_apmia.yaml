@@ -150,7 +150,8 @@ spec:
 #              fieldPath: metadata.labels['deployment.name']
 {{ end }}
         - name: apmenv_introscope_agent_extensions_bundles_load
-          value: {{- if or .Values.monitor.application.opentracing.enabled }} OpenTracing, {{end}} {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }} {{ if .Values.agentManager.version }} OpenshiftMonitor, {{ else }} ClusterDataReporter, {{ end }} {{end}}
+          #value: {{- if or .Values.monitor.application.opentracing.enabled }} OpenTracing, {{end}} {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }} {{ if .Values.agentManager.version }} OpenshiftMonitor, {{ else }} ClusterDataReporter, {{ end }} {{end}}
+          value: {{- if or .Values.monitor.application.opentracing.enabled }} OpenTracing, {{end}} {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }} {{ if .Values.agentManager.version }} OpenshiftMonitor, {{ else }} OpenshiftMonitor, {{ end }} {{end}}
         - name: MIN_HEAP_VAL_IN_MB
           value: "64"
         - name: cluster_name
