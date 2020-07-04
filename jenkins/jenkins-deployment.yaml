@@ -16,8 +16,8 @@ spec:
       - name: jenkins
         image: srikns/jenkins:latest
         env:
-        - name: CA_APM_MONITORING_ENABLED
-          value: "false"
+        #- name: CA_APM_MONITORING_ENABLED
+        #  value: "false"
         - name: JAVA_OPTS
           value: "-Dhudson.model.DirectoryBrowserSupport.CSP= -Djava.net.preferIPv4Stack=true -Dhudson.security.csrf.GlobalCrumbIssuerConfiguration=false"
         ports:
