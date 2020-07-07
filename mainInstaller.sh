@@ -253,6 +253,11 @@ case $OPTION in
 
      createUpdateOIServices update
 
+     stopDeleteUMA
+
+     logMsg " Installing just the UMA components"
+     installUMA
+
      runFinalSanityCheck
      ;;
    s) 
