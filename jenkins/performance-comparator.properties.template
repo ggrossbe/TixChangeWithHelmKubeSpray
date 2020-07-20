@@ -22,7 +22,7 @@ art.threshold=300
 #agent name of the application,  e.g., .* means all agents
 art.agentspecifier=.*
 #metric path , it will be specific to agent, application. e.g, .*CPU.*Processor 0:Utilization % \\(aggregate\\)
-art.metricspecifier=.*Business Service.*uc1.*(signon|viewItem|checkout|addItemToCart).*shtml\\|Browser:Average Response Time \\(ms\\)
+art.metricspecifier=.*Business Service.*(uc1|NA_prov).*(signon|viewItem|checkout|addItemToCart).*shtml\\|Browser:Average Response Time \\(ms\\)
 #comparator class name excluding the "ComparisonStrategy" from class name, e.g., MeanLatency for MeanLatencyComparisonStrategy
 art.comparator=MeanLatency
 #list of output handlers for this strategy. available output handlers : plaintextemail,jsonfilestore,chartoutputhtml,histogramoutputhtml
