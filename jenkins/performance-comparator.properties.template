@@ -71,7 +71,7 @@ email.gmailsmtpport=25
 ###############################################
 #Benchmark build number which is to be used for comparison, if no value is provided,
 #latest previous successful build will be considered
-build.benchmarkbuildnumber=2
+build.benchmarkbuildnumber=
 build.fail=true
 build.result.publishtoem=true
 
