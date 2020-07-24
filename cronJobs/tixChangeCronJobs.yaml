@@ -1,0 +1,28 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: tixchange-cron-jobs
+spec:
+  schedule: "SCHEDULE"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: oi-app-db-edge
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - /opt/tixChange/cron-jobs/oiAppToDBEdge.sh
+            volumeMounts:
+              - name: cron-jobs
+                mountPath: /opt/tixChange/cron-jobs
+          volumes:
+            - name: cron-jobs
+              hostPath:
+                path: /opt/ca/TixChangeK8sDemo/cronJobs
+                type: Directory
+          restartPolicy: OnFailure
+          nodeSelector:
+            kubernetes.io/hostname: node1
