@@ -476,7 +476,7 @@ curl -X POST \
         }]
     },{
         "query": [{
-                                "attributeName": "hostname",
+                                "attributeName": "agent",
                 "attributeValue": "node2|apmiaMySQL_UC2|Agent"
         }]
     },{
