@@ -671,6 +671,7 @@ configureEM () {
   cp -f $EM_FOLDER/TixChangeUC2.jar $INSTALLATION_FOLDER/$EM_FOLDER/
   cp -f $EM_FOLDER/SaaSMM.jar $INSTALLATION_FOLDER/$EM_FOLDER/
   cp -f $EM_FOLDER/MobileTixChange.jar $INSTALLATION_FOLDER/$EM_FOLDER/
+  cp -f $EM_FOLDER/appToDBTASCorrelation.sh $INSTALLATION_FOLDER/$EM_FOLDER/
   
   if [ $IS_AWS == "true" ]; then
     cp -f $EM_FOLDER/AWS.jar $INSTALLATION_FOLDER/$EM_FOLDER/
@@ -713,6 +714,8 @@ configureEM () {
   sed -i 's/TIXCHANGE_MYSQL_RDS_HOSTNAME2/'$TIXCHANGE_MYSQL_RDS_HOSTNAME2'/' $EM_SETUP_SCRIPT
   sed -i 's/TIXCHANGE_MYSQL_RDS_HOSTNAME/'$TIXCHANGE_MYSQL_RDS_HOSTNAME'/' $EM_SETUP_SCRIPT
 
+  sed -i 's/TENANT_API_TOKEN/'$TENANT_API_TOKEN'/' appToDBTASCorrelation.sh
+
 
   TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE |grep -v NAME |awk '{print $1}'|grep tix-web`
   TIXCHANGE_WS_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE |grep -v NAME |awk '{print $1}'|grep tix-ws`
@@ -727,6 +730,7 @@ configureEM () {
   #sed -i 's/UNIVERSE_ID/'$UNIVERSE_ID'/' $EM_SETUP_SCRIPT
 
   ./$EM_SETUP_SCRIPT
+  /appToDBTASCorrelation.sh
   
   cd -
 }
@@ -942,27 +946,33 @@ createUpdateOIServices () {
 
     # use mysql pod name in tixchange-v2 namespace or RDS shortened hostname for DB name
     EMEA_DB_HOST_POD_NAME=`kubectl get pods -n tixchange-v2|grep tix-mysql |awk '{ print $1 }'`
-    NA_DB_HOST_POD_NAME="node2"
+    NA_DB_HOST_POD_NAME=`kubectl get pods -n tixchange-v1|grep tix-mysql |awk '{ print $1 }'`
    
     if [ X"$EMEA_DB_HOST_POD_NAME" == "X" ]; then
        # its RDS tix-oaccess-east:us-east-2:54938494845740 
        EMEA_DB_HOST_POD_NAME=`echo $TIXCHANGE_MYSQL_RDS_HOSTNAME2 |awk -F"." '{ print $1":"$3":"'$AWS_ACCOUNTS_NUMBS' }'`
+       EMEA_DB_HOST_POD_TOKEN=`echo $TIXCHANGE_MYSQL_RDS_HOSTNAME2 |awk -F"." '{ print $1 }'`
     fi
 
     if [ X"$NA_DB_HOST_POD_NAME" == "X" ]; then
        # its RDS tix-oaccess-west:us-east-2:54938494845740 
        NA_DB_HOST_POD_NAME=`echo $TIXCHANGE_MYSQL_RDS_HOSTNAME1 |awk -F"." '{ print $1":"$3":"'$AWS_ACCOUNTS_NUMBS' }'`
+       NA_DB_HOST_POD_TOKEN=`echo $TIXCHANGE_MYSQL_RDS_HOSTNAME1 |awk -F"." '{ print $1 }'`
     fi
 
-    logMsg " OI Script - OI token is $OI_TOKEN and DB POD/Hostname is $EMEA_DB_HOST_POD_NAME"
+    logMsg " OI Script - OI token is $OI_TOKEN and DB POD/Hostname is $EMEA_DB_HOST_POD_NAME DB TOKEN $EMEA_DB_HOST_POD_TOKEN"
 
     sed -i 's/OI_TOKEN/'$OI_TOKEN'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
     sed -i 's/EMEA_DB_HOST_POD_NAME/'$EMEA_DB_HOST_POD_NAME'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
     sed -i 's/NA_DB_HOST_POD_NAME/'$NA_DB_HOST_POD_NAME'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
+    sed -i 's/NA_DB_HOST_POD_TOKEN/'$NA_DB_HOST_POD_TOKEN'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
+    sed -i 's/EMEA_DB_HOST_POD_TOKEN/'$EMEA_DB_HOST_POD_TOKEN'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
 
     if [ X"$IS_ASM" != "Xfalse" ]; then
-       sed -i 's/ASM_METRIC_NAME/'"$ASM_METRIC_NAME"'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
-       sed -i 's/ASM_AGENT_NAME/'"$ASM_AGENT_NAME"'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
+       sed -i 's/ASM_METRIC_NAME_NA/'"$ASM_METRIC_NAME_NA"'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
+       sed -i 's/ASM_AGENT_NAME_NA/'"$ASM_AGENT_NAME_NA"'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
+       sed -i 's/ASM_METRIC_NAME_EMEA/'"$ASM_METRIC_NAME_EMEA"'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
+       sed -i 's/ASM_AGENT_NAME_EMEA/'"$ASM_AGENT_NAME_EMEA"'/' $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER/$OI_SCRIPT_FILE
     fi
 
     cd $INSTALLATION_FOLDER/$OI_SCRIPTS_FOLDER

@@ -438,9 +438,22 @@ curl -X POST \
     },{
         "query": [{
                                 "attributeName": "hostname",
+                "attributeValue": "NA_DB_HOST_POD_TOKEN"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "hostname",
                 "attributeValue": "NA_DB_HOST_POD_NAME"
         }]
-    }]
+    }],
+   "metrics": [
+    {
+      "type": "availability",
+      "sourceName": "ASM_AGENT_NAME_NA",
+      "attributeName": "ASM_METRIC_NAME_NA",
+      "threshold": 0.5
+     }
+     ]
 }'
 
 echo "***sleeping for 5 sec"
@@ -470,14 +483,19 @@ curl -X POST \
     },{
         "query": [{
                                 "attributeName": "hostname",
+                "attributeValue": "EMEA_DB_HOST_POD_TOKEN"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "hostname",
                 "attributeValue": "EMEA_DB_HOST_POD_NAME"
         }]
     }],
    "metrics": [
     {
       "type": "availability",
-      "sourceName": "ASM_AGENT_NAME",
-      "attributeName": "ASM_METRIC_NAME",
+      "sourceName": "ASM_AGENT_NAME_EMEA",
+      "attributeName": "ASM_METRIC_NAME_EMEA",
       "threshold": 0.5
      }
      ]
