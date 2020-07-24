@@ -729,8 +729,10 @@ configureEM () {
 
   #sed -i 's/UNIVERSE_ID/'$UNIVERSE_ID'/' $EM_SETUP_SCRIPT
 
+  chmod 755 ./appToDBTASCorrelation.sh
+
   ./$EM_SETUP_SCRIPT
-  /appToDBTASCorrelation.sh
+  ./appToDBTASCorrelation.sh
   
   cd -
 }
