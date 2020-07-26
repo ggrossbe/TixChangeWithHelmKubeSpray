@@ -1,5 +1,5 @@
 #Run once in 3 Days
-EPOCH_TIME=$(((`date +'%s'` + 259200) * 1000))
+EPOCH_TIME=$(((`date +'%s'` + 86400) * 1000))
 
 curl -v -k -X POST 'https://apmservices-gateway-ao-apm.app.gpus1.saas.broadcom.com/tas/graph/store' \
 -H 'Authorization: Bearer TENANT_API_TOKEN' \

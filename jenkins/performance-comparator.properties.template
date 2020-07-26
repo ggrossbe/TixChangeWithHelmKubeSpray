@@ -80,7 +80,7 @@ build.result.publishtoem=true
 
 ##DOI properties
 #Build change event to DOI
-build.changeevent.doi=true
+build.changeevent.doi=false
 #jarvis endpoint
 jarvis.endpoint=https://api.dxi-na1.saas.broadcom.com/ingestion
 #Name of the host where the application is running to send it as part of build change event to DOI

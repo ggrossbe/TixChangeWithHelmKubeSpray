@@ -8,6 +8,7 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 
 INSTALL_SCRIPT_FOLDER=$PWD/$SCRIPTS_FOLDER/..
 
+CRON_JOB_FOLDER=cronJobs
 OT_FOLDER=opentracing
 JENKINS_FOLDER=jenkins
 ASM_FOLDER=asm
@@ -671,7 +672,6 @@ configureEM () {
   cp -f $EM_FOLDER/TixChangeUC2.jar $INSTALLATION_FOLDER/$EM_FOLDER/
   cp -f $EM_FOLDER/SaaSMM.jar $INSTALLATION_FOLDER/$EM_FOLDER/
   cp -f $EM_FOLDER/MobileTixChange.jar $INSTALLATION_FOLDER/$EM_FOLDER/
-  cp -f $EM_FOLDER/appToDBTASCorrelation.sh $INSTALLATION_FOLDER/$EM_FOLDER/
   
   if [ $IS_AWS == "true" ]; then
     cp -f $EM_FOLDER/AWS.jar $INSTALLATION_FOLDER/$EM_FOLDER/
@@ -714,7 +714,6 @@ configureEM () {
   sed -i 's/TIXCHANGE_MYSQL_RDS_HOSTNAME2/'$TIXCHANGE_MYSQL_RDS_HOSTNAME2'/' $EM_SETUP_SCRIPT
   sed -i 's/TIXCHANGE_MYSQL_RDS_HOSTNAME/'$TIXCHANGE_MYSQL_RDS_HOSTNAME'/' $EM_SETUP_SCRIPT
 
-  sed -i 's/TENANT_API_TOKEN/'$TENANT_API_TOKEN'/' appToDBTASCorrelation.sh
 
 
   TIXCHANGE_WEB_POD=`kubectl get pods -n $TIXCHANGE_NAMESPACE |grep -v NAME |awk '{print $1}'|grep tix-web`
@@ -729,10 +728,8 @@ configureEM () {
 
   #sed -i 's/UNIVERSE_ID/'$UNIVERSE_ID'/' $EM_SETUP_SCRIPT
 
-  chmod 755 ./appToDBTASCorrelation.sh
 
   ./$EM_SETUP_SCRIPT
-  ./appToDBTASCorrelation.sh
   
   cd -
 }
@@ -983,7 +980,45 @@ createUpdateOIServices () {
 
      cd - 
 
-     
+    setupTixChangeCronJobs     
+}
+
+
+setupTixChangeCronJobs () {
+
+  logMsg "Setting up TixChangeCronJobs Cron JOBS  pls wait"
+
+   removeTixChangeCronJobs
+
+  if [ -d $INSTALLATION_FOLDER/$CRON_JOB_FOLDER ]; then
+    /bin/rm -rf $INSTALLATION_FOLDER/$CRON_JOB_FOLDER/*
+  else
+    mkdir -p $INSTALLATION_FOLDER/$CRON_JOB_FOLDER
+  fi
+
+
+  # Run the job daily
+  SCHEDULE="0 0 * * *"
+
+  cp -f $INSTALL_SCRIPT_FOLDER/$CRON_JOB_FOLDER/* $INSTALLATION_FOLDER/$CRON_JOB_FOLDER/
+
+  sed -i 's/TENANT_API_TOKEN/'$TENANT_API_TOKEN'/' $INSTALLATION_FOLDER/$CRON_JOB_FOLDER/oiAppToDBEdge.sh
+  sed -i 's/SCHEDULE/'"$SCHEDULE"'/' $INSTALLATION_FOLDER/$CRON_JOB_FOLDER/tixChangeCronJobs.yaml
+
+  chmod 755 $INSTALLATION_FOLDER/$CRON_JOB_FOLDER/oiAppToDBEdge.sh
+
+  kubectl create ns cron
+
+  kubectl create -f $INSTALLATION_FOLDER/$CRON_JOB_FOLDER/tixChangeCronJobs.yaml -n cron
+}
+
+
+removeTixChangeCronJobs () {
+
+  logMsg "Removing TixChangeCronJobs  CRON JOBS  pls wait"
+
+   kubectl delete -f  $INSTALLATION_FOLDER/$CRON_JOB_FOLDER/tixChangeCronJobs.yaml -n cron
+   kubectl delete ns cron
 }
 
 removeLogCollector () {
