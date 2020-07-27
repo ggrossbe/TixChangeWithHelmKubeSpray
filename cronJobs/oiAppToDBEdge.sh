@@ -1,4 +1,4 @@
-#Run once in 3 Days
+#Run once in 24 hours
 EPOCH_TIME=$(((`date +'%s'` + 86400) * 1000))
 
 curl -v -k -X POST 'https://apmservices-gateway-ao-apm.app.gpus1.saas.broadcom.com/tas/graph/store' \
