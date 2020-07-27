@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: oi-app-db-edge
-            image: busybox
+            image: curlimages/curl
             args:
             - /bin/sh
             - -c
