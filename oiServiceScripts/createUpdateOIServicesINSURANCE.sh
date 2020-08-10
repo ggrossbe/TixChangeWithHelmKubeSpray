@@ -440,11 +440,6 @@ curl -X POST \
                                 "attributeName": "hostname",
                 "attributeValue": "NA_DB_HOST_POD_TOKEN"
         }]
-    },{
-        "query": [{
-                                "attributeName": "hostname",
-                "attributeValue": "NA_DB_HOST_POD_NAME"
-        }]
     }],
    "metrics": [
     {
@@ -484,11 +479,6 @@ curl -X POST \
         "query": [{
                                 "attributeName": "hostname",
                 "attributeValue": "EMEA_DB_HOST_POD_TOKEN"
-        }]
-    },{
-        "query": [{
-                                "attributeName": "hostname",
-                "attributeValue": "EMEA_DB_HOST_POD_NAME"
         }]
     }],
    "metrics": [
