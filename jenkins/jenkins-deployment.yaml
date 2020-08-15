@@ -22,6 +22,16 @@ spec:
           value: "-Dhudson.model.DirectoryBrowserSupport.CSP= -Djava.net.preferIPv4Stack=true -Dhudson.security.csrf.GlobalCrumbIssuerConfiguration=false"
         ports:
         - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            httpHeaders:
+            - name: Authorization
+              value: "Basic YWRtaW46YWRtaW4="
+            path: /job/Scheduler/build?token=JenkinsSchedulerJobTriggerToken
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 15
+          timeoutSeconds: 10
         volumeMounts:
           - name: jenkins-home
             mountPath: /var/jenkins_home
