@@ -18,11 +18,7 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers>
-    <hudson.triggers.TimerTrigger>
-      <spec>30 * * * *</spec>
-    </hudson.triggers.TimerTrigger>
-  </triggers>
+  <authToken>JenkinsSchedulerJobTriggerToken</authToken>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
