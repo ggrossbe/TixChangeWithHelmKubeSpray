@@ -145,7 +145,9 @@ case $OPTION in
      logMsg "6. pls checkin $jenkins/performance-comparator.properties to your git hub MobileProvisioningService/caapm-performance-comparator/properties/ project"
      echo ""
      logMsg "7. add the following public key to your git hub account for jenkins pod to access "
-           cat jenkins/jenkins_ssh/id_rsa.pub
+           cat /root/tixchange_jenkins_ssh/id_rsa.pub
+     logMsg "     - and run the following from tixchange master (after public key is added to git hub)"
+     logMsg "         - curl -H \"Authorization: Basic YWRtaW46YWRtaW4=\" http://localhost:31080/job/Scheduler/build?token=JenkinsSchedulerJobTriggerToken"
      echo ""
      logMsg ""
      logMsg ""
@@ -334,7 +336,9 @@ case $OPTION in
       logMsg "If you are not on Open Access 1 tenant (OPEN-ACCESS) then you may have to configure Jenkins pipeline project to include your git repo. More details in Auto Tix Wiki"
       echo ""
       logMsg "add the following ssh public key to your git hub settings. More info in Auto Tix wiki"
-      cat jenkins/jenkins_ssh/id_rsa.pub
+           cat /root/tixchange_jenkins_ssh/id_rsa.pub
+     logMsg "     - and run the following from tixchange master (after public key is added to git hub)"
+     logMsg "         - curl -H \"Authorization: Basic YWRtaW46YWRtaW4=\" http://localhost:31080/job/Scheduler/build?token=JenkinsSchedulerJobTriggerToken"
       echo ""
       logMsg "pls checkin jenkins/performance-comparator.properties to your git hub MobileProvisioningService/caapm-performance-comparator/properties/ project"
      ;;

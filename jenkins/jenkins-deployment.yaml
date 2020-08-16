@@ -22,16 +22,21 @@ spec:
           value: "-Dhudson.model.DirectoryBrowserSupport.CSP= -Djava.net.preferIPv4Stack=true -Dhudson.security.csrf.GlobalCrumbIssuerConfiguration=false"
         ports:
         - containerPort: 8080
-        readinessProbe:
-          httpGet:
-            httpHeaders:
-            - name: Authorization
-              value: "Basic YWRtaW46YWRtaW4="
-            path: /job/Scheduler/build?token=JenkinsSchedulerJobTriggerToken
-            port: 8080
-          initialDelaySeconds: 15
-          periodSeconds: 15
-          timeoutSeconds: 10
+        #readinessProbe:
+          #httpGet:
+            #httpHeaders:
+            #- name: Authorization
+              #value: "Basic YWRtaW46YWRtaW4="
+            #path: /job/Scheduler/build?token=JenkinsSchedulerJobTriggerToken
+            #port: 8080
+          #initialDelaySeconds: 15
+          #periodSeconds: 15
+          #timeoutSeconds: 10
+        lifecycle:
+          postStart:
+            exec:
+              ##command: ["/bin/sh", "-c", "sleep 20;curl -H \"Authorization: Basic YWRtaW46YWRtaW4=\" http://localhost:8080/job/Scheduler/build?token=JenkinsSchedulerJobTriggerToken"]
+              command: ["/bin/bash", "-c", "if [ ! -f /root/.ssh/id_rsa.pub ]; then ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa <<<y 2>&1 >/dev/null; fi"]
         volumeMounts:
           - name: jenkins-home
             mountPath: /var/jenkins_home

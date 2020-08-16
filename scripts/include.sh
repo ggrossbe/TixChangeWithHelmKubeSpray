@@ -890,6 +890,10 @@ setupJenkins () {
     #sed -i "s/BUILD_NUMBER/$BUILD_NUMBER/g" $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/workspace/MobileProvisioningService/OIJenkinsChangeEvent.sh
     #sed -i "s/UTC_TIME/$UTC_TIME/g" $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/workspace/MobileProvisioningService/OIJenkinsChangeEvent.sh
 
+    if [ ! -d /root/tixchange_jenkins_ssh ]; then
+	mkdir /root/tixchange_jenkins_ssh
+    fi
+
     kubectl create ns jenkins
     kubectl annotate ns jenkins "ca.broadcom.com/autoattach.enabled=false"
     #kubectl annotate ns jenkins "ca.broadcom.com/ca.apm.monitoring.enabled=false"
