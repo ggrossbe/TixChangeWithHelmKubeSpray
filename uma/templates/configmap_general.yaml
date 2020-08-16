@@ -6,11 +6,7 @@ metadata:
   name: caaiops-config-common
   namespace: {{ .Release.Namespace }}
 data:
-  {{- if and .Values.monitor.container.prometheus.backend.endPoint.url  .Values.monitor.container.prometheus.backend.enabled }}
-  cluster_name: "{{- template "prometheus.clusterName" . }}"
-  {{ else }}
   cluster_name: "{{ .Values.clusterName }}"
-  {{ end }}
   agentManager_url_1: "{{ or .Values.agentManager.url .Values.agentManager_url_1 }}"
   agentManager_credential: "{{ or .Values.agentManager.credential .Values.agentManager_credential }}"
   agentManager_version: "{{ .Values.agentManager.version | default "" }}"
@@ -22,17 +18,32 @@ data:
   prometheus_server_username: "{{ .Values.monitor.container.prometheus.backend.endPoint.username }}"
   prometheus_server_password: "{{ .Values.monitor.container.prometheus.backend.endPoint.password }}"
   prometheus_server_token: "{{ .Values.monitor.container.prometheus.backend.endPoint.token }}"
-  apmia_min_heap: "256"
-  apmia_max_heap: "512"
-  agentNaming_deployment_apmia_host: "{{ .Values.agentNaming.deployment.apmia.host }}"
+  {{- if or .Values.agentNaming.deployment.apmia.process  }}
   agentNaming_deployment_apmia_process: "{{ .Values.agentNaming.deployment.apmia.process }}"
+  {{- else }}
+  agentNaming_deployment_apmia_process: "ClusterDeployment"
+  {{- end }}
+  {{- if or .Values.agentNaming.deployment.apmia.agent  }}
   agentNaming_deployment_apmia_agent: "{{ .Values.agentNaming.deployment.apmia.agent }}"
-  agentNaming_deployment_prometheus_host: "{{ .Values.agentNaming.deployment.prometheus.host }}"
+  {{- else }}
+  agentNaming_deployment_apmia_agent: "Infrastructure Agent"
+  {{- end }}
+  {{- if or .Values.agentNaming.deployment.prometheus.process }}
   agentNaming_deployment_prometheus_process: "{{ .Values.agentNaming.deployment.prometheus.process }}"
+  {{- else }}
+  agentNaming_deployment_prometheus_process: "ClusterPerformanceMonitor"
+  {{- end }}
+  {{- if or .Values.agentNaming.deployment.prometheus.agent  }}
   agentNaming_deployment_prometheus_agent: "{{ .Values.agentNaming.deployment.prometheus.agent }}"
+  {{- else }}
+  agentNaming_deployment_prometheus_agent: "Prometheus Agent"
+  {{- end }}
   agentNaming_daemonset_apmia_host: "{{ .Values.agentNaming.daemonset.apmia.host }}"
-  agentNaming_daemonset_apmia_process: "{{ .Values.agentNaming.daemonset.apmia.process }}"
+  {{- if or .Values.agentNaming.daemonset.apmia.agent  }}
   agentNaming_daemonset_apmia_agent: "{{ .Values.agentNaming.daemonset.apmia.agent }}"
+  {{- else }}
+  agentNaming_daemonset_apmia_agent: "Kubernetes Agent"
+  {{- end }}
   opentracing_grpc_hostport: "{{ .Values.monitor.application.opentracing.grpc.hostport }}"
 
 {{ end }}

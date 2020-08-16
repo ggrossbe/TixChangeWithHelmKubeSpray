@@ -80,40 +80,20 @@ spec:
         - name: apmenv_com_ca_apm_kubernetes_prometheus_datafile
           value: haproxy,kube-state-metric,coredns,etcd
         - name: apmenv_introscope_agent_agentName
-{{- if or .Values.agentNaming.deployment.prometheus.agent }}
           valueFrom:
             configMapKeyRef:
               key: agentNaming_deployment_prometheus_agent
               name: caaiops-config-common
-{{ else }}
-
-          value: Prometheus Agent
-{{ end }}
         - name: apmenv_introscope_agent_customProcessName
-{{- if or .Values.agentNaming.deployment.prometheus.process }}
           valueFrom:
             configMapKeyRef:
               key: agentNaming_deployment_prometheus_process
               name: caaiops-config-common
-{{ else }}
-{{- if or .Values.monitor.clusterPerformance.enabled .Values.kubernetes_monitor_cluster_prometheus_exporters_enabled }}
-          value: ClusterPerformanceMonitor
-{{ else }}
-          value: ClusterPerformanceMonitor
-{{ end }}
-{{ end }}
         - name: apmenv_introscope_agent_hostName
-{{- if or .Values.agentNaming.deployment.prometheus.host }}
-          valueFrom:
-            configMapKeyRef:
-              key: agentNaming_deployment_prometheus_host
-              name: caaiops-config-common
-{{ else }}
           valueFrom:
             configMapKeyRef:
               key: cluster_name
               name: caaiops-config-common
-{{ end }}
         - name: apmenv_com_ca_apm_kubernetes_clusterName
           valueFrom:
             configMapKeyRef:

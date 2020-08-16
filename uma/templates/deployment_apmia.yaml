@@ -117,41 +117,23 @@ spec:
               name: caaiops-config-common
 
         - name: apmenv_introscope_agent_customProcessName
-{{- if or .Values.agentNaming.deployment.apmia.process }}
           valueFrom:
             configMapKeyRef:
               key: agentNaming_deployment_apmia_process
               name: caaiops-config-common
-{{ else }}
-          value: ClusterDeployment
-{{ end }}
         - name: apmenv_introscope_agent_hostName
-{{- if or .Values.agentNaming.deployment.apmia.host }}
-          valueFrom:
-            configMapKeyRef:
-              key: agentNaming_deployment_apmia_host
-              name: caaiops-config-common
-{{ else }}
           valueFrom:
             configMapKeyRef:
               key: cluster_name
               name: caaiops-config-common
-{{ end }}
+
         - name: apmenv_introscope_agent_agentName
-{{- if or .Values.agentNaming.deployment.apmia.agent }}
           valueFrom:
             configMapKeyRef:
               key: agentNaming_deployment_apmia_agent
               name: caaiops-config-common
-{{ else }}
-          value: Infrastructure Agent
-#          valueFrom:
-#            fieldRef:
-#              fieldPath: metadata.labels['deployment.name']
-{{ end }}
         - name: apmenv_introscope_agent_extensions_bundles_load
-          #value: {{- if or .Values.monitor.application.opentracing.enabled }} OpenTracing, {{end}} {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }} {{ if .Values.agentManager.version }} OpenshiftMonitor, {{ else }} ClusterDataReporter, {{ end }} {{end}}
-          value: {{- if or .Values.monitor.application.opentracing.enabled }} OpenTracing, {{end}} {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }} {{ if .Values.agentManager.version }} OpenshiftMonitor, {{ else }} OpenshiftMonitor, {{ end }} {{end}}
+          value: {{- if or .Values.monitor.application.opentracing.enabled }} OpenTracing, {{end}} {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }} {{ if .Values.agentManager.version }} OpenshiftMonitor, {{ else }} ClusterDataReporter, {{ end }} {{ end }}
         - name: MIN_HEAP_VAL_IN_MB
           value: "64"
         - name: cluster_name
@@ -171,7 +153,7 @@ spec:
             configMapKeyRef:
               key: opentracing_grpc_hostport
               name: caaiops-config-common
-{{ end }}              
+{{ end }}
         name: {{ .Chart.Name }}
         image:  {{ or .Values.imageName .Values.image }}
         livenessProbe:

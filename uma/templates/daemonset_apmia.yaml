@@ -45,13 +45,45 @@ spec:
         image: {{ or .Values.imageName .Values.image }}
         command: ['bash', '-c', 'until [ $(curl --connect-timeout 5 --max-time 10 --write-out %{http_code} --silent --output /dev/null ${CLUSTERINFO_SERVICE_HOST}:${CLUSTERINFO_SERVICE_PORT}/up) -eq 200 ]; do sleep 2; done']
       containers:
+      - name: containerinfo
+        image:  {{ or .Values.imageName .Values.image }}
+        imagePullPolicy: Always
+        command: ["/containerinfo-linux-amd64","--config=/usr/local/openshift/config/config.yaml"]
+        env:
+          - name: CAAPM_CONTAINERINFO_PORT
+            value: "7777"
+          - name: CAAPM_CONTAINERINFO_LOG_LEVEL
+            value: "INFO"
+          - name: CAAPM_CONTAINERINFO_STATS_INTERVAL
+            value: "15"
+        livenessProbe:
+          httpGet:
+            path: /runtime/info
+            port: 7777
+          initialDelaySeconds: 60
+          periodSeconds: 60
+        resources:
+          limits:
+            cpu: 200m
+            memory: 150Mi
+        volumeMounts:
+          - name: dockersock
+            mountPath: /var/run/docker.sock
+            readOnly: true
+          - name: criosock
+            mountPath: /var/run/crio/crio.sock
+            readOnly: true
+          - name: sys
+            mountPath: /host/sys
+            readOnly: true
+          - name: proc
+            mountPath: /host/proc
+            readOnly: true
       - env:
 {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }}
         - name: containerflow
           value: disabled
 {{ end }}
-        - name: apmenv_autoattach_docker_free_memory_threshold
-          value: "15.00"
         - name: agentManager_url_1
           valueFrom:
             configMapKeyRef:
@@ -101,10 +133,10 @@ spec:
           value: {{ .Values.type }}
         - name: interval
           value: "60"
-        - name: DOCKERSTATS_CGROUP_MODE
+        - name: DOCKER_STATS_CGROUP_MODE
           value: enabled
         - name: apmenv_introscope_agent_extensions_bundles_load
-          value: {{ if or .Values.monitor.application.autoattach.java.enabled .Values.autoattach_java_enabled }} java-attach,{{end}}{{ if or .Values.monitor.application.autoattach.dotnet.enabled .Values.autoattach_dotnet_enabled }} dotnet-attach,{{end}}kubernetes-overrider,{{ if and ( or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled) }}OpenshiftMonitor,HostMonitor,{{end}}{{ if or .Values.monitor.container.prometheus.exporter.enabled .Values.monitor.application.jmx.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}KubernetesRemoteMonitor,{{end}}
+          value: NodeExtension,{{ if or .Values.monitor.application.autoattach.java.enabled .Values.autoattach_java_enabled }} java-attach,{{end}}{{ if or .Values.monitor.application.autoattach.dotnet.enabled .Values.autoattach_dotnet_enabled }} dotnet-attach,{{end}}kubernetes-overrider,{{ if and ( or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled) }}OpenshiftMonitor,HostMonitor,{{end}}{{ if or .Values.monitor.container.prometheus.exporter.enabled .Values.monitor.application.jmx.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}KubernetesRemoteMonitor,{{end}}
 {{- if or .Values.monitor.application.autoattach.java.enabled .Values.autoattach_java_enabled .Values.monitor.application.autoattach.dotnet.enabled .Values.autoattach_dotnet_enabled }}
         ##########################
         # Auto Attach properties:
@@ -170,34 +202,21 @@ spec:
         - name: apmenv_com_ca_apm_kubernetes_prometheus_datafile
           value: node-exporter, cadvisor
 {{end}}
-{{- if or .Values.agentNaming.daemonset.apmia.host }}
         - name: apmenv_introscope_agent_hostName
           valueFrom:
             configMapKeyRef:
               key: agentNaming_daemonset_apmia_host
               name: caaiops-config-common
-{{ end }}
         - name: apmenv_introscope_agent_customProcessName
-{{- if or .Values.agentNaming.daemonset.apmia.process }}
-          valueFrom:
-            configMapKeyRef:
-              key: agentNaming_daemonset_apmia_process
-              name: caaiops-config-common
-{{ else }}
           valueFrom:
             configMapKeyRef:
               key: cluster_name
               name: caaiops-config-common
-{{ end }}
         - name: apmenv_introscope_agent_agentName
-{{- if or .Values.agentNaming.daemonset.apmia.agent }}
           valueFrom:
             configMapKeyRef:
               key: agentNaming_daemonset_apmia_agent
               name: caaiops-config-common
-{{ else }}
-          value: Kubernetes Agent
-{{ end }}
         - name: MIN_HEAP_VAL_IN_MB
           value: "64"
         - name: apmenv_introscope_epagent_config_httpServerPort
@@ -273,6 +292,9 @@ spec:
       - name: dockersock
         hostPath:
           path: /var/run/docker.sock
+      - name: criosock
+        hostPath:
+          path: /var/run/crio/crio.sock
       - name: dev
         hostPath:
           path: /dev
@@ -296,7 +318,6 @@ spec:
         configMap:
           name: caaiops-config-prometheus
 {{end}}
-
 
 {{ end }}
 {{ end }}

@@ -9,7 +9,7 @@ agentManager:
 
 clusterName: KubernetesOpenTracing
 
-imageName: caapm/universalmonitoragent:stable
+imageName: bhaab01/universalmonitoragent:nextgen
 
 
 
