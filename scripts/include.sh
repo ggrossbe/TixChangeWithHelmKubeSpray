@@ -857,12 +857,15 @@ setupJenkins () {
     cp -rf * $INSTALLATION_FOLDER/$JENKINS_FOLDER
     chmod 600 $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_ssh/*
 
+    GIT_LOGIN=`echo "$GIT_PROJECT"|awk -F[@:/] '{print $3"@"$2}'`
+    echo "GIT LOGIN is $GIT_LOGIN"
     GIT_PROJECT_HTTPS=`echo "$GIT_PROJECT"|sed 's/:/\//g'|sed 's/git@/https:\/\//g'|sed 's/\.git/\//g'`
     ESCAPED_GIT_PROJECT_HTTPS=$(echo "$GIT_PROJECT_HTTPS"| sed 's/\//\\\//g')
     ESCAPED_GIT_PROJECT=$(echo "$GIT_PROJECT"| sed 's/\//\\\//g')
     sed -i 's/GIT_PROJECT_HTTPS/'$ESCAPED_GIT_PROJECT_HTTPS'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/config.xml
     sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/config.xml
     sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/Scheduler/config.xml
+    sed -i 's/GIT_LOGIN/'$GIT_LOGIN'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/Scheduler/config.xml
     sed -i 's/JENKINS_IP/'$JENKINS_IP'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jenkins.model.JenkinsLocationConfiguration.xml
 
     sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/builds/1/workflow/7.xml

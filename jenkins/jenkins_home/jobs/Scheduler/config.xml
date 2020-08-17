@@ -32,6 +32,8 @@ echo &quot;$WORKSPACE/MobileProvisioningService/ exists&quot;
 
 fi
 
+ssh -o StrictHostKeyChecking=no GIT_LOGIN
+
 git clone GIT_PROJECT
 
 echo &quot;workspace is $WORKSPACE&quot;
