@@ -63,7 +63,7 @@ spec:
             type: Directory 
         - name: ssh
           hostPath:
-            path: /opt/ca/TixChangeK8sDemo/jenkins/jenkins_ssh
+            path: /root/tixchange_jenkins_ssh
             type: Directory
         - name: open-access
           hostPath:
