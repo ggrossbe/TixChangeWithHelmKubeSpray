@@ -3,8 +3,7 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 . $SCRIPTS_FOLDER/include.sh
 
 
-wget https://github.com/kubernetes-sigs/kubespray/archive/release-2.10.zip
-
+wget https://github.com/kubernetes-sigs/kubespray/archive/v2.13.3.zip
 
 #ESCAPE_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER" | sed 's/\//\\\//g')
 #sed -i 's/DOCKER_STORAGE_FOLDER/'$ESCAPE_INSTALLATION_FOLDER\\/DockerStorage'/' all.yml
@@ -12,12 +11,11 @@ wget https://github.com/kubernetes-sigs/kubespray/archive/release-2.10.zip
 rm -rf $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
 
 #unzip master.zip &&  mv kubespray-master kubespray && cd kubespray
-unzip release-2.10.zip &&  mv kubespray-release-2.10/ $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER 
+unzip v2.13.3.zip &&  mv kubespray-2.13.3/ $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
 
-rm -rf release-2.10.zip*
+rm -rf v2.13.3.zip*
 
 cd $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
-
 export LC_ALL=C
 
 logMsg "Installing Kubespray pre-preq "
@@ -33,14 +31,15 @@ export LC_ALL=C
 
 pip -V
 
-declare -a IPS=($HOST_IPS)
-CONFIG_FILE=inventory/mycluster/hosts.yml /usr/bin/python3.6m contrib/inventory_builder/inventory.py ${IPS[@]}
+#declare -a IPS=($HOST_IPS)
+#CONFIG_FILE=inventory/mycluster/hosts.yml /usr/bin/python3.6m contrib/inventory_builder/inventory.py ${IPS[@]}
 
 cd -
 
 cp -f $SCRIPTS_FOLDER/k8s-cluster.yml  $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER/inventory/mycluster/group_vars/k8s-cluster/
 cp -f $SCRIPTS_FOLDER/addons.yml  $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER/inventory/mycluster/group_vars/k8s-cluster/
 cp -f $SCRIPTS_FOLDER/ansible.cfg  $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER 
+cp -f $SCRIPTS_FOLDER/hosts.yml $INSTALLATION_FOLDER/kubespray/inventory/mycluster/
 
 cd -
 

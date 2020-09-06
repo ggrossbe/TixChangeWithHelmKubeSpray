@@ -77,7 +77,7 @@ stopUMA () {
       if [ $? -eq 0 ]; then
          cd $UMA_FOLDER
          logMsg "Deleting UMA"
-         helm delete uma --purge
+         helm delete uma --namespace caaiops
          cd ..
 
          sleep 5
@@ -100,7 +100,7 @@ stopDeleteUMA () {
       if [ $? -eq 0 ]; then
          cd $UMA_FOLDER
   	 logMsg "Deleting UMA"
-  	 helm delete uma --purge
+         helm delete uma --namespace caaiops
          cd ..
   	 rm -rf $UMA_FOLDER
       
@@ -237,9 +237,9 @@ stopDeleteTixChange () {
          logMsg "Deleting tixchange"
 
          helm ls
-         helm delete tixchange --purge
+         helm delete tixchange 
          sleep 10
-         helm delete tixchange --purge 2> /dev/null
+         helm delete tixchange  2> /dev/null
          
          helm ls
 
@@ -278,9 +278,9 @@ stopTixChange () {
          logMsg "stopping tixchange"
 
          helm ls
-         helm delete tixchange --purge
+         helm delete tixchange 
          sleep 10
-         helm delete tixchange --purge 2> /dev/null
+         helm delete tixchange  2> /dev/null
 
          helm ls
 
@@ -423,8 +423,11 @@ installUMA () {
    sed -i 's/clusterName.*$/clusterName: '$UMA_K8S_CLUSTER_NAME'/' values.yaml
    sed -i 's/JAEGER_ENDPOINT_HTTP/'$TIX_IP':31668/' values.yaml
 
-   helm install  . --name uma --namespace caaiops
-   
+   kubectl create ns caaiops
+
+   #helm install  . --name uma --namespace caaiops
+   helm install  uma . --namespace caaiops
+ 
    helm list
    kubectl get pods -n caaiops
 
@@ -440,7 +443,7 @@ installTixChangeHelm () {
    logMsg "Installing TixChange using Helm"
 
    #deleting tixchange one more time just to be sure
-   helm delete tixchange --purge 2>/dev/null
+   helm delete tixchange  2>/dev/null
    sleep 5
 
   if [ ! -d $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER ]; then
@@ -511,10 +514,11 @@ installTixChangeHelm () {
      rm -rf $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v2.yaml
    fi
 
+   #kubectl create ns tixchange-v1
+   #kubectl create ns tixchange-v2
 
    #logMsg "***IGNORE the 3 errors related to configmap below"
-   helm install  . --name tixchange 
-   
+   helm install  tixchange  . 
    sleep 10
 
    TIXCHANGE_DEPLOYED=`helm ls|grep FAILED`
@@ -524,7 +528,7 @@ installTixChangeHelm () {
      
       sleep 10
    
-      helm install  . --name tixchange
+      helm install   tixchange  .
 
    fi
 
