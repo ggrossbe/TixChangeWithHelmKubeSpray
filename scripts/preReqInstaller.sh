@@ -3,6 +3,15 @@
 SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 . $SCRIPTS_FOLDER/include.sh
 
+  NODE1_INT_IP=`echo $HOST_IPS|awk -F' ' '{print $1}'`
+  NODE2_INT_IP=`echo $HOST_IPS|awk -F' ' '{print $2}'`
+  NODE3_INT_IP=`echo $HOST_IPS|awk -F' ' '{print $3}'`
+
+  /bin/cp -f $SCRIPTS_FOLDER/hosts.yml.template $SCRIPTS_FOLDER/hosts.yml
+
+  sed -i 's/NODE1_INT_IP/'$NODE1_INT_IP'/g' $SCRIPTS_FOLDER/hosts.yml
+  sed -i 's/NODE2_INT_IP/'$NODE2_INT_IP'/g' $SCRIPTS_FOLDER/hosts.yml
+  sed -i 's/NODE3_INT_IP/'$NODE3_INT_IP'/g' $SCRIPTS_FOLDER/hosts.yml
 
 for HOST in $HOST_IPS;
 do 

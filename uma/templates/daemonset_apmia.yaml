@@ -145,10 +145,10 @@ spec:
           value: "false"
         # Free memory threshold required for attaching to containers (%)
         - name: apmenv_autoattach_free_memory_threshold
-          value: "50.00"
+          value: "20.00"
         # Interval for attaching to memory unbounded containers (sec). One unbounded container will be attached to per interval.
         - name: apmenv_autoattach_unbounded_container_attach_interval
-          value: "300"
+          value: "180"
         # Operation Mode for Auto Attach (whitelist/blacklist).
         # whitelist: will only attach to processes marked with env variable CA_APM_MONITORING_ENABLED=true
         # blacklist: will attach to all processes except those marked with env variable CA_APM_MONITORING_ENABLED=false
