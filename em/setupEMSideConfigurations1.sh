@@ -837,7 +837,7 @@ importMgmtModule "TixChangeUC1.jar"
 sleep 5
 importMgmtModule "TixChangeUC2.jar"
 sleep 3
-importMgmtModule "AWS.jar"
+importMgmtModule "MultiCloud.jar"
 sleep 3
 importMgmtModule "SaaSMM.jar"
 sleep 3
