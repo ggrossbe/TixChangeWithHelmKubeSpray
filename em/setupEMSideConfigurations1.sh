@@ -776,10 +776,14 @@ curl -v -k -X POST \
      "id": "0",
        "name": "INDUSTRY",
        "groupBy": [
-         {
+        {
            "layer": "ATC",
            "attributeName": "endUser"
          },
+       {
+         "attributeName": "GCP Instance Id",
+         "layer": "INFRASTRUCTURE"
+       },
          {
            "layer": "INFRASTRUCTURE",
            "attributeName": "_BY_LAYER_OBJECT_ AWS_EC2"
@@ -795,7 +799,11 @@ curl -v -k -X POST \
          {
            "layer": "ATC",
            "attributeName": "applicationName"
-         }
+         },
+       {
+         "attributeName": "databasename",
+         "layer": "ATC"
+       }
        ],
        "public": true,
        "automaticGrouping": false,

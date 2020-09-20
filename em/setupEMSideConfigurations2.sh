@@ -643,7 +643,7 @@ fi
 #sleep 5
 #importMgmtModule "TixChange.jar"
 #sleep 5
-#importMgmtModule "AWS.jar"
+#importMgmtModule "MultiCloud.jar"
 #sleep 5
 #importMgmtModule "SaaSMM.jar"
 #sleep 5
