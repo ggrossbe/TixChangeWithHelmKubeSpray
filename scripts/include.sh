@@ -677,9 +677,9 @@ configureEM () {
   cp -f $EM_FOLDER/SaaSMM.jar $INSTALLATION_FOLDER/$EM_FOLDER/
   cp -f $EM_FOLDER/MobileTixChange.jar $INSTALLATION_FOLDER/$EM_FOLDER/
   
-  if [ $IS_AWS == "true" ]; then
-    cp -f $EM_FOLDER/AWS.jar $INSTALLATION_FOLDER/$EM_FOLDER/
-  fi
+  #if [ $IS_AWS == "true" ]; then
+    cp -f $EM_FOLDER/MultiCloud.jar $INSTALLATION_FOLDER/$EM_FOLDER/
+  #fi
 
   # Copy this irrespective will remove the other MM later
   #cp -f $EM_FOLDER/TixChangeAWSUC1.jar $INSTALLATION_FOLDER/$EM_FOLDER/TixChangeUC1.jar
@@ -962,12 +962,16 @@ createUpdateOIServices () {
        # its RDS tix-oaccess-east:us-east-2:54938494845740 
        EMEA_DB_HOST_POD_NAME=`echo $TIXCHANGE_MYSQL_RDS_HOSTNAME2 |awk -F"." '{ print $1":"$3":"'$AWS_ACCOUNTS_NUMBS' }'`
        EMEA_DB_HOST_POD_TOKEN=`echo $TIXCHANGE_MYSQL_RDS_HOSTNAME2 |awk -F"." '{ print $1 }'`
+    else
+       EMEA_DB_HOST_POD_TOKEN=$EMEA_DB_HOST_POD_NAME
     fi
 
     if [ X"$NA_DB_HOST_POD_NAME" == "X" ]; then
        # its RDS tix-oaccess-west:us-east-2:54938494845740 
        NA_DB_HOST_POD_NAME=`echo $TIXCHANGE_MYSQL_RDS_HOSTNAME1 |awk -F"." '{ print $1":"$3":"'$AWS_ACCOUNTS_NUMBS' }'`
        NA_DB_HOST_POD_TOKEN=`echo $TIXCHANGE_MYSQL_RDS_HOSTNAME1 |awk -F"." '{ print $1 }'`
+    else
+       NA_DB_HOST_POD_TOKEN=$NA_DB_HOST_POD_NAME
     fi
 
     logMsg " OI Script - OI token is $OI_TOKEN and DB POD/Hostname is $EMEA_DB_HOST_POD_NAME DB TOKEN $EMEA_DB_HOST_POD_TOKEN"
