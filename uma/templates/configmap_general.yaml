@@ -45,5 +45,9 @@ data:
   agentNaming_daemonset_apmia_agent: "Kubernetes Agent"
   {{- end }}
   opentracing_grpc_hostport: "{{ .Values.monitor.application.opentracing.grpc.hostport }}"
+  zipkinTracing_zipkinServer_hostport: "{{ .Values.monitor.application.zipkinTracing.zipkinServer.hostport }}"
+  agentNaming_deployment_aws_host: "{{ or .Values.agentNaming.deployment.aws.host }}"
+  agentNaming_deployment_aws_process: "{{ or .Values.agentNaming.deployment.aws.process }}"
+  agentNaming_deployment_aws_agent: "{{ or .Values.agentNaming.deployment.aws.agent }}"
 
 {{ end }}

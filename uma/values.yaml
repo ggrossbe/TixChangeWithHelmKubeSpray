@@ -9,9 +9,9 @@ agentManager:
 
 clusterName: KubernetesOpenTracing
 
-imageName: caapm/universalmonitoragent:stable
+imageName: caapm/universalmonitoragent:20.11.0.17
 
-
+namespaces:
 
 monitor:
   application:
@@ -19,7 +19,7 @@ monitor:
       filterType: blacklist
       java:
         enabled: true
-        propertiesOverride: introscope.agent.defaultProcessName=tomcat,introscope.agent.agentAutoNamingEnabled=true,introscope.agent.external.biz.enabled=true,introscope.agent.browseragent.autoInjectionEnabled=true
+        propertiesOverride: introscope.agent.defaultProcessName=tomcat,introscope.agent.agentAutoNamingEnabled=true,introscope.agent.external.biz.enabled=true,introscope.agent.browseragent.autoInjectionEnabled=true,attribute.decoration.application.configurations=config1,attribute.decoration.application.configurations.config1.applicationName=TIXCHANGE Web,attribute.decoration.application.configurations.config1.attributeName=AD_uma_cluster_name,attribute.decoration.application.configurations.config1.value=AD_uma_values
       dotnet:
         enabled: true
         propertiesOverride:
@@ -31,6 +31,10 @@ monitor:
         hostport: JAEGER_ENDPOINT_HTTP
       correlation:
         enabled: true
+    zipkinTracing:
+      enabled: true
+      zipkinServer:
+        hostport:
   container:
     prometheus:
       exporter:
@@ -57,7 +61,17 @@ monitor:
 
 type: Kubernetes
 prefix: k8s
+
 EnableResourceLimits: true
+
+cloudmonitoring:
+  aws:
+    enabled: false
+    accessKey:
+    secretKey:
+    # services supported are rds,ec2,ebs,lambda,dynamodb,s3,sns,ecs,sqs,kinesis,clb,nlb,alb,redshift,elasticache,autoScaling,billing,apiGateway
+    # provide comma separated services to monitor
+    servicesList:
 
 agentNaming:
   deployment:
@@ -66,6 +80,10 @@ agentNaming:
       process:
       agent:
     prometheus:
+      host:
+      process:
+      agent:
+    aws:
       host:
       process:
       agent:

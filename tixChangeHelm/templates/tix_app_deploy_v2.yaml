@@ -9,11 +9,13 @@ metadata:
     app: tixchange-web
     tier: frontend
     env: {{ .Values.DeploymentEnv1 }}
+    version: tixchange-uc2-v1
 spec:
   selector:
     matchLabels:
       app: tixchange-web
       tier: frontend
+      version: tixchange-uc2-v1
   replicas: 1 
   revisionHistoryLimit: 9 # how many revisions
   strategy:
@@ -28,6 +30,7 @@ spec:
         tier: frontend
         env: {{ .Values.DeploymentEnv1 }}
         apm: enabled
+        version: tixchange-uc2-v1
       annotations:
         ver: "1.0"
     spec:

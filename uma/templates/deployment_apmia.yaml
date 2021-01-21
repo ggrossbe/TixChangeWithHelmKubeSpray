@@ -28,6 +28,14 @@ spec:
       - name: init-clusterinfo
         image: {{ .Values.imageName }}
         command: ['bash', '-c', 'until [ $(curl --connect-timeout 5 --max-time 10 --write-out %{http_code} --silent --output /dev/null ${CLUSTERINFO_SERVICE_HOST}:${CLUSTERINFO_SERVICE_PORT}/up) -eq 200 ]; do sleep 2; done']
+        resources:
+          limits:
+            cpu: 20m
+            memory: 20Mi
+          requests:
+            cpu: 10m
+            memory: 10Mi
+
       containers:
       - env:
         - name: agentManager_url_1
@@ -81,7 +89,7 @@ spec:
               key: agentManager_version
               name: caaiops-config-common
         - name: interval
-          value: "120"
+          value: "300"
         - name: KUEBRNETES_CLUSTER_MONITORING
           value: "true"
         - name: apmenv_introscope_epagent_config_httpServerPort
@@ -93,9 +101,9 @@ spec:
         - name: HostMonitoring
           value: disabled
         - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_cluster
-          value: {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_cluster_clustername)
+          value: {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_cluster_clustername), {{ .Values.prefix }}_project=({{ .Values.prefix }}_cluster_projects)
         - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_node
-          value: {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_node_clustername), {{ .Values.prefix }}_pod_nodename=(name), {{ .Values.prefix }}_node_agentpath=(agent)
+          value: {{ .Values.prefix }}_project=({{ .Values.prefix }}_node_namespaces),{{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_node_clustername), {{ .Values.prefix }}_pod_nodename=(name), {{ .Values.prefix }}_node_agentpath=(agent)
         - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_namespace
           value: {{ .Values.prefix }}_project=(name), {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_namespace_clustername)
         - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_pod
@@ -133,7 +141,7 @@ spec:
               key: agentNaming_deployment_apmia_agent
               name: caaiops-config-common
         - name: apmenv_introscope_agent_extensions_bundles_load
-          value: {{- if or .Values.monitor.application.opentracing.enabled }} OpenTracing, {{end}} {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }} {{ if .Values.agentManager.version }} OpenshiftMonitor, {{ else }} ClusterDataReporter, {{ end }} {{ end }}
+          value: {{- if or .Values.monitor.application.zipkinTracing.enabled }} ZipkinTracing, {{end}} {{- if or .Values.monitor.application.opentracing.enabled }} OpenTracing, {{end}} {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }}  ClusterDataReporter, {{ end }}
         - name: MIN_HEAP_VAL_IN_MB
           value: "64"
         - name: cluster_name
@@ -146,6 +154,13 @@ spec:
 {{- if or .Values.namespaces }}
         - name: apmenv_com_ca_apm_kubernetes_monitor_namespace_list
           value: {{ quote .Values.namespaces }}
+{{ end }}
+{{- if or .Values.monitor.application.zipkinTracing.enabled }}
+        - name: apmenv_agent_distributedTracing_collector_zipkin_server_hostport
+          valueFrom:
+            configMapKeyRef:
+              key: zipkinTracing_zipkinServer_hostport
+              name: caaiops-config-common
 {{ end }}
 {{- if or .Values.monitor.application.opentracing.enabled }}
         - name: apmenv_introscope_agent_opentracing_grpc_server_hostport

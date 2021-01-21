@@ -3,6 +3,10 @@ kind: ClusterRole
 metadata:
   name: uma-cluster-role
 rules:
+- nonResourceURLs:
+  - /metrics
+  verbs:
+  - get
 - apiGroups:
   - ""
   resources:
@@ -10,6 +14,7 @@ rules:
   - nodes/proxy
   - services
   - pods
+  - events
   - pods/exec
   - resourcequotas
   - replicationcontrollers
@@ -22,6 +27,7 @@ rules:
   - create
   - list
   - watch
+  - patch
 - apiGroups:
   - apps
   resources:
@@ -69,3 +75,11 @@ rules:
     - privileged
   verbs:
   - use
+- apiGroups:
+    - extensions
+  resources:
+    - podsecuritypolicies
+  resourceNames:
+    - ibm-privileged-psp
+  verbs:
+    - use

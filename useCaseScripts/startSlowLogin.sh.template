@@ -11,6 +11,7 @@ IS_ENABLED=`curl -s GIT_PROJECT_HTTPS/blob/master/config/NA_Feature_Flag.config|
 
 if [ X"$IS_ENABLED" == X ]; then
     sed -i 's/enable/enabled/g' config/NA_Feature_Flag.config
+    sed -i 's/disabled/enabled/g' config/NA_Feature_Flag.config
 else
     sed -i 's/enabled/enable/g' config/NA_Feature_Flag.config
 fi

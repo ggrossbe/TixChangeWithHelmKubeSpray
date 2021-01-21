@@ -1,50 +1,8 @@
 #!/bin/bash
-UC_FOLDER=`dirname $BASH_SOURCE`
 
-. $UC_FOLDER/../config.ini
+kubectl scale -n tixchange-v2 --replicas=1 deployment tix-mysql-deploy
 
-cd $UC_FOLDER/../
+sleep 15
 
-#Automic recommendation confidence API
-
-automicRecommendationScore () {
-curl -v --request POST ''$OI_AUTOMIC_URL'' \
--H 'Authorization: Bearer '$OI_TOKEN'' \
--H 'Content-Type: application/json' \
--H 'Content-Type: text/plain' \
--d '{
-  "tenantId": "'"$TENANT_NAME"'",
-  "oobSchema": [
-    {
-      "deviceType": "",
-      "alarmType": "Application",
-      "metric_names": [
-        "'"$APM_METRIC"'"
-      ],
-      "sourceProduct": "Application Performance Management",
-      "automicJobWeightList": [
-        {
-          "automicJobName": "JOBP.AIOPS.RDS-CRASH.REMEDIATION",
-          "oobRecommendationWeight": 9,
-          "currentRecommendedWeight": 9,
-          "triggeredCount": 0
-        },
-        {
-          "automicJobName": "JOBP.AIOPS.LB-LICENSE.REMEDIATION",
-          "oobRecommendationWeight": 1,
-          "currentRecommendedWeight": 1,
-          "triggeredCount": 0
-        }
-      ]
-    }
-  ]
-}
-'
-}
-
-
-#automicRecommendationScore
-
-./mainInstaller.sh t
-
-$UC_FOLDER/openAccessUCStatusTracker/UC2_StatusTracker.sh OFF
+cd /opt/ca/TixChangeK8sDemo/em/
+./setupEMSideConfigurations2.sh DUMMY

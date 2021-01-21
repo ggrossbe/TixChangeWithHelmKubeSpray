@@ -1,0 +1,277 @@
+{{- if or .Values.cloudmonitoring.aws.enabled }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-monitor
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: apmia-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: apmia-deployment
+      labels:
+        app: apmia-deployment
+    spec:
+      serviceAccountName: uma
+      containers:
+      - env:
+        - name: agentManager_url_1
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_url_1
+              name: caaiops-config-common
+{{- if .Values.agentManager.credential }}
+        - name: agentManager_credential
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_credential
+              name: caaiops-config-common
+{{ end }}
+{{- if .Values.agentManager.httpProxy.host }}
+        - name: apmenv_agentManager_httpProxy_host
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_httpProxy_host
+              name: caaiops-config-common
+{{ end }}
+{{- if .Values.agentManager.httpProxy.port }}
+        - name: apmenv_agentManager_httpProxy_port
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_httpProxy_port
+              name: caaiops-config-common
+{{ end }}
+{{- if .Values.agentManager.httpProxy.username }}
+        - name: apmenv_agentManager_httpProxy_username
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_httpProxy_username
+              name: caaiops-config-common
+{{ end }}
+{{- if .Values.agentManager.httpProxy.password }}
+        - name: apmenv_agentManager_httpProxy_password
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_httpProxy_password
+              name: caaiops-config-common
+{{ end }}
+        - name: apmenv_introscope_agent_connection_compatibility_version
+          valueFrom:
+            configMapKeyRef:
+              key: agentManager_version
+              name: caaiops-config-common
+
+  {{- if or .Values.cloudmonitoring.aws.accessKey }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_accessKey
+          value: {{ .Values.cloudmonitoring.aws.accessKey }}
+  {{ end }}
+
+  {{- if or .Values.cloudmonitoring.aws.secretKey }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_secretKey
+          value: {{ .Values.cloudmonitoring.aws.secretKey }}
+  {{ end }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_schemaList
+          value: {{ .Values.cloudmonitoring.aws.servicesList | default "" }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_interval
+          value: {{ .Values.cloudmonitoring.aws.interval | default "900" | quote}}
+        - name: apmenv_introscope_agent_aws_profiles_aws_monitored_groups
+          value: {{ .Values.cloudmonitoring.aws.groups | default "STANDARD,ADVANCED" }}
+
+        - name: apmenv_introscope_agent_aws_profiles_aws_accounts
+          value: {{ .Values.cloudmonitoring.aws.accounts | default ""}}
+
+  {{- if or .Values.cloudmonitoring.aws.regionList }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_regionList
+          value: {{ .Values.cloudmonitoring.aws.regionList | default "us-east-1" }}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.httpreq }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_httpreq_retryInterval
+          value: {{ .Values.cloudmonitoring.aws.httpreq.retryInterval | default "1" | quote}}
+        - name: apmenv_introscope_agent_aws_profiles_aws_httpreq_retryCount
+          value: {{ .Values.cloudmonitoring.aws.httpreq.retryCount | default "5"  | quote}}
+        - name: apmenv_introscope_agent_aws_profiles_aws_httpreq_retryBatchSize
+          value: {{ .Values.cloudmonitoring.aws.httpreq.retryBatchSize | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.ec2 }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_ec2_interval
+          value: {{ .Values.cloudmonitoring.aws.ec2.interval | default "900" | quote}}
+        - name: apmenv_introscope_agent_aws_profiles_aws_ec2_httpreq_retryBatchSize
+          value: {{ .Values.cloudmonitoring.aws.ec2.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.s3}}
+        - name: apmenv_introscope_agent_aws_profiles_aws_s3_interval
+          value: {{ .Values.cloudmonitoring.aws.s3.interval | default "900" | quote  }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_s3_httpreq_retryBatchSize
+          value: {{ .Values.cloudmonitoring.aws.s3.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.dynamoDB }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_dynamoDB_interval
+          value: {{ .Values.cloudmonitoring.aws.dynamoDB.interval | default "900" | quote  }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_dynamoDB_httpreq_retryBatchSize
+          value: {{ .Values.cloudmonitoring.aws.dynamoDB.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.rds }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_rds_interval
+          value: {{ .Values.cloudmonitoring.aws.rds.interval | default "900" | quote  }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_rds_httpreq_retryBatchSize
+          value: {{ .Values.cloudmonitoring.aws.rds.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.sns }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_sns_interval
+          value: {{ .Values.cloudmonitoring.aws.sns.interval | default "900" | quote  }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_sns_httpreq_retryBatchSize
+          value: {{ .Values.cloudmonitoring.aws.sns.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.lambda }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_lambda_interval
+          value: {{ .Values.cloudmonitoring.aws.lambda.interval | default "900" | quote  }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_lambda_httpreq_retryBatchSize
+          value: {{ .Values.cloudmonitoring.aws.lambda.httpreq_retryBatchSize  | default "10"  | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.clb }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_clb_interval
+          value: {{ .Values.cloudmonitoring.aws.clb.interval | default "900" | quote  }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_clb_httpreq_retryBatchSize
+          value: {{ .Values.cloudmonitoring.aws.clb.httpreq_retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.elasticache}}
+        - name: apmenv_introscope_agent_aws_profiles_aws_elasticache_interval
+          value: {{ .Values.cloudmonitoring.aws.elasticache.interval | default "900" | quote}}
+        - name: apmenv_introscope_agent_aws_profiles_aws_elasticache_httpreq_retryBatchSize
+          value: {{ .Values.cloudmonitoring.aws.elasticache.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.ecs }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_ecs_interval
+          value: {{ .Values.cloudmonitoring.aws.ecs.interval | default "900" | quote}}
+        - name: apmenv_com_ca_apm_agent_ecs_clb_httpreq_retryBatchSize
+          value: {{ .Values.cloudmonitoring.aws.ecs.httpreq.retryBatchSize  | default "10" }}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.sqs }}
+        - name: apmenv_introscope_agent_aws_profiles_aws_sqs_interval
+          value: {{ .Values.cloudmonitoring.aws.sqs.interval | default "900" | quote}}
+        - name: apmenv_introscope_agent_aws_profiles_aws_sqs_httpreq_retryBatchSize
+          value: {{ .Values.cloudmonitoring.aws.sqs.httpreq.retryBatchSize  | default "10" }}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.autoscaling }}
+      - name: apmenv_introscope_agent_aws_profiles_aws_autoscaling_interval
+        value: {{ .Values.cloudmonitoring.aws.autoscaling.interval | default "900" | quote}}
+      - name: apmenv_introscope_agent_aws_profiles_aws_autoscaling_httpreq_retryBatchSize
+        value: {{ .Values.cloudmonitoring.aws.autoscaling.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.ebs }}
+      - name: apmenv_introscope_agent_aws_profiles_aws_ebs_interval
+        value: {{ .Values.cloudmonitoring.aws.ebs.interval | default "900" | quote}}
+      - name: apmenv_introscope_agent_aws_profiles_aws_ebs_httpreq_retryBatchSize
+        value: {{ .Values.cloudmonitoring.aws.ebs.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.kinesis }}
+      - name: apmenv_introscope_agent_aws_profiles_aws_kinesis_data_stream_interval
+        value: {{ .Values.cloudmonitoring.aws.kinesis.interval | default "900" | quote}}
+      - name: apmenv_introscope_agent_aws_profiles_aws_kinesis_data_stream_httpreq_retryBatchSize
+        value: {{ .Values.cloudmonitoring.aws.kinesis.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.billing }}
+      - name: apmenv_introscope_agent_aws_profiles_aws_billing_interval
+        value: {{ .Values.cloudmonitoring.aws.billing.interval | default "900" | quote}}
+      - name: apmenv_introscope_agent_aws_profiles_aws_billing_httpreq_retryBatchSize
+        value: {{ .Values.cloudmonitoring.aws.billing.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.sqs }}
+      - name: apmenv_introscope_agent_aws_profiles_aws_sqs_interval
+        value: {{ .Values.cloudmonitoring.aws.sqs.interval | default "900" | quote}}
+      - name: apmenv_introscope_agent_aws_profiles_aws_sqs_httpreq_retryBatchSize
+        value: {{ .Values.cloudmonitoring.aws.sqs.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.nlb }}
+      - name: apmenv_introscope_agent_aws_profiles_aws_nlb_interval
+        value: {{ .Values.cloudmonitoring.aws.nlb.interval | default "900" | quote}}
+      - name: apmenv_introscope_agent_aws_profiles_aws_nlb_httpreq_retryBatchSize
+        value: {{ .Values.cloudmonitoring.aws.nlb.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.alb }}
+      - name: apmenv_introscope_agent_aws_profiles_aws_alb_interval
+        value: {{ .Values.cloudmonitoring.aws.alb.interval | default "900" | quote}}
+      - name: apmenv_introscope_agent_aws_profiles_aws_alb_httpreq_retryBatchSize
+        value: {{ .Values.cloudmonitoring.aws.alb.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.redshift }}
+      - name: apmenv_introscope_agent_aws_profiles_aws_redshift_interval
+        value: {{ .Values.cloudmonitoring.aws.redshift.interval | default "900" | quote}}
+      - name: apmenv_introscope_agent_aws_profiles_aws_redshift_httpreq_retryBatchSize
+        value: {{ .Values.cloudmonitoring.aws.redshift.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+  {{- if or .Values.cloudmonitoring.aws.apiGateway }}
+      - name: apmenv_introscope_agent_aws_profiles_aws_apiGateway_interval
+        value: {{ .Values.cloudmonitoring.aws.apiGateway.interval | default "900" | quote}}
+      - name: apmenv_introscope_agent_aws_profiles_aws_apiGateway_httpreq_retryBatchSize
+        value: {{ .Values.cloudmonitoring.aws.apiGateway.httpreq.retryBatchSize  | default "10" | quote}}
+  {{ end }}
+
+        - name: apmenv_introscope_agent_customProcessName
+{{- if or .Values.agentNaming.deployment.aws.process }}
+          valueFrom:
+            configMapKeyRef:
+              key: agentNaming_deployment_aws_process
+              name: caaiops-config-common
+{{ else }}
+          value: AWS Monitor
+{{ end }}
+        - name: apmenv_introscope_agent_agentName
+{{- if or .Values.agentNaming.deployment.aws.agent }}
+          valueFrom:
+            configMapKeyRef:
+              key: agentNaming_deployment_aws_agent
+              name: caaiops-config-common
+{{ else }}
+          value: AWS Agent
+{{ end }}
+{{- if or .Values.agentNaming.deployment.aws.host }}
+        - name: apmenv_introscope_agent_hostName
+          valueFrom:
+            configMapKeyRef:
+              key: agentNaming_deployment_aws_host
+              name: caaiops-config-common
+{{ end }}
+        - name: apmenv_introscope_agent_extensions_bundles_boot_load
+          value: restmon,aws
+        - name: apmenv_introscope_agent_extensions_bundles_load
+          value: "awstest"
+        - name: MIN_HEAP_VAL_IN_MB
+          value: "64"
+        - name: apmenv_introscope_epagent_config_httpServerPort
+          value: "8888"
+        - name: HostMonitoring
+          value: disabled
+        - name: cluster_name
+          valueFrom:
+            configMapKeyRef:
+              key: cluster_name
+              name: caaiops-config-common
+
+        name: awsmetainfo
+        image:  {{ or .Values.imageName .Values.image }}
+{{- if .Values.EnableResourceLimits }}
+        resources:
+          limits:
+            cpu: 800m
+            memory: 1G
+          requests:
+            cpu: 200m
+            memory: 300Mi
+{{end}}
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8888
+          initialDelaySeconds: 60
+          periodSeconds: 60
+        imagePullPolicy: Always
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: apmia-deployment
+
+{{end}}
