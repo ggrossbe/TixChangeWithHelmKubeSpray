@@ -4,8 +4,8 @@ CREATE_UPDATE="$1"
 
 createOIServices () {
 
-curl -v -X POST \
-  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/save \
+curl -k -v -X POST \
+  http://doi-adminui.10.74.160.23.nip.io/oi/v2/sa/save \
   -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
@@ -413,8 +413,8 @@ updateOIServices () {
 echo ""
 
 
-curl -X POST \
-  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Provisioning \
+curl -k -X POST \
+  http://doi-adminui.10.74.160.23.nip.io/oi/v2/sa/update/NA_Provisioning \
   -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
@@ -453,8 +453,8 @@ curl -X POST \
 echo "***sleeping for 5 sec"
 sleep 5
 
-curl -X POST \
-  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/EMEA_Provisioning \
+curl -k -X POST \
+  http://doi-adminui.10.74.160.23.nip.io/oi/v2/sa/update/EMEA_Provisioning \
   -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
@@ -494,8 +494,8 @@ curl -X POST \
 echo "***sleeping for 5 sec"
 sleep 5
 
-curl -X POST \
-  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Activation \
+curl -k -X POST \
+  http://doi-adminui.10.74.160.23.nip.io/oi/v2/sa/update/NA_Activation \
   -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \

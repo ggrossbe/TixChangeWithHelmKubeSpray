@@ -7,7 +7,7 @@ git pull origin master
   git config --global user.email "you@example.com"
   git config --global user.name "Your Name"
 
-IS_ENABLED=`curl -s https://github.gwd.broadcom.net/ns657061/MobileProvisioningService//blob/master/config/NA_Feature_Flag.config|grep 5G_Pro|grep enabled`
+IS_ENABLED=`curl -s GIT_PROJECT_HTTPS/blob/master/config/NA_Feature_Flag.config|grep 5G_Pro|grep enabled`
 
 if [ X"$IS_ENABLED" == X ]; then
     sed -i 's/enable/enabled/g' config/NA_Feature_Flag.config

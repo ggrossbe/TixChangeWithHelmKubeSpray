@@ -872,6 +872,10 @@ setupJenkins () {
     sed -i 's/GIT_LOGIN/'$GIT_LOGIN'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/Scheduler/config.xml
     sed -i 's/JENKINS_IP/'$JENKINS_IP'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jenkins.model.JenkinsLocationConfiguration.xml
 
+
+    cp -f $INSTALL_SCRIPT_FOLDER/useCaseScripts/startSlowLogin.sh.template $INSTALL_SCRIPT_FOLDER/useCaseScripts/startSlowLogin.sh
+    sed -i 's/GIT_PROJECT_HTTPS/'$ESCAPED_GIT_PROJECT_HTTPS'/' $INSTALL_SCRIPT_FOLDER/useCaseScripts/startSlowLogin.sh
+
     sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/builds/1/workflow/7.xml
     sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/builds/1/workflow/10.xml
     sed -i 's/GIT_PROJECT/'$ESCAPED_GIT_PROJECT'/' $INSTALLATION_FOLDER/$JENKINS_FOLDER/jenkins_home/jobs/MobileProvisioningService/builds/2/workflow/7.xml

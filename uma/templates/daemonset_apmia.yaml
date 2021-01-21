@@ -44,6 +44,14 @@ spec:
       - name: init-clusterinfo
         image: {{ or .Values.imageName .Values.image }}
         command: ['bash', '-c', 'until [ $(curl --connect-timeout 5 --max-time 10 --write-out %{http_code} --silent --output /dev/null ${CLUSTERINFO_SERVICE_HOST}:${CLUSTERINFO_SERVICE_PORT}/up) -eq 200 ]; do sleep 2; done']
+        resources:
+          limits:
+            cpu: 20m
+            memory: 20Mi
+          requests:
+            cpu: 10m
+            memory: 10Mi
+        
       containers:
       - name: containerinfo
         image:  {{ or .Values.imageName .Values.image }}
@@ -66,6 +74,10 @@ spec:
           limits:
             cpu: 200m
             memory: 150Mi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+
         volumeMounts:
           - name: dockersock
             mountPath: /var/run/docker.sock
@@ -78,6 +90,18 @@ spec:
             readOnly: true
           - name: proc
             mountPath: /host/proc
+            readOnly: true
+          - name: dockeroverlay
+            mountPath: /host/var/lib/docker/overlay
+            readOnly: true
+          - name: dockeroverlay2
+            mountPath: /host/var/lib/docker/overlay2
+            readOnly: true
+          - name: criooverlay
+            mountPath: /host/var/lib/containers/storage/overlay
+            readOnly: true
+          - name: criooverlaycontainers
+            mountPath: /host/var/lib/containers/storage/overlay-containers
             readOnly: true
       - env:
 {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }}
@@ -136,7 +160,7 @@ spec:
         - name: DOCKER_STATS_CGROUP_MODE
           value: enabled
         - name: apmenv_introscope_agent_extensions_bundles_load
-          value: NodeExtension,{{ if or .Values.monitor.application.autoattach.java.enabled .Values.autoattach_java_enabled }} java-attach,{{end}}{{ if or .Values.monitor.application.autoattach.dotnet.enabled .Values.autoattach_dotnet_enabled }} dotnet-attach,{{end}}kubernetes-overrider,{{ if and ( or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled) }}OpenshiftMonitor,HostMonitor,{{end}}{{ if or .Values.monitor.container.prometheus.exporter.enabled .Values.monitor.application.jmx.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}KubernetesRemoteMonitor,{{end}}
+          value: NodeExtension,PythonExtension,CppExtension,{{ if or .Values.monitor.application.autoattach.java.enabled .Values.autoattach_java_enabled .Values.monitor.application.autoattach.dotnet.enabled .Values.autoattach_dotnet_enabled }}autoattach,{{end}}{{ if and ( or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled) }}OpenshiftMonitor,HostMonitor,{{end}}{{ if or .Values.monitor.container.prometheus.exporter.enabled .Values.monitor.application.jmx.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled .Values.kubernetes_remote_jmx_enabled }}KubernetesRemoteMonitor,{{end}}
 {{- if or .Values.monitor.application.autoattach.java.enabled .Values.autoattach_java_enabled .Values.monitor.application.autoattach.dotnet.enabled .Values.autoattach_dotnet_enabled }}
         ##########################
         # Auto Attach properties:
@@ -145,10 +169,10 @@ spec:
           value: "false"
         # Free memory threshold required for attaching to containers (%)
         - name: apmenv_autoattach_free_memory_threshold
-          value: "20.00"
+          value: "50.00"
         # Interval for attaching to memory unbounded containers (sec). One unbounded container will be attached to per interval.
         - name: apmenv_autoattach_unbounded_container_attach_interval
-          value: "180"
+          value: "300"
         # Operation Mode for Auto Attach (whitelist/blacklist).
         # whitelist: will only attach to processes marked with env variable CA_APM_MONITORING_ENABLED=true
         # blacklist: will attach to all processes except those marked with env variable CA_APM_MONITORING_ENABLED=false
@@ -235,7 +259,7 @@ spec:
 {{- if or .Values.EnableResourceLimits .Values.kubernetes_resource_bound }}
         resources:
           limits:
-            cpu: 2
+            cpu: 1000m
             memory: 1G
           requests:
             cpu: 200m
@@ -283,7 +307,14 @@ spec:
         - name: proc
           mountPath: /host/proc
           readOnly: true
-
+        - name: dockeroverlay
+          mountPath: /host/var/lib/docker/overlay
+        - name: dockeroverlay2
+          mountPath: /host/var/lib/docker/overlay2
+        - name: criooverlay
+          mountPath: /host/var/lib/containers/storage/overlay
+        - name: criooverlaycontainers
+          mountPath: /host/var/lib/containers/storage/overlay-containers
 {{- if or .Values.monitor.container.prometheus.exporter.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
         - name: config-volume
           mountPath: /usr/local/openshift/apmia/extensions/KubernetesRemoteMonitor/config/prometheus
@@ -313,6 +344,18 @@ spec:
       - name: proc
         hostPath:
           path: /proc
+      - name: dockeroverlay
+        hostPath:
+          path: /var/lib/docker/overlay
+      - name: dockeroverlay2
+        hostPath:
+          path: /var/lib/docker/overlay2
+      - name: criooverlay
+        hostPath:
+          path: /var/lib/containers/storage/overlay
+      - name: criooverlaycontainers
+        hostPath:
+          path: /var/lib/containers/storage/overlay-containers
 {{- if or .Values.monitor.container.prometheus.exporter.enabled .Values.kubernetes_monitor_node_container_prometheus_exporters_enabled }}
       - name: config-volume
         configMap:

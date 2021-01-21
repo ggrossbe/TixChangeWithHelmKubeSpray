@@ -26,6 +26,14 @@ spec:
         - name: init-clusterinfo
           image:  {{ or .Values.imageName .Values.image }}
           command: ['bash', '-c', 'until [ $(curl --connect-timeout 5 --max-time 10 --write-out %{http_code} --silent --output /dev/null ${CLUSTERINFO_SERVICE_HOST}:${CLUSTERINFO_SERVICE_PORT}/up) -eq 200 ]; do sleep 2; done']
+          resources:
+            limits:
+              cpu: 20m
+              memory: 20Mi
+            requests:
+              cpu: 10m
+              memory: 10Mi
+
       containers:
       - env:
         - name: agentManager_url_1
