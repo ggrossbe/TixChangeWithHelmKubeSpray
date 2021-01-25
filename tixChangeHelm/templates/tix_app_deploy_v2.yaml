@@ -9,13 +9,13 @@ metadata:
     app: tixchange-web
     tier: frontend
     env: {{ .Values.DeploymentEnv1 }}
-    version: tixchange-uc2-v1
+    version: tixchange-web-uc2-v1
 spec:
   selector:
     matchLabels:
       app: tixchange-web
       tier: frontend
-      version: tixchange-uc2-v1
+      version: tixchange-web-uc2-v1
   replicas: 1 
   revisionHistoryLimit: 9 # how many revisions
   strategy:
@@ -30,7 +30,7 @@ spec:
         tier: frontend
         env: {{ .Values.DeploymentEnv1 }}
         apm: enabled
-        version: tixchange-uc2-v1
+        version: tixchange-web-uc2-v1
       annotations:
         ver: "1.0"
     spec:
@@ -152,17 +152,19 @@ spec:
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2. I'm running 1.11.0
 kind: Deployment
 metadata:
-  name: tix-ws-deploy
+  name: tix-ws-deploy-v1
   namespace: tixchange-v2
   labels:
     app: tixchange-ws
     tier: backend
+    version: tixchange-ws-uc2-v1
     env: {{ .Values.DeploymentEnv1 }}
 spec:
   selector:
     matchLabels:
       app: tixchange-ws
       tier: backend
+      version: tixchange-ws-uc2-v1
   replicas: 1
   revisionHistoryLimit: 9
   strategy:
@@ -174,6 +176,7 @@ spec:
         tier: backend
         env: {{ .Values.DeploymentEnv1 }}
         apm: enabled
+        version: tixchange-ws-uc2-v1
       annotations:
         ver: "1.0"
     spec:

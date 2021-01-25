@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: tichange-ws-uc2-dest-rule-v1-v2
+spec:
+  host: authservice-svc.tixchange-v2.svc.cluster.local
+  subsets:
+  - labels:
+      version: tixchange-ws-uc2-v1
+    name: version-v1
+  - labels:
+      version: tixchange-ws-uc2-v2
+    name: version-v2
+---
