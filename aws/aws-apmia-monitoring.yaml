@@ -1,16 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: apmia-aws
+  name: caagent-apmia-aws
   labels:
     tier: monitoring
-    app: caagent_apmia
+    app: caagent-apmia-aws
     version: v1
 spec:
+  selector:
+    matchLabels:
+      app: caagent-apmia-aws
   template:
     metadata:
       labels:
-        app: caagent_apmia
+        app: caagent-apmia-aws
     spec:
       containers:
         - resources:
