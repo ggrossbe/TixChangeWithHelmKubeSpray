@@ -31,8 +31,8 @@ export LC_ALL=C
 
 pip -V
 
-#declare -a IPS=($HOST_IPS)
-#CONFIG_FILE=inventory/mycluster/hosts.yml /usr/bin/python3.6m contrib/inventory_builder/inventory.py ${IPS[@]}
+declare -a IPS=($HOST_IPS)
+CONFIG_FILE=inventory/mycluster/hosts.yml /usr/bin/python3.6m contrib/inventory_builder/inventory.py ${IPS[@]}
 
 cd -
 
@@ -43,6 +43,8 @@ cp -f $SCRIPTS_FOLDER/hosts.yml $INSTALLATION_FOLDER/kubespray/inventory/myclust
 
 cd -
 
+
+pip install -U pip setuptools
 
 ### KubeSpray install
 
