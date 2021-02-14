@@ -1,0 +1,5 @@
+http://localhost:20001/kiali
+2021-01-29T14:32:20.051123Z	error	klog	error copying from local connection to remote stream: read tcp4 10.74.121.188:20001->10.230.9.164:54782: read: connection timed out[]
+2021-01-29T14:32:20.067010Z	error	klog	error copying from local connection to remote stream: read tcp4 10.74.121.188:20001->10.230.9.164:54990: read: connection timed out[]
+2021-01-29T15:49:53.146663Z	error	klog	error copying from local connection to remote stream: read tcp4 10.74.121.188:20001->10.230.9.164:56010: read: connection timed out[]
+2021-01-29T23:07:09.779506Z	error	klog	lost connection to pod[]
