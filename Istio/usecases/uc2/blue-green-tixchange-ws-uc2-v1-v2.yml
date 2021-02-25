@@ -9,6 +9,6 @@ spec:
   - route:
     - destination:
         host: authservice-svc.tixchange-v2.svc.cluster.local
-        subset: version-v1
+        subset: version-v2
       weight: 100
 ---
