@@ -3,7 +3,7 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 . $SCRIPTS_FOLDER/include.sh
 
 
-wget https://github.com/kubernetes-sigs/kubespray/archive/v2.13.3.zip
+wget https://github.com/kubernetes-sigs/kubespray/archive/v2.15.0.zip
 
 #ESCAPE_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER" | sed 's/\//\\\//g')
 #sed -i 's/DOCKER_STORAGE_FOLDER/'$ESCAPE_INSTALLATION_FOLDER\\/DockerStorage'/' all.yml
@@ -11,9 +11,9 @@ wget https://github.com/kubernetes-sigs/kubespray/archive/v2.13.3.zip
 rm -rf $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
 
 #unzip master.zip &&  mv kubespray-master kubespray && cd kubespray
-unzip v2.13.3.zip &&  mv kubespray-2.13.3/ $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
+unzip v2.15.0.zip &&  mv kubespray-2.15.0/ $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
 
-rm -rf v2.13.3.zip*
+rm -rf v2.15.0.zip*
 
 cd $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
 export LC_ALL=C
@@ -31,8 +31,8 @@ export LC_ALL=C
 
 pip -V
 
-#declare -a IPS=($HOST_IPS)
-#CONFIG_FILE=inventory/mycluster/hosts.yml /usr/bin/python3.6m contrib/inventory_builder/inventory.py ${IPS[@]}
+declare -a IPS=($HOST_IPS)
+CONFIG_FILE=inventory/mycluster/hosts.yml /usr/bin/python3.6m contrib/inventory_builder/inventory.py ${IPS[@]}
 
 cd -
 
@@ -43,6 +43,8 @@ cp -f $SCRIPTS_FOLDER/hosts.yml $INSTALLATION_FOLDER/kubespray/inventory/myclust
 
 cd -
 
+
+pip install -U pip setuptools
 
 ### KubeSpray install
 

@@ -1,0 +1,150 @@
+#Add Master FIRST and Worker IP. Sorry No Hostname pls. If AWS or GCP use Private IP NOT public"
+HOST_IPS="10.74.121.188 10.74.121.189 10.74.121.190"
+
+################################
+#
+#APM Config
+#
+################################
+
+#Agent Manager URL from your APM SaaS tenant under Agent Connection. No need for port # or trailing "/"
+APM_MANAGER_URL_1=ws://apmservices-gateway.10.74.160.23.nip.io
+APM_MANAGER_CREDENTIAL=eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJhZ2VudCI6dHJ1ZSwiZXhwIjo5MjIzMzcyMDM2ODU0Nzc1LCJ0aWQiOjEwLCJqdGkiOiJiY2M1NDRhNC1jZjk5LTQ1MzYtYjJlZi05ZWY0NDIzNTk5ZWYifQ.-7T6s7Fh6Pw1txwE2dsg-6rJcU-_xkf6i-juelKarxRoEobXLRPwJ2gVwLJcbwBbfXZoxWJyH0-qWkeIk_cxMQ
+
+
+#This URL is different from APM_MANAGER_URL_1 above and is is the url that you see in the browser address tab once you go to say Experience view or Map on APM SaaS.
+#***No Trailing "/" pls***
+APM_SAAS_URL=http://apmservices-gateway.10.74.160.23.nip.io/10
+
+# you get this by clicking on Security icon on the left panel of APM SaaS tenant -> Generate Token -> public API Token
+APM_API_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJzdWIiOiJTVVBFUiIsImR5bmV4cCI6dHJ1ZSwidGlkIjoxMCwianRpIjoiYzJhNGY3OWEtM2E3Ny00MzI0LWE1ZTQtMDA5YWI2NGQ1ZTYxIn0.Whye63OpB7kMw0DITYfITYuzBEyBbFaWynn6JRLPdOQASk9vrQQnLo7zAIp99VcNG4BKliTTAlBKneHM5RHofw
+
+
+
+# TENANT API TOKEN - this is check box under in the same screen as APM API TOKEN
+TENANT_API_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJleHAiOjkyMjMzNzIwMzY4NTQ3NzUsImludCI6dHJ1ZSwidGlkIjoxMCwianRpIjoiZjM4NzY4NGYtMmExYy00NGZiLThjY2ItOTljYmNhODE0YjBjIn0.pvX2xpJEHSPKSsfS8wGAQEHMJ3VazohAnMZMGujXPWtgY8RgpIhLtc5e1YsmOHpDFuLvWugEI5B02pU0-u5P2Q
+
+# APM11 username - how you login to Saas or on Prem
+SAAS_USER_ID=Super
+
+## Options -> (Telco, Insurance, Banking). Default is Telco. Helps map Univ name, OI Service Heirarchy (run Corresponding OI Service creation script from OIServiceScript folder)
+## Also for Telco Add create following AXA Apps
+## Telco -> NA_Provisioning, EMEA_Provisioning
+## Insurance -> NA_Property, EMEA_Property
+## Banking -> NA_Retail, EMEA_Retail
+INDUSTRY=Telco
+
+
+################################
+#
+#BA Snippet
+#
+################################
+
+#This AXA BA Snippet for AXA-APM Slow Use Case in WestCoast DC Univ
+BA_SNIPPET_UC1='<script type="text/javascript" id="ca_eum_ba" src="http://dxc.10.74.160.23.nip.io/api/1/urn:ca:tenantId:AEA603A0-1DAA-45A6-9E77-67C3642F37AF/urn:ca:appId:NA_Provisioning/bajs?agent=browser" data-profileUrl="http://dxc.10.74.160.23.nip.io/api/1/urn:ca:tenantId:AEA603A0-1DAA-45A6-9E77-67C3642F37AF/urn:ca:appId:NA_Provisioning/profile?agent=browser" data-tenantID="AEA603A0-1DAA-45A6-9E77-67C3642F37AF" data-appID="NA_Provisioning" data-appVersion="1.0" data-use-axa-appname="true" data-appKey="e7dc4d30-5602-11eb-89e1-b1115bc19140" async ></script>'
+
+#This AXA BA Snippet for For DB Crash Use Case in East Coast DC Univ
+BA_SNIPPET_UC2='<script type="text/javascript" id="ca_eum_ba" src="http://dxc.10.74.160.23.nip.io/api/1/urn:ca:tenantId:AEA603A0-1DAA-45A6-9E77-67C3642F37AF/urn:ca:appId:EMEA_Provisioning/bajs?agent=browser" data-profileUrl="http://dxc.10.74.160.23.nip.io/api/1/urn:ca:tenantId:AEA603A0-1DAA-45A6-9E77-67C3642F37AF/urn:ca:appId:EMEA_Provisioning/profile?agent=browser" data-tenantID="AEA603A0-1DAA-45A6-9E77-67C3642F37AF" data-appID="EMEA_Provisioning" data-appVersion="1.0" data-use-axa-appname="true" data-appKey="f50b1680-5602-11eb-89e1-b1115bc19140" async ></script>'
+
+################################
+#
+#AWS, RDS Config - OPTIONAL
+#
+################################
+
+#True if deploying on EC2's
+IS_AWS=false
+
+#This is the account # with role based priviledges (pls see AWS APMI doc for how to setup role based priv)
+AWS_ACCOUNTS_NUMBS=5440361606
+AWS_REGIONS=us-east-1,us-east-2,us-west-1,us-west-2
+AWS_SERVICES=rds,ec2,ebs,lambda,dynamodb,s3,sns,ecs,sqs,kinesis,clb,nlb,alb,redshift,elasticache,autoScaling,billing,apiGateway
+
+
+#Optional MY SQL RDS Hostname. 
+#If using RDS DB provide your RDS hostname (E.g. tix-oacss-WEST.cq3zsicvyi.us-2.rds.amazonaws.com and tix-oacss-EAST.cq3zsicvyi.us-2.rds.amazonaws.com). 
+#Default is blank and if Blank script will deploy OOTB mysql in k8s
+#Hostname2 below is the DB you want to stop for DB crash UC.
+TIXCHANGE_MYSQL_RDS_HOSTNAME1=
+TIXCHANGE_MYSQL_RDS_HOSTNAME2=
+
+
+################################
+#
+#OI Token for OI Service - OPTIONAL
+#
+################################
+
+#OI Token - to get go to OI, open developer tool and go to network, click on services icon on the left panel (above Alarms) one more time, on the developer tool select serviceList, 
+# OI token will be under request header - under authorization Bearer
+OI_TOKEN=eyJ0a24iOiIzMzAxYTU4ZS1lOTc3LTQwMjMtYmY3ZC05Zjg5YWFmMDFhMWMiLCJhbGwiOnRydWV9
+
+
+################################
+#
+#ASM Config - OPTIONAL
+#
+################################
+
+#if ASM is true and then provide ASM login passwd
+IS_ASM=true
+
+ASM_USER_EMAIL=pindo01@ca.com
+ASM_API_PASSWORD=password2
+
+# ASM Metric that should be used for OI service availability . Will be used in all the sub services in OI
+ASM_AGENT_NAME_NA="SuperDomain|apmia_asm_monitoring|ASM|App Synthetic Monitor Agent"
+ASM_METRIC_NAME_NA="App Synthetic Monitor|Monitors|Broadcom.com|www.broadcom.com:Last Check Status"
+ASM_AGENT_NAME_EMEA="SuperDomain|apmia_asm_monitoring|ASM|App Synthetic Monitor Agent"
+ASM_METRIC_NAME_EMEA="App Synthetic Monitor|Monitors|Broadcom.com|www.broadcom.com:Last Check Status"
+
+
+################################
+#
+# Automic Recommendation Confidence Score - OPTIONAL
+#
+################################
+
+TENANT_NAME="OPEN-ACCESS"
+# Provide EMEA DB "Status Value" full metric path from AWS APMIA agent
+APM_METRIC="SuperDomain|apmia_aws_monitoring|Infrastructure|apmia_aws_agent|AWS|Account|544960361606|Region|us-east-2|RDS|tix-oaccess-east:Status Value"
+
+
+################################
+#
+# Jenkins related configuration - OPTIONAL
+#
+################################
+
+IS_JENKINS=true
+
+#Provide your Git info that has MobileProvisioningService - pls clone it from https://github.gwd.broadcom.net/ns657061/MobileProvisioningService/
+GIT_PROJECT="git@github.gwd.broadcom.net:ns657061/MobileProvisioningService.git"
+#IP of the Master. Public IP of the Master in case of AWS, GCP etc deployment
+JENKINS_URL=10.74.160.23
+
+
+
+#####
+##### DO NOT MODIFY BELOW ######
+#####
+
+#K8s cluster name that UMA uses and shows as the node in metric viewer (deployment agent)
+UMA_K8S_CLUSTER_NAME=KubernetesOpenTracing
+
+#Usually dont need to change unless you want different host folder. Pls ensure atleast 40G of free space here
+INSTALLATION_FOLDER=/opt/ca/TixChangeK8sDemo
+
+# want default host name for agent replaced with pretty name or just want agent host name to be pod name
+RENAME_AGENT_HOST_NAME=true
+
+### Log Collector INFO - Optional
+LOG_COLL_TIX_WEB_UC1_DIR=\\/opt\\/ca\\/TixChangeK8sDemo\\/tixChangeHelm\\/TomcatWebLogsUC1
+LOG_COLL_TIX_WS_UC1_DIR=\\/opt\\/ca\\/TixChangeK8sDemo\\/tixChangeHelm\\/TomcatWSLogsUC1
+LOG_COLL_TIX_WEB_UC2_DIR=\\/opt\\/ca\\/TixChangeK8sDemo\\/tixChangeHelm\\/TomcatWebLogsUC2
+LOG_COLL_TIX_WS_UC2_DIR=\\/opt\\/ca\\/TixChangeK8sDemo\\/tixChangeHelm\\/TomcatWSLogsUC2
+
+AWS_BUNDLE_FOLDER=restmon,aws
+
+OI_AUTOMIC_URL="https://axa.dxi-na1.saas.broadcom.com/doi-ae-integration/v1/oob-re/upload"

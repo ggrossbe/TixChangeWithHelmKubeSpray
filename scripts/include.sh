@@ -514,8 +514,8 @@ installTixChangeHelm () {
      rm -rf $INSTALLATION_FOLDER/$TIXCHANGE_FOLDER/templates/tix_mysql_deploy_v2.yaml
    fi
 
-   #kubectl create ns tixchange-v1
-   #kubectl create ns tixchange-v2
+   kubectl create ns tixchange-v1
+   kubectl create ns tixchange-v2
 
    #logMsg "***IGNORE the 3 errors related to configmap below"
    helm install  tixchange  . 

@@ -1,0 +1,73 @@
+# ------------------- TixChange WebServices Deployment ------------------- #
+
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2. I'm running 1.11.0
+kind: Deployment
+metadata:
+  name: tix-ws-deploy-v2
+  namespace: tixchange-v2
+  labels:
+    app: tixchange-ws
+    tier: backend
+    version: tixchange-ws-uc2-v2
+spec:
+  selector:
+    matchLabels:
+      app: tixchange-ws
+      tier: backend
+      version: tixchange-ws-uc2-v2
+  replicas: 1
+  revisionHistoryLimit: 9
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: tixchange-ws
+        tier: backend
+        version: tixchange-ws-uc2-v2
+        apm: enabled
+      annotations:
+        ver: "1.0"
+    spec:
+      initContainers:
+        - name: init-myservice
+          image: busybox:1.28
+          command: ['sh', '-c','echo Init Service Init Container sleeping 15 sec; sleep 15;']
+      containers:
+        - name: tix-ws
+          env:
+          - name: WEBAPP_HOME
+            value: /usr/local/tomcat/webapps/JTiXChange_Services
+          - name: WS_HOST
+            value: localhost
+          - name: LD_LIBRARY_PATH
+            value: /usr/local/tomcat/native-jni-lib
+          - name: TOMCAT_NATIVE_LIBDIR
+            value: /usr/local/tomcat/native-jni-lib
+          - name: CATALINA_HOME
+            value: /usr/local/tomcat
+          - name: apmenv_introscope_agent_hostName
+            value: TxChangeSvc_UC2
+          resources:
+            limits:
+              cpu: "900m"
+              memory: "900Mi"
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
+          image: srikns/tixchange-service8:20.6
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: tix-ws-apm-config
+          ports:
+            - containerPort: 8080
+      volumes:
+        - name: log-collector-volume
+          hostPath:
+            path: /opt/ca/TixChangeK8sDemo/tixChangeHelm/TomcatWSLogsUC2
+            type: Directory
+      nodeSelector:
+        kubernetes.io/hostname: node1
+---
+

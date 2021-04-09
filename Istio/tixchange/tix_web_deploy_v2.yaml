@@ -1,0 +1,107 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2. I'm running 1.11.0
+kind: Deployment
+metadata:
+  name: tix-web-deploy-v2
+  namespace: tixchange-v2
+  labels:
+    app: tixchange-web
+    tier: frontend
+    version: tixchange-uc2-v2
+spec:
+  selector:
+    matchLabels:
+      app: tixchange-web
+      tier: frontend
+      version: tixchange-uc2-v2
+  replicas: 1 
+  revisionHistoryLimit: 9 # how many revisions
+  strategy:
+    rollingUpdate:
+      maxSurge: 1 # how many on top of replicas you want
+      maxUnavailable: 1 # how many you can afford to be down
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: tixchange-web
+        tier: frontend
+        apm: enabled
+        version: tixchange-uc2-v2
+      annotations:
+        ca.broadcom.com/autoattach.enabled: "false"
+        ver: "1.0"
+    spec:
+      initContainers:
+        - name: init-myservice
+          image: busybox:1.28
+          command: ['sh', '-c','echo Init Web Init Container sleeping 20 sec; sleep 15;']
+      containers:
+        - name: tix-web
+          env:
+          - name: TEMP_PBD_DIR
+            value: /opt/temp
+          - name: WEBAPP_HOME
+            value: /usr/local/tomcat/webapps/jtixchange_web
+          - name: LD_LIBRARY_PATH
+            value: /usr/local/tomcat/native-jni-lib
+          - name: TOMCAT_NATIVE_LIBDIR
+            value: /usr/local/tomcat/native-jni-lib
+          - name: CATALINA_HOME
+            value: /usr/local/tomcat
+          - name: apmenv_introscope_agent_hostName
+            value: TxChangeWeb_UC2
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: "2000Mi"
+            requests:
+              cpu: "600m"
+              memory: "600Mi"
+          #image: omaro/tixchange_web:2.1
+          image: srikns/tixchange-web8:20.6
+          lifecycle:
+            postStart: 
+              exec:
+                #command: [ 'sh', '-c', 'sleep 60; cp -f /opt/temp/j2ee.pbd /opt/wily/core/config/j2ee.pbd; chmod 777 /opt/wily/core/config/j2ee.pbd;']
+                command: [ 'sh', '-c', 'sleep 60; ']
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: tix-web-apm-config 
+            - configMapRef:
+                name: agent-profile
+          volumeMounts:
+            - name: copy-pbds
+              mountPath: /opt/copyPBDs.sh
+              subPath: copyPBDs.sh
+            #- name: ba-snippet
+              #mountPath: /opt/default.basnippet
+              #subPath: default.basnippet2
+              #readOnly: true
+            - name: j2ee-pbd
+              mountPath: /opt/temp/j2ee.pbd
+              subPath: j2ee.pbd
+              readOnly: true
+            - name: jtixchange-pbd
+              mountPath: /opt/temp/jtixchange.pbd
+              subPath: jtixchange.pbd
+              readOnly: true
+          ports:
+            - containerPort: 8080
+      volumes:
+        - name: ba-snippet
+          configMap:
+            name: default-basnippet
+        - name: j2ee-pbd
+          configMap:
+            name: j2ee-pbd
+        - name: copy-pbds
+          configMap:
+            name: copy-pbds
+        - name: jtixchange-pbd
+          configMap:
+            name: jtixchange-pbd
+      nodeSelector:
+        kubernetes.io/hostname: node3
+

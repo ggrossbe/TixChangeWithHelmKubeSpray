@@ -1,0 +1,4 @@
+http://localhost:9090
+http://localhost:20001/kiali
+2021-02-12T00:42:29.601640Z	error	klog	lost connection to pod[]
+2021-02-12T17:38:23.479495Z	error	klog	lost connection to pod[]
