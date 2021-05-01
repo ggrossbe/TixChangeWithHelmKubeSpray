@@ -1,0 +1,332 @@
+# ------------------- TixChange Web App Deployment ------------------- #
+
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2. I'm running 1.11.0
+kind: Deployment
+metadata:
+  name: tix-web-deploy
+  namespace: tixchange-v1
+  labels:
+    app: tixchange-web
+    tier: frontend
+    env: {{ .Values.DeploymentEnv1 }}
+spec:
+  selector:
+    matchLabels:
+      app: tixchange-web
+      tier: frontend
+  replicas: 1 
+  revisionHistoryLimit: 9 # how many revisions
+  strategy:
+    rollingUpdate:
+      maxSurge: 1 # how many on top of replicas you want
+      maxUnavailable: 1 # how many you can afford to be down
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: tixchange-web
+        tier: frontend
+        env: {{ .Values.DeploymentEnv1 }}
+        apm: enabled
+      annotations:
+        ver: "1.0"
+    spec:
+      initContainers:
+        - name: init-myservice
+          image: busybox:1.28
+          command: ['sh', '-c','echo Init Web Init Container sleeping 20 sec; sleep 15;']
+      containers:
+        #- image: busybox:1.28
+          #name: tix-web-post-deploy
+          #command: ['sh', '-c','while [ ! -d /opt/wily1 ]; do sleep 5; echo "sleeping"; done; echo done  ']
+          #volumeMounts:
+            #- name: opt
+              #mountPath: /opt1
+
+        - name: tix-web
+          env:
+          - name: TEMP_PBD_DIR
+            value: /opt/temp
+          - name: WEBAPP_HOME
+            value: /usr/local/tomcat/webapps/jtixchange_web
+          #- name: DB_HOST
+            #value: localhost 
+          #- name: DB_HOST
+            #value: localhost 
+          #- name: DB_PORT
+            #value: 3306 
+          #- name: WS_HOST
+            #value: localhost 
+          - name: LD_LIBRARY_PATH
+            value: /usr/local/tomcat/native-jni-lib
+          - name: TOMCAT_NATIVE_LIBDIR
+            value: /usr/local/tomcat/native-jni-lib
+          - name: CATALINA_HOME
+            value: /usr/local/tomcat
+{{- if .Values.RenameAgentHostname }}
+          - name: apmenv_introscope_agent_hostName
+            value: TxChangeWeb_UC1
+{{ end }}
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: "2000Mi"
+            requests:
+              cpu: "600m"
+              memory: "600Mi"
+          #image: omaro/tixchange_web:ios
+          image: srikns/tixchange-web8:20.6
+          lifecycle:
+            postStart:
+              exec:
+                #command: [ 'sh', '-c', 'sleep 60; cp -f /opt/temp/j2ee.pbd /opt/wily1/core/config/j2ee.pbd; chmod 777 /opt/wily1/core/config/j2ee.pbd']
+                command: [ 'sh', '-c', 'sleep 60']
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: tix-web-apm-config 
+            - configMapRef:
+                name: agent-profile
+          volumeMounts:
+            - name: copy-pbds
+              mountPath: /opt/copyPBDs.sh
+              subPath: copyPBDs.sh
+            - name: ba-snippet
+              mountPath: /opt/default.basnippet
+              subPath: default.basnippet1
+              readOnly: true
+            - name: j2ee-pbd
+              mountPath: /opt/temp/j2ee.pbd
+              subPath: j2ee.pbd
+              readOnly: true
+            - name: log-collector-volume
+              mountPath: /usr/local/tomcat/logs
+            - name: jtixchange-pbd
+              #mountPath: /opt/wily/core/config/hotdeploy/jtixchange.pbd
+              mountPath: /opt/temp/jtixchange.pbd
+              subPath: jtixchange.pbd
+              readOnly: true
+          ports:
+            - containerPort: 8080
+      volumes:
+        - name: ba-snippet
+          configMap:
+            name: default-basnippet
+        - name: j2ee-pbd 
+          configMap:
+            name: j2ee-pbd
+        - name: copy-pbds
+          configMap:
+            name: copy-pbds
+        - name: jtixchange-pbd
+          configMap:
+            name: jtixchange-pbd
+        - name: log-collector-volume
+          hostPath:
+            #path: /opt/ca/TixChangeK8sDemo/tixChangeHelm/TomcatWebLogsUC1
+            path: LOG_COLL_TIX_WEB_UC1_DIR
+            type: Directory
+      nodeSelector:
+        kubernetes.io/hostname: node3
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: webportal-svc
+  namespace: tixchange-v1
+  labels:
+    app: tixchange-web
+    tier: frontend
+spec:
+  selector:
+    app: tixchange-web 
+    tier: frontend 
+  ports:
+  - port: 8080 
+    name: web
+    targetPort: 8080
+
+---
+
+
+# ------------------- TixChange WebServices Deployment ------------------- #
+
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2. I'm running 1.11.0
+kind: Deployment
+metadata:
+  name: tix-ws-deploy
+  namespace: tixchange-v1
+  labels:
+    app: tixchange-ws
+    tier: backend
+    env: {{ .Values.DeploymentEnv1 }}
+spec:
+  selector:
+    matchLabels:
+      app: tixchange-ws
+      tier: backend
+  replicas: 1
+  revisionHistoryLimit: 9
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: tixchange-ws
+        tier: backend
+        env: {{ .Values.DeploymentEnv1 }}
+        apm: enabled
+      annotations:
+        ver: "1.0"
+    spec:
+      initContainers:
+        - name: init-myservice
+          image: busybox:1.28
+          command: ['sh', '-c','echo Init Service Init Container sleeping 25 sec; sleep 25;']
+      containers:
+        - name: tix-ws
+          env:
+          - name: WEBAPP_HOME
+            value: /usr/local/tomcat/webapps/JTiXChange_Services
+          #- name: DB_HOST
+            #value: localhost
+          #- name: DB_HOST
+            #value: localhost
+          #- name: DB_PORT
+            #value: 3306
+          - name: WS_HOST
+            value: localhost
+          - name: LD_LIBRARY_PATH
+            value: /usr/local/tomcat/native-jni-lib
+          - name: TOMCAT_NATIVE_LIBDIR
+            value: /usr/local/tomcat/native-jni-lib
+          - name: CATALINA_HOME
+            value: /usr/local/tomcat
+{{- if .Values.RenameAgentHostname }}
+          - name: apmenv_introscope_agent_hostName
+            value: TxChangeSvc_UC1
+{{ end }}
+          volumeMounts:
+            - name: log-collector-volume
+              mountPath: /usr/local/tomcat/logs
+          resources:
+            limits:
+              cpu: "900m"
+              memory: "900Mi"
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
+          image: srikns/tixchange-service8:20.6
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: tix-ws-apm-config
+          ports:
+            - containerPort: 8080
+      volumes:
+        - name: log-collector-volume
+          hostPath:
+            path: LOG_COLL_TIX_WS_UC1_DIR
+            #path: /opt/ca/TixChangeK8sDemo/tixChangeHelm/TomcatWSLogsUC1
+            type: Directory
+      nodeSelector:
+        kubernetes.io/hostname: node1
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: authservice-svc
+  namespace: tixchange-v1
+  labels:
+    app: tixchange-ws
+    tier: backend
+spec:
+  selector:
+    app: tixchange-ws 
+    tier: backend 
+  ports:
+  - port: 8080 
+    targetPort: 8080
+
+---
+
+# ------------------- NodeJS  Web App Deployment ------------------- #
+
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2. I'm running 1.11.0
+kind: Deployment
+metadata:
+  name: pricing-web-deploy
+  namespace: tixchange-v1
+  labels:
+    app: pricing-web
+    tier: frontend
+spec:
+  selector:
+    matchLabels:
+      app: pricing-web
+      tier: frontend
+  replicas: 1
+  revisionHistoryLimit: 9 # how many revisions
+  strategy:
+    rollingUpdate:
+      maxSurge: 1 # how many on top of replicas you want
+      maxUnavailable: 1 # how many you can afford to be down
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: pricing-web
+        tier: frontend
+        apm: enabled
+      annotations:
+        ver: "1.0"
+    spec:
+      containers:
+        - name: pricing-web
+          env:
+          - name: JAEGER_ENDPOINT
+            #value: http://10.74.121.188:31426/api/traces
+            value: JAEGER_ENDPOINT_URL
+          image: srikns/nodejs-opentracing:20.8
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+           limits:
+            cpu: "2"
+            memory: 1G
+           requests:
+            cpu: 500m
+            memory: 600Mi
+          ports:
+            - containerPort: 3000
+      nodeSelector:
+        kubernetes.io/hostname: node2
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: pricing-svc
+  namespace: tixchange-v1
+  labels:
+    app: pricing-web
+    tier: frontend
+spec:
+  selector:
+    app: pricing-web
+    tier: frontend
+  ports:
+  - port: 3000
+    name: pricing-web
+    targetPort: 3000
+
+---
