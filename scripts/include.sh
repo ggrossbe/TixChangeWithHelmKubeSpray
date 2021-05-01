@@ -58,7 +58,7 @@ if [ X"$TIXCHANGE_MYSQL_RDS_HOSTNAME1" == "X" ]; then
    TIXCHANGE_MYSQL_RDS_HOSTNAME2=tixchange-mysql-conn-svc-2
 fi
 
-TIX_IP=` ip a |grep -E -e eth[0-9]+ -e ens[0-9]+|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
+TIX_IP=` ip a |grep -E -e eth[0-9]+ -e ens[0-9]+|grep -v veth|sed -n '/inet/,/brd/p'|awk '{ print $2 }'|awk -F/ '{print $1 }'`
 
 logMsg () {
         echo "**** $1" | tee -a $LOG_FILE
