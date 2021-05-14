@@ -1,4 +1,4 @@
-ISTIO_VER=1.8.3
+ISTIO_VER=1.9.3
 TIX_NS=tixchange-v2
 
 export PATH=/root/TixChangeWithHelmKubeSpray/Istio/istio-$ISTIO_VER/bin:$PATH
@@ -10,6 +10,8 @@ curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$ISTIO_VER TARGET_ARCH=x8
 cd /root/TixChangeWithHelmKubeSpray/Istio/istio-$ISTIO_VER/
 
 istioctl install --set profile=demo -y
+
+#istioctl install --set profile=demo -y --set meshConfig.accessLogFile=/dev/stdout --set hub=gcr.io/istio-release
 
 kubectl label namespace $TIX_NS istio-injection=enabled
 

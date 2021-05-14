@@ -10,9 +10,9 @@ spec:
     - destination:
         host: authservice-svc.tixchange-v2.svc.cluster.local
         subset: version-v1
-      weight: 60
+      weight: 90
     - destination:
         host: authservice-svc.tixchange-v2.svc.cluster.local
         subset: version-v2
-      weight: 40
+      weight: 10
 ---
