@@ -253,7 +253,7 @@ case $OPTION in
      configureEM em1
      configureEM em2
 
-     createUpdateOIServices update
+     createUpdateOIServices create
 
      stopDeleteUMA
 
