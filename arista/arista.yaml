@@ -1,0 +1,40 @@
+# ------------------- Arista CEOS------------------- #
+
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2. I'm running 1.11.0
+kind: Deployment
+metadata:
+  name: arista-ceos
+  namespace: arista
+  labels:
+    app: arista-ceos
+    tier: network
+spec:
+  selector:
+    matchLabels:
+      app: arista-ceos
+      tier: network
+  replicas: 1 
+  revisionHistoryLimit: 9 # how many revisions
+  strategy:
+    rollingUpdate:
+      maxSurge: 1 # how many on top of replicas you want
+      maxUnavailable: 1 # how many you can afford to be down
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: arista-ceos
+        tier: network
+      annotations:
+        ver: "1.0"
+    spec:
+      containers:
+        - name: arista-ceos
+          image: srikns/ceosimage:4.22.0F
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+      hostNetwork: true
+      nodeSelector:
+        kubernetes.io/hostname: node1
+---

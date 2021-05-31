@@ -253,7 +253,7 @@ case $OPTION in
      configureEM em1
      configureEM em2
 
-     createUpdateOIServices update
+     createUpdateOIServices create
 
      stopDeleteUMA
 
@@ -328,6 +328,8 @@ case $OPTION in
      ;;
    j)
      logMsg "setting up just Jenkins"
+	
+     /bin/cp -f /opt/ca/TixChangeK8sDemo/jenkins/jenkins_home/credentials.xml  ./jenkins/jenkins_home/
 
       removeJenkins
       sleep 5

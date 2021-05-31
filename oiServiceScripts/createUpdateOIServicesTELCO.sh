@@ -4,8 +4,8 @@ CREATE_UPDATE="$1"
 
 createOIServices () {
 
-curl -k -v -X POST \
-  http://doi-adminui.10.74.160.23.nip.io/oi/v2/sa/save \
+curl -v -X POST \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/save?replace=true \
   -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
@@ -16,6 +16,7 @@ curl -k -v -X POST \
         "type": "saService",
         "name": "APJ_Billing",
         "state": "ACTIVE",
+	"maintenance": false,
         "serviceContent": [
           {
             "query": [
@@ -32,7 +33,9 @@ curl -k -v -X POST \
         "tags": [],
         "location": "",
         "description": "",
-        "customProperties": []
+        "customProperties": [],
+        "customMetrics": [],
+        "metrics": []
       },
       "externalId": "APJ_Billing"
     },
@@ -41,6 +44,7 @@ curl -k -v -X POST \
         "type": "saService",
         "name": "LATAM_Mobile",
         "state": "ACTIVE",
+	"maintenance": false,
         "serviceContent": [],
         "root_service": [
           "Mobile Service"
@@ -48,7 +52,9 @@ curl -k -v -X POST \
         "tags": [],
         "location": "",
         "description": "test",
-        "customProperties": []
+        "customProperties": [],
+        "customMetrics": [],
+        "metrics": []
       },
       "externalId": "LATAM_Mobile"
     },
@@ -57,6 +63,7 @@ curl -k -v -X POST \
         "type": "saService",
         "name": "NA_Billing",
         "state": "ACTIVE",
+	"maintenance": false,
         "serviceContent": [
           {
             "query": [
@@ -73,7 +80,9 @@ curl -k -v -X POST \
         "tags": [],
         "location": "",
         "description": "",
-        "customProperties": []
+        "customProperties": [],
+        "customMetrics": [],
+        "metrics": []
       },
       "externalId": "NA_Billing"
     },
@@ -82,6 +91,7 @@ curl -k -v -X POST \
         "type": "saService",
         "name": "Mobile Service",
         "state": "ACTIVE",
+	"maintenance": false,
         "serviceContent": [],
         "root_service": [
           "Mobile Service"
@@ -89,7 +99,9 @@ curl -k -v -X POST \
         "tags": [],
         "location": "",
         "description": "",
-        "customProperties": []
+        "customProperties": [],
+        "customMetrics": [],
+        "metrics": []
       },
       "externalId": "Mobile Service"
     },
@@ -98,6 +110,7 @@ curl -k -v -X POST \
         "type": "saService",
         "name": "EMEA_Mobile",
         "state": "ACTIVE",
+	"maintenance": false,
         "serviceContent": [],
         "root_service": [
           "Mobile Service"
@@ -105,7 +118,9 @@ curl -k -v -X POST \
         "tags": [],
         "location": "",
         "description": "",
-        "customProperties": []
+        "customProperties": [],
+        "customMetrics": [],
+        "metrics": []
       },
       "externalId": "EMEA_Mobile"
     },
@@ -114,6 +129,7 @@ curl -k -v -X POST \
         "type": "saService",
         "name": "LATAM_Billing",
         "state": "ACTIVE",
+	"maintenance": false,
         "serviceContent": [
           {
             "query": [
@@ -130,7 +146,9 @@ curl -k -v -X POST \
         "tags": [],
         "location": "",
         "description": "",
-        "customProperties": []
+        "customProperties": [],
+        "customMetrics": [],
+        "metrics": []
       },
       "externalId": "LATAM_Billing"
     },
@@ -139,6 +157,7 @@ curl -k -v -X POST \
         "type": "saService",
         "name": "NA_Activation",
         "state": "ACTIVE",
+	"maintenance": false,
         "serviceContent": [
           {
             "query": [
@@ -155,7 +174,9 @@ curl -k -v -X POST \
         "tags": [],
         "location": "",
         "description": "test",
-        "customProperties": []
+        "customProperties": [],
+        "customMetrics": [],
+        "metrics": []
       },
       "externalId": "NA_Activation"
     },
@@ -164,6 +185,7 @@ curl -k -v -X POST \
         "type": "saService",
         "name": "NA_Mobile",
         "state": "ACTIVE",
+	"maintenance": false,
         "serviceContent": [],
         "root_service": [
           "Mobile Service"
@@ -171,7 +193,9 @@ curl -k -v -X POST \
         "tags": [],
         "location": "",
         "description": "",
-        "customProperties": []
+        "customProperties": [],
+        "customMetrics": [],
+        "metrics": []
       },
       "externalId": "NA_Mobile"
     },
@@ -180,6 +204,7 @@ curl -k -v -X POST \
         "type": "saService",
         "name": "EMEA_Billing",
         "state": "ACTIVE",
+	"maintenance": false,
         "serviceContent": [
           {
             "query": [
@@ -196,7 +221,9 @@ curl -k -v -X POST \
         "tags": [],
         "location": "",
         "description": "",
-        "customProperties": []
+        "customProperties": [],
+        "customMetrics": [],
+        "metrics": []
       },
       "externalId": "EMEA_Billing"
     },
@@ -205,6 +232,7 @@ curl -k -v -X POST \
         "type": "saService",
         "name": "EMEA_Activation",
         "state": "ACTIVE",
+	"maintenance": false,
         "serviceContent": [
           {
             "query": [
@@ -221,7 +249,9 @@ curl -k -v -X POST \
         "tags": [],
         "location": "",
         "description": "",
-        "customProperties": []
+        "customProperties": [],
+        "customMetrics": [],
+        "metrics": []
       },
       "externalId": "EMEA_Activation"
     },
@@ -230,23 +260,37 @@ curl -k -v -X POST \
         "type": "saService",
         "name": "EMEA_Provisioning",
         "state": "ACTIVE",
-        "serviceContent": [
-          {
-            "query": [
-              {
-                "attributeName": "applicationName",
-                "attributeValue": "Provisioning"
-              }
-            ]
-          }
-        ],
+	"maintenance": false,
+        "serviceContent": [{
+        	"query": [{
+                                "attributeName": "agent",
+                	"attributeValue": "TxChangeWeb_UC2|tomcat|Agent"
+        	}]
+    		},{
+        	"query": [{
+                                "attributeName": "agent",
+                	"attributeValue": "TxChangeSvc_UC2|tomcat|Agent"
+        	}]
+    		},{
+        	"query": [{
+                                "attributeName": "agent",
+                	"attributeValue": "node2|apmiaMySQL_UC2|Agent"
+        	}]
+    		},{
+        	"query": [{
+                                "attributeName": "hostname",
+                	"attributeValue": "EMEA_DB_HOST_POD_TOKEN"
+        	}]
+    	}],
         "root_service": [
           "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
-        "customProperties": []
+        "customProperties": [],
+        "customMetrics": [],
+        "metrics": [ ]
       },
       "externalId": "EMEA_Provisioning"
     },
@@ -255,23 +299,38 @@ curl -k -v -X POST \
         "type": "saService",
         "name": "NA_Provisioning",
         "state": "ACTIVE",
-        "serviceContent": [
-          {
-            "query": [
-              {
-                "attributeName": "applicationName",
-                "attributeValue": "Provisioning"
-              }
-            ]
-          }
-        ],
+	"maintenance": false,
+        "serviceContent": [{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "TxChangeWeb_UC1|tomcat|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "TxChangeSvc_UC1|tomcat|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "agent",
+                "attributeValue": "node2|apmiaMySQL_UC1|Agent"
+        }]
+    },{
+        "query": [{
+                                "attributeName": "hostname",
+                "attributeValue": "NA_DB_HOST_POD_TOKEN"
+        }]
+    }],
         "root_service": [
           "Mobile Service"
         ],
         "tags": [],
         "location": "",
         "description": "",
-        "customProperties": []
+        "customProperties": [],
+        "customMetrics": [],
+        "metrics": [
+	]
       },
       "externalId": "NA_Provisioning"
     },
@@ -280,6 +339,7 @@ curl -k -v -X POST \
         "type": "saService",
         "name": "APJ_Mobile",
         "state": "ACTIVE",
+	"maintenance": false,
         "serviceContent": [],
         "root_service": [
           "Mobile Service"
@@ -287,7 +347,9 @@ curl -k -v -X POST \
         "tags": [],
         "location": "",
         "description": "",
-        "customProperties": []
+        "customProperties": [],
+        "customMetrics": [],
+        "metrics": []
       },
       "externalId": "APJ_Mobile"
     }
@@ -409,12 +471,16 @@ echo ""
 }
 
 updateOIServices () {
+# changed by srikant May 2021
+# OI service api changed and added the metrics in the above api instead of update
+#
+exit
 
 echo ""
 
 
-curl -k -X POST \
-  http://doi-adminui.10.74.160.23.nip.io/oi/v2/sa/update/NA_Provisioning \
+curl -X POST \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Provisioning \
   -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
@@ -441,20 +507,28 @@ curl -k -X POST \
         }]
     }],
    "metrics": [
-    {
-      "type": "availability",
-      "sourceName": "ASM_AGENT_NAME_NA",
-      "attributeName": "ASM_METRIC_NAME_NA",
-      "threshold": 0.5
-     }
+	{
+            "type": "service_health",
+            "sourceName": "OI|SA|SERVICES|ALL",
+            "attributeName": "a1c7cda1-774b-44bf-abd9-7c515028c044:service_health",
+            "id": "ZW_-AAB-pM-_bFLIop",
+            "firstSeen": 1620955098000
+          },
+          {
+            "type": "service_risk",
+            "sourceName": "OI|SA|SERVICES|ALL",
+            "attributeName": "a1c7cda1-774b-44bf-abd9-7c515028c044:service_risk",
+            "id": "YW_-AE-pM-Tye.kqp",
+            "firstSeen": 1620955098000
+          }
      ]
 }'
 
 echo "***sleeping for 5 sec"
 sleep 5
 
-curl -k -X POST \
-  http://doi-adminui.10.74.160.23.nip.io/oi/v2/sa/update/EMEA_Provisioning \
+curl -X POST \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/EMEA_Provisioning \
   -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
@@ -494,8 +568,8 @@ curl -k -X POST \
 echo "***sleeping for 5 sec"
 sleep 5
 
-curl -k -X POST \
-  http://doi-adminui.10.74.160.23.nip.io/oi/v2/sa/update/NA_Activation \
+curl -X POST \
+  https://doi.dxi-na1.saas.broadcom.com/oi/v2/sa/update/NA_Activation \
   -H 'Authorization: Bearer OI_TOKEN' \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
