@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Node
+metadata:
+ name: kube-153
+spec:
+ bgp:
+ asNumber: 65130
+ ipv4Address: 172.20.13.153/24
