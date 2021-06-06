@@ -1,7 +1,7 @@
 ---
 # Kubernetes dashboard
 # RBAC required. see docs/getting-started.md for access details.
-# dashboard_enabled: true
+# dashboard_enabled: false
 
 # Helm deployment
 helm_enabled: true
@@ -19,14 +19,14 @@ metrics_server_enabled: false
 # metrics_server_kubelet_preferred_address_types: "InternalIP"
 
 # Rancher Local Path Provisioner
-local_path_provisioner_enabled: true
+local_path_provisioner_enabled: false
 # local_path_provisioner_namespace: "local-path-storage"
 # local_path_provisioner_storage_class: "local-path"
 # local_path_provisioner_reclaim_policy: Delete
 # local_path_provisioner_claim_root: /opt/local-path-provisioner/
 # local_path_provisioner_debug: false
 # local_path_provisioner_image_repo: "rancher/local-path-provisioner"
-# local_path_provisioner_image_tag: "v0.0.14"
+# local_path_provisioner_image_tag: "v0.0.19"
 # local_path_provisioner_helper_image_repo: "busybox"
 # local_path_provisioner_helper_image_tag: "latest"
 
@@ -94,6 +94,10 @@ ingress_publish_status_address: ""
 #     operator: "Equal"
 #     value: ""
 #     effect: "NoSchedule"
+#   - key: "node-role.kubernetes.io/control-plane"
+#     operator: "Equal"
+#     value: ""
+#     effect: "NoSchedule"
 # ingress_nginx_namespace: "ingress-nginx"
 # ingress_nginx_insecure_port: 80
 # ingress_nginx_secure_port: 443
@@ -106,11 +110,13 @@ ingress_publish_status_address: ""
 #   53: "kube-system/coredns:53"
 # ingress_nginx_extra_args:
 #   - --default-ssl-certificate=default/foo-tls
+# ingress_nginx_class: nginx
 
 # ambassador ingress controller deployment
 ingress_ambassador_enabled: false
 # ingress_ambassador_namespace: "ambassador"
 # ingress_ambassador_version: "*"
+# ingress_ambassador_multi_namespaces: false
 
 # ALB ingress controller deployment
 ingress_alb_enabled: false
@@ -126,9 +132,32 @@ cert_manager_enabled: false
 
 # MetalLB deployment
 metallb_enabled: false
+metallb_speaker_enabled: true
 # metallb_ip_range:
 #   - "10.5.0.50-10.5.0.99"
-# metallb_version: v0.9.3
+# metallb_speaker_nodeselector:
+#   kubernetes.io/os: "linux"
+# metallb_controller_nodeselector:
+#   kubernetes.io/os: "linux"
+# metallb_speaker_tolerations:
+#   - key: "node-role.kubernetes.io/master"
+#     operator: "Equal"
+#     value: ""
+#     effect: "NoSchedule"
+#   - key: "node-role.kubernetes.io/control-plane"
+#     operator: "Equal"
+#     value: ""
+#     effect: "NoSchedule"
+# metallb_controller_tolerations:
+#   - key: "node-role.kubernetes.io/master"
+#     operator: "Equal"
+#     value: ""
+#     effect: "NoSchedule"
+#   - key: "node-role.kubernetes.io/control-plane"
+#     operator: "Equal"
+#     value: ""
+#     effect: "NoSchedule"
+# metallb_version: v0.9.6
 # metallb_protocol: "layer2"
 # metallb_port: "7472"
 # metallb_limits_cpu: "100m"
@@ -147,3 +176,7 @@ metallb_enabled: false
 #   - peer_address: 192.0.2.2
 #     peer_asn: 64513
 #     my_asn: 4200000000
+
+# The plugin manager for kubectl
+krew_enabled: false
+krew_root_dir: "/usr/local/krew"
