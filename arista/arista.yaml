@@ -34,7 +34,7 @@ spec:
           imagePullPolicy: IfNotPresent
           securityContext:
             privileged: true
-      hostNetwork: true
+      #hostNetwork: true
       nodeSelector:
         kubernetes.io/hostname: node1
 ---
