@@ -17,4 +17,4 @@ docker start ceos1
 
 sleep 10
 
- echo "rm docker exec -it ceos1 Cli"
+ echo " docker exec -it ceos1 Cli"
