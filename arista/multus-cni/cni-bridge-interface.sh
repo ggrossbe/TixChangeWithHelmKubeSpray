@@ -31,6 +31,7 @@ spec:
         "dns": {
           "nameservers": [ "172.31.0.2" ]
         }
+        "gateway": "172.22.0.10"
       }
     }'
 EOF
