@@ -1,4 +1,5 @@
 kubectl delete Network-Attachment-Definition -n nodejs-tix-mysql bridge-multus-cni
+kubectl delete Network-Attachment-Definition -n nodejs-tix-mysql static-multus-cni
 sleep 5
 
 cat <<EOF | kubectl create -f -
@@ -10,22 +11,26 @@ metadata:
 spec:
   config: '{
     "cniVersion": "0.3.1",
-    "name": "mynet",
+    "name": "net1",
     "type": "bridge",
-    "bridge": "mynet0",
+    "bridge": "br-08945aaa4eb6",
     "isDefaultGateway": true,
-    "forceAddress": false,
-    "ipMasq": true,
+    "ipMasq": false,
     "hairpinMode": true,
       "ipam": {
         "type": "host-local",
-        "subnet": "172.20.0.0/16",
-        "rangeStart": "172.20.0.100",
-        "rangeEnd": "172.20.0.110",
+        "subnet": "172.28.0.0/16",
+        "rangeStart": "172.28.0.101",
+        "rangeEnd": "172.28.0.105",
         "routes": [
-          { "dst": "0.0.0.0/0" }
+          {
+             "dst": "0.0.0.0/0",
+             "gw": "172.28.0.10"
+           }
         ],
-        "gateway": "172.20.0.1"
+        "dns": {
+          "nameservers": [ "172.31.0.2" ]
+        }
       }
     }'
 EOF

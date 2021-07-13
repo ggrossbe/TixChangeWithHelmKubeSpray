@@ -27,8 +27,13 @@ spec:
         tier: frontend
         apm: enabled
       annotations:
-        k8s.v1.cni.cncf.io/networks: bridge-multus-cni
         ver: "1.0"
+        k8s.v1.cni.cncf.io/networks: '[
+            { "name": "bridge-multus-cni",
+              "interface": "net1",
+              "ips": [ "172.28.0.104" ],
+              "default-route": [ "172.28.0.10" ]
+            }]'
     spec:
       containers:
         - name: nodejs-tix-mysql-query
@@ -51,7 +56,7 @@ metadata:
   name: nodejs-tix-mysql-query-svc
   namespace: nodejs-tix-mysql
   labels:
-    app: nodejs-tix-mysql-query
+    app: nodejs-tix-mysql-query-svc
 spec:
   type: NodePort
   selector:

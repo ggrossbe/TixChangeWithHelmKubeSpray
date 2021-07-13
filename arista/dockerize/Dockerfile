@@ -4,6 +4,8 @@ MAINTAINER Srikant Noorani
 
 RUN apt-get update -q && \
     apt-get dist-upgrade -y && \
+    apt-get install -y net-tools && \
+    apt-get install -y  traceroute && \
     apt-get clean -y && \
     apt-get autoclean
 
