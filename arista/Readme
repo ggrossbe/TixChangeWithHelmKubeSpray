@@ -1,0 +1,9 @@
+install multus cni
+copy bridge plugin to /opt/cni/bin..
+set no-masq on pod + arista net1 and net2 bridges ( in the yaml and cni-bridge...)
+set yes-masq in the net 1 bridge interface from node by running iptables command. This is different from above as above one is in the config files
+set yes-masq on node1 
+set default-route nodejsmysql yaml to net1 of arista ip (10.28.0.10)
+reuse the same bridge interface in cni-bridge plugin so nodjsmysql net1 and arista net1 are talking to same bridge interfaces
+set the route on my arista net2 of arista ip (10.29.0.10)
+on node1 set a route that points nodejsmysql CIDR ip to nodejs net1 bridge (10.28.0.1)
