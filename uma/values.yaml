@@ -9,14 +9,21 @@ agentManager:
 
 clusterName: KubernetesOpenTracing
 
-imageName: caapm/universalmonitoragent:20.11.0.17
-
+imageName: caapm/universalmonitoragent:21.6.0.26
+role: common
 namespaces:
-
+containerinfo:
+  port: 7777
 monitor:
   application:
     autoattach:
       filterType: blacklist
+      probe:
+        enabled: true
+      # this feature leverages container metadata to resolve agent host name and agent name
+      dynamicPropertyResolution:
+        hostName: "{k8s_deployment_name},{k8s_daemonset_name},{k8s_deploymentconfig_name},{k8s_pod_name},ContainerHost"
+        agentName: ""
       java:
         enabled: true
         propertiesOverride: introscope.agent.defaultProcessName=tomcat,introscope.agent.agentAutoNamingEnabled=true,introscope.agent.external.biz.enabled=true,introscope.agent.browseragent.autoInjectionEnabled=true,attribute.decoration.application.configurations=config1,attribute.decoration.application.configurations.config1.applicationName=TIXCHANGE Web,attribute.decoration.application.configurations.config1.attributeName=AD_uma_cluster_name,attribute.decoration.application.configurations.config1.value=AD_uma_values
@@ -57,7 +64,8 @@ monitor:
       enabled: true
   clusterPerformance:
     enabled: true
-
+  node:
+    enabled: true
 
 type: Kubernetes
 prefix: k8s

@@ -1,0 +1,113 @@
+{{- if and (or .Values.agentManager.url .Values.agentManager_url_1) }}
+# Probe Auto Attach
+{{- if eq .Values.role "team" }}
+---
+{{ else }}
+{{- if or .Values.monitor.application.autoattach.probe.enabled }}
+
+{{- if or .Values.k8slegacy }}
+apiVersion: apps/v1beta1
+{{ else }}
+apiVersion: apps/v1
+{{ end }}
+kind: Deployment
+metadata:
+  name: apm-probe-autoattach-monitor
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: apm-probe-autoattach
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: apm-probe-autoattach
+        deployment.name: apm-probe-autoattach-monitor
+    spec:
+      serviceAccountName: uma
+      containers:
+      - name: apm-probe-autoattach
+        image: {{ .Values.imageName }}
+        command:
+          - "/apm-probe-autoattach-linux-amd64"
+          - "-tlsCertFile=/etc/webhook/certs/cert.pem"
+          - "-tlsKeyFile=/etc/webhook/certs/key.pem"
+          - "2>&1"
+        env:
+          - name: GRIZZLY_COLLECTOR_HOST
+            value: ""
+          - name: GRIZZLY_COLLECTOR_PORT
+            value: "8085"
+          - name: SUSTAINABILITY_METRICS
+            value: "false"
+          - name: INSTID
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: APP_NAME
+            value: apm-probe-autoattach
+        volumeMounts:
+          - name: apm-probe-autoattach-certs
+            mountPath: /etc/webhook/certs
+            readOnly: true
+          - name: apm-probe-autoattach-config
+            mountPath: /etc/webhook/config
+        resources:
+          limits:
+            cpu: 4
+            memory: 200Mi
+          requests:
+            cpu: 400m
+            memory: 80Mi
+      volumes:
+        - name: apm-probe-autoattach-certs
+          secret:
+            secretName: caaiops-probe-autoattach-certs
+        - name: apm-probe-autoattach-config
+          configMap:
+            name: caaiops-probe-autoattach-configmap
+  selector:
+    matchLabels:
+      app: apm-probe-autoattach
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apm-probe-autoattach-svc
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: apm-probe-autoattach
+spec:
+  ports:
+  - port: 443
+    targetPort: 8443
+  type: ClusterIP
+  selector:
+    app: apm-probe-autoattach
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: apm-probe-autoattach-cfg
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: apm-probe-autoattach
+webhooks:
+  - name: apm-probe-autoattach.caapm.io
+    clientConfig:
+      service:
+        name: apm-probe-autoattach-svc
+        namespace: {{ .Release.Namespace }}
+        path: "/mutate"
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURqekNDQW5lZ0F3SUJBZ0lKQVBpb2lQQm9HL010TUEwR0NTcUdTSWIzRFFFQkN3VUFNRjR4Q3pBSkJnTlYKQkFZVEFrbE9NUkV3RHdZRFZRUUtEQWhDY205aFpHTnZiVEVQTUEwR0ExVUVDd3dHUTBFZ1FWQk5NU3N3S1FZRApWUVFERENKaGNHMHRjSEp2WW1VdFlYVjBiMkYwZEdGamFDMXpkbU11WTJGaGNHMHVjM1pqTUI0WERUSXhNRE16Ck1UQTNNak14TjFvWERUSTBNREV4T1RBM01qTXhOMW93WGpFTE1Ba0dBMVVFQmhNQ1NVNHhFVEFQQmdOVkJBb00KQ0VKeWIyRmtZMjl0TVE4d0RRWURWUVFMREFaRFFTQkJVRTB4S3pBcEJnTlZCQU1NSW1Gd2JTMXdjbTlpWlMxaApkWFJ2WVhSMFlXTm9MWE4yWXk1allXRndiUzV6ZG1Nd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3CmdnRUtBb0lCQVFDeXZCa3RhOHN5NFVHL3JhZjU5MDgzZWp1d01VVWFXRml1SHNNRlZWZHdKc2pXL1pEVFVzRUsKcml6VXZLZVVRT2kyWnhLbWxYUmNVb0tHYkVwWSsydWtsOTNrOTZIVWgwVG8wUnRuekdvdHg5SHhTYUFoT0ZvUwprbEVsb2hyQTdSUUMyTXZIK3oyQzVKdG5YSWRFdHh1dmRpWkpTTGliNFpzdE9NOFNwMWt6VEdQTEE5UVR2NUNwCjVuZUIrTVVmR2EwZVUra2VaLzMvM1NwVTB4SXphaUdTZExMWm9hZm9Tb2dabUp4citsNnJNQ1IvUVBIOStKRmsKMHRFVG9GRDlHTHd5RjRFdVkyOVBiTk9PMXB2N2JDQ3JjTlRwR25NaEc0ekd4c2hJSEFWY0lOeHpTL0N5cEtnUQpYRVd4UUtWUlBzN1FQSVhCYTFFYTdWb2Q1WU9KUTNZSkFnTUJBQUdqVURCT01CMEdBMVVkRGdRV0JCUk8yNHJICkR0bEhaU1cyRVZzZm9XdnNFUkhPNHpBZkJnTlZIU01FR0RBV2dCUk8yNHJIRHRsSFpTVzJFVnNmb1d2c0VSSE8KNHpBTUJnTlZIUk1FQlRBREFRSC9NQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUJOSFd6WFNWQnBoR2dnbHRCeQpjZFB5dTdpcWVITmc4b1Y3cHIwRVNtUGt6cjFySWRMbkdJb0hvU2FrNzNUU3NMdnY0ZVp2aWRobXA2UWl6dk9kCnRNYk9iN0E0c3NhYjAxS2d6cGRsSnhkazVjK3FHcFRqWGZaN1VUY1ZVaTRSYmJncEZIYTZxS3lPOWN0cDZ0bXIKd1JLY0lodzJzYVFjYTZiNEFCWERuOHhZckdDN2VmeHFQaGdSUjhtRkkzcTU2S2dySmVjK0RJcXhVeTRGZzhMRwpnY1hNZmhmRVBiMzVJK0x5N2FEVml4dXhFNFpsdWk0cTJ5SlZiSmNxejlvaG1iODRlVXpFRGxEUEVLcUJhbVdGCjNyT21iMjVlZW9GSnViZHFDaktub1RqQms0WDErTkFBblkwSzBRcGhBeDlTVVFLSkozUFd2Y1UvMXhkSWJiUm8KcURNZQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    rules:
+      - operations: ["CREATE", "UPDATE"]
+        apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["pods"]
+    namespaceSelector:
+      matchLabels:
+        probe-autoattach: enabled
+{{ end }}
+{{ end }}
+{{ end }}

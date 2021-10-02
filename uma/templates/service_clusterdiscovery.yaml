@@ -1,4 +1,7 @@
 {{- if or .Values.agentManager.url .Values.agentManager_url_1 }}
+{{- if eq .Values.role "team" }}
+---
+{{ else }}
 # Service for Cluster Discovery
 apiVersion: v1
 kind: Service
@@ -9,7 +12,7 @@ spec:
   selector:
     module: clusterinfo
   ports:
-  - port: 8080
+    - port: 8080
   type: ClusterIP
-
+{{ end }}
 {{ end }}

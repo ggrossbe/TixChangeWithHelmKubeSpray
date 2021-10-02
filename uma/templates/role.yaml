@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: uma-cluster-role
+  name: broadcom-uma-clusterrole
 rules:
 - nonResourceURLs:
   - /metrics
@@ -11,6 +11,8 @@ rules:
   - ""
   resources:
   - nodes
+  - nodes/stats
+  - nodes/metrics
   - nodes/proxy
   - services
   - pods
@@ -30,10 +32,12 @@ rules:
   - patch
 - apiGroups:
   - apps
+  - admissionregistration.k8s.io
   resources:
   - deployments
   - replicasets
   - daemonsets
+  - mutatingwebhookconfigurations
   verbs:
   - get
   - list
@@ -83,3 +87,13 @@ rules:
     - ibm-privileged-psp
   verbs:
     - use
+- apiGroups:
+    - apps.openshift.io
+  resources:
+    - deploymentconfigs
+  verbs:
+    - get
+    - list
+    - watch
+    - create
+    - patch

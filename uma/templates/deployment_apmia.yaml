@@ -1,3 +1,9 @@
+{{- if and .Values.role (eq .Values.role "team")}}
+---
+{{ else }}
+{{- if and (eq .Values.role "admin") (eq .Values.agentManager.credential "credential")}}
+---
+{{ else }}
 {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }}
 #  ( and .Values.monitor.container.prometheus.backend.endPoint.url .Values.agentManager.url )
 # APMIA based Deployment.
@@ -10,7 +16,11 @@ apiVersion: apps/v1
 {{ end }}
 kind: Deployment
 metadata:
+  {{- if eq .Values.role "common" }}
   name: container-monitor
+  {{- else }}
+  name: container-monitor-{{- .Values.role | default "common" }}
+  {{- end }}
   namespace: {{ .Release.Namespace }}
   labels:
     app: apmia-deployment
@@ -42,41 +52,65 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: agentManager_url_1
+              {{- if eq .Values.role "common" }}
               name: caaiops-config-common
+              {{- else }}
+              name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+              {{ end }}
 {{- if or .Values.agentManager.credential .Values.agentManager_credential }}
         - name: agentManager_credential
           valueFrom:
             configMapKeyRef:
               key: agentManager_credential
+              {{- if eq .Values.role "common" }}
               name: caaiops-config-common
+              {{- else }}
+              name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+              {{ end }}
 {{ end }}
 {{- if .Values.agentManager.httpProxy.host }}
         - name: apmenv_agentManager_httpProxy_host
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_host
+              {{- if eq .Values.role "common" }}
               name: caaiops-config-common
+              {{- else }}
+              name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+              {{ end }}
 {{ end }}
 {{- if.Values.agentManager.httpProxy.port }}
         - name: apmenv_agentManager_httpProxy_port
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_port
+              {{- if eq .Values.role "common" }}
               name: caaiops-config-common
+              {{- else }}
+              name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+              {{ end }}
 {{ end }}
 {{- if .Values.agentManager.httpProxy.username }}
         - name: apmenv_agentManager_httpProxy_username
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_username
+              {{- if eq .Values.role "common" }}
               name: caaiops-config-common
+              {{- else }}
+              name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+              {{ end }}
 {{ end }}
 {{- if .Values.agentManager.httpProxy.password }}
         - name: apmenv_agentManager_httpProxy_password
           valueFrom:
             configMapKeyRef:
               key: agentManager_httpProxy_password
+              {{- if eq .Values.role "common" }}
               name: caaiops-config-common
+              {{- else }}
+              name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+              {{ end }}
 {{ end }}
 
 {{- if .Values.namespaces }}
@@ -87,7 +121,11 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: agentManager_version
+              {{- if eq .Values.role "common" }}
               name: caaiops-config-common
+              {{- else }}
+              name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+              {{ end }}
         - name: interval
           value: "300"
         - name: KUEBRNETES_CLUSTER_MONITORING
@@ -110,6 +148,8 @@ spec:
           value: {{ .Values.prefix }}_pod_name=(name), {{ .Values.prefix }}_project=({{ .Values.prefix }}_pod_namespace), {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_pod_clustername)
         - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_deployment
           value: {{ .Values.prefix }}_project=({{ .Values.prefix }}_deployment_namespace), {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_deployment_clustername)
+        - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_deploymentconfig
+          value: {{ .Values.prefix }}_project=({{ .Values.prefix }}_deploymentconfig_namespace), {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_deploymentconfig_clustername)
         - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_daemonset
           value: {{ .Values.prefix }}_project=({{ .Values.prefix }}_daemonset_namespace), {{ .Values.prefix }}_cluster_name=({{ .Values.prefix }}_daemonset_clustername)
         - name: apmenv_com_ca_apm_clusterdatareporter_additional_attributes_container
@@ -122,33 +162,53 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: cluster_name
+              {{- if eq .Values.role "common" }}
               name: caaiops-config-common
+              {{- else }}
+              name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+              {{ end }}
 
         - name: apmenv_introscope_agent_customProcessName
           valueFrom:
             configMapKeyRef:
               key: agentNaming_deployment_apmia_process
+              {{- if eq .Values.role "common" }}
               name: caaiops-config-common
+              {{- else }}
+              name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+              {{ end }}
         - name: apmenv_introscope_agent_hostName
           valueFrom:
             configMapKeyRef:
               key: cluster_name
+              {{- if eq .Values.role "common" }}
               name: caaiops-config-common
+              {{- else }}
+              name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+              {{ end }}
 
         - name: apmenv_introscope_agent_agentName
           valueFrom:
             configMapKeyRef:
               key: agentNaming_deployment_apmia_agent
+              {{- if eq .Values.role "common" }}
               name: caaiops-config-common
+              {{- else }}
+              name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+              {{ end }}
         - name: apmenv_introscope_agent_extensions_bundles_load
-          value: {{- if or .Values.monitor.application.zipkinTracing.enabled }} ZipkinTracing, {{end}} {{- if or .Values.monitor.application.opentracing.enabled }} OpenTracing, {{end}} {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }}  ClusterDataReporter, {{ end }}
+          value: {{- if or .Values.monitor.application.zipkinTracing.enabled }} {{ if .Values.extensionFolders -}} {{ .Values.extensionFolders.ZipkinTracing | default "ZipkinTracing" }} {{- else -}} ZipkinTracing {{- end }}, {{end}} {{- if or .Values.monitor.application.opentracing.enabled }} {{ if .Values.extensionFolders -}} {{ .Values.extensionFolders.OpenTracing | default "OpenTracing" }} {{- else -}} OpenTracing {{- end }}, {{end}} {{- if or .Values.monitor.container.dockerstats.enabled .Values.kubernetes_monitor_enabled }}  {{ if .Values.extensionFolders -}} {{ .Values.extensionFolders.ClusterDataReporter | default "ClusterDataReporter" }} {{- else -}} ClusterDataReporter {{- end }}, {{ end }}
         - name: MIN_HEAP_VAL_IN_MB
           value: "64"
         - name: cluster_name
           valueFrom:
             configMapKeyRef:
               key: cluster_name
+              {{- if eq .Values.role "common" }}
               name: caaiops-config-common
+              {{- else }}
+              name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+              {{ end }}
 
 
 {{- if or .Values.namespaces }}
@@ -167,7 +227,11 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: opentracing_grpc_hostport
+              {{- if eq .Values.role "common" }}
               name: caaiops-config-common
+              {{- else }}
+              name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+              {{ end }}
 {{ end }}
         name: {{ .Chart.Name }}
         image:  {{ or .Values.imageName .Values.image }}
@@ -192,6 +256,7 @@ spec:
     matchLabels:
       app: apmia-deployment
 ---
+{{- if and (ne (.Values.role | default "common") "admin") }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -201,9 +266,11 @@ spec:
   selector:
     app: apmia-deployment
   ports:
-  - nodePort: 31313
-    port: 8888
+  - port: 8888
     protocol: TCP
     targetPort: 8888
-  type: LoadBalancer
-{{end}}
+  type: ClusterIP
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}

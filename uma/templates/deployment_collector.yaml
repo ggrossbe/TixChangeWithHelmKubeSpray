@@ -1,0 +1,62 @@
+{{- if or .Values.agentManager.url .Values.agentManager_url_1 }}
+  # Collector Service
+{{- if eq .Values.role "admin" }}
+
+{{- if or .Values.k8slegacy }}
+apiVersion: apps/v1beta1
+{{ else }}
+apiVersion: apps/v1
+{{ end }}
+kind: Deployment
+metadata:
+  name: collector
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: cagent
+    module: collector
+  annotations:
+    ca.broadcom.application.name: kubernetes-container-collector
+
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: collector
+      labels:
+        app: cagent
+        module: collector
+    spec:
+      serviceAccountName: uma
+      initContainers:
+        - name: init-clusterinfo
+          image: {{ or .Values.imageName .Values.image }}
+          command: [ 'bash', '-c', 'until [ $(curl --connect-timeout 5 --max-time 10 --write-out %{http_code} --silent --output /dev/null ${CLUSTERINFO_SERVICE_HOST}:${CLUSTERINFO_SERVICE_PORT}/up) -eq 200 ]; do sleep 2; done' ]
+      containers:
+      - name: collector
+        image: {{ or .Values.imageName .Values.image }}
+        env:
+          - name: type
+            value: {{ .Values.type }}
+        resources:
+          limits:
+            cpu: 1
+            memory: 1G
+          requests:
+            cpu: 250m
+            memory: 500Mi
+
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /health/up
+            port: 7779
+          initialDelaySeconds: 60
+          periodSeconds: 120
+        command: [ "/collector-linux-amd64","--config=/usr/local/openshift/config/collector/config.yaml" ]
+      restartPolicy: Always
+
+  selector:
+    matchLabels:
+      module: collector
+{{ end }}
+{{ end }}

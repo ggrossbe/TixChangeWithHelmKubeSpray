@@ -137,6 +137,49 @@ data:
     prometheus.metric.process.apm_metric_path={{ .Values.type }}|etcd|process
     prometheus.metric.mvcc.metric_list=etcd_mvcc_db_total_size_in_bytes, etcd_mvcc_db_total_size_in_use_in_bytes, etcd_mvcc_hash_duration_seconds, etcd_mvcc_hash_rev_duration_seconds
     prometheus.metric.mvcc.apm_metric_path={{ .Values.type }}|etcd|mvcc
+    
+  apiserver.properties: |
+    prometheus.metric.sets=apiserver,watchers,root,apiservices,etcd,threads,memory,process,clients,workqueue,etcdobj,lable4,lable5
+    prometheus.metric.apiserver.metric_list=apiserver_response_sizes,apiserver_response_sizes_sum,apiserver_response_sizes_count,apiserver_request_count,apiserver_longrunning_gauge,apiserver_request_duration_seconds,apiserver_request_duration_seconds_sum,apiserver_request_duration_seconds_count,apiserver_request_latencies,apiserver_request_latencies_sum,apiserver_request_latencies_count,apiserver_request_total
+    prometheus.metric.apiserver.apm_metric_path={{ .Values.type }}|apiserver|(scope)|(resource)|(verb)
+    prometheus.metric.apiserver.apm_metric_type=LongFluctuating
+    prometheus.metric.apiserver.aggregation_type=sum
+    prometheus.metric.watchers.metric_list=apiserver_registered_watchers,apiserver_watch_events_sizes,apiserver_watch_events_sizes_sum,apiserver_watch_events_sizes_count,apiserver_watch_events_total,apiserver_registered_watchers,apiserver_watch_events_total
+    prometheus.metric.watchers.apm_metric_path={{ .Values.type }}|apiserver|kinds|(kind)
+    prometheus.metric.watchers.apm_metric_type=LongFluctuating
+    prometheus.metric.watchers.aggregation_type=sum
+    prometheus.metric.root.metric_list=APIServiceOpenAPIAggregationControllerQueue1_adds,APIServiceOpenAPIAggregationControllerQueue1_depth, APIServiceOpenAPIAggregationControllerQueue1_queue_latency, APIServiceOpenAPIAggregationControllerQueue1_retries,APIServiceOpenAPIAggregationControllerQueue1_work_duration,APIServiceRegistrationController_adds, APIServiceRegistrationController_depth, APIServiceRegistrationController_queue_latency,APIServiceRegistrationController_work_duration,AvailableConditionController_adds,AvailableConditionController_depth,AvailableConditionController_retries,AvailableConditionController_queue_latency,AvailableConditionController_work_duration,DiscoveryController_adds,DiscoveryController_work_duration,admission_quota_controller_work_duration,admission_quota_controller_queue_latency,apiserver_current_inflight_requests,apiserver_request_duration_seconds,apiserver_request_duration_seconds_sum,apiserver_request_duration_seconds_count
+    prometheus.metric.root.apm_metric_path={{ .Values.type }}|apiserver
+    prometheus.metric.root.apm_metric_type=LongFluctuating
+    prometheus.metric.root.aggregation_type=sum
+    prometheus.metric.apiservices.metric_list=apiserver_storage_data_key_generation_failures_total,apiserver_storage_envelope_transformation_cache_misses_total,apiserver_watch_events_sizes,apiserver_watch_events_sizes_sum,apiserver_watch_events_sizes_count
+    prometheus.metric.apiservices.apm_metric_path={{ .Values.type }}|apiserver|apiservices
+    prometheus.metric.apiservices.apm_metric_type=LongFluctuating
+    prometheus.metric.apiservices.aggregation_type=sum
+    prometheus.metric.etcd.metric_list=etcd_request_duration_seconds,etcd_request_duration_seconds_sum,etcd_request_duration_seconds_count
+    prometheus.metric.etcd.apm_metric_path={{ .Values.type }}|etcd
+    prometheus.metric.etcd.apm_metric_type=LongFluctuating
+    prometheus.metric.etcd.aggregation_type=sum
+    prometheus.metric.threads.metric_list=go_goroutines,go_threads
+    prometheus.metric.threads.apm_metric_path={{ .Values.type }}|apiserver|threads
+    prometheus.metric.memory.metric_list=go_gc_duration_seconds,go_gc_duration_seconds_sum,go_gc_duration_seconds_count,go_memstats_alloc_bytes,go_memstats_frees_total,go_memstats_heap_alloc_bytes,go_memstats_heap_idle_bytes,go_memstats_heap_inuse_bytes,go_memstats_heap_objects,go_memstats_alloc_bytes_total
+    prometheus.metric.memory.apm_metric_path={{ .Values.type }}|apiserver|memory
+    prometheus.metric.process.metric_list=process_virtual_memory_bytes,process_resident_memory_bytes,process_max_fds,process_open_fds
+    prometheus.metric.process.apm_metric_path={{ .Values.type }}|apiserver|process
+    prometheus.metric.clients.metric_list=grpc_client_handled_total,rest_client_request_duration_seconds,rest_client_request_duration_seconds_sum,rest_client_request_duration_seconds_count,rest_client_requests_total,rest_client_requests_total_sum,rest_client_requests_total_count
+    prometheus.metric.clients.apm_metric_path={{ .Values.type }}|apiserver|clients
+    prometheus.metric.workqueue.metric_list=autoregister_adds,autoregister_depth,autoregister_queue_latency,autoregister_retries,autoregister_work_duration,controller_clusterquotamappingcontroller_clusterquotas_adds,controller_clusterquotamappingcontroller_clusterquotas_depth,controller_clusterquotamappingcontroller_clusterquotas_queue_latency,controller_clusterquotamappingcontroller_clusterquotas_retries,controller_clusterquotamappingcontroller_clusterquotas_work_duration,controller_clusterquotamappingcontroller_namespaces_adds,controller_clusterquotamappingcontroller_namespaces_depth,controller_clusterquotamappingcontroller_namespaces_queue_latency,controller_clusterquotamappingcontroller_namespaces_retries,controller_clusterquotamappingcontroller_namespaces_work_duration,crdEstablishing_adds,crdEstablishing_depth,crdEstablishing_queue_latency,crdEstablishing_retries,workqueue_queue_duration_seconds,workqueue_queue_duration_seconds_sum,workqueue_queue_duration_seconds_count,workqueue_work_duration_seconds,workqueue_work_duration_seconds_sum,workqueue_work_duration_seconds_count
+    prometheus.metric.workqueue.apm_metric_path={{ .Values.type }}|apiserver|workqueue
+    prometheus.metric.workqueue.apm_metric_type=LongFluctuating
+    prometheus.metric.workqueue.aggregation_type=sum
+    prometheus.metric.lable4.metric_list=workqueue_adds_total,workqueue_depth,workqueue_longest_running_processor_seconds,workqueue_retries_total,workqueue_queue_duration_seconds_bucket,workqueue_unfinished_work_seconds
+    prometheus.metric.lable4.apm_metric_path={{ .Values.type }}|apiserver|workqueue|(name)
+    prometheus.metric.etcdobj.metric_list=etcd_object_counts
+    prometheus.metric.etcdobj.apm_metric_path={{ .Values.type }}|etcd|(resource)
+    prometheus.metric.etcdobj.apm_metric_type=LongFluctuating
+    prometheus.metric.etcdobj.aggregation_type=sum
+    prometheus.metric.lable5.metric_list=grpc_client_handled_total,grpc_client_msg_sent_total,grpc_client_msg_received_total,grpc_client_started_total
+    prometheus.metric.lable5.apm_metric_path={{ .Values.type }}|apiserver|clients|grpc|method|(grpc_method)|service|grpc_service|type|(grpc_type)
 
 
 {{end}}

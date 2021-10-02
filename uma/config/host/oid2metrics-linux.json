@@ -1,0 +1,3321 @@
+{
+	"propertyIdentifier": "linux",
+	"oid2MetricMappingList": [
+		{
+			"oid": "1.3.6.1.2.1.1.5.0",
+			"metricType": "Variable",
+			"metricName": "HostName",
+			"groups": "default"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.2.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Free Memory (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.1.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Free Memory (%)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.3.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Total Memory (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.4.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Used Memory (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.5.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Scan Rate Page (Scans/Sec)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.6.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Requests Page In (Ins/sec)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.7.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Requests Page Out (Outs/Sec)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.10.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Requests Page Frees (KBytes/Sec)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.11.0",
+			"groups": "memory",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Memory:Requests Page Frees (Pages)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.12.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Requests Page Frees (Frees/Sec)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.13.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Requests Page In (KBytes/sec)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.14.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Requests Page Out (KBytes/Sec)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.15.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Requests Page Reclaims (KBytes/Sec)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.9.16.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Requests Page Reclaims (Reclaims/Sec)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.10.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Active Memory (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.12.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Total Swap (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.13.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Used Swap (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.18.0",
+			"groups": "memory",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Memory:Pages Swapped In"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.19.0",
+			"groups": "memory",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Memory:Pages Swapped Out"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.22.0",
+			"groups": "memory",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Memory:Pages Paged In"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.23.0",
+			"groups": "memory",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Memory:Pages Paged Out"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.30.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:SwapInUsePercent"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.32.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:MemInUsePercent"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.54.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Swap Space Available (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.55.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Swap Space Available (%)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.56.0",
+			"groups": "memory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Memory:Page Fault (Pages/Sec)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.2.0",
+			"groups": "cpu",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|CPU:Total Time In Idle Mode (Ticks)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.3.0",
+			"groups": "cpu",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|CPU:Total Time In User Mode (Ticks)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.4.0",
+			"groups": "cpu",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|CPU:Total Time In System Mode (Ticks)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.5.0",
+			"groups": "cpu",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|CPU:Total Time In Wait Mode (Ticks)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.6.0",
+			"groups": "cpu",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|CPU:Last Update"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.7.0",
+			"groups": "cpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|CPU:TotalIdlePercent"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.8.0",
+			"groups": "cpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|CPU:TotalUserPercent"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.9.0",
+			"groups": "cpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|CPU:TotalSystemPercent"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.13.0",
+			"groups": "cpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|CPU:TotalUtilPercent"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.15.0",
+			"groups": "cpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|CPU:TotalStealPercent"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.4.0",
+			"groups": "cpu",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|CPU:Processor Count"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.1.1.1",
+			"groups": "cpu",
+			"metricType": "TableKey",
+			"metricName": "CoreId"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.1.1.2",
+			"groups": "cpu",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|CPU|Core{TABLE:CoreId}:Description"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.1.1.3",
+			"groups": "cpu",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|CPU|Core{TABLE:CoreId}:Time In Idle Mode (Ticks)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.1.1.4",
+			"groups": "cpu",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|CPU|Core{TABLE:CoreId}:Time In User Mode (Ticks)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.1.1.5",
+			"groups": "cpu",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|CPU|Core{TABLE:CoreId}:Time In System Mode (Ticks)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.1.1.7",
+			"groups": "cpu",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|CPU|Core{TABLE:CoreId}:Last Update"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.1.1.8",
+			"groups": "cpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|CPU|Core{TABLE:CoreId}:IdlePercent"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.1.1.9",
+			"groups": "cpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|CPU|Core{TABLE:CoreId}:UserPercent"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.1.1.10",
+			"groups": "cpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|CPU|Core{TABLE:CoreId}:SysPercent"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.1.1.14",
+			"groups": "cpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|CPU|Core{TABLE:CoreId}:UtilPercent"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.13.1.1.16",
+			"groups": "cpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|CPU|Core{TABLE:CoreId}:StealPercent"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.2.3.1.3",
+			"groups": "storage",
+			"metricType": "TableKey",
+			"metricName": "StorageName",
+			"filterProperty": "storage.filter"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.2.2.0",
+			"groups": "storage",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Storage:Memory Size"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.2.3.1.4",
+			"groups": "storage",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Storage|{TABLE:StorageName}:BlockSize(Bytes)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.2.3.1.5",
+			"groups": "storage",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|Storage|{TABLE:StorageName}:Size(Blocks)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.2.3.1.6",
+			"groups": "storage",
+			"metricType": "LongAverage",
+			"metricName": "SystemEdge|{$HostName}|Storage|{TABLE:StorageName}:Used(Blocks)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.2.3.1.7",
+			"groups": "storage",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|Storage|{TABLE:StorageName}:Allocation Failures"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.2.3.1.8",
+			"groups": "storage",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Storage|{TABLE:StorageName}:PercentUsed"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.2.3.1.9",
+			"groups": "storage",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Storage|{TABLE:StorageName}:Available (Blocks)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.2.3.1.10",
+			"groups": "storage",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Storage|{TABLE:StorageName}:Percent Available"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.20.1.1",
+			"groups": "interfaces,network",
+			"metricType": "TableKey",
+			"metricName": "IpAddress",
+			"filterProperty": "network.filter"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.20.1.2",
+			"groups": "interfaces,network",
+			"metricType": "TableKey",
+			"metricName": "Interface:IpAddress"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.20.1.3",
+			"groups": "network,interfaces",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:IpAddress}:Net Mask"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.20.1.4",
+			"groups": "network,interfaces",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:IpAddress}:Broadcast Address"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.20.1.5",
+			"groups": "network,interfaces",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:IpAddress}:Reassemble Maximum Size"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.16.0",
+			"groups": "network",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network:PORT 22",
+			"toInclude":false
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.17.1.3",
+			"groups": "network,port",
+			"metricType": "TableKey",
+			"metricName": "PortNumber"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.17.1.2",
+			"groups": "network,port",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Port|{TABLE:PortNumber}:Port Status"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.3.0",
+			"groups": "network,interfaces",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces:Packets Received Per Interval"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.10.0",
+			"groups": "network,interfaces",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces:Requests Sent Out Per Interval"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.1.0",
+			"groups": "network,interfaces",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces:Interfaces Count"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.1",
+			"groups": "interfaces,network,interfacedetails",
+			"metricType": "TableKey",
+			"metricName": "ifName"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.2",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:In Multicast Packets"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.3",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:In Broadcast Packets"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.4",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Out Multicast Packets"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.5",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Out Broadcast Packets"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.6",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:In Octets 64-bit"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.7",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:In Ucast Packets 64-bit"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.10",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Out Octets 64-bit"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.11",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Out Ucast Packets 64-bit"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.12",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Out Multicast Packets 64-bit"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.13",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Out Broadcast Packets 64-bit"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.14",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Link UpDown Trap Enable"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.15",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:High Speed (Bits/Second)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.16",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Promiscuous Mode"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.17",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Connector Present"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.18",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Alias"
+		},
+		{
+			"oid": "1.3.6.1.2.1.31.1.1.1.19",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Counter Discontinuity Time"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.3",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Type"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.4",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:MTU (Octets)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.5",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Speed (Bits/Second)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.6",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Physical Address"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.7",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Admin Status"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.8",
+			"groups": "network,interfaces,interfacedetails",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|InterfaceDetails|{TABLE:ifName}:Operation Status"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.10",
+			"groups": "network,interfaces,",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:InOctets"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.11",
+			"groups": "network,interfaces,",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:In Ucast Packets"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.13",
+			"groups": "network,interfaces,",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:InDiscards"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.14",
+			"groups": "network,interfaces,",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:InErrors"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.15",
+			"groups": "network,interfaces,",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:In Unknown Protocol (Packets)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.16",
+			"groups": "network,interfaces,",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:OutOctets"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.17",
+			"groups": "network,interfaces,",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:Out Ucast Packets"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.18",
+			"groups": "network,interfaces,",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:Out NUcast Packets"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.19",
+			"groups": "network,interfaces,",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:OutDiscards"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.20",
+			"groups": "network,interfaces,",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:OutErrors"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.21",
+			"groups": "network,interfaces,",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:OutQueueLength (Packets)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.2.2.1.22",
+			"groups": "network,interfaces,",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:Specific"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.10.1.1.2",
+			"groups": "network,interfaces,",
+			"metricType": "LongAverage",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:Traffic Incoming (Packets/Sec)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.10.1.1.3",
+			"groups": "network,interfaces,",
+			"metricType": "LongAverage",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:Traffic Outgoing (Packets/Sec)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.10.1.1.4",
+			"groups": "network,interfaces,",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:Input Error"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.10.1.1.5",
+			"groups": "network,interfaces,",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:Input Packets"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.10.1.1.6",
+			"groups": "network,interfaces,",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|Interfaces|{TABLE:Interface}:Output Packets"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.1.0",
+			"groups": "network,tcp",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:Algorithm For Retrasmitting"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.2.0",
+			"groups": "network,tcp",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:Minimum Retransmision Timeout (Milliseconds)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.3.0",
+			"groups": "network,tcp",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:Maximum Retransmision Timeout (Milliseconds)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.4.0",
+			"groups": "network,tcp",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:Maximum Connections"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.5.0",
+			"groups": "network,tcp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:Active Opens"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.6.0",
+			"groups": "network,tcp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:Passive Opens"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.7.0",
+			"groups": "network,tcp",
+			"metricType": "LongRate",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:AttemptFailures"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.8.0",
+			"groups": "network,tcp",
+			"metricType": "LongRate",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:ResetConnections"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.9.0",
+			"groups": "network,tcp",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:EstablishedConnections"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.10.0",
+			"groups": "network,tcp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:Segments Received"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.11.0",
+			"groups": "network,tcp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:Segments Sent"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.12.0",
+			"groups": "network,tcp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:Segments Retransmitted"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.14.0",
+			"groups": "network,tcp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:Segments Receive Error"
+		},
+		{
+			"oid": "1.3.6.1.2.1.6.15.0",
+			"groups": "network,tcp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|TCP:Resets Sent"
+		},
+		{
+			"oid": "1.3.6.1.2.1.7.1.0",
+			"groups": "network,udp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|UDP:Datagrams Received"
+		},
+		{
+			"oid": "1.3.6.1.2.1.7.2.0",
+			"groups": "network,udp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|UDP:Unknown Port"
+		},
+		{
+			"oid": "1.3.6.1.2.1.7.3.0",
+			"groups": "network,udp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|UDP:Datagrams Receive Error"
+		},
+		{
+			"oid": "1.3.6.1.2.1.7.4.0",
+			"groups": "network,udp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|UDP:Datagrams Sent"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.21.1.1",
+			"groups": "iproute,network,ip",
+			"metricType": "TableKey",
+			"metricName": "IPRouting"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.21.1.3",
+			"groups": "network,ip,iproute",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPRoute|{TABLE:IPRouting}:Primary Route"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.21.1.4",
+			"groups": "network,ip,iproute",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPRoute|{TABLE:IPRouting}:Alternate Route 1"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.21.1.5",
+			"groups": "network,ip,iproute",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPRoute|{TABLE:IPRouting}:Alternate Route 2"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.21.1.6",
+			"groups": "network,ip,iproute",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPRoute|{TABLE:IPRouting}:Alternate Route 3"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.21.1.7",
+			"groups": "network,ip,iproute",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPRoute|{TABLE:IPRouting}:Next Hop"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.21.1.8",
+			"groups": "network,ip,iproute",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPRoute|{TABLE:IPRouting}:Type"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.21.1.9",
+			"groups": "network,ip,iproute",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPRoute|{TABLE:IPRouting}:Protocol"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.21.1.11",
+			"groups": "network,ip,iproute",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPRoute|{TABLE:IPRouting}:Alternate Route 4"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.22.1.3",
+			"groups": "ipmapping,network,ip",
+			"metricType": "TableKey",
+			"metricName": "AddressTraslation"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.22.1.2",
+			"groups": "network,ip,ipmapping",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPMapping|{TABLE:AddressTraslation}:Physical Address"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.22.1.4",
+			"groups": "network,ip,ipmapping",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPMapping|{TABLE:AddressTraslation}:Type"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.1",
+			"groups": "network,ip",
+			"metricType": "TableKey",
+			"metricName": "IpStats"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.3",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:In Receives"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.7",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:In Errors"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.8",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:In No Routes"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.9",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:In Address Errors"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.10",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:In Unknown Protocol"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.11",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:In Truncated Packets"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.14",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:Reassemble Request"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.15",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:Reassemble OKs"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.16",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:Reassemble Fails"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.17",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:In Discards"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.18",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:In Delivers"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.20",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:Out Requests"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.22",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:Out No Routes"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.23",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:Out Forward Datagrams"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.25",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:Out Discards"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.26",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:Out Fragmentation Requests"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.27",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:Out Fragmentation OKs"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.28",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:Out Fragmentation Fails"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.31.1.1.29",
+			"groups": "network,ip",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPSystemStats{TABLE:IpStats}:Out Fragmentation Creates"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.32.1.3",
+			"groups": "ipaddressprefix,network,ip",
+			"metricType": "TableKey",
+			"metricName": "INetAdderss"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.32.1.2",
+			"groups": "network,ip,ipaddressprefix",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPAddressPrefix|{TABLE:INetAdderss}:Type"
+		},
+		{
+			"oid": "1.3.6.1.2.1.4.32.1.4",
+			"groups": "network,ip,ipaddressprefix",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Network|IP|IPAddressPrefix|{TABLE:INetAdderss}:Length"
+		},
+			{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.26.0",
+			"groups": "systemload",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemLoad:LoadAverage1Min"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.27.0",
+			"groups": "systemload",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemLoad:LoadAverage5Min"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.28.0",
+			"groups": "systemload",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemLoad:LoadAverage15Min"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.2.1.9.0",
+			"groups": "systemload",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemLoad:User Count"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.28.0",
+			"groups": "operatingsystem",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|OperatingSystem:Kernel Name"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.1.0",
+			"groups": "operatingsystem",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|OperatingSystem:Host Name"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.6.0",
+			"groups": "operatingsystem",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|OperatingSystem:Kernel Release"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.6.0",
+			"groups": "operatingsystem",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|OperatingSystem:Kernel Version"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.2.0",
+			"groups": "operatingsystem",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|OperatingSystem:Bit Mode"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.1.1.0",
+			"groups": "operatingsystem",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|OperatingSystem:System Uptime"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.28",
+			"groups": "diskio",
+			"metricType": "TableKey",
+			"metricName": "DiskName",
+			"filterProperty": "diskio.filter"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.2",
+			"groups": "diskio",
+			"metricType": "LongAverage",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Average Operations Wait Queue"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.3",
+			"groups": "diskio",
+			"metricType": "LongAverage",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Average Service Time (Milliseconds)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.4",
+			"groups": "diskio",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Percentage Utilization Rate"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.5",
+			"groups": "diskio",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:KBytes Transferred"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.6",
+			"groups": "diskio",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Transfer Operations"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.7",
+			"groups": "diskio",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Read Operations"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.8",
+			"groups": "diskio",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Write Operations"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.10",
+			"groups": "diskio",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Agent Last Update"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.19",
+			"groups": "diskio",
+			"metricType": "LongAverage",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Average Bytes Read"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.20",
+			"groups": "diskio",
+			"metricType": "LongAverage",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Average Bytes Write"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.23",
+			"groups": "diskio",
+			"metricType": "LongAverage",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Read Operations (Bytes/Second)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.24",
+			"groups": "diskio",
+			"metricType": "LongAverage",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Write Operations (Bytes/Second)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.25",
+			"groups": "diskio",
+			"metricType": "LongAverage",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Average Wait Time (Milliseconds)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.26",
+			"groups": "diskio",
+			"metricType": "LongAverage",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Number of Bytes Transferred (Per Second)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.27",
+			"groups": "diskio",
+			"metricType": "LongAverage",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Number of Data Transferred (Per Second)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.12.1.1.29",
+			"groups": "diskio",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|DiskIO|{TABLE:DiskName}:Device Storage Capacity (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.1.6.0",
+			"groups": "process",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Process:Process Count"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.48.0",
+			"groups": "process",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|Process:Waiting Process Count"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.1.1.0",
+			"groups": "hostresources,system",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|HostResources|System:System Uptime"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.1.3.0",
+			"groups": "hostresources,system",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|HostResources|System:System Initial Load Device"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.1.5.0",
+			"groups": "hostresources,system",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|HostResources|System:System Number Users"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.1.7.0",
+			"groups": "hostresources,system",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|HostResources|System:System Maximum Processes"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.3.2.1.3",
+			"groups": "devicename,hostresources",
+			"metricType": "TableKey",
+			"metricName": "hrDeviceDescr"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.3.2.1.5",
+			"groups": "hostresources,devicename",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|HostResources|DeviceName|{TABLE:hrDeviceDescr}:Device Status"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.3.2.1.6",
+			"groups": "hostresources,devicename",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|HostResources|DeviceName|{TABLE:hrDeviceDescr}:Device Errors"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.3.8.1.1",
+			"groups": "filesystem,hostresources",
+			"metricType": "TableKey",
+			"metricName": "hrFSMountPoint"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.3.8.1.2",
+			"groups": "hostresources,filesystem",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|HostResources|FileSystem|FS {TABLE:hrFSMountPoint}:FS Mount Point"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.3.8.1.3",
+			"groups": "hostresources,filesystem",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|HostResources|FileSystem|FS {TABLE:hrFSMountPoint}:FS Remote Mount Point"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.3.8.1.5",
+			"groups": "hostresources,filesystem",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|HostResources|FileSystem|FS {TABLE:hrFSMountPoint}:FS Access"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.3.8.1.8",
+			"groups": "hostresources,filesystem",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|HostResources|FileSystem|FS {TABLE:hrFSMountPoint}:FS Last Full BackupDate"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.3.8.1.9",
+			"groups": "hostresources,filesystem",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|HostResources|FileSystem|FS {TABLE:hrFSMountPoint}:FS Last Partial BackupDate"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.4.2.1.2",
+			"groups": "application,runningsoftware",
+			"metricType": "TableKey",
+			"metricName": "hrSWRunName",
+			"filterProperty": "application.filter"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.4.2.1.5",
+			"groups": "application,runningsoftware",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Application|RunningSoftware|{TABLE:hrSWRunName}:Software Parameters"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.4.2.1.7",
+			"groups": "application,runningsoftware",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Application|RunningSoftware|{TABLE:hrSWRunName}:Software Status"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.5.1.1.1",
+			"groups": "application,RunningSoftware",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Application|RunningSoftware|{TABLE:hrSWRunName}:CPU Consumed (Centi-seconds)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.5.1.1.2",
+			"groups": "application,RunningSoftware",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Application|RunningSoftware|{TABLE:hrSWRunName}:Real Memory (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.6.1.0",
+			"groups": "application",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Application:Software Installed Last Change"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.6.2.0",
+			"groups": "application",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Application:Software Installed Last Update Time"
+		},
+		{
+			"oid": "1.3.6.1.2.1.25.4.1.0",
+			"groups": "application",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Application:Software OS"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.1.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:In Messages"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.2.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:In Errors"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.3.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:In Destination Unreachable"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.4.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:In Time Exceed"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.5.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:In Parmameter Problem"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.6.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:In Source Quenchs"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.7.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:In Redirects"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.8.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:In Echos"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.9.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:In Echo Reply"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.10.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:In Timestamps"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.11.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:In Timestamp Reply"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.12.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:In Address Masks"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.13.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:In Address Mask Reply"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.14.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:Out Msgs"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.15.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:Out Errors"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.16.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:Out Destination Unreachable"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.17.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:Out Time Exceeds"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.18.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:Out Parmameter Problem"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.19.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:Out Source Quenchs"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.20.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:Out Redirects"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.21.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:Out Echos"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.22.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:Out Echo Reply"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.23.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:Out Timestamps"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.24.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:Out Timestamp Reply"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.25.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:Out Address Masks"
+		},
+		{
+			"oid": "1.3.6.1.2.1.5.26.0",
+			"groups": "protocol,icmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|ICMP:Out Address Mask Reply"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.1.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Packets"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.2.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:Out Packets"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.3.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Bad Versions"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.4.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Bad Community Names"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.5.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Bad Community Uses"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.6.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In ASN Parse Errors"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.8.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Too Bigs"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.9.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In No Such Names"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.10.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Bad Values"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.11.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Read Onlys"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.12.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In GenErrs"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.13.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Total Request Vars"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.14.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Total Set Vars"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.15.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Get Requests"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.16.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Get Nexts"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.17.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Set Requests"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.18.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Get Responses"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.19.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:In Traps"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.20.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:Out Too Bigs"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.21.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:Out No Such Names"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.22.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:Out Bad Values"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.24.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:Out GenErrs"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.25.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:Out Get Requests"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.26.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:Out Get Nexts"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.27.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:Out Set Requests"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.28.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:Out Get Responses"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.29.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:Out Traps"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.30.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:Enable Authentication Traps"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.31.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:Silent Drops"
+		},
+		{
+			"oid": "1.3.6.1.2.1.11.32.0",
+			"groups": "protocol,snmp",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Protocol|SNMP:Proxy Drops"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.1",
+			"groups": "device,systemmanagement",
+			"metricType": "TableKey",
+			"metricName": "Device",
+			"filterProperty": "systemmanagement.filter"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.2",
+			"groups": "systemmanagement,device",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Device Description"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.3",
+			"groups": "systemmanagement,device",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Mount Point"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.4",
+			"groups": "systemmanagement,device",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Block Size"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.5",
+			"groups": "systemmanagement,device",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Total Blocks"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.6",
+			"groups": "systemmanagement,device",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Free Blocks"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.7",
+			"groups": "systemmanagement,device",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Total File"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.8",
+			"groups": "systemmanagement,device",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Free File"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.10",
+			"groups": "systemmanagement,device",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Type"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.11",
+			"groups": "systemmanagement,device",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:File System ID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.12",
+			"groups": "systemmanagement,device",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:File System Description"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.13",
+			"groups": "systemmanagement,device",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Unmount"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.14",
+			"groups": "systemmanagement,device",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Capacity In Use (%)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.15",
+			"groups": "systemmanagement,device",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Inode Capacity In Use (%)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.16",
+			"groups": "systemmanagement,device",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Inode Used (MB)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.17",
+			"groups": "systemmanagement,device",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Allocated Space (MB)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.18",
+			"groups": "systemmanagement,device",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Free Space (MB)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.7.1.19",
+			"groups": "systemmanagement,device",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Device|Device {TABLE:Device}:Used Space (MB)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.1.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:Maximum Process"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.2.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:Serial Number"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.4.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:Number CPU"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.5.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:ClockHZ"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.6.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:Kernel Version"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.7.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:Virtual Memory (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.8.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:Maximum Inode"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.9.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:Maximum Files"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.12.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:Total Swap (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.13.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:Maximum Open Files (Per Process)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.14.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:Posix Job Control"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.15.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:Posix Version"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.16.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:Page Size (Bytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.9.17.0",
+			"groups": "systemmanagement,kernelconfiguration",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|KernelConfiguration:Word Size (Bytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.3.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Memory"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.4.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Host ID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.5.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Kernel Version"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.12.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Hardware Type"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.13.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Agent Up Time"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.18.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Time Zone"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.19.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Address List"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.20.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:FQDN"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.21.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Sysedge Configuration Profile"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.22.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Install Directory"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.23.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Sysedge Plugin List Loaded"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.24.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Sysedge Plugin List Installed"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.26.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Common Information Model (CIM)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.1.27.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Manager Name"
+		},
+		{
+			"oid": "1.3.6.1.2.1.1.1.0",
+			"groups": "systemmanagement",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement:Agent Description"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.2.1.2",
+			"groups": "userinfo,systemmanagement",
+			"metricType": "TableKey",
+			"metricName": "UserName"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.2.1.4",
+			"groups": "systemmanagement,userinfo",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|UserInfo|{TABLE:UserName}:User ID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.2.1.5",
+			"groups": "systemmanagement,userinfo",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|UserInfo|{TABLE:UserName}:Group ID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.2.1.6",
+			"groups": "systemmanagement,userinfo",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|UserInfo|{TABLE:UserName}:Name"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.2.1.7",
+			"groups": "systemmanagement,userinfo",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|UserInfo|{TABLE:UserName}:Home Directory"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.2.1.8",
+			"groups": "systemmanagement,userinfo",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|UserInfo|{TABLE:UserName}:Shell"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.3.1.2",
+			"groups": "groupinfo,systemmanagement",
+			"metricType": "TableKey",
+			"metricName": "GroupName"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.3.1.4",
+			"groups": "systemmanagement,groupinfo",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|GroupInfo|{TABLE:GroupName}:Group ID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.5.1.2",
+			"groups": "systemmanagement,who",
+			"metricType": "TableKey",
+			"metricName": "WhoName"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.5.1.3",
+			"groups": "systemmanagement,who",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Who|{TABLE:WhoName}:Device"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.5.1.4",
+			"groups": "systemmanagement,who",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Who|{TABLE:WhoName}:PID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.5.1.5",
+			"groups": "systemmanagement,who",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Who|{TABLE:WhoName}:Time"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.5.1.6",
+			"groups": "systemmanagement,who",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|SystemManagement|Who|{TABLE:WhoName}:Where"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.11.0",
+			"groups": "performance",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|Performance:Number Process"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.12.0",
+			"groups": "performance",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|Performance:Number Open Files"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.14.0",
+			"groups": "performance",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Performance:Number Context Switches"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.17.0",
+			"groups": "performance",
+			"metricType": "DeltaCounter",
+			"metricName": "SystemEdge|{$HostName}|Performance:Number Interrupts"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.7.8.34.0",
+			"groups": "performance",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|Performance:Number Zombie Processes"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.2",
+			"groups": "process",
+			"metricType": "TableKey",
+			"metricName": "ProcessName",
+			"filterProperty": "process.name.filter"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.1",
+			"groups": "process",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:PID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.4",
+			"groups": "process",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:Nice"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.5",
+			"groups": "process",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:Flags"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.6",
+			"groups": "process",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:User ID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.7",
+			"groups": "process",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:Group ID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.8",
+			"groups": "process",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:Kill"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.9",
+			"groups": "process",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:Memory Used (%)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.10",
+			"groups": "process",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:Size (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.11",
+			"groups": "process",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:RSS (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.12",
+			"groups": "process",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:Time (Seconds)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.13",
+			"groups": "process",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:Parent"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.15",
+			"groups": "process",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:In Blocks"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.20",
+			"groups": "process",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:Minor Page Faults"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.21",
+			"groups": "process",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:Major Page Faults"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.25",
+			"groups": "process",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:Arguments",
+			"filterProperty": "process.argument.filter"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.26",
+			"groups": "process",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:Start Time"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.4.1.28",
+			"groups": "process",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Process|{TABLE:ProcessName}:State"			
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.9.3.1.1",
+			"groups": "semaphore,ipc",
+			"metricType": "TableKey",
+			"metricName": "ID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.9.3.1.2",
+			"groups": "ipc,semaphore",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|IPC|Semaphore|{TABLE:ID}:Key"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.9.3.1.3",
+			"groups": "ipc,semaphore",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|IPC|Semaphore|{TABLE:ID}:Mode"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.9.3.1.4",
+			"groups": "ipc,semaphore",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|IPC|Semaphore|{TABLE:ID}:Owner"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.9.3.1.5",
+			"groups": "ipc,semaphore",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|IPC|Semaphore|{TABLE:ID}:Group Name"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.9.3.1.6",
+			"groups": "ipc,semaphore",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|IPC|Semaphore|{TABLE:ID}:Number of Semaphores In Same Group"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.1.1.9.3.1.7",
+			"groups": "ipc,semaphore",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|IPC|Semaphore|{TABLE:ID}:Delete"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.1",
+			"groups": "monitoring",
+			"metricType": "TableKey",
+			"metricName": "MonDesc"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.2",
+			"groups": "monitoring",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Description"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.3",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Interval"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.4",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Type"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.6",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Current Value"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.7",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Operator"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.8",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Value"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.9",
+			"groups": "monitoring",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Last Call"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.10",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Number Traps"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.11",
+			"groups": "monitoring",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Last Trap"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.12",
+			"groups": "monitoring",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Row Status"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.13",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Minimum Value"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.14",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Maximum Value"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.15",
+			"groups": "monitoring",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Action"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.16",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Flags"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.17",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:SupersededBy"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.18",
+			"groups": "monitoring",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Object Class"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.19",
+			"groups": "monitoring",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Object Instance"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.20",
+			"groups": "monitoring",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Object Attribute"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.21",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Severity"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.22",
+			"groups": "monitoring",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Current State"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.23",
+			"groups": "monitoring",
+			"metricType": "LongCounter",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:Scale factor"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.24",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:AutoWatch Index"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.1.1.25",
+			"groups": "monitoring",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Monitoring|{TABLE:MonDesc}:AutoWatch Name"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.2.0",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring:Unused Index"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.3.0",
+			"groups": "monitoring",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|Monitoring:Match Description"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.6.4.0",
+			"groups": "monitoring",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|Monitoring:Match Index"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.1.1.0",
+			"groups": "distributedsystem,rpc,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|RPC|Client:Calls"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.1.3.0",
+			"groups": "distributedsystem,rpc,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|RPC|Client:Retrans"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.1.7.0",
+			"groups": "distributedsystem,rpc,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|RPC|Client:Newcreds"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.1.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Calls"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.5.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Nulls"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.6.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Getattrs"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.7.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Setattrs"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.8.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Roots"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.9.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Lookups"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.10.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Readlinks"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.11.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Reads"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.12.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Wrcaches"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.13.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Writes"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.14.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Creates"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.15.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Removes"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.16.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Renames"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.17.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Links"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.18.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Symlinks"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.19.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Mkdirs"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.20.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Rmdirs"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.21.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Readdirs"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.22.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Fsstats"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.23.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Client:Version"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.24.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Calls"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.25.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|server:Badcalls"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.26.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Nulls"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.27.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Getattrs"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.28.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Setattrs"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.29.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Roots"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.30.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Lookups"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.31.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Readlinks"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.32.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Reads"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.33.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Wrcaches"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.34.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Writes"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.35.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Creates"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.36.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Removes"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.37.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Renames"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.38.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Links"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.39.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Symlinks"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.40.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Mkdirs"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.41.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Rmdirs"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.42.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Readdirs"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.43.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Fsstats"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.2.44.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V3|Server:Version"
+		},
+		
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.1.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Calls"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.5.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Nulls"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.6.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Getattrs"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.7.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Setattrs"
+		},
+		
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.9.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Lookups"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.10.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Readlinks"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.11.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Reads"
+		},
+		
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.13.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Writes"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.14.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Creates"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.15.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Removes"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.16.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Renames"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.17.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Links"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.18.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Symlinks"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.21.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Readdirs"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.22.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Fsstats"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.23.0",
+			"groups": "distributedsystem,nfs,client",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Client:Version"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.24.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Calls"
+		},
+		
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.26.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Nulls"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.27.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Getattrs"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.28.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Setattrs"
+		},
+		
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.30.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Lookups"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.31.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Readlinks"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.32.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Reads"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.34.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Writes"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.35.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Creates"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.36.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",						
+			
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Removes"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.37.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Renames"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.38.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Links"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.42.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Readdirs"
+		},
+		
+		{
+			"oid": "1.3.6.1.4.1.546.8.4.44.0",
+			"groups": "distributedsystem,nfs,server",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|DistributedSystem|NFS_V4|Server:Version"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.1",
+			"groups": "topprocess,allprocessbycpu",
+			"metricType": "TableKey",
+			"metricName": "TopProcId",
+			"filterProperty": "topprocess.filter"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.12",
+			"groups": "topprocess,topnprocessbycpu",
+			"metricType": "TableKey",
+			"metricName": "CPU"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.22",
+			"groups": "topprocess,topnprocessbycpu",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByCPU|{TABLE:CPU}:Name"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.23",
+			"groups": "topprocess,topnprocessbycpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByCPU|{TABLE:CPU}:PID Number"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.23",
+			"groups": "topprocess,topnprocessbycpu",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByCPU|{TABLE:CPU}:PID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.24",
+			"groups": "topprocess,topnprocessbycpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByCPU|{TABLE:CPU}:Parent PID Number"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.24",
+			"groups": "topprocess,topnprocessbycpu",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByCPU|{TABLE:CPU}:Parent PID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.25",
+			"groups": "topprocess,topnprocessbycpu",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByCPU|{TABLE:CPU}:State"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.26",
+			"groups": "topprocess,topnprocessbycpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByCPU|{TABLE:CPU}:RSS (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.27",
+			"groups": "topprocess,topnprocessbycpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByCPU|{TABLE:CPU}:Size (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.28",
+			"groups": "topprocess,topnprocessbycpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByCPU|{TABLE:CPU}:CPU Used (%)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.29",
+			"groups": "topprocess,topnprocessbycpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByCPU|{TABLE:CPU}:CPU Time (Seconds)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.30",
+			"groups": "topprocess,topnprocessbycpu",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByCPU|{TABLE:CPU}:Memory Used (%)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.12",
+			"groups": "topprocess,topnprocessbymemory",
+			"metricType": "TableKey",
+			"metricName": "Memory"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.13",
+			"groups": "topprocess,topnprocessbymemory",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByMemory|{TABLE:Memory}:Name"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.14",
+			"groups": "topprocess,topnprocessbymemory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByMemory|{TABLE:Memory}:PID Number"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.14",
+			"groups": "topprocess,topnprocessbymemory",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByMemory|{TABLE:Memory}:PID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.15",
+			"groups": "topprocess,topnprocessbymemory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByMemory|{TABLE:Memory}:Parent PID Number"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.15",
+			"groups": "topprocess,topnprocessbymemory",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByMemory|{TABLE:Memory}:Parent PID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.16",
+			"groups": "topprocess,topnprocessbymemory",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByMemory|{TABLE:Memory}:State"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.17",
+			"groups": "topprocess,topnprocessbymemory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByMemory|{TABLE:Memory}:RSS (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.18",
+			"groups": "topprocess,topnprocessbymemory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByMemory|{TABLE:Memory}:Size (KBytes)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.19",
+			"groups": "topprocess,topnprocessbymemory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByMemory|{TABLE:Memory}:CPU Used (%)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.20",
+			"groups": "topprocess,topnprocessbymemory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByMemory|{TABLE:Memory}:CPU Time (Seconds)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.16.7.10.1.21",
+			"groups": "topprocess,topnprocessbymemory",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|TopProcess|TopNProcessByMemory|{TABLE:Memory}:Memory Used (%)"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.1",
+			"groups": "objectstate,aggregate",
+			"metricType": "TableKey",
+			"metricName": "AggregateObjClass"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.2",
+			"groups": "objectstate,aggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Obj Class"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.3",
+			"groups": "objectstate,aggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Obj Instance"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.4",
+			"groups": "objectstate,aggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Obj Attribute"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.5",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Row Status"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.6",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Curr State"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.7",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Prev State"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.8",
+			"groups": "objectstate,aggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Last Trap"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.9",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Num Traps"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.10",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Time Warning"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.11",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Time Minor"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.12",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Time Major"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.13",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Time Critical"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.14",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Time Fatal"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.15",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Mon Table"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.16",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Mon Index"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.17",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Mon CurrVal"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.18",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Mon Operator"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.19",
+			"groups": "objectstate,aggregate",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Mon Value"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.1.1.20",
+			"groups": "objectstate,aggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|Aggregate|{TABLE:AggregateObjClass}:Mon Last Call"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.5",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "TableKey",
+			"metricName": "MirrorDescription"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.1",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Obj Class"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.2",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Obj Instance"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.3",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Obj Attribute"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.4",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Table"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.9",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Description"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.6",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Row Status"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.7",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Severity"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.8",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntCounter",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Current State"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.10",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Interval"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.11",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Sample Type"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.12",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:OID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.13",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Reg Expr"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.14",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Attribute"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.15",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Curr PID"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.16",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Curr Value"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.17",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Min Value"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.18",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Max Value"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.19",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Operator"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.20",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Value"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.21",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Last Call"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.22",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Last Trap"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.23",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Num Traps"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.24",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Action"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.25",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "IntAverage",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Flags"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.2.1.26",
+			"groups": "objectstate,mirrormonitor",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorMonitor|{TABLE:MirrorDescription}:Proc Name"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.4",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "TableKey",
+			"metricName": "mirrAggObjClass"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.2",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Obj Instance"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.3",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Obj Attribute"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.1",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Obj Class"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.5",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Row Status"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.6",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Curr State"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.7",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Prev State"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.8",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Last Trap"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.9",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Num Traps"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.10",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Time Warning"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.11",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Time Minor"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.12",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Time Major"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.13",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Time Critical"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.14",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Time Fatal"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.15",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Monitor Table"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.16",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Monitor Index"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.17",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Monitor Curr Value"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.18",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Monitor Operator"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.19",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Monitor Value"
+		},
+		{
+			"oid": "1.3.6.1.4.1.546.17.3.1.20",
+			"groups": "objectstate,mirroraggregate",
+			"metricType": "StringEvent",
+			"metricName": "SystemEdge|{$HostName}|ObjectState|MirrorAggregate|{TABLE:mirrAggObjClass}:Monitor Last Call"
+		}
+	]
+}
