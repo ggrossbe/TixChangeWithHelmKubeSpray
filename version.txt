@@ -1,3 +1,8 @@
+Automated TixChange Version: 21.10.0
+Release Date: Oct 4th, 2021
+Key features in this release:
+  - K8s version 1.21.5
+  - UMA 21.6
 Automated TixChange Version: 20.6.0
 Release Date: Jun 20th, 2020
 Key features in this release:
