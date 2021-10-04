@@ -1,19 +1,27 @@
 {{- if or .Values.agentManager.url .Values.agentManager_url_1 }}
-# Common comfig map needed for All extensions
+# Common config map needed for All extensions
 apiVersion: v1
 kind: ConfigMap
 metadata:
+ {{- if eq .Values.role "common" }}
   name: caaiops-config-common
+ {{- else }}
+  name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+ {{- end }}
   namespace: {{ .Release.Namespace }}
 data:
   cluster_name: "{{ .Values.clusterName }}"
   agentManager_url_1: "{{ or .Values.agentManager.url .Values.agentManager_url_1 }}"
   agentManager_credential: "{{ or .Values.agentManager.credential .Values.agentManager_credential }}"
+  monitored_namespace_list: "{{ or .Values.namespaces }}"
   agentManager_version: "{{ .Values.agentManager.version | default "" }}"
   agentManager_httpProxy_host: "{{ .Values.agentManager.httpProxy.host }}"
   agentManager_httpProxy_port: "{{ .Values.agentManager.httpProxy.port }}"
   agentManager_httpProxy_username: "{{ .Values.agentManager.httpProxy.username }}"
   agentManager_httpProxy_password: "{{ .Values.agentManager.httpProxy.password }}"
+  {{- if or .Values.adminNamespaceName  }}
+  admin_clusterinfo_service: "clusterinfo.{{ .Values.adminNamespaceName }}.svc"
+  {{- end }}
   prometheus_server_url: "{{ .Values.monitor.container.prometheus.backend.endPoint.url }}"
   prometheus_server_username: "{{ .Values.monitor.container.prometheus.backend.endPoint.username }}"
   prometheus_server_password: "{{ .Values.monitor.container.prometheus.backend.endPoint.password }}"
@@ -46,6 +54,8 @@ data:
   {{- end }}
   opentracing_grpc_hostport: "{{ .Values.monitor.application.opentracing.grpc.hostport }}"
   zipkinTracing_zipkinServer_hostport: "{{ .Values.monitor.application.zipkinTracing.zipkinServer.hostport }}"
+  cloudmonitoring_aws_accesskey: "{{ .Values.cloudmonitoring.aws.accessKey }}"
+  cloudmonitoring_aws_secretkey: "{{ .Values.cloudmonitoring.aws.secretKey }}"
   agentNaming_deployment_aws_host: "{{ or .Values.agentNaming.deployment.aws.host }}"
   agentNaming_deployment_aws_process: "{{ or .Values.agentNaming.deployment.aws.process }}"
   agentNaming_deployment_aws_agent: "{{ or .Values.agentNaming.deployment.aws.agent }}"

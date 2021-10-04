@@ -1,0 +1,18 @@
+{{- if or .Values.agentManager.url .Values.agentManager_url_1 }}
+{{- if or .Values.role}}
+{{- if eq .Values.role "admin" }}
+# Service for Collector
+apiVersion: v1
+kind: Service
+metadata:
+  name: collector
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    module: collector
+  ports:
+    - port: 7779
+  type: ClusterIP
+{{ end }}
+{{ end }}
+{{ end }}

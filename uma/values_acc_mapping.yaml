@@ -1,0 +1,117 @@
+# https://cawiki.ca.com/display/APM/UMA+-+Mapping+bundle+properties+to+helmchart
+# This file needs to be modified as per the above wiki page for anybody who needs support from the UMA
+
+agentManager:
+  url:
+  credential:
+  httpProxy:
+    host: ${em-connection_agentManager_httpProxy_host}
+    port: ${em-connection_agentManager_httpProxy_port}
+    username: ${em-connection_agentManager_httpProxy_username}
+    password: ${em-connection_agentManager_httpProxy_password}
+clusterName: SandBox
+imageName:
+namespaces:
+isAcc: true
+monitor:
+  application:
+    autoattach:
+      filterType: ${autoattach_autoattach_filter_type}
+      probe:
+        enabled:
+      dynamicPropertyResolution:
+        hostName: "{k8s_deployment_name},{k8s_daemonset_name},{k8s_deploymentconfig_name},{k8s_pod_name},ContainerHost"
+        agentName: ""
+      java:
+        enabled: ${autoattach_autoattach_java_enabled}
+        enabledApplications: ${autoattach_autoattach_java_enabled_applications}
+        propertiesOverride: ${autoattach_autoattach_java_proactiveMode_agent_extra_properties}
+      dotnet:
+        enabled: ${autoattach_autoattach_net_enabled}
+        enabledApplications: ${autoattach_autoattach_net_enabled_applications}
+        propertiesOverride: ${autoattach_autoattach_net_proactiveMode_agent_extra_properties}
+    jmx:
+      enabled: ${KubernetesRemoteMonitor_com_ca_apm_kubernetes_remote_monitor_type.contains("jmx")}
+    node:
+      enabled: ${NodeExtension}
+    python:
+      enabled: ${PythonExtension}
+    cpp:
+      enabled: ${CppExtension}
+    opentracing:
+      enabled: ${opentracing}
+      grpc:
+        hostport: ${opentracing_introscope_agent_opentracing_grpc_server_hostport}
+      correlation:
+        enabled: ${autoattach_autoattach_java_proactiveMode_agent_extra_properties.contains("introscope.agent.opentracing.enable=true")}
+    zipkinTracing:
+      enabled: ${zipkin-tracing}
+      zipkinServer:
+        hostport: ${zipkin-tracing_agent_distributedTracing_collector_zipkin_server_hostport}
+
+  container:
+    prometheus:
+      exporter:
+        enabled: ${KubernetesRemoteMonitor_com_ca_apm_kubernetes_remote_monitor_type.contains("prometheus")}
+      backend:
+        enabled: ${PrometheusImporter}
+        endPoint:
+          url: ${PrometheusImporter_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_url}
+          username: ${PrometheusImporter_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_username}
+          password: ${PrometheusImporter_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_password}
+          token: ${PrometheusImporter_com_ca_apm_prometheus_metric_importer_endpoint_prometheus_token}
+          configFiles:
+          metricAlias: container_name=container,pod_name=pod
+        filter:
+          name:
+          value:
+    dockerstats:
+      enabled: ${OpenshiftMonitor && ClusterDataReporter && HostMonitor}
+  clusterPerformance:
+    enabled: true
+  node:
+    enabled: false
+type: Kubernetes
+prefix: k8s
+EnableResourceLimits: ${KubernetesRemoteMonitor}
+role: common
+cloudmonitoring:
+  aws:
+    enabled: ${aws}
+    accessKey: ${aws_introscope_agent_aws_profiles_aws_accessKey}
+    secretKey: ${aws_introscope_agent_aws_profiles_aws_secretKey}
+    # services supported are rds,ec2,ebs,lambda,dynamodb,s3,sns,ecs,sqs,kinesis,clb,nlb,alb,redshift,elasticache,autoScaling,billing,apiGateway
+    # provide comma separated services to monitor
+    servicesList: ${aws_introscope_agent_aws_profiles_aws_schemaList}
+agentNaming:
+  deployment:
+    apmia:
+      host:
+      process:
+      agent:
+    prometheus:
+      host:
+      process:
+      agent:
+    aws:
+      host:
+      process:
+      agent:
+  daemonset:
+    apmia:
+      host:
+      process:
+      agent:
+extensionFolders:
+  autoattach: ${autoattach_folderName}
+  OpenshiftMonitor: ${OpenshiftMonitor_folderName}
+  HostMonitor: ${HostMonitor_folderName}
+  NodeExtension: ${NodeExtension_folderName}
+  PythonExtension: ${PythonExtension_folderName}
+  CppExtension: ${CppExtension_folderName}
+  KubernetesRemoteMonitor: ${KubernetesRemoteMonitor_folderName}
+  ZipkinTracing: ${zipkin-tracing_folderName}
+  OpenTracing: ${OpenTracing_folderName}
+  ClusterDataReporter: ${ClusterDataReporter_folderName}
+  restmon: ${restmon_folderName}
+  aws: ${aws_folderName}

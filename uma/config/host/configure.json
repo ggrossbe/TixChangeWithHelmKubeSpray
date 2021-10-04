@@ -1,0 +1,317 @@
+{
+  "id": "HOST",
+  "version": "20.6.1",
+  "metricRootSpecifiers": {
+    "HOST": [
+      {
+        "rootSpecifier": "<agent>|SystemEdge|<hostname>",
+        "nextLevelRegex": null
+      },
+      {
+        "rootSpecifier": "<prometheus_agent_source>|Prometheus|<hostname>",
+        "nextLevelRegex": null
+      },
+      {
+        "rootSpecifier": "<prometheus_agent_source>|Kubernetes|Clusters|<k8s_cluster_name>|Nodes|<prometheus_node_instance>",
+        "nextLevelRegex": null
+      },
+      {
+        "rootSpecifier": "<k8s_node_agentpath>|<k8s_node_agent1_metricPath>",
+        "nextLevelRegex": null
+      }
+    ]
+  },
+  "metricSpecifiers": {
+    "HOST": [
+      {
+        "metricSpecifier": {
+          "format": "<k8s_node_agent1_metricPath>",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<k8s_node_agentpath>",
+          "type": "EXACT"
+        },
+        "section": "Kubernetes Details",
+        "metricNames": [
+          "Ready",
+          "Total Containers",
+          "Total Pods",
+          "MemoryPressure",
+          "PIDPressure",
+          "DiskPressure",
+          "NetworkUnavailable"
+
+
+        ],
+        "filter": {
+        }
+      },
+      {
+        "metricSpecifier": {
+          "format": "SystemEdge|<hostname>|CPU",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<agent>",
+          "type": "EXACT"
+        },
+        "section": "CPU",
+        "metricNames": [
+          "TotalUserPercent",
+          "TotalSystemPercent",
+          "TotalIdlePercent",
+          "TotalUtilPercent"
+        ],
+        "filter": {
+        }
+      },
+      {
+        "metricSpecifier": {
+          "format": "Prometheus|<hostname>|CPU",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<prometheus_agent_source>",
+          "type": "EXACT"
+        },
+        "section": "CPU",
+        "metricNames": [
+          "TotalUserPercent",
+          "TotalSystemPercent",
+          "TotalIdlePercent",
+          "TotalUtilPercent"
+        ],
+        "filter": {
+        }
+      },
+      {
+        "metricSpecifier": {
+          "format": "Kubernetes|Clusters|<k8s_cluster_name>|Nodes|<prometheus_node_instance>|CPU",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<agent>",
+          "type": "EXACT"
+        },
+        "section": "CPU",
+        "metricNames": [
+          "TotalUserPercent",
+          "TotalSystemPercent",
+          "TotalIdlePercent",
+          "TotalUtilPercent"
+        ],
+        "filter": {
+        }
+      },
+      {
+        "metricSpecifier": {
+          "format": "SystemEdge|<hostname>|Memory",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<agent>",
+          "type": "EXACT"
+        },
+        "section": "Memory",
+        "metricNames": [
+          "MemInUsePercent",
+          "SwapInUsePercent"
+        ],
+        "filter": {
+        }
+      },
+      {
+        "metricSpecifier": {
+          "format": "Prometheus|<hostname>|Memory",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<prometheus_agent_source>",
+          "type": "EXACT"
+        },
+        "section": "Memory",
+        "metricNames": [
+          "MemoryInUsePercent",
+          "SwapInUsePercent"
+        ],
+        "filter": {
+        }
+      },
+      {
+        "metricSpecifier": {
+          "format": "Kubernetes|Clusters|<k8s_cluster_name>|Nodes|<prometheus_node_instance>|Memory",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<agent>",
+          "type": "EXACT"
+        },
+        "section": "Memory",
+        "metricNames": [
+          "MemoryInUsePercent",
+          "SwapInUsePercent"
+        ],
+        "filter": {
+        }
+      },
+      {
+        "metricSpecifier": {
+          "format": "SystemEdge|<hostname>|Network|TCP",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<agent>",
+          "type": "EXACT"
+        },
+        "section": "Network",
+        "metricNames": [
+          "EstablishedConnections",
+          "AttemptFailures",
+          "ResetConnections"
+        ],
+        "filter": {
+        }
+      },
+      {
+        "metricSpecifier": {
+          "format": "Prometheus|<hostname>|Network",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<agent>",
+          "type": "EXACT"
+        },
+        "section": "Network",
+        "metricNames": [
+          "DropBytesRate",
+          "ErrorBytesRate",
+          "SendReceiveBytesRate"
+        ],
+        "filter": {
+        }
+      },
+      {
+        "metricSpecifier": {
+          "format": "Kubernetes|Clusters|<k8s_cluster_name>|Nodes|<prometheus_node_instance>|Network|Interfaces",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<agent>",
+          "type": "EXACT"
+        },
+        "section": "Network",
+        "metricNames": [
+          "DropBytesRate",
+          "ErrorBytesRate",
+          "SendReceiveBytesRate"
+        ],
+        "filter": {
+        }
+      },
+      {
+        "metricSpecifier": {
+          "format": "SystemEdge|<hostname>|Storage|<storage>",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<agent>",
+          "type": "EXACT"
+        },
+        "section": "Storage",
+        "metricNames": [
+          "Size(Blocks)",
+          "Used(Blocks)",
+          "PercentUsed",
+          "BlockSize(Bytes)"
+        ],
+        "filter": {
+        }
+      },
+      {
+        "metricSpecifier": {
+          "format": "Prometheus|<hostname>|Storage|Devices",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<agent>",
+          "type": "EXACT"
+        },
+        "section": "Storage",
+        "metricNames": [
+          "ReadBytesRate",
+          "WriteBytesRate"
+        ],
+        "filter": {
+        }
+      },
+      {
+        "metricSpecifier": {
+          "format": "Prometheus|<hostname>|Storage|Mountpoints",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<agent>",
+          "type": "EXACT"
+        },
+        "section": "Storage",
+        "metricNames": [
+          "DiskInUsePercent"
+        ],
+        "filter": {
+        }
+      },
+      {
+        "metricSpecifier": {
+          "format": "Kubernetes|Clusters|<k8s_cluster_name>|Nodes|<prometheus_node_instance>|SystemLoad",
+          "type": "EXACT"
+        },
+        "agentSpecifier": {
+          "format": "<agent>",
+          "type": "EXACT"
+        },
+        "section": "System Load",
+        "metricNames": [
+          "LoadAverage5Min",
+          "LoadAverage15Min",
+          "LoadAverage1Min"
+        ],
+        "filter": {
+        }
+      }
+    ]
+  },
+  "alertMappings": {
+    "HOST": [
+      "SystemEdge|<hostname>",
+      "SystemEdge|<hostname>|*",
+      "SystemEdge|<hostname>|*|*",
+      "SystemEdge|<hostname>|*|*|*",
+      "SystemEdge|<hostname>|*|*|*|*",      
+      "Prometheus|<hostname>",
+      "Prometheus|<hostname>|*",
+      "Prometheus|<hostname>|*|*",
+      "Prometheus|<hostname>|*|*|*",
+      "Prometheus|<hostname>|*|*|*|*",
+      "Kubernetes|Clusters|<k8s_cluster_name>|Nodes|<Hostname>",
+      "Kubernetes|Clusters|<k8s_cluster_name>|Nodes|<Hostname>|CPU",
+      "Kubernetes|Clusters|<k8s_cluster_name>|Nodes|<Hostname>|Memory",
+      "Kubernetes|Clusters|<k8s_cluster_name>|Nodes|<Hostname>|DiskIO",
+      "Kubernetes|Clusters|<k8s_cluster_name>|Nodes|<Hostname>|Network",
+      "Kubernetes|Clusters|<k8s_cluster_name>|Nodes|<Hostname>|Storage",
+      "Kubernetes|Clusters|<k8s_cluster_name>|Nodes|<Hostname>|SystemLoad",
+      "<k8s_node_agent1_metricPath/3>"
+    ]
+  },
+  "perspectives": [
+    {
+      "id": "HOST_PERSPECTIVE1",
+      "name": "Host Overview",
+      "groupBy": [
+        {
+          "attributeName": "hostname"
+        }
+      ]
+    }
+  ]
+}

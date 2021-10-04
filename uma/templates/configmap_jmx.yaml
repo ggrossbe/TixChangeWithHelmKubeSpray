@@ -1,0 +1,14 @@
+{{- if eq .Values.role "team" }}
+{{- if or .Values.agentManager.url .Values.agentManager_url_1 }}
+{{- if and (ne .Values.agentManager.credential "credential")}}
+# Jmx config map needed for multi tenancy
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: caaiops-config-jmx{{- .Values.id | default "1" }}
+  namespace: {{ .Release.Namespace }}
+data:
+  {{- (.Files.Glob "config/jmx/**.yaml").AsConfig | nindent 2 }}
+{{ end }}
+{{ end }}
+{{ end }}

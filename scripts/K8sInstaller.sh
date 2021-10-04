@@ -3,7 +3,7 @@ SCRIPTS_FOLDER=`dirname $BASH_SOURCE`
 . $SCRIPTS_FOLDER/include.sh
 
 
-wget https://github.com/kubernetes-sigs/kubespray/archive/v2.16.0.zip
+wget https://github.com/kubernetes-sigs/kubespray/archive/v2.17.0.zip
 
 #ESCAPE_INSTALLATION_FOLDER=$(echo "$INSTALLATION_FOLDER" | sed 's/\//\\\//g')
 #sed -i 's/DOCKER_STORAGE_FOLDER/'$ESCAPE_INSTALLATION_FOLDER\\/DockerStorage'/' all.yml
@@ -11,9 +11,9 @@ wget https://github.com/kubernetes-sigs/kubespray/archive/v2.16.0.zip
 rm -rf $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
 
 #unzip master.zip &&  mv kubespray-master kubespray && cd kubespray
-unzip v2.16.0.zip &&  mv kubespray-2.16.0/ $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
+unzip v2.17.0.zip &&  mv kubespray-2.17.0/ $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
 
-rm -rf v2.16.0.zip*
+rm -rf v2.17.0.zip*
 
 cd $INSTALLATION_FOLDER/$KUBESPRAY_FOLDER
 export LC_ALL=C

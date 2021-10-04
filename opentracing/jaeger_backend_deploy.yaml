@@ -33,7 +33,7 @@ spec:
           env:
           - name: LOG-LEVEL
             value: debug
-          image: jaegertracing/all-in-one:1.21.0
+          image: jaegertracing/all-in-one:1.26.0
           imagePullPolicy: Always
           ports:
             - containerPort: 6831

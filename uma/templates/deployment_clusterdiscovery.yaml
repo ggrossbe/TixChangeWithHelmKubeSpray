@@ -1,5 +1,8 @@
 {{- if or .Values.agentManager.url .Values.agentManager_url_1 }}
   # Cluster Discovery Service
+{{- if eq .Values.role "team" }}
+---
+{{ else }}
 {{- if or .Values.k8slegacy }}
 apiVersion: apps/v1beta1
 {{ else }}
@@ -43,13 +46,21 @@ spec:
             valueFrom:
               configMapKeyRef:
                 key: agentManager_version
+{{- if eq .Values.role "common" }}
                 name: caaiops-config-common
+{{- else }}
+                name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+{{- end }}
 
           - name: cluster_name
             valueFrom:
               configMapKeyRef:
                 key: cluster_name
+{{- if eq .Values.role "common" }}
                 name: caaiops-config-common
+{{- else }}
+                name: caaiops-config-{{- .Values.role | default "common" }}{{- .Values.id | default "1" }}
+{{- end }}
 {{- if .Values.EnableResourceLimits }}
         resources:
           limits:
@@ -60,7 +71,19 @@ spec:
             memory: 700Mi
 {{end}}
         imagePullPolicy: Always
-        command: ["/usr/local/openshift/apmia/jre/bin/java", "-Xms256m","-Xmx1024m", "-jar", "/clusterinfo-1.0.jar"]
+        livenessProbe:
+          httpGet:
+            path: /up
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 120
+
+{{- if or .Values.isAcc }}
+        command: ["/opt/uma/jre/bin/java", "-Xms256m","-Xmx1024m", "-Dlogging.config=file:/opt/uma/utility/logback.xml", "-jar", "/opt/uma/utility/clusterinfo-1.0.jar"]
+{{ else }}
+        command: ["/usr/local/openshift/apmia/jre/bin/java", "-Xms256m","-Xmx1024m", "-Dlogging.config=file:/usr/local/openshift/logback.xml", "-jar", "/clusterinfo-1.0.jar"]
+{{ end }}
+
         # Comment out this section in case you want to enable debug
         # command: ["java", "-jar", "-Dlogging.level.com.ca.apm.broadcom.kubernetes.springboot.ClusterInfoController=DEBUG","/clusterinfo-1.0.jar"]
       restartPolicy: Always
@@ -68,4 +91,5 @@ spec:
   selector:
     matchLabels:
       module: clusterinfo
+{{ end }}
 {{ end }}
