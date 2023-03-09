@@ -1,0 +1,2025 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 187299,
+  "iteration": 1678332341215,
+  "links": [
+    {
+      "icon": "doc",
+      "includeVars": true,
+      "keepTime": true,
+      "targetBlank": true,
+      "title": "PDF",
+      "tooltip": "View Report",
+      "type": "link",
+      "url": "https://grafana-reporter.dxi-na1.saas.broadcom.com/api/v5/report/HVMYXMEZk"
+    }
+  ],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metadata",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 8,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 18,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "total": true,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "$$hashKey": "object:122",
+              "fake": true,
+              "field": "severity",
+              "id": "4",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "$$hashKey": "object:123",
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "1h",
+                "min_doc_count": 1,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "$$hashKey": "object:120",
+              "field": "select field",
+              "id": "3",
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "primaryMapCol": "severity",
+          "query": "product:Spectrum AND cleared:$cleared AND host:$host AND $globalcollection",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Alarm Activity",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "AIOps_Metadata",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      "id": 19,
+      "legend": {},
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.14",
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "1h",
+                "min_doc_count": 1,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "3",
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_all_2",
+          "query": "(product:Spectrum AND cleared:$cleared AND host:$host AND $globalcollection AND troubleTicket:[* TO *])",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Ticketed Alarms",
+      "type": "gauge"
+    },
+    {
+      "datasource": "AIOps_Metadata",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 500
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "id": 20,
+      "legend": {},
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.14",
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "1h",
+                "min_doc_count": 1,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "3",
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "query": "product:Spectrum AND cleared:$cleared AND host:$host AND $globalcollection",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total Alarms",
+      "type": "gauge"
+    },
+    {
+      "columns": [],
+      "datasource": "AIOps_Metadata",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "id": 16,
+      "legend": {},
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 4,
+        "desc": true
+      },
+      "styles": [
+        {
+          "$$hashKey": "object:24",
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "$$hashKey": "object:25",
+          "alias": "",
+          "align": "auto",
+          "colorMode": "row",
+          "colors": [
+            "#E55400",
+            "#E55400",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "decimals": 2,
+          "pattern": "Count",
+          "thresholds": [
+            "3",
+            "8"
+          ],
+          "type": "string",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "$$hashKey": "object:78",
+              "fake": true,
+              "field": "message",
+              "id": "4",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "$$hashKey": "object:79",
+              "fake": true,
+              "field": "severity",
+              "id": "5",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "$$hashKey": "object:80",
+              "fake": true,
+              "field": "cleared",
+              "id": "6",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "$$hashKey": "object:81",
+              "fake": true,
+              "field": "host",
+              "id": "3",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "$$hashKey": "object:76",
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "primaryMapCol": "message",
+          "query": "cleared:$cleared AND host:$host AND $globalcollection",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Top 10 most common Spectrum Alarms",
+      "transform": "table",
+      "type": "table-old"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "AIOps_Metadata",
+      "description": "Spectrum: Top Devices By Alarm",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 14
+      },
+      "id": 8,
+      "legend": {},
+      "links": [],
+      "options": {
+        "displayMode": "lcd",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "regexPattern": "",
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.14",
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "host",
+              "id": "5",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 1,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "field": "severity",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "primaryMapCol": "host",
+          "query": "host:$host AND (severity:\"critical\" OR \"major\") and status: * NOT \"closed\"",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Spectrum: Top Devices By Alarm",
+      "type": "bargauge"
+    },
+    {
+      "cacheTimeout": null,
+      "cards": {
+        "cardPadding": null,
+        "cardRound": null
+      },
+      "color": {
+        "cardColor": "#b4ff00",
+        "colorScale": "sqrt",
+        "colorScheme": "interpolateRdYlGn",
+        "exponent": 0.5,
+        "min": null,
+        "mode": "spectrum"
+      },
+      "dataFormat": "tsbuckets",
+      "datasource": "AIOps_Metadata",
+      "description": "Spectrum: Top Devices By Alarm",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 14
+      },
+      "heatmap": {},
+      "hideZeroBuckets": false,
+      "highlightCards": true,
+      "id": 17,
+      "legend": {
+        "show": true
+      },
+      "links": [],
+      "pluginVersion": "6.3.3",
+      "reverseYBuckets": false,
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "host",
+              "id": "5",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "1d",
+                "min_doc_count": 1,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "field": "severity",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "primaryMapCol": "host",
+          "query": "host:$host AND (severity:\"critical\" OR \"major\") and status: * NOT \"closed\"",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Spectrum: Top Devices By Alarm HeatMap",
+      "tooltip": {
+        "show": true,
+        "showHistogram": false
+      },
+      "type": "heatmap",
+      "xAxis": {
+        "show": true
+      },
+      "xBucketNumber": null,
+      "xBucketSize": null,
+      "yAxis": {
+        "decimals": null,
+        "format": "short",
+        "logBase": 1,
+        "max": null,
+        "min": null,
+        "show": true,
+        "splitFactor": null
+      },
+      "yBucketBound": "auto",
+      "yBucketNumber": null,
+      "yBucketSize": null
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metadata",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 6,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "globalCollection",
+              "id": "7",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "fake": true,
+              "field": "severity",
+              "id": "6",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "0"
+              },
+              "type": "terms"
+            },
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 1,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "field": "severity",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "primaryMapCol": "globalCollection",
+          "query": "(severity:\"critical\" OR \"major\" OR \"minor\") and status: * NOT \"closed\"",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Spectrum: Top Global Collections By Alarm",
+      "tooltip": {
+        "shared": false,
+        "sort": 1,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "total"
+        ]
+      },
+      "yaxes": [
+        {
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metadata",
+      "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 2,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "severity",
+              "id": "4",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "0"
+              },
+              "type": "terms"
+            },
+            {
+              "fake": true,
+              "field": "@timestamp",
+              "id": "3",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 1,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "primaryMapCol": "severity",
+          "query": "status: * NOT \"closed\"",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Spectrum: Open Alarms",
+      "tooltip": {
+        "shared": false,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "total"
+        ]
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "Alarm Count",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metadata",
+      "description": "Spectrum: Critical Alarms Trend for Top 10 Global Collections",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 8,
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 36
+      },
+      "id": 14,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "globalCollection",
+              "id": "4",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "1h",
+                "min_doc_count": 1,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "3",
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "primaryMapCol": "globalCollection",
+          "query": "severity:critical",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Spectrum: Critical Alarms for Top 10 Global Collections",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "columns": [
+        {
+          "text": "timestamp",
+          "value": "timestamp"
+        },
+        {
+          "text": "acknowledged",
+          "value": "acknowledged"
+        },
+        {
+          "text": "cleared",
+          "value": "cleared"
+        },
+        {
+          "text": "severity",
+          "value": "severity"
+        },
+        {
+          "text": "modelName",
+          "value": "modelName"
+        },
+        {
+          "text": "modeltypeName",
+          "value": "modeltypeName"
+        },
+        {
+          "text": "ip",
+          "value": "ip"
+        },
+        {
+          "text": "message",
+          "value": "message"
+        },
+        {
+          "text": "troubleTicket",
+          "value": "troubleTicket"
+        }
+      ],
+      "datasource": "AIOps_Metadata",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "id": 21,
+      "legend": {},
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 4,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": "row",
+          "colors": [
+            "#E55400",
+            "#E55400",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "decimals": 2,
+          "pattern": "Count",
+          "thresholds": [
+            "3",
+            "8"
+          ],
+          "type": "string",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "1",
+              "meta": {},
+              "settings": {
+                "size": 500
+              },
+              "type": "raw_document"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "query": "cleared:$cleared AND host:$host AND $globalcollection",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Alarm History",
+      "transform": "json",
+      "type": "table-old"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "AIOps_Metadata",
+      "description": "Spectrum: Top Devices By Type",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "none",
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 49
+      },
+      "id": 4,
+      "interval": null,
+      "legend": {
+        "applySeriesName": false,
+        "header": "Count",
+        "regexPattern": "",
+        "show": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "piechartDrilldownData": [],
+      "seriesnameSuggestion": [
+        "{__series_name}"
+      ],
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "deviceType",
+              "id": "3",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 1,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "field": "host",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "primaryMapCol": "deviceType",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Spectrum: Top Devices By Type",
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "AIOps_Inventory",
+      "description": "Spectrum: Top Devices By Type",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "none",
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 49
+      },
+      "id": 22,
+      "interval": null,
+      "legend": {
+        "applySeriesName": false,
+        "header": "Count",
+        "regexPattern": "",
+        "show": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "piechartDrilldownData": [],
+      "seriesnameSuggestion": [
+        "{__series_name}"
+      ],
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "additionalColumns": [
+            "vendor"
+          ],
+          "aggregations": {
+            "aggrationField": "vendor",
+            "displayUndefined": false,
+            "enableAggregation": true
+          },
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "deviceType",
+              "id": "3",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 1,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "columns": [
+            "name",
+            "state",
+            "product",
+            "location"
+          ],
+          "customPropertiesColumns": [],
+          "datasourceType": "AIops_TAS",
+          "hasJoin": false,
+          "includeTimeRange": false,
+          "isRawQuery": false,
+          "limit": "500",
+          "metrics": [
+            {
+              "field": "host",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "primaryMapCol": "deviceType",
+          "querytFilters": [
+            {
+              "expressions": [
+                {
+                  "name": "product",
+                  "operator": "MATCHES",
+                  "pointer": "",
+                  "values": [
+                    "Spectrum"
+                  ]
+                }
+              ],
+              "input": [],
+              "layer": null,
+              "logicalOperator": "AND",
+              "mode": "VERTEX_ONLY",
+              "op": "ATTRIBUTE"
+            }
+          ],
+          "rawQuery": "{\"op\": \"EMPTY\"}",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "tenantId": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Spectrum: Top Devices By Vendor",
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "AIOps_Inventory",
+      "description": "Spectrum: Top Devices By Type",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "none",
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 49
+      },
+      "id": 23,
+      "interval": null,
+      "legend": {
+        "applySeriesName": false,
+        "header": "Count",
+        "regexPattern": "",
+        "show": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "piechartDrilldownData": [],
+      "seriesnameSuggestion": [
+        "{__series_name}"
+      ],
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "additionalColumns": [
+            "resourceType"
+          ],
+          "aggregations": {
+            "aggrationField": "resourceType",
+            "displayUndefined": false,
+            "enableAggregation": true
+          },
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "deviceType",
+              "id": "3",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 1,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "columns": [
+            "name",
+            "state",
+            "product",
+            "location"
+          ],
+          "customPropertiesColumns": [],
+          "datasourceType": "AIops_TAS",
+          "hasJoin": false,
+          "includeTimeRange": false,
+          "isRawQuery": false,
+          "limit": "500",
+          "metrics": [
+            {
+              "field": "host",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "primaryMapCol": "deviceType",
+          "querytFilters": [
+            {
+              "expressions": [
+                {
+                  "name": "product",
+                  "operator": "MATCHES",
+                  "pointer": "",
+                  "values": [
+                    "Spectrum"
+                  ]
+                }
+              ],
+              "input": [],
+              "layer": null,
+              "logicalOperator": "AND",
+              "mode": "VERTEX_ONLY",
+              "op": "ATTRIBUTE"
+            }
+          ],
+          "rawQuery": "{\"op\": \"EMPTY\"}",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "tenantId": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Spectrum: Top Devices By ResourceType",
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "AIOps_Inventory",
+      "description": "Spectrum: Top Devices By Type",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "none",
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 49
+      },
+      "id": 24,
+      "interval": null,
+      "legend": {
+        "applySeriesName": false,
+        "header": "Count",
+        "regexPattern": "",
+        "show": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "piechartDrilldownData": [],
+      "seriesnameSuggestion": [
+        "{__series_name}"
+      ],
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "additionalColumns": [
+            "DeviceType"
+          ],
+          "aggregations": {
+            "aggrationField": "DeviceType",
+            "displayUndefined": false,
+            "enableAggregation": true
+          },
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "deviceType",
+              "id": "3",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 1,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "columns": [
+            "name",
+            "state",
+            "product",
+            "location"
+          ],
+          "customPropertiesColumns": [],
+          "datasourceType": "AIops_TAS",
+          "hasJoin": false,
+          "includeTimeRange": false,
+          "isRawQuery": false,
+          "limit": "500",
+          "metrics": [
+            {
+              "field": "host",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "primaryMapCol": "deviceType",
+          "querytFilters": [
+            {
+              "expressions": [
+                {
+                  "name": "product",
+                  "operator": "MATCHES",
+                  "pointer": "",
+                  "values": [
+                    "Spectrum"
+                  ]
+                }
+              ],
+              "input": [],
+              "layer": null,
+              "logicalOperator": "AND",
+              "mode": "VERTEX_ONLY",
+              "op": "ATTRIBUTE"
+            }
+          ],
+          "rawQuery": "{\"op\": \"EMPTY\"}",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "tenantId": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Spectrum: Top Devices DeviceType",
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": "AIOps_Inventory",
+      "description": "Spectrum: Top Devices By Type",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 57
+      },
+      "id": 25,
+      "legend": {},
+      "links": [],
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 3,
+        "desc": false
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "alias": "",
+          "align": "right",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "additionalColumns": [
+            "vendor",
+            "description",
+            "DeviceType",
+            "sysDescr"
+          ],
+          "aggregations": {
+            "aggrationField": "vendor",
+            "displayUndefined": false,
+            "enableAggregation": false
+          },
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "deviceType",
+              "id": "3",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 1,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "columns": [
+            "name",
+            "product",
+            "host"
+          ],
+          "customPropertiesColumns": [],
+          "datasourceType": "AIops_TAS",
+          "hasJoin": false,
+          "includeTimeRange": false,
+          "isRawQuery": false,
+          "limit": "500",
+          "metrics": [
+            {
+              "field": "host",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_spectrum_1",
+          "primaryMapCol": "deviceType",
+          "querytFilters": [
+            {
+              "expressions": [
+                {
+                  "name": "product",
+                  "operator": "MATCHES",
+                  "pointer": "",
+                  "values": [
+                    "Spectrum"
+                  ]
+                },
+                {
+                  "name": "hidden",
+                  "operator": "NOT_IN",
+                  "pointer": "",
+                  "values": [
+                    "true"
+                  ]
+                }
+              ],
+              "input": [],
+              "layer": null,
+              "logicalOperator": "AND",
+              "mode": "VERTEX_ONLY",
+              "op": "ATTRIBUTE"
+            }
+          ],
+          "rawQuery": "{\"op\": \"EMPTY\"}",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "tenantId": "",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Spectrum: Raw Inventory",
+      "transform": "table",
+      "type": "table-old"
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": [
+    "1demo"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "false",
+          "value": "false"
+        },
+        "datasource": "AIOps_Metadata",
+        "definition": "{\"find\": \"terms\", \"field\": \"cleared\", \"query\":\"_index:ao_itoa_alarms_spectrum*\"}",
+        "description": null,
+        "error": null,
+        "excludeTime": false,
+        "hide": 0,
+        "includeAll": true,
+        "label": "Alarm Cleared",
+        "multi": false,
+        "name": "cleared",
+        "options": [],
+        "query": "{\"find\": \"terms\", \"field\": \"cleared\", \"query\":\"_index:ao_itoa_alarms_spectrum*\"}",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "AIOps_Metadata",
+        "definition": "{\"find\": \"terms\", \"field\": \"host\", \"query\":\"_index:ao_itoa_alarms_spectrum*\"}",
+        "description": null,
+        "error": null,
+        "excludeTime": false,
+        "hide": 0,
+        "includeAll": true,
+        "label": "host",
+        "multi": true,
+        "name": "host",
+        "options": [],
+        "query": "{\"find\": \"terms\", \"field\": \"host\", \"query\":\"_index:ao_itoa_alarms_spectrum*\"}",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "AIOps_Metadata",
+        "definition": "{\"find\": \"terms\", \"field\": \"globalCollection\", \"query\":\"_index:ao_itoa_alarms_spectrum*\"}",
+        "description": null,
+        "error": null,
+        "excludeTime": false,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "globalcollection",
+        "options": [],
+        "query": "{\"find\": \"terms\", \"field\": \"globalCollection\", \"query\":\"_index:ao_itoa_alarms_spectrum*\"}",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "AIOps_Metadata",
+        "definition": "{\"find\": \"terms\", \"field\": \"modeltypeName\", \"query\":\"_index:ao_itoa_alarms_spectrum*\"}",
+        "description": null,
+        "error": null,
+        "excludeTime": false,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "modeltype",
+        "options": [],
+        "query": "{\"find\": \"terms\", \"field\": \"modeltypeName\", \"query\":\"_index:ao_itoa_alarms_spectrum*\"}",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Spectrum:  Fault Overview Console",
+  "uid": "HVMYXMEZk",
+  "version": 2
+}
