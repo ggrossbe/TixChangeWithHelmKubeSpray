@@ -1,0 +1,1392 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 187300,
+  "iteration": 1678332277322,
+  "links": [
+    {
+      "icon": "doc",
+      "includeVars": true,
+      "keepTime": true,
+      "targetBlank": true,
+      "title": "PDF",
+      "tooltip": "View Report",
+      "type": "link",
+      "url": "https://dxi-dashboard-reporter.dxi-na1.saas.broadcom.com/api/v5/report/Yahiep0Zz5NASS1"
+    }
+  ],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 2,
+      "description": "Top 10 Devices with CPU Utilization",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 8,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "legend": {
+        "alignAsTable": false,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "host",
+            "aggregationCatergory": "customAttribute",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "expressions": [
+                    {
+                      "name": "origin",
+                      "operator": "MATCHES",
+                      "values": [
+                        "$Group"
+                      ]
+                    },
+                    {
+                      "name": "host",
+                      "operator": "MATCHES",
+                      "values": [
+                        "$Host"
+                      ]
+                    },
+                    {
+                      "name": "metric_type",
+                      "operator": "IN",
+                      "values": [
+                        "1.5:1"
+                      ]
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ATTRIBUTE"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "UIM\\|.*"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": "BROADCOM_IT"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "CPU Utilization",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "percent",
+          "label": "Avg. CPU Utilization",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "AIOps_Metrics",
+      "description": "Top 10 Devices with Max CPU Utilization Details",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "center",
+            "displayMode": "basic",
+            "filterable": false
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Series Name"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Device Name"
+              },
+              {
+                "id": "custom.displayMode"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Average"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Max"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "min"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Min"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 4,
+      "legend": {},
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "7.5.14",
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value",
+              "max",
+              "min"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "host",
+            "aggregationCatergory": "customAttribute",
+            "displayTimeSeries": false,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP",
+            "resultFormat": "Table"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "expressions": [
+                    {
+                      "name": "origin",
+                      "operator": "MATCHES",
+                      "values": [
+                        "$Group"
+                      ]
+                    },
+                    {
+                      "name": "host",
+                      "operator": "MATCHES",
+                      "values": [
+                        "$Host"
+                      ]
+                    },
+                    {
+                      "name": "metric_type",
+                      "operator": "IN",
+                      "values": [
+                        "1.5:1"
+                      ]
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ATTRIBUTE"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "UIM\\|.*"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": "BROADCOM_IT"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU Utilization Details",
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 2,
+      "description": "Top 10 Devices with Memory Utilization",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 6,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 6,
+      "legend": {
+        "alignAsTable": false,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "host",
+            "aggregationCatergory": "customAttribute",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "expressions": [
+                    {
+                      "name": "origin",
+                      "operator": "MATCHES",
+                      "values": [
+                        "$Group"
+                      ]
+                    },
+                    {
+                      "name": "host",
+                      "operator": "MATCHES",
+                      "values": [
+                        "$Host"
+                      ]
+                    },
+                    {
+                      "name": "metric_type",
+                      "operator": "IN",
+                      "values": [
+                        "1.6:2"
+                      ]
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ATTRIBUTE"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "UIM\\|.*"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": "BROADCOM_IT"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Memory Utilization",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percent",
+          "label": "Avg. Memory Utilization",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "AIOps_Metrics",
+      "description": "Top 10 Devices with Max Memory Utilization Details",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "center",
+            "displayMode": "basic",
+            "filterable": false
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Series Name"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Device Name"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Average"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Max"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "min"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Min"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Device Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": null
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 8,
+      "legend": {},
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.5.14",
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value",
+              "max",
+              "min"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "host",
+            "aggregationCatergory": "customAttribute",
+            "displayTimeSeries": false,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP",
+            "resultFormat": "Table"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "expressions": [
+                    {
+                      "name": "origin",
+                      "operator": "MATCHES",
+                      "values": [
+                        "$Group"
+                      ]
+                    },
+                    {
+                      "name": "host",
+                      "operator": "MATCHES",
+                      "values": [
+                        "$Host"
+                      ]
+                    },
+                    {
+                      "name": "metric_type",
+                      "operator": "IN",
+                      "values": [
+                        "1.6:2"
+                      ]
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ATTRIBUTE"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "UIM\\|.*"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": "BROADCOM_IT"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Memory Utilization Details",
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "description": "Top 10 Devices with Disk Utilization",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 6,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 10,
+      "legend": {
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "host",
+            "aggregationCatergory": "customAttribute",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "expressions": [
+                    {
+                      "name": "origin",
+                      "operator": "MATCHES",
+                      "values": [
+                        "$Group"
+                      ]
+                    },
+                    {
+                      "name": "host",
+                      "operator": "MATCHES",
+                      "values": [
+                        "$Host"
+                      ]
+                    },
+                    {
+                      "name": "metric_type",
+                      "operator": "IN",
+                      "values": [
+                        "1.5:1"
+                      ]
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ATTRIBUTE"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "UIM\\|.*"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": "BROADCOM_IT"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Disk Utilization",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 2,
+          "format": "none",
+          "label": "Avg. Disk Utilization",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "AIOps_Metrics",
+      "description": "Top 10 Devices with Max Disk Utilization Details",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "center",
+            "displayMode": "basic",
+            "filterable": false
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Series Name"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode"
+              },
+              {
+                "id": "displayName",
+                "value": "Device Name"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Average"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Max"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "min"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Min"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "id": 12,
+      "legend": {},
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "7.5.14",
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value",
+              "max",
+              "min"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "host",
+            "aggregationCatergory": "customAttribute",
+            "displayTimeSeries": false,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP",
+            "resultFormat": "Table"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "expressions": [
+                    {
+                      "name": "origin",
+                      "operator": "MATCHES",
+                      "values": [
+                        "$Group"
+                      ]
+                    },
+                    {
+                      "name": "host",
+                      "operator": "MATCHES",
+                      "values": [
+                        "$Host"
+                      ]
+                    },
+                    {
+                      "name": "metric_type",
+                      "operator": "IN",
+                      "values": [
+                        "1.5:1"
+                      ]
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ATTRIBUTE"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "UIM\\|.*"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": "BROADCOM_IT"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Disk Utilization Details",
+      "type": "table"
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": [
+    "1demo"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "AIOps_Inventory",
+        "definition": "{\"queryField\":\"name\",\"size\":\"100\",\"tenant\":\"BROADCOM_IT\",\"isRawQuery\":false,\"queryFilters\":{\"mode\":\"VERTEX_ONLY\",\"expressions\":[{\"name\":\"product\",\"pointer\":\"\",\"values\":[\"UIM\"],\"operator\":\"IN\"},{\"name\":\"typeName\",\"pointer\":\"\",\"values\":[\"CS\"],\"operator\":\"IN\"}],\"layer\":\"INFRASTRUCTURE_UIM\",\"op\":\"ATTRIBUTE\",\"query\":\"\"}}",
+        "description": null,
+        "error": null,
+        "excludeTime": true,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "Host",
+        "options": [],
+        "query": "{\"queryField\":\"name\",\"size\":\"100\",\"tenant\":\"BROADCOM_IT\",\"isRawQuery\":false,\"queryFilters\":{\"mode\":\"VERTEX_ONLY\",\"expressions\":[{\"name\":\"product\",\"pointer\":\"\",\"values\":[\"UIM\"],\"operator\":\"IN\"},{\"name\":\"typeName\",\"pointer\":\"\",\"values\":[\"CS\"],\"operator\":\"IN\"}],\"layer\":\"INFRASTRUCTURE_UIM\",\"op\":\"ATTRIBUTE\",\"query\":\"\"}}",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "AIOps_Inventory",
+        "definition": "{\"queryField\":\"origins\",\"size\":100,\"tenant\":\"BROADCOM_IT\",\"isRawQuery\":false,\"queryFilters\":{\"mode\":\"VERTEX_ONLY\",\"expressions\":[{\"name\":\"product\",\"pointer\":\"\",\"values\":[\"UIM\"],\"operator\":\"IN\"},{\"name\":\"typeName\",\"pointer\":\"\",\"values\":[\"CS\"],\"operator\":\"IN\"}],\"layer\":\"INFRASTRUCTURE_UIM\",\"op\":\"ATTRIBUTE\",\"query\":\"\"}}",
+        "description": null,
+        "error": null,
+        "excludeTime": true,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "Group",
+        "options": [],
+        "query": "{\"queryField\":\"origins\",\"size\":100,\"tenant\":\"BROADCOM_IT\",\"isRawQuery\":false,\"queryFilters\":{\"mode\":\"VERTEX_ONLY\",\"expressions\":[{\"name\":\"product\",\"pointer\":\"\",\"values\":[\"UIM\"],\"operator\":\"IN\"},{\"name\":\"typeName\",\"pointer\":\"\",\"values\":[\"CS\"],\"operator\":\"IN\"}],\"layer\":\"INFRASTRUCTURE_UIM\",\"op\":\"ATTRIBUTE\",\"query\":\"\"}}",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "1UIM: Top  10 Devices By Utilization",
+  "uid": "Yahiep0Zz5NASS1_aig",
+  "version": 2
+}
