@@ -1,0 +1,1075 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 199335,
+  "links": [
+    {
+      "icon": "doc",
+      "includeVars": true,
+      "keepTime": true,
+      "targetBlank": true,
+      "title": "PDF",
+      "tooltip": "View Report",
+      "type": "link"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "dark mode",
+      "tooltip": "Enable dark mode",
+      "type": "link",
+      "url": "https://dxi-dashboard.dxi-na1.saas.broadcom.com/d/GqfeKbV4z/critical-app-uptime-percentage-dashboard?orgId=782&theme=dark"
+    }
+  ],
+  "panels": [
+    {
+      "datasource": "AIOps_Metrics",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [],
+          "min": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "transformMode": "",
+                "transformValue": "",
+                "value": null
+              },
+              {
+                "color": "green",
+                "transformMode": "",
+                "transformValue": "",
+                "value": 0.994
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cef9e448-2028-477c-b37c-ff0922da71b3:BuyOnline Uptime Availability Percentage"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ConvertRawUptime"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 3,
+        "x": 5,
+        "y": 0
+      },
+      "id": 17,
+      "legend": {},
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.14",
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ],
+            "stackOnSeriesAlias": false
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP",
+            "resultFormat": "Table"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ".*:.*(?:Uptime|Availability).*Percentage.*"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "queryType": "randomWalk",
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ".*NA_Provisioning SLO UC1 Error Budget"
+                },
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "OR",
+                  "op": "REGEX",
+                  "pattern": ".*NA_Provisioning SLO UC1 Percentage"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "OI\\|SA\\|SERVICES\\|ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "NA_Provisioning Uptime Percentage",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "LostErrorBudgetSec",
+            "binary": {
+              "left": "3628",
+              "operator": "-",
+              "reducer": "sum",
+              "right": "3edee60f-d2be-47b3-8fc9-726d633e0cdc:NA_Provisioning SLO UC1 Error Budget"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "RemaingTimeSec",
+            "binary": {
+              "left": "604800",
+              "operator": "-",
+              "reducer": "sum",
+              "right": "LostErrorBudgetSec"
+            },
+            "mode": "binary",
+            "reduce": {
+              "include": [
+                "3edee60f-d2be-47b3-8fc9-726d633e0cdc:NA_Provisioning SLO UC1 Error Budget"
+              ],
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "UptimePerc",
+            "binary": {
+              "left": "RemaingTimeSec",
+              "operator": "/",
+              "reducer": "sum",
+              "right": "604800"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "1621db29-56c7-4401-888e-702303a310b6:BlueQuote Uptime Error Budget": true,
+              "1621db29-56c7-4401-888e-702303a310b6:BlueQuote Uptime Percentage": true,
+              "3d9e0987-1c87-4065-bcb8-a30540533c67:BlueConnect 2.0 Availability Error Budget": true,
+              "3d9e0987-1c87-4065-bcb8-a30540533c67:BlueConnect 2.0 Availability Percentage": true,
+              "634160e7-3cbc-45dd-bf68-1d0743d9b061:Bluee 2.0 Availability Metric Error Budget": true,
+              "634160e7-3cbc-45dd-bf68-1d0743d9b061:Bluee 2.0 Availability Metric Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Aug22 Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Aug22 Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Oct22 Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Oct22 Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Oct22x Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Oct22x Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Sept22 Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Sept22 Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability2 Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability2 Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability3 Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability3 Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Uptime Availability Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Uptime Availability Percentage": true,
+              "AdjAmt": true,
+              "AdjustedTime": true,
+              "ConvertRawUptime": true,
+              "ErrorBudgetHours": true,
+              "NewErrBudget": false,
+              "NewOutageTime": true,
+              "NewUptime": true,
+              "NewUptimePercent": false,
+              "Time": true,
+              "cef9e448-2028-477c-b37c-ff0922da71b3:BuyOnline Uptime Availability Error Budget": true,
+              "cef9e448-2028-477c-b37c-ff0922da71b3:BuyOnline Uptime Availability Percentage": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "cef9e448-2028-477c-b37c-ff0922da71b3:BuyOnline Uptime Availability Error Budget": "BuyOnline Uptime Availability Error Budget"
+            }
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "UptimePerc"
+              ],
+              "pattern": "N"
+            }
+          }
+        }
+      ],
+      "type": "gauge"
+    },
+    {
+      "datasource": "AIOps_Metrics",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [],
+          "min": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "transformMode": "",
+                "transformValue": "",
+                "value": null
+              },
+              {
+                "color": "green",
+                "transformMode": "",
+                "transformValue": "",
+                "value": 0.994
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cef9e448-2028-477c-b37c-ff0922da71b3:BuyOnline Uptime Availability Percentage"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ConvertRawUptime"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 3,
+        "x": 14,
+        "y": 0
+      },
+      "id": 24,
+      "legend": {},
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.14",
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ],
+            "stackOnSeriesAlias": false
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP",
+            "resultFormat": "Table"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ".*:.*(?:Uptime|Availability).*Percentage.*"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "queryType": "randomWalk",
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ".*EMEA_Provisioning SLO UC2 Error Budget"
+                },
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "OR",
+                  "op": "REGEX",
+                  "pattern": ".*EMEA_Provisioning SLO UC2 Percentage"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "OI\\|SA\\|SERVICES\\|ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "EMEA_Provisioning Uptime Percentage",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "LostErrorBudgetSec",
+            "binary": {
+              "left": "3628",
+              "operator": "-",
+              "reducer": "sum",
+              "right": "640dc742-78da-4f48-a4bb-7caffc9d8cf1:EMEA_Provisioning SLO UC2 Error Budget"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "RemaingTimeSec",
+            "binary": {
+              "left": "60480000",
+              "operator": "-",
+              "reducer": "sum",
+              "right": "LostErrorBudgetSec"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "UptimePerc",
+            "binary": {
+              "left": "RemaingTimeSec",
+              "operator": "/",
+              "reducer": "sum",
+              "right": "60480000"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "1621db29-56c7-4401-888e-702303a310b6:BlueQuote Uptime Error Budget": true,
+              "1621db29-56c7-4401-888e-702303a310b6:BlueQuote Uptime Percentage": true,
+              "3d9e0987-1c87-4065-bcb8-a30540533c67:BlueConnect 2.0 Availability Error Budget": true,
+              "3d9e0987-1c87-4065-bcb8-a30540533c67:BlueConnect 2.0 Availability Percentage": true,
+              "634160e7-3cbc-45dd-bf68-1d0743d9b061:Bluee 2.0 Availability Metric Error Budget": true,
+              "634160e7-3cbc-45dd-bf68-1d0743d9b061:Bluee 2.0 Availability Metric Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Aug22 Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Aug22 Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Oct22 Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Oct22 Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Oct22x Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Oct22x Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Sept22 Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability Sept22 Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability2 Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability2 Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability3 Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Availability3 Percentage": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Uptime Availability Error Budget": true,
+              "7c3d7812-1b64-45d2-b96d-6ec55e7bc300:BlueCrossNC Uptime Availability Percentage": true,
+              "AdjAmt": true,
+              "AdjustedTime": true,
+              "ConvertRawUptime": true,
+              "ErrorBudgetHours": true,
+              "NewErrBudget": false,
+              "NewOutageTime": true,
+              "NewUptime": true,
+              "NewUptimePercent": false,
+              "Time": true,
+              "cef9e448-2028-477c-b37c-ff0922da71b3:BuyOnline Uptime Availability Error Budget": true,
+              "cef9e448-2028-477c-b37c-ff0922da71b3:BuyOnline Uptime Availability Percentage": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "cef9e448-2028-477c-b37c-ff0922da71b3:BuyOnline Uptime Availability Error Budget": "BuyOnline Uptime Availability Error Budget"
+            }
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "UptimePerc"
+              ],
+              "pattern": "N"
+            }
+          }
+        }
+      ],
+      "type": "gauge"
+    },
+    {
+      "datasource": "AIOps_Metrics",
+      "description": "based on 99.4% over 1 Week Roll Up",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "transformMode": "",
+                "transformValue": "",
+                "value": null
+              },
+              {
+                "color": "green",
+                "transformMode": "",
+                "transformValue": "",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Bluee 2.0"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 21,
+        "x": 0,
+        "y": 6
+      },
+      "id": 7,
+      "legend": {},
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {
+          "titleSize": 10
+        },
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "7.5.14",
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ],
+            "stackOnSeriesAlias": false
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP",
+            "resultFormat": "Time Series"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ".*:.*(?:Uptime|Availability).*Percentage.*"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "queryType": "randomWalk",
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ".*_Provisioning SLO UC.* Error Budget"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "OI\\|SA\\|SERVICES\\|ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Uptime Error Budget Remaining (with Maintenance)",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "NA Provisioning",
+            "binary": {
+              "left": "3edee60f-d2be-47b3-8fc9-726d633e0cdc:NA_Provisioning SLO UC1 Error Budget",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "0"
+            },
+            "mode": "reduceRow",
+            "reduce": {
+              "include": [
+                "3edee60f-d2be-47b3-8fc9-726d633e0cdc:NA_Provisioning SLO UC1 Error Budget"
+              ],
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "EMEA Provisioning",
+            "binary": {
+              "left": "640dc742-78da-4f48-a4bb-7caffc9d8cf1:EMEA_Provisioning SLO UC2 Error Budget",
+              "operator": "+",
+              "reducer": "sum",
+              "right": "0"
+            },
+            "mode": "binary",
+            "reduce": {
+              "include": [
+                "640dc742-78da-4f48-a4bb-7caffc9d8cf1:EMEA_Provisioning SLO UC2 Error Budget"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "3edee60f-d2be-47b3-8fc9-726d633e0cdc:NA_Provisioning SLO UC1 Error Budget": "not needed",
+              "3edee60f-d2be-47b3-8fc9-726d633e0cdc:NA_Provisioning SLO UC2 Error Budget": "not needed",
+              "640dc742-78da-4f48-a4bb-7caffc9d8cf1:EMEA_Provisioning SLO UC2 Error Budget": "not needed",
+              "NA Provisioning": ""
+            }
+          }
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "NA Provisioning",
+                "EMEA Provisioning"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "description": "3 or more consecutive failures is considered an outage",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 10,
+        "w": 21,
+        "x": 0,
+        "y": 11
+      },
+      "id": 4,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": false,
+        "regexPattern": "App Synthetic Monitor\\|Monitors\\|.*\\|(.*):Consecutive Errors",
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ],
+            "stackOnSeriesAlias": false
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP",
+            "resultFormat": "Time Series"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ".*:.*(?:Uptime|Availability).*Percentage.*"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "queryType": "randomWalk",
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ".*(App2Net\\|TixChangeApp2NetUC.*):Consecutive Errors"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ".*App Synthetic Monitor.*"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [
+        {
+          "$$hashKey": "object:149",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 2,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Synthetic Monitor Consecutive Failures",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:66",
+          "decimals": 0,
+          "format": "short",
+          "label": "Uptime%",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:67",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": [
+    "uptime"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now/M",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "1.Critical App Uptime Percentage Dashboard",
+  "uid": "GqfeKbV4z",
+  "version": 23
+}
