@@ -1,0 +1,12 @@
+curl 'http://10.150.0.49:3080/v2/projects/273b8626-f7e2-407c-8d4e-da12d9262ca2/nodes/9bb57256-118f-47c7-b61a-342d389f2e01/start' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Cookie: _ga=GA1.1.470010822.1679073613; _ga_5D6FZL9923=GS1.1.1679073612.1.1.1679073616.0.0.0' \
+  -H 'Origin: http://10.150.0.49:3080' \
+  -H 'Referer: http://10.150.0.49:3080/static/web-ui/server/1/project/273b8626-f7e2-407c-8d4e-da12d9262ca2' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36' \
+  --data-raw '{}' \
+  --compressed \
+  --insecure
