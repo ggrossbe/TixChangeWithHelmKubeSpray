@@ -1,0 +1,3 @@
+echo Restoring the Router .. press enter ...
+
+./scripts/restoreGNS3Router.sh
