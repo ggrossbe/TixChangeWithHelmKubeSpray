@@ -1,3 +1,0 @@
-SpectrumNCM.sh
-
-logAnalytics.sh
