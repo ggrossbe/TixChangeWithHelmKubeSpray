@@ -354,10 +354,14 @@ stopDeleteAll () {
   removeLogCollector
   removeOpenTracingMonitoring
 
-  rm -rf $INSTALLATION_FOLDER/*
-
-  mkdir -p $INSTALLATION_FOLDER/logs 2> /dev/null
-
+  if [ -n "$INSTALLATION_FOLDER" ]; then
+    rm -rf $INSTALLATION_FOLDER/*
+    mkdir -p $INSTALLATION_FOLDER/logs 2> /dev/null
+  else
+    logMsg "\$INSTALLATION_FOLDER is not set. Exiting ..."
+    exit
+  fi
+  
   LOG_FILE_NAME=TixChangeInstallerLog`date +%Y_%m_%d_%H_%M`.log
   LOG_FILE=$INSTALLATION_FOLDER/logs/$LOG_FILE_NAME  
 }
@@ -383,9 +387,9 @@ Usage () {
   echo "Options: "
   echo "  a : install all (K8s,Helm, UMA, TixChange, BPA Selenium, EM side - Universes, Exp View, Mgmt Mod)"
   #echo "  p : run the pre-req"
-   echo "  r : re-install & run just app components (helm, uma, tixchange, BPA, AWS, ASM, Jenkins, selenium, EM side - Universes, Exp View, Mgmt Mod)"
-   echo "  u : install & run just uma"
-   echo "  t : install & run just tixChange"
+  echo "  r : re-install & run just app components (helm, uma, tixchange, BPA, AWS, ASM, Jenkins, selenium, EM side - Universes, Exp View, Mgmt Mod)"
+  echo "  u : install & run just uma"
+  echo "  t : install & run just tixChange"
   echo "  s : install & run just selenium"
   echo "  e : EM side configuration: Setup Universes, import mgmt module etc"
   #echo "  b : install and configure HTTPD, BT Listener for BPA"
@@ -393,7 +397,7 @@ Usage () {
   echo "  o : Create Domain Based (Telco, Banking, Insurance) OI Service Model "
   echo "  l : Setup log Collector"
   echo "  j : Setup Jenkins"
-  echo "  c : cleanup and unintsall everything"
+  echo "  c : cleanup and uninstall everything"
 
 }
 
