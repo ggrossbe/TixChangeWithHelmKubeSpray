@@ -1,0 +1,4961 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 206306,
+  "iteration": 1686574489930,
+  "links": [
+    {
+      "icon": "doc",
+      "includeVars": true,
+      "keepTime": true,
+      "targetBlank": true,
+      "title": "PDF",
+      "tooltip": "View Report",
+      "type": "link",
+      "url": "https://dxi-dashboard-reporter.dxi-na1.saas.broadcom.com/api/v5/report/AWSOverview"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "AWS Cloud Monitoring"
+      ],
+      "targetBlank": true,
+      "title": "AWS Cloud Monitoring",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "panels": [
+    {
+      "cacheTimeout": null,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      "id": 97,
+      "legend": {},
+      "links": [],
+      "options": {
+        "content": "<center><br><img src=\"/public/img/logos/AWS.svg\" alt=\"Amazon Web Services\"  width=\"800\" height=\"140\"></center>",
+        "mode": "html"
+      },
+      "pluginVersion": "7.5.14",
+      "timeFrom": null,
+      "timeShift": null,
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 2,
+        "x": 8,
+        "y": 0
+      },
+      "id": 88,
+      "legend": {},
+      "options": {
+        "content": "<div style=\"background-color:#FF9900;padding:100px 0 90px 0\">\r\n<center><span style='font-size:40px;'>⚠️</span>\r\n<h5>Alarm</a></h5></center>\r\n</div>",
+        "mode": "html"
+      },
+      "pluginVersion": "7.5.14",
+      "timeFrom": null,
+      "timeShift": null,
+      "type": "text"
+    },
+    {
+      "columns": [
+        {
+          "$$hashKey": "object:87",
+          "text": "Total",
+          "value": "total"
+        }
+      ],
+      "datasource": "AIOps_Metadata_ts",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 10,
+        "y": 0
+      },
+      "id": 93,
+      "legend": {},
+      "pageSize": null,
+      "repeatDirection": "h",
+      "showHeader": true,
+      "sort": {
+        "col": null,
+        "desc": false
+      },
+      "styles": [
+        {
+          "$$hashKey": "object:89",
+          "alias": "Instances",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "link": false,
+          "mappingType": 1,
+          "newPattern": "/Region\\|(.*)/",
+          "pattern": "Metric",
+          "preserveFormat": false,
+          "type": "string",
+          "valueMaps": []
+        },
+        {
+          "$$hashKey": "object:90",
+          "alias": "Total Alarms",
+          "align": "right",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 0,
+          "pattern": "Total",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "$$hashKey": "object:701",
+              "fake": true,
+              "field": "ci_unique_id",
+              "id": "7",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "$$hashKey": "object:474",
+              "fake": true,
+              "field": "status",
+              "id": "6",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "$$hashKey": "object:150",
+              "field": "timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "$$hashKey": "object:147",
+              "field": "select field",
+              "id": "4",
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_all_3",
+          "primaryMapCol": "ci_unique_id",
+          "query": "ci_unique_id:/.*AWS\\|Account\\|${Account:regex}\\|Region\\|${Region:regex}\\|.*/ AND NOT status:closed",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Alarms by Top AWS Instances",
+      "transform": "timeseries_aggregations",
+      "type": "table-old"
+    },
+    {
+      "aliasColors": {
+        "critical": "#de1b1b",
+        "major": "#ff944d",
+        "minor": "#f7cd3b",
+        "warning": "#f7cd3b"
+      },
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metadata_ts",
+      "decimals": 0,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 17,
+        "y": 0
+      },
+      "id": 38,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "$$hashKey": "object:197",
+              "field": "timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "$$hashKey": "object:194",
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_all_3",
+          "query": "ci_unique_id:/.*AWS\\|Account\\|${Account:regex}\\|Region\\|${Region:regex}\\|.*/ AND NOT status:closed",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "timestamp"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Open Alarms",
+      "tooltip": {
+        "shared": false,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "total"
+        ]
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:267",
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:268",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 8,
+        "x": 0,
+        "y": 5
+      },
+      "id": 90,
+      "legend": {},
+      "options": {
+        "content": "## **Account:** $Account    \n### **Region:** $Region\n\n\n\n\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "7.5.14",
+      "timeFrom": null,
+      "timeShift": null,
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 28,
+      "legend": {},
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 2,
+            "x": 0,
+            "y": 9
+          },
+          "id": 85,
+          "legend": {},
+          "options": {
+            "content": "\r\n<div style=\"background-color:#3F8624;padding:100px 0 85px 0;\">\r\n<center><span style='font-size:40px;'><a style=\"text-decoration:none\" href=\"/d/AWSBilling/aws-billing?${Account:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\"><img src=\"/public/img/logos/AWS-Cost-Management.svg\" width=\"62\" height=\"62\"></a></a></span>\r\n<h5><a href=\"/d/AWSBilling/aws-billing?${Account:queryparam}&${Region:queryparam}&${__url_time_range}\" target=\"_blank\">Billing</a></h5></center>\r\n</div>",
+            "mode": "html"
+          },
+          "pluginVersion": "7.5.14",
+          "timeFrom": null,
+          "timeShift": null,
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "AIOps_Metrics",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 2,
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 1,
+                  "operator": "",
+                  "text": "",
+                  "to": "",
+                  "type": 1,
+                  "value": ""
+                }
+              ],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 2,
+            "y": 9
+          },
+          "id": 8,
+          "legend": {},
+          "links": [],
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "regexPattern": "",
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.5.14",
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": false,
+                "enableAggregation": false,
+                "limit": "",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "AWS\\|Account\\|$Account\\|Billing\\:Consolidated Bill"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Consolidated Monthly Bill",
+          "type": "stat"
+        },
+        {
+          "aliasColors": {},
+          "breakPoint": "25%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "AIOps_Metrics",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "fontSize": "80%",
+          "format": "short",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 6,
+            "y": 9
+          },
+          "id": 10,
+          "interval": null,
+          "legend": {
+            "applySeriesName": true,
+            "percentage": true,
+            "regexPattern": "/By Service\\:(.*)/",
+            "show": true,
+            "sideWidth": 100,
+            "sort": "current",
+            "sortDesc": true,
+            "values": true
+          },
+          "legendType": "Under graph",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "donut",
+          "piechartDrilldownData": [],
+          "repeat": null,
+          "repeatDirection": "h",
+          "seriesnameSuggestion": [
+            "{__series_name}"
+          ],
+          "strokeWidth": 1,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": false,
+                "enableAggregation": false,
+                "limit": "",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "AWS\\|Account\\|$Account\\|Billing\\|By Service\\:.*"
+                    },
+                    {
+                      "ignoreCase": false,
+                      "isNot": true,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "AWS\\|Account\\|$Account\\|Billing\\|By Service\\:Tax"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "AWS Billing Breakdown By Service",
+          "type": "grafana-piechart-panel",
+          "valueName": "current"
+        },
+        {
+          "aliasColors": {},
+          "breakPoint": "25%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "AIOps_Metrics",
+          "description": "`Region` Filter not applicable.",
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "fontSize": "80%",
+          "format": "short",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 12,
+            "y": 9
+          },
+          "id": 12,
+          "interval": null,
+          "legend": {
+            "applySeriesName": true,
+            "header": "",
+            "percentage": true,
+            "regexPattern": "/By Region Service\\|(.*)\\:/",
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "values": true
+          },
+          "legendType": "Under graph",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "donut",
+          "piechartDrilldownData": [],
+          "seriesnameSuggestion": [
+            "{__series_name}"
+          ],
+          "strokeWidth": 1,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": false,
+                "enableAggregation": false,
+                "limit": "",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "AWS\\|Account\\|$Account\\|Billing\\|By Region Service\\|.*\\:Total Bill"
+                    },
+                    {
+                      "ignoreCase": false,
+                      "isNot": true,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "AWS\\|Account\\|$Account\\|Billing\\|By Region Service\\|global\\:Total Bill"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "AWS Billing Breakdown By Region",
+          "type": "grafana-piechart-panel",
+          "valueName": "current"
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 2,
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 8,
+          "fillGradient": 7,
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 18,
+            "y": 9
+          },
+          "id": 87,
+          "legend": {
+            "alignAsTable": true,
+            "applySeriesName": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "regexPattern": "/By Region Service\\|(.*)/",
+            "rightSide": false,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": false,
+                "enableAggregation": false,
+                "limit": "",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "AWS\\|Account\\|$Account\\|Billing\\|By Region Service\\|${Region:regex}\\:.*"
+                    },
+                    {
+                      "ignoreCase": false,
+                      "isNot": true,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "AWS\\|Account\\|$Account\\|Billing\\|By Region Service\\|$Region\\:Total Bill"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Billing By Region and Service",
+          "tooltip": {
+            "shared": false,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "series",
+            "name": null,
+            "show": false,
+            "values": [
+              "current"
+            ]
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "Billing",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "decimals": null,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "AIOps_Metrics",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 2,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 2,
+            "y": 13
+          },
+          "id": 6,
+          "legend": {},
+          "links": [],
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "regexPattern": "",
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.5.14",
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": false,
+                "enableAggregation": false,
+                "limit": "",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "AWS\\|Account\\|$Account\\|Billing\\:Estimated Charges"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Estimated Monthly Charges",
+          "type": "stat"
+        }
+      ],
+      "title": "Billing",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 24,
+      "legend": {},
+      "panels": [],
+      "title": "EC2",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 2,
+        "x": 0,
+        "y": 10
+      },
+      "id": 40,
+      "legend": {},
+      "options": {
+        "content": "\r\n<div style=\"background-color:#D86613;padding:100px 0 90px 0;\">\r\n<center><span><a href=\"/d/AWS-EC2-CM/aws-ec2?${Account:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\"><img src=\"/public/img/logos/EC2.svg\" width=\"62\" height=\"62\"></a></span>\r\n<h5><a href=\"/d/AWS-EC2-CM/aws-ec2?${Account:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\">EC2</a></h5></center>\r\n</div>\r\n\r\n",
+        "mode": "html"
+      },
+      "pluginVersion": "7.5.14",
+      "timeFrom": null,
+      "timeShift": null,
+      "type": "text"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 2,
+        "y": 10
+      },
+      "id": 42,
+      "legend": {
+        "applySeriesName": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Region\\|(.*)\\|/",
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|EC2\\:Active Resource Count"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Active Resource Count",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": false,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:121",
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:122",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 10
+      },
+      "id": 94,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/\\|EC2\\|(.*)\\:/",
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": "100",
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|EC2\\|.*\\:CPU Utilization \\(\\%\\)"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "CPU Utilization Percentage",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percent",
+          "label": "CPU Utilization",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 10
+      },
+      "id": 95,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/\\|EC2\\|(.*)\\:/",
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|EC2\\|.*\\:Network In"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Network In",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": "Network In",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 10
+      },
+      "id": 50,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/\\|EC2\\|(.*)\\:/",
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|EC2\\|.*\\:Disk Write Bytes"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Disk Write Bytes",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": "Disk Write",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 2,
+        "y": 14
+      },
+      "id": 44,
+      "legend": {
+        "applySeriesName": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Region\\|(.*)\\|/",
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|EC2\\:In-Active Resource Count"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "In-Active Resource Count",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": false,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "id": 22,
+      "legend": {},
+      "panels": [],
+      "title": "RDS",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 2,
+        "x": 0,
+        "y": 19
+      },
+      "id": 52,
+      "legend": {},
+      "options": {
+        "content": "\r\n<div style=\"background-color:#3B48CC;padding:105px 0 85px 0;\">\r\n<center><span><a href=\"/d/AWS-RDS_CM/aws-rds?${Account:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\"><img src=\"/public/img/logos/RDS.svg\" width=\"62\" height=\"62\"></a></span>\r\n<h5><a href=\"/d/AWS-RDS-CM/aws-rds?${Account:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\">RDS</a></h5></center>\r\n</div>",
+        "mode": "html"
+      },
+      "pluginVersion": "7.5.14",
+      "timeFrom": null,
+      "timeShift": null,
+      "type": "text"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 2,
+        "y": 19
+      },
+      "id": 54,
+      "legend": {
+        "applySeriesName": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Region\\|(.*)\\|/",
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|RDS\\:Active Resource Count"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Active Resource Count",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": false,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "links": [
+            {
+              "title": "",
+              "url": ""
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 19
+      },
+      "id": 58,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/\\|RDS\\|(.*)\\:/",
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|RDS\\|.*\\:CPU Utilization \\(\\%\\)"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "CPU Utilization",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "percent",
+          "label": "CPU Utilization",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 19
+      },
+      "id": 60,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "hideZero": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/\\|RDS\\|(.*)\\:/",
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|RDS\\|.*\\:Network Receive Throughput"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Network Receive Throughput",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": "Network Receive Throughput",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 19
+      },
+      "id": 62,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/\\|RDS\\|(.*)\\:/",
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|RDS\\|.*\\:Read Throughput"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Read Throughput",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "Bps",
+          "label": "Read Throughput",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 2,
+        "y": 23
+      },
+      "id": 56,
+      "legend": {
+        "applySeriesName": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Region\\|(.*)\\|/",
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|RDS\\:In-Active Resource Count"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "In-Active Resource Count",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": false,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 20,
+      "legend": {},
+      "title": "Lambda",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 2,
+        "x": 0,
+        "y": 28
+      },
+      "id": 64,
+      "legend": {},
+      "options": {
+        "content": "\r\n<div style=\"background-color:#D86613;padding:100px 0 90px 0;\">\r\n<center><span><a href=\"/d/AWS-Lambda-CM/aws-lambda?${Account:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\"><img src=\"/public/img/logos/Lambda.svg\" width=\"62\" height=\"62\"></a></span>\r\n<h5><a href=\"/d/AWS-Lambda-CM/aws-lambda?${Account:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\">Lambda</a></h5></center>\r\n</div>",
+        "mode": "html"
+      },
+      "pluginVersion": "7.5.14",
+      "timeFrom": null,
+      "timeShift": null,
+      "type": "text"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 2,
+        "y": 28
+      },
+      "id": 68,
+      "legend": {
+        "applySeriesName": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Region\\|(.*)\\|/",
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|Lambda\\:Resource Count"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Resource Count",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": false,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 28
+      },
+      "id": 70,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/\\|Lambda\\|(.*)\\:/",
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|Lambda\\|.*\\:Invocations"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Invocations",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "count",
+          "label": "Invocations",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 28
+      },
+      "id": 72,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/\\|Lambda\\|(.*)\\:/",
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|Lambda\\|.*\\:Duration - Maximum \\(ms\\)"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Max Execution Duration",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:391",
+          "decimals": 0,
+          "format": "count",
+          "label": "Execution Duration",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:392",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 28
+      },
+      "id": 74,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/\\|Lambda\\|(.*)\\:/",
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|Lambda\\|.*\\:Throttles"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Throttled Invocation",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "count",
+          "label": "Throttled Invocation",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 2,
+        "y": 32
+      },
+      "id": 66,
+      "legend": {
+        "applySeriesName": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Region\\|(.*)\\|/",
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|Lambda\\:Concurrent Executions"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Concurrent Executions",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": false,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 36
+      },
+      "id": 18,
+      "legend": {},
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 2,
+            "x": 0,
+            "y": 37
+          },
+          "id": 76,
+          "legend": {},
+          "options": {
+            "content": "<div style=\"background-color:#3B48CC;padding:100px 0 90px 0;\">\r\n<center><span><a href=\"/d/AWSDynamoDB/aws-dynamodb?${Account:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\"><img src=\"/public/img/logos/DynamoDB.svg\" width=\"62\" height=\"62\"></a></span>\r\n<h5><a href=\"/d/AWSDynamoDB/aws-dynamodb?${Account:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\">Dynamo DB</a></h5></center>\r\n</div>",
+            "mode": "html"
+          },
+          "pluginVersion": "7.5.14",
+          "timeFrom": null,
+          "timeShift": null,
+          "type": "text"
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "cacheTimeout": null,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 0,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 2,
+            "y": 37
+          },
+          "id": 98,
+          "legend": {
+            "applySeriesName": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "regexPattern": "/Region\\|(.*)\\|/",
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": false,
+                "enableAggregation": false,
+                "limit": "",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|DynamoDB\\:Resource Count"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Resource Count",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "series",
+            "name": null,
+            "show": false,
+            "values": [
+              "current"
+            ]
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 0,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 8,
+          "fillGradient": 7,
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 6,
+            "y": 37
+          },
+          "id": 80,
+          "legend": {
+            "alignAsTable": true,
+            "applySeriesName": true,
+            "avg": true,
+            "current": false,
+            "hideEmpty": false,
+            "hideZero": false,
+            "max": false,
+            "min": false,
+            "regexPattern": "/\\|DynamoDB\\|(.*)\\:/",
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 0.5,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": true,
+                "enableAggregation": true,
+                "limit": "10",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|DynamoDB\\|.*\\:Consumed Read Capacity Units"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Consumed Read Capacity Units",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "count",
+              "label": "Consumed Read Capacity Units",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 0,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 8,
+          "fillGradient": 7,
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 12,
+            "y": 37
+          },
+          "id": 82,
+          "legend": {
+            "alignAsTable": true,
+            "applySeriesName": true,
+            "avg": true,
+            "current": false,
+            "max": false,
+            "min": false,
+            "regexPattern": "/\\|DynamoDB\\|(.*)\\:/",
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 0.5,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": true,
+                "enableAggregation": true,
+                "limit": "",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|DynamoDB\\|.*\\:Consumed Write Capacity Units"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Consumed Write Capacity Units",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "count",
+              "label": "Consumed Write Capacity Units",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 2,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 8,
+          "fillGradient": 7,
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 18,
+            "y": 37
+          },
+          "id": 84,
+          "legend": {
+            "alignAsTable": true,
+            "applySeriesName": true,
+            "avg": true,
+            "current": false,
+            "max": false,
+            "min": false,
+            "regexPattern": "/\\|DynamoDB\\|(.*)\\:/",
+            "rightSide": false,
+            "show": true,
+            "sort": "total",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 0.5,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": " GameEvents",
+              "yaxis": 1
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": true,
+                "enableAggregation": true,
+                "limit": "10",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "AWS\\|Account\\|$Account\\|Region\\|${Region:regex}\\|DynamoDB\\|.*\\:Table Size"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Table Size",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": "Table Size",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "DynamoDB",
+      "type": "row"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": [
+    "AWS Cloud Monitoring"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "AIOps_Inventory",
+        "definition": "{\"queryField\":\"AWS_Account\",\"size\":\"1000\",\"tenant\":\"\",\"isRawQuery\":false,\"queryFilters\":{\"op\":\"TAKE_VERTICES\",\"input\":{\"mode\":\"VERTEX_AND_RELATED_EDGES\",\"expressions\":[{\"name\":\"Product\",\"pointer\":\"\",\"values\":[\"APM\"],\"operator\":\"IN\"},{\"name\":\"AWS_Account\",\"pointer\":\"\",\"values\":[\".*\"],\"operator\":\"MATCHES\"}],\"layer\":null,\"op\":\"ATTRIBUTE\",\"query\":\"\"}},\"isTakeVertices\":true,\"filterQuery\":\"{\\\"op\\\":\\\"ALL\\\"}\",\"querytFilters\":{\"op\":\"TAKE_VERTICES\",\"input\":{\"mode\":\"VERTEX_AND_RELATED_EDGES\",\"expressions\":[{\"name\":\"Product\",\"pointer\":\"\",\"values\":[\"APM\"],\"operator\":\"IN\"},{\"name\":\"AWS_Account\",\"pointer\":\"\",\"values\":[\".*\"],\"operator\":\"MATCHES\"}],\"layer\":null,\"op\":\"ATTRIBUTE\",\"query\":\"\"}}}",
+        "description": null,
+        "error": null,
+        "excludeTime": true,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "Account",
+        "options": [],
+        "query": "{\"queryField\":\"AWS_Account\",\"size\":\"1000\",\"tenant\":\"\",\"isRawQuery\":false,\"queryFilters\":{\"op\":\"TAKE_VERTICES\",\"input\":{\"mode\":\"VERTEX_AND_RELATED_EDGES\",\"expressions\":[{\"name\":\"Product\",\"pointer\":\"\",\"values\":[\"APM\"],\"operator\":\"IN\"},{\"name\":\"AWS_Account\",\"pointer\":\"\",\"values\":[\".*\"],\"operator\":\"MATCHES\"}],\"layer\":null,\"op\":\"ATTRIBUTE\",\"query\":\"\"}},\"isTakeVertices\":true,\"filterQuery\":\"{\\\"op\\\":\\\"ALL\\\"}\",\"querytFilters\":{\"op\":\"TAKE_VERTICES\",\"input\":{\"mode\":\"VERTEX_AND_RELATED_EDGES\",\"expressions\":[{\"name\":\"Product\",\"pointer\":\"\",\"values\":[\"APM\"],\"operator\":\"IN\"},{\"name\":\"AWS_Account\",\"pointer\":\"\",\"values\":[\".*\"],\"operator\":\"MATCHES\"}],\"layer\":null,\"op\":\"ATTRIBUTE\",\"query\":\"\"}}}",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "AIOps_Inventory",
+        "definition": "{\"queryField\":\"AWS_Region\",\"size\":\"1000\",\"tenant\":\"\",\"isRawQuery\":false,\"queryFilters\":{\"op\":\"TAKE_VERTICES\",\"input\":{\"mode\":\"VERTEX_AND_RELATED_EDGES\",\"expressions\":[{\"name\":\"Product\",\"pointer\":\"\",\"values\":[\"APM\"],\"operator\":\"IN\"},{\"name\":\"AWS_Account\",\"pointer\":\"\",\"values\":[\"$Account\"],\"operator\":\"IN\"},{\"name\":\"AWS_Region\",\"pointer\":\"\",\"values\":[\".*\"],\"operator\":\"MATCHES\"}],\"layer\":null,\"op\":\"ATTRIBUTE\",\"query\":\"\"}},\"isTakeVertices\":true,\"filterQuery\":\"{\\\"op\\\":\\\"ALL\\\"}\",\"querytFilters\":{\"op\":\"TAKE_VERTICES\",\"input\":{\"mode\":\"VERTEX_AND_RELATED_EDGES\",\"expressions\":[{\"name\":\"Product\",\"pointer\":\"\",\"values\":[\"APM\"],\"operator\":\"IN\"},{\"name\":\"AWS_Account\",\"pointer\":\"\",\"values\":[\"$Account\"],\"operator\":\"IN\"},{\"name\":\"AWS_Region\",\"pointer\":\"\",\"values\":[\".*\"],\"operator\":\"MATCHES\"}],\"layer\":null,\"op\":\"ATTRIBUTE\",\"query\":\"\"}}}",
+        "description": null,
+        "error": null,
+        "excludeTime": true,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "Region",
+        "options": [],
+        "query": "{\"queryField\":\"AWS_Region\",\"size\":\"1000\",\"tenant\":\"\",\"isRawQuery\":false,\"queryFilters\":{\"op\":\"TAKE_VERTICES\",\"input\":{\"mode\":\"VERTEX_AND_RELATED_EDGES\",\"expressions\":[{\"name\":\"Product\",\"pointer\":\"\",\"values\":[\"APM\"],\"operator\":\"IN\"},{\"name\":\"AWS_Account\",\"pointer\":\"\",\"values\":[\"$Account\"],\"operator\":\"IN\"},{\"name\":\"AWS_Region\",\"pointer\":\"\",\"values\":[\".*\"],\"operator\":\"MATCHES\"}],\"layer\":null,\"op\":\"ATTRIBUTE\",\"query\":\"\"}},\"isTakeVertices\":true,\"filterQuery\":\"{\\\"op\\\":\\\"ALL\\\"}\",\"querytFilters\":{\"op\":\"TAKE_VERTICES\",\"input\":{\"mode\":\"VERTEX_AND_RELATED_EDGES\",\"expressions\":[{\"name\":\"Product\",\"pointer\":\"\",\"values\":[\"APM\"],\"operator\":\"IN\"},{\"name\":\"AWS_Account\",\"pointer\":\"\",\"values\":[\"$Account\"],\"operator\":\"IN\"},{\"name\":\"AWS_Region\",\"pointer\":\"\",\"values\":[\".*\"],\"operator\":\"MATCHES\"}],\"layer\":null,\"op\":\"ATTRIBUTE\",\"query\":\"\"}}}",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "AWS Overview",
+  "uid": "AWS-Overview-CM",
+  "version": 38
+}

@@ -1,0 +1,4825 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 206371,
+  "iteration": 1686574713336,
+  "links": [
+    {
+      "icon": "doc",
+      "includeVars": true,
+      "keepTime": true,
+      "targetBlank": true,
+      "title": "PDF",
+      "tooltip": "View Report",
+      "type": "link"
+    }
+  ],
+  "panels": [
+    {
+      "datasource": "-- Grafana --",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      "id": 124,
+      "legend": {},
+      "options": {
+        "addLinks": "",
+        "description": "",
+        "highcolor": "green",
+        "lowcolor": "blue",
+        "middlecolor": "red",
+        "openInNextTab": false,
+        "seriesCountSize": "sm",
+        "showSeriesValue": false,
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"170px\" width=\"100%\" xml:space=\"preserve\" y=\"0\" x=\"0\" id=\"Art\" version=\"1.1\" viewBox=\"-1348.0212 -351.96825 11682.8504 2111.8095\"><style id=\"style696\" type=\"text/css\">.st4{fill:#5f6368}</style><g transform=\"translate(.008 -.004)\" id=\"g730\"><g id=\"g710\"><path id=\"path702\" d=\"M1057.1 369.2h50.8l144.8-144.8 7.1-61.5C990.3-75 579-49.3 341.1 220.2 275 295 227.1 384.1 200.9 480.5c16.1-6.6 34-7.7 50.8-3l289.6-47.8s14.7-24.4 22.4-22.9c128.8-141.5 345.6-158 494.4-37.6z\" fill=\"#ea4335\"/><path id=\"path704\" d=\"M1459 480.5c-33.3-122.6-101.6-232.8-196.6-317l-203.2 203.2c85.8 70.1 134.7 175.8 132.6 286.6v36.1c99.9 0 180.9 81 180.9 180.9s-81 180.9-180.9 180.9H830l-36.1 36.6v217l36.1 36.1h361.8c259.8 2 472.1-207 474.1-466.8 1.2-157.8-76.5-305.4-206.9-393.6z\" fill=\"#4285f4\"/><path id=\"path706\" d=\"M467.7 1338.6h361.8V1049H467.7c-25.8 0-51.2-5.6-74.7-16.3l-50.8 15.8-145.8 144.8-12.7 50.8c81.7 61.8 181.5 95 284 94.5z\" fill=\"#34a853\"/><path id=\"path708\" d=\"M467.7 399.2C207.8 400.7-1.5 612.6 0 872.5c.9 145.1 68.6 281.7 183.7 370.1l209.8-209.8c-91-41.1-131.5-148.3-90.4-239.3 41.1-91 148.3-131.5 239.3-90.4 40.1 18.1 72.2 50.3 90.4 90.4l209.8-209.8c-89.2-116.8-228-185.1-374.9-184.5z\" fill=\"#fbbc05\"/></g><g id=\"g728\"><g id=\"g714\"><path id=\"path712\" d=\"M2629.1 1136.4c-125.9 1.6-246.9-48.1-335.3-137.7-91.3-85.8-142.3-206-140.7-331.3-1.5-125.3 49.5-245.4 140.7-331.3 88-90.5 209.1-141.2 335.3-140.2 120.2-1.6 236.1 45.1 321.6 129.6l-90.4 92c-61.9-59.9-145.1-92.7-231.2-91.5-90.3-1.1-177 35.8-238.8 101.6-64.2 63.7-99.6 150.9-98.1 241.3-.8 89.4 34.6 175.3 98.1 238.3 130.8 130.4 341.7 132.9 475.6 5.6 39.9-43.6 64.3-99.2 69.6-158h-304.9v-130H3062c4.2 26.2 5.9 52.7 5.1 79.3 5.4 110.9-34.8 219.2-111.3 299.8-85.1 88.5-203.9 136.7-326.7 132.5zm1003-86.4c-120.3 115.3-310.1 115.3-430.4 0-58.3-56.5-90.1-134.8-87.9-215.9-2.2-81.1 29.7-159.4 87.9-215.9 120.4-115 310-115 430.4 0 58.2 56.5 90.1 134.8 87.9 215.9 2.1 81.2-30 159.5-88.4 215.9zm-335.4-84.8c62.1 66.4 166.3 69.8 232.7 7.6 2.6-2.5 5.2-5 7.6-7.6 33.9-35.1 52.2-82.3 50.8-131.1 1.5-48.9-16.8-96.4-50.8-131.6-63.9-66.6-169.7-68.9-236.4-5-1.7 1.6-3.4 3.3-5 5-34 35.2-52.3 82.7-50.8 131.6-1.3 48.8 17.2 96.1 51.3 131.1zm996.9 84.8c-120.3 115.3-310.1 115.3-430.4 0-58.3-56.5-90.1-134.8-87.9-215.9-2.2-81.1 29.7-159.4 87.9-215.9 120.3-115.3 310.1-115.3 430.4 0 58.2 56.5 90.1 134.8 87.9 215.9 2.3 81.1-29.6 159.4-87.9 215.9zm-335.3-84.8c62.1 66.4 166.3 69.8 232.7 7.6 2.6-2.5 5.2-5 7.6-7.6 33.9-35.1 52.2-82.3 50.8-131.1 1.5-48.9-16.8-96.4-50.8-131.6-63.9-66.6-169.7-68.9-236.3-5-1.7 1.6-3.4 3.3-5 5-34 35.2-52.3 82.7-50.8 131.6-1.3 48.8 17.2 96.1 51.3 131.1zm770.2 442.5c-60.9 1.9-120.6-17.1-169.2-53.9a311.85 311.85 0 01-98.6-125l115.8-48.3c12.6 29.6 32.3 55.6 57.4 75.7 26.8 21.6 60.5 33 95 32 44.2 2.7 87.4-14 118.4-45.7 30.6-36.9 45.7-84.3 42.2-132.1v-43.7h-4.6c-39.3 46.6-98.2 72-159 68.6-77.1.2-150.8-31.8-203.2-88.4-56.8-56.1-88.2-133-86.9-212.9-1.4-80.3 30-157.7 86.9-214.4 52.3-56.8 126-89.1 203.2-88.9 32.3-.1 64.3 7.1 93.5 20.8 25.3 11 47.8 27.5 66.1 48.3h4.6v-48.3h126v541.1c6.7 86.5-22.5 172-80.8 236.3-55.5 53.1-130 81.5-206.8 78.8zm9.2-390.2c43.9 1 86-17.7 114.8-50.8 31.3-35.9 47.9-82.4 46.2-130.1 1.9-48.5-14.6-95.8-46.2-132.6-28.8-33.2-70.9-51.8-114.8-50.8-45.1-.9-88.4 17.6-118.9 50.8-33.6 35.5-51.9 82.8-50.8 131.6-1 48.4 17.2 95.2 50.8 130.1 30.3 33.5 73.6 52.4 118.9 51.8zM5240.2 230v888.1h-132.6V230zm363.8 906.4c-80.3 2.1-157.8-29.4-213.9-86.9-56.9-57-88-134.9-85.9-215.4-3-80.7 26.9-159.2 82.8-217.5 52.8-55.6 126.6-86.4 203.2-84.9 34.9-.4 69.4 6.4 101.6 19.8 29 11.7 55.4 29 77.7 50.8 19.2 18.5 36.2 39.1 50.8 61.5 11.8 18.9 21.8 38.8 30 59.4l13.7 34.6L5457.6 925c25.2 57.8 83.3 94.2 146.3 91.5 60.9.2 117.4-31.7 148.9-83.8l101.6 68.6a333.72 333.72 0 01-97.6 92.5c-45.6 28.8-98.8 43.6-152.8 42.6zm-169.7-311.5l270.3-112.3c-8.3-19.8-23.2-36.1-42.2-46.2-21.2-12-45.2-18.1-69.6-17.8-41.3 1.1-80.6 18.4-109.2 48.3-34.7 33.2-52.8 80.1-49.3 128z\" class=\"st4\"/></g><g id=\"g726\"><path id=\"path716\" d=\"M6558.7 1136.4c-231.2 4-421.8-180.2-425.8-411.4-.1-5.6-.1-11.3.1-16.9-5.4-231.2 177.7-422.9 408.8-428.3 5.6-.1 11.3-.1 16.9-.1 115.6-3.6 226.6 45.8 301.3 134.1l-73.2 71.1c-54.9-69.1-139.5-107.8-227.6-104.2-84.5-1.9-166.2 30.8-226.1 90.4-62.3 62.7-95.6 148.5-92 236.8-3.7 88.3 29.7 174.1 92 236.8 59.9 59.7 141.6 92.3 226.1 90.4 98.4 1.1 191.9-42.7 254-118.9l73.2 73.2c-38.3 45.8-86.4 82.4-140.7 107.2-58.6 27.2-122.5 40.8-187 39.8z\" class=\"st4\"/><path id=\"path718\" d=\"M7083 1118.1h-105.2V297.5H7083z\" class=\"st4\"/><path id=\"path720\" d=\"M7254.8 624.2c114.7-113.9 299.9-113.9 414.6 0 54.4 57.5 83.7 134.3 81.3 213.4 2.4 79.1-26.9 155.9-81.3 213.4-114.7 113.9-299.9 113.9-414.6 0-54.4-57.5-83.7-134.3-81.3-213.4-2.4-79.1 26.8-155.9 81.3-213.4zM7333 985c67.3 71.1 179.5 74.2 250.7 6.9 2.4-2.2 4.7-4.6 6.9-6.9 37.1-39.8 56.7-92.9 54.4-147.3 2.4-54.4-17.2-107.5-54.4-147.3-67.3-71.1-179.5-74.2-250.7-6.9-2.4 2.2-4.7 4.6-6.9 6.9-37.1 39.8-56.7 92.9-54.4 147.3-2.1 54.3 17.7 107.2 54.9 146.8z\" class=\"st4\"/><path id=\"path722\" d=\"M8333.4 1118.1h-101.6v-77.7h-3c-18.1 29.5-43.7 53.7-74.2 70.1-31.6 18.3-67.6 28-104.2 27.9-60.2 4.1-118.9-19.5-159.5-64-38.5-48.7-57.8-109.8-54.4-171.7V557.2h105.2v326.2c0 104.7 46.2 157 138.7 157 41.7 1.3 81.4-17.6 106.7-50.8 27.3-34.5 41.8-77.4 41.2-121.4v-311h105.2v560.9z\" class=\"st4\"/><path id=\"path724\" d=\"M8690.6 1136.4c-72.2.2-140.9-31.1-188-85.9-52.7-58.2-80.9-134.4-78.8-212.9-2.1-78.5 26.1-154.7 78.8-212.9 47.1-54.7 115.8-86.1 188-85.9 40-.6 79.5 8.8 114.8 27.4 31.1 15.6 57.4 39.3 76.2 68.6h4.6l-4.6-77.7V297.5h105.2v820.6h-101.6v-77.7h-4.6c-18.8 29.3-45.1 53-76.2 68.6-35 18.4-74.1 27.9-113.8 27.4zm17.3-96c48.1.7 94.2-19.3 126.5-54.9 35.7-40.7 54-93.8 50.8-147.9 3.2-54-15.1-107.2-50.8-147.9-63.8-70.2-172.4-75.3-242.6-11.4-4 3.6-7.8 7.5-11.4 11.4-35.8 40.4-54.1 93.4-50.8 147.3-3.3 53.9 15 106.9 50.8 147.3 32.4 36.4 78.9 56.8 127.5 56.1z\" class=\"st4\"/></g></g></g></svg>",
+        "thresholdhigh": 100,
+        "thresholdlow": 0,
+        "units": " MB",
+        "valuecolor": "black",
+        "viewbox": "-1348.0212 -351.96825 11682.8504 2111.8095"
+      },
+      "pluginVersion": "7.2.0",
+      "timeFrom": null,
+      "timeShift": null,
+      "transparent": true,
+      "type": "snuids-grafana-svg-panel"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 2,
+        "x": 8,
+        "y": 0
+      },
+      "id": 88,
+      "legend": {},
+      "options": {
+        "content": "<div style=\"background-color:#F2AC88;padding:100px 0 92px 0\">\r\n<center><span style='font-size:40px;'>⚠️</span>\r\n<h5>Alarms</a></h5></center>\r\n</div>",
+        "mode": "html"
+      },
+      "pluginVersion": "7.5.14",
+      "timeFrom": null,
+      "timeShift": null,
+      "type": "text"
+    },
+    {
+      "columns": [
+        {
+          "$$hashKey": "object:89",
+          "text": "Total",
+          "value": "total"
+        }
+      ],
+      "datasource": "AIOps_Metadata_ts",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 7,
+        "w": 7,
+        "x": 10,
+        "y": 0
+      },
+      "id": 93,
+      "legend": {},
+      "pageSize": null,
+      "repeatDirection": "h",
+      "showHeader": true,
+      "sort": {
+        "col": null,
+        "desc": false
+      },
+      "styles": [
+        {
+          "$$hashKey": "object:91",
+          "alias": "Devices",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "link": false,
+          "mappingType": 1,
+          "newPattern": "/Region\\|(.*)/",
+          "pattern": "Metric",
+          "preserveFormat": false,
+          "type": "string",
+          "valueMaps": []
+        },
+        {
+          "$$hashKey": "object:92",
+          "alias": "Total Alarms",
+          "align": "right",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 0,
+          "pattern": "Total",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "$$hashKey": "object:151",
+              "fake": true,
+              "field": "ci_unique_id",
+              "id": "5",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "10"
+              },
+              "type": "terms"
+            },
+            {
+              "$$hashKey": "object:152",
+              "field": "timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "$$hashKey": "object:149",
+              "field": "select field",
+              "id": "4",
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_all_3",
+          "primaryMapCol": "ci_unique_id",
+          "query": "ci_unique_id:/.*GCP\\|Projects\\|${Projects:regex}\\|Region\\|${Region:regex}\\|.*/ AND NOT status:closed",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Alarms by Top GCP Instances",
+      "transform": "timeseries_aggregations",
+      "type": "table-old"
+    },
+    {
+      "aliasColors": {
+        "critical": "#de1b1b",
+        "major": "#ff944d",
+        "minor": "#f7cd3b",
+        "warning": "#f7cd3b"
+      },
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metadata_ts",
+      "decimals": 0,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 7,
+        "x": 17,
+        "y": 0
+      },
+      "id": 38,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalColumns": [],
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "severity",
+              "id": "3",
+              "settings": {
+                "min_doc_count": 1,
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "500"
+              },
+              "type": "terms"
+            },
+            {
+              "field": "timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "datasourceType": "AIOps_Elasticsearch",
+          "hasJoin": false,
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "primaryIndex": "ao_itoa_alarms_all_2",
+          "primaryMapCol": "severity",
+          "query": "ci_unique_id:*GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|* AND NOT status:CLOSED",
+          "refId": "A",
+          "secondaryIndex": "",
+          "secondaryMapCol": "",
+          "secondaryReplaceCol": "",
+          "timeField": "timestamp"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Open Alarms",
+      "tooltip": {
+        "shared": false,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "total"
+        ]
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 8,
+        "x": 0,
+        "y": 4
+      },
+      "id": 90,
+      "legend": {},
+      "options": {
+        "content": "## **Project:** $Projects\n#### **Region:** $Region\n\n\n\n\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "7.5.14",
+      "timeFrom": null,
+      "timeShift": null,
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 112,
+      "legend": {},
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 2,
+            "x": 0,
+            "y": 9
+          },
+          "id": 117,
+          "legend": {},
+          "options": {
+            "content": "\r\n<div style=\"background-color:#8CC09C;padding:100px 0 75px 0;\">\r\n<center><span style='font-size:50px;'><a style=\"text-decoration:none\" href=\"/d/7qJM0sxMzGCP/gcp-billing?${Projects:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\">💳</span>\r\n<h5><a href=\"/d/7qJM0sxMzGCP/gcp-billing?&${Projects:queryparam}&${Region:queryparam}&${__url_time_range}\" target=\"_blank\">GCP Billing</a></h5></center>\r\n</div>",
+            "mode": "html"
+          },
+          "pluginVersion": "7.5.14",
+          "timeFrom": null,
+          "timeShift": null,
+          "type": "text"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "AIOps_Metrics",
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 2,
+              "displayName": "$Currency",
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue",
+                    "transformMode": "",
+                    "transformValue": "",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 2,
+            "y": 9
+          },
+          "id": 114,
+          "legend": {},
+          "links": [],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "regexPattern": "",
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.5.14",
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": false,
+                "enableAggregation": false,
+                "limit": "",
+                "order": "TOP",
+                "resultFormat": "Time Series"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "names": [
+                        "GCP|Billing|Billing Accounts|$Account:Total Cost"
+                      ],
+                      "op": "EXACT"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Monthly Total Bill",
+          "type": "stat"
+        },
+        {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": "0"
+          },
+          "datasource": "AIOps_Metrics",
+          "decimals": null,
+          "description": "`Project` Filter not applicable",
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "fontSize": "80%",
+          "format": "none",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 6,
+            "y": 9
+          },
+          "id": 122,
+          "interval": null,
+          "legend": {
+            "applySeriesName": true,
+            "percentage": false,
+            "percentageDecimals": 2,
+            "regexPattern": "/\\|Projects\\|(.*)\\:/",
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "values": true
+          },
+          "legendType": "Under graph",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "donut",
+          "piechartDrilldownData": [],
+          "seriesnameSuggestion": [
+            "{__series_name}"
+          ],
+          "strokeWidth": 1,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": false,
+                "enableAggregation": false,
+                "limit": "",
+                "order": "TOP",
+                "resultFormat": "Time Series"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "GCP\\|Billing\\|Billing\\ Accounts\\|$Account\\|Projects\\|[^\\|]*\\:Total Cost"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Billing Breakdown By Project",
+          "type": "grafana-piechart-panel",
+          "valueName": "current"
+        },
+        {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "AIOps_Metrics",
+          "decimals": null,
+          "description": "`Projects` & `Regions` Filter not applicable",
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "fontSize": "80%",
+          "format": "none",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 12,
+            "y": 9
+          },
+          "id": 119,
+          "interval": null,
+          "legend": {
+            "applySeriesName": true,
+            "percentage": false,
+            "percentageDecimals": 2,
+            "regexPattern": "/Projects\\|(.*)\\|Regions(.*):/",
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "values": true
+          },
+          "legendType": "Under graph",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "donut",
+          "piechartDrilldownData": [],
+          "seriesnameSuggestion": [
+            "{__series_name}"
+          ],
+          "strokeWidth": "1",
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": false,
+                "enableAggregation": false,
+                "limit": "",
+                "order": "TOP",
+                "resultFormat": "Time Series"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "GCP\\|Billing\\|Billing\\ Accounts\\|$Account\\|Projects\\|.*\\|Regions\\|[^\\|]*\\:Total Cost"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Billing Breakdown By Projects | Regions",
+          "type": "grafana-piechart-panel",
+          "valueName": "current"
+        },
+        {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "AIOps_Metrics",
+          "decimals": null,
+          "description": "`Projects` & `Region` Filter not applicable",
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "fontSize": "80%",
+          "format": "none",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 18,
+            "y": 9
+          },
+          "id": 121,
+          "interval": null,
+          "legend": {
+            "applySeriesName": true,
+            "percentage": false,
+            "percentageDecimals": 2,
+            "regexPattern": "/Projects\\|(.*)Regions\\|(.*)Services\\|(.*):/",
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "values": true
+          },
+          "legendType": "Under graph",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "donut",
+          "piechartDrilldownData": [],
+          "seriesnameSuggestion": [
+            "{__series_name}"
+          ],
+          "strokeWidth": "1",
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": false,
+                "enableAggregation": false,
+                "limit": "",
+                "order": "TOP",
+                "resultFormat": "Time Series"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "GCP\\|Billing\\|Billing\\ Accounts\\|$Account\\|Projects\\|.*\\|Regions\\|.*\\|Services\\|[^\\|]*\\:Total Cost"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Billing Breakdown By Projects | Regions | Service",
+          "type": "grafana-piechart-panel",
+          "valueName": "current"
+        }
+      ],
+      "title": "GCP Billing",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 28,
+      "legend": {},
+      "panels": [],
+      "title": "Google Compute Engine",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 2,
+        "x": 0,
+        "y": 9
+      },
+      "id": 109,
+      "legend": {},
+      "options": {
+        "content": "\r\n<div style=\"background-color:#F4E39A;padding:100px 0 70px 0;\">\r\n<center><span style='font-size:40px;'><a style=\"text-decoration:none\" href=\"/d/CM_GCP_Google_Compute_Engine/google-compute-engine?${Projects:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\"><img src=\"/public/img/logos/Compute-Engine.svg\" width=\"62\" height=\"62\">️</a></span>\r\n<h5><a href=\"/d/CM_GCP_Google_Compute_Engine/google-compute-engine?&${Projects:queryparam}&${Region:queryparam}&${__url_time_range}\" target=\"_blank\">Google Compute Engine</a></h5></center>\r\n</div>",
+        "mode": "html"
+      },
+      "pluginVersion": "7.5.14",
+      "timeFrom": null,
+      "timeShift": null,
+      "type": "text"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 2,
+        "y": 9
+      },
+      "id": 42,
+      "legend": {
+        "applySeriesName": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Region\\|(.*)\\|/",
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Compute Engine\\:Active Resource Count"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Active Resource Count",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": false,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 9
+      },
+      "id": 106,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Google Compute Engine\\|(.*)\\|/",
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Compute Engine\\|.*\\|Cpu\\:CPU Utilization \\(\\%\\)"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "CPU Utilization Percentage",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percent",
+          "label": "CPU Utilization",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 9
+      },
+      "id": 107,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Google Compute Engine\\|(.*)\\|/",
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Compute Engine\\|.*\\|Network\\:Received Bytes"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Network Received Bytes",
+      "tooltip": {
+        "shared": false,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": "Network Received",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 9
+      },
+      "id": 108,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Google Compute Engine\\|(.*)\\|/",
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Compute Engine\\|.*\\|Disk\\:Disk Write Bytes"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Disk Write Bytes",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": "Disk Write",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 2,
+        "y": 13
+      },
+      "id": 104,
+      "legend": {
+        "applySeriesName": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Region\\|(.*)\\|/",
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Compute Engine\\:In-Active Resource Count"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "In-Active Resource Count",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": false,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 24,
+      "legend": {},
+      "title": "Google Cloud SQL",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 2,
+        "x": 0,
+        "y": 18
+      },
+      "id": 40,
+      "legend": {},
+      "options": {
+        "content": "\r\n<div style=\"background-color:#9FB9F2;padding:100px 0 70px 0;\">\r\n<center><span style='font-size:40px;'><a style=\"text-decoration:none\" href=\"/d/CM_GCP_Google_Cloud_SQL/gcp-google-cloud-sql?${Projects:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\"><img src=\"/public/img/logos/Cloud-SQL.svg\" width=\"62\" height=\"60\"></a></span>\r\n<h5><a href=\"/d/CM_GCP_Google_Cloud_SQL/gcp-google-cloud-sql?${Projects:queryparam}&${Region:queryparam}&${__url_time_range}\" target=\"_blank\">Google Cloud SQL</a></h5></center>\r\n</div>",
+        "mode": "html"
+      },
+      "pluginVersion": "7.5.14",
+      "timeFrom": null,
+      "timeShift": null,
+      "type": "text"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 2,
+        "y": 18
+      },
+      "id": 105,
+      "legend": {
+        "applySeriesName": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Region\\|(.*)\\|/",
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Cloud SQL\\:Active Resource Count"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Active Resource Count",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": false,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 18
+      },
+      "id": 46,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Google Cloud SQL\\|(.*)\\|/",
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Cloud SQL\\|.*\\|Cpu\\:CPU Utilization \\(\\%\\)"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "CPU Utilization Percentage",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percent",
+          "label": "CPU Utilization",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 18
+      },
+      "id": 94,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Google Cloud SQL\\|(.*)\\|/",
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Cloud SQL\\|.*\\|Disk\\:Disk Utilization \\(\\%\\)"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Disk Utilization",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percent",
+          "label": "Disk Utilization",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 8,
+      "fillGradient": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 18
+      },
+      "id": 95,
+      "legend": {
+        "alignAsTable": true,
+        "applySeriesName": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Google Cloud SQL\\|(.*)\\|/",
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": true,
+            "enableAggregation": true,
+            "limit": "10",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Cloud SQL\\|.*\\|Network\\:MySQL Connections"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "MySQL Connections",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "count",
+          "label": "MySQL Connections",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "AIOps_Metrics",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 2,
+        "y": 22
+      },
+      "id": 44,
+      "legend": {
+        "applySeriesName": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "regexPattern": "/Region\\|(.*)\\|/",
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.14",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "additionalParams": {
+            "alias": "",
+            "clampSize": 100,
+            "frequency": "auto",
+            "legendMetricCustomValues": [
+              ""
+            ],
+            "legendMetricField": "Metric",
+            "plotCategories": [
+              "value"
+            ]
+          },
+          "advanceQuery": true,
+          "aggregations": {
+            "aggregateBy": "",
+            "aggregationCatergory": "None",
+            "displayTimeSeries": false,
+            "enableAggregation": false,
+            "limit": "",
+            "order": "TOP"
+          },
+          "basicFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": ""
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "datasourceType": "AIops_NASS",
+          "isRawQuery": false,
+          "nassAggregations": {
+            "aggregationsRawQuery": "",
+            "nassAggModeValues": {
+              "seriesName": [
+                ""
+              ],
+              "xaxis": "",
+              "yaxis": [
+                ""
+              ]
+            },
+            "nassAggregationMode": "Table",
+            "nassAggregationsEnabled": false
+          },
+          "querytFilters": [
+            {
+              "attributeNameSpecifier": [
+                {
+                  "ignoreCase": false,
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "REGEX",
+                  "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Cloud SQL\\:In-Active Resource Count"
+                }
+              ],
+              "isNot": false,
+              "logicalOperator": "AND",
+              "op": "SPEC",
+              "sourceNameSpecifier": [
+                {
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "ALL"
+                }
+              ]
+            }
+          ],
+          "rawQuery": "",
+          "refId": "A",
+          "tenantId": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "In-Active Resource Count",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": false,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "id": 22,
+      "legend": {},
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 2,
+            "x": 0,
+            "y": 28
+          },
+          "id": 52,
+          "legend": {},
+          "options": {
+            "content": "\r\n<div style=\"background-color:#A3F4C2;padding:100px 0 70px 0;\">\r\n<center><span style='font-size:40px;'><a style=\"text-decoration:none\" href=\"/d/GoogleFile/google-cloud-filestore?${Projects:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\"><img src=\"/public/img/logos/Cloud-Firestore.svg\" width=\"62\" height=\"60\"></a></span>\r\n<h5><a href=\"/d/GoogleFile/google-cloud-filestore?&${Projects:queryparam}&${Region:queryparam}&${__url_time_range}\" target=\"_blank\">Google Cloud FileStore</a></h5></center>\r\n</div>",
+            "mode": "html"
+          },
+          "pluginVersion": "7.5.14",
+          "timeFrom": null,
+          "timeShift": null,
+          "type": "text"
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "cacheTimeout": null,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 0,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 2,
+            "y": 28
+          },
+          "id": 54,
+          "legend": {
+            "applySeriesName": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "regexPattern": "/Region\\|(.*)\\|/",
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": false,
+                "enableAggregation": false,
+                "limit": "",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google File\\:Active Resource Count"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Active Resource",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "series",
+            "name": null,
+            "show": false,
+            "values": [
+              "current"
+            ]
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 2,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 8,
+          "fillGradient": 7,
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 6,
+            "y": 28
+          },
+          "id": 96,
+          "legend": {
+            "alignAsTable": true,
+            "applySeriesName": true,
+            "avg": true,
+            "current": false,
+            "max": false,
+            "min": false,
+            "regexPattern": "/Google File\\|(.*)\\:/",
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 0.5,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": true,
+                "enableAggregation": true,
+                "limit": "10",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google File\\|.*Free Disk Bytes"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Free Disk Bytes",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": "Free Disk",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 2,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 8,
+          "fillGradient": 7,
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 12,
+            "y": 28
+          },
+          "id": 97,
+          "legend": {
+            "alignAsTable": true,
+            "applySeriesName": true,
+            "avg": true,
+            "current": false,
+            "max": false,
+            "min": false,
+            "regexPattern": "/Google File\\|(.*)\\:/",
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 0.5,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": true,
+                "enableAggregation": true,
+                "limit": "10",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google File\\|.*Free Disk Space \\(\\%\\)"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Free Disk Space Percent",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "label": "Free Disk Space",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 2,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 8,
+          "fillGradient": 7,
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 18,
+            "y": 28
+          },
+          "id": 98,
+          "legend": {
+            "alignAsTable": true,
+            "applySeriesName": true,
+            "avg": true,
+            "current": false,
+            "max": false,
+            "min": false,
+            "regexPattern": "/Google File\\|(.*)\\:/",
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 0.5,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": true,
+                "enableAggregation": true,
+                "limit": "10",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google File\\|.*Used Disk Space \\(\\%\\)"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Used Disk Space Percent",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "label": "Used Disk Space",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "cacheTimeout": null,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 0,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 2,
+            "y": 32
+          },
+          "id": 56,
+          "legend": {
+            "applySeriesName": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "regexPattern": "/Region\\|(.*)\\|/",
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": false,
+                "enableAggregation": false,
+                "limit": "",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google File\\:In-Active Resource Count"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "In-Active Resource",
+          "tooltip": {
+            "shared": false,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "series",
+            "name": null,
+            "show": false,
+            "values": [
+              "total"
+            ]
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Google Cloud FileStore",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 20,
+      "legend": {},
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 2,
+            "x": 0,
+            "y": 29
+          },
+          "id": 64,
+          "legend": {},
+          "options": {
+            "content": "\r\n<div style=\"background-color:#b2beb5;padding:100px 0 70px 0;\">\r\n<center><span style='font-size:40px;'><a style=\"text-decoration:none\" href=\"/d/GoogleStorage/google-cloud-storage?${Projects:queryparam}&${Region:queryparam}&${__url_time_range}\" title=\"Go to Detail Dashboard\" target=\"_blank\"><img src=\"/public/img/logos/Cloud-Storage.svg\" width=\"62\" height=\"62\">️</a></span>\r\n<h5><a href=\"/d/GoogleStorage/google-cloud-storage?&${Projects:queryparam}&${Region:queryparam}&${__url_time_range}\" target=\"_blank\">Google Cloud Storage</a></h5></center>\r\n</div>",
+            "mode": "html"
+          },
+          "pluginVersion": "7.5.14",
+          "timeFrom": null,
+          "timeShift": null,
+          "type": "text"
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "cacheTimeout": null,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 0,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 2,
+            "y": 29
+          },
+          "id": 100,
+          "legend": {
+            "applySeriesName": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "regexPattern": "/Region\\|(.*)\\|/",
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": false,
+                "enableAggregation": false,
+                "limit": "",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Storage\\:Resource Count"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Active Resource",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "series",
+            "name": null,
+            "show": false,
+            "values": [
+              "current"
+            ]
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 0,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 8,
+          "fillGradient": 7,
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 6,
+            "y": 29
+          },
+          "id": 101,
+          "legend": {
+            "alignAsTable": true,
+            "applySeriesName": true,
+            "avg": true,
+            "current": false,
+            "max": false,
+            "min": false,
+            "regexPattern": "/Google Storage\\|(.*)\\:/",
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 0.5,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": true,
+                "enableAggregation": true,
+                "limit": "10",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Storage\\|.*Object Count"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Object Count",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "count",
+              "label": "Object",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 0,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 8,
+          "fillGradient": 7,
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 12,
+            "y": 29
+          },
+          "id": 102,
+          "legend": {
+            "alignAsTable": true,
+            "applySeriesName": true,
+            "avg": true,
+            "current": false,
+            "max": false,
+            "min": false,
+            "regexPattern": "/Google Storage\\|(.*)\\:/",
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 0.5,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": true,
+                "enableAggregation": true,
+                "limit": "",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Storage\\|.*Object Count"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Object Count",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "count",
+              "label": "Object",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "AIOps_Metrics",
+          "decimals": 2,
+          "fieldConfig": {
+            "defaults": {
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 8,
+          "fillGradient": 7,
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 18,
+            "y": 29
+          },
+          "id": 103,
+          "legend": {
+            "alignAsTable": true,
+            "applySeriesName": true,
+            "avg": true,
+            "current": false,
+            "max": false,
+            "min": false,
+            "regexPattern": "/Google Storage\\|(.*)\\:/",
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.5.14",
+          "pointradius": 0.5,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "additionalParams": {
+                "alias": "",
+                "clampSize": 100,
+                "frequency": "auto",
+                "legendMetricCustomValues": [
+                  ""
+                ],
+                "legendMetricField": "Metric",
+                "plotCategories": [
+                  "value"
+                ]
+              },
+              "advanceQuery": true,
+              "aggregations": {
+                "aggregateBy": "",
+                "aggregationCatergory": "None",
+                "displayTimeSeries": true,
+                "enableAggregation": true,
+                "limit": "10",
+                "order": "TOP"
+              },
+              "basicFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": ""
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "datasourceType": "AIops_NASS",
+              "isRawQuery": false,
+              "nassAggregations": {
+                "aggregationsRawQuery": "",
+                "nassAggModeValues": {
+                  "seriesName": [
+                    ""
+                  ],
+                  "xaxis": "",
+                  "yaxis": [
+                    ""
+                  ]
+                },
+                "nassAggregationMode": "Table",
+                "nassAggregationsEnabled": false
+              },
+              "querytFilters": [
+                {
+                  "attributeNameSpecifier": [
+                    {
+                      "ignoreCase": false,
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "REGEX",
+                      "pattern": "GCP\\|Projects\\|$Projects\\|Region\\|${Region:regex}\\|Google Storage\\|.*Total Bytes"
+                    }
+                  ],
+                  "isNot": false,
+                  "logicalOperator": "AND",
+                  "op": "SPEC",
+                  "sourceNameSpecifier": [
+                    {
+                      "isNot": false,
+                      "logicalOperator": "AND",
+                      "op": "ALL"
+                    }
+                  ]
+                }
+              ],
+              "rawQuery": "",
+              "refId": "A",
+              "tenantId": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Total Bytes",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": "Total Bytes",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Google Cloud Storage",
+      "type": "row"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": [
+    "GCP Cloud Monitoring"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "GCP",
+          "value": "GCP"
+        },
+        "description": null,
+        "error": null,
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "Attribute",
+        "options": [
+          {
+            "selected": true,
+            "text": "GCP",
+            "value": "GCP"
+          }
+        ],
+        "query": "GCP",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "SuperDomain|a2n-tix-spare|Infrastructure|GCP Agent",
+          "value": "SuperDomain|a2n-tix-spare|Infrastructure|GCP Agent"
+        },
+        "description": null,
+        "error": null,
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "Agent",
+        "options": [
+          {
+            "selected": true,
+            "text": "SuperDomain|a2n-tix-spare|Infrastructure|GCP Agent",
+            "value": "SuperDomain|a2n-tix-spare|Infrastructure|GCP Agent"
+          }
+        ],
+        "query": "SuperDomain|a2n-tix-spare|Infrastructure|GCP Agent",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "demos-esd-aiops-noorani",
+          "value": "demos-esd-aiops-noorani"
+        },
+        "datasource": "AIOps_Metrics",
+        "definition": "{\"filters\":{\"isNot\":false,\"op\":\"SPEC\",\"logicalOperator\":\"AND\",\"sourceNameSpecifier\":[{\"op\":\"REGEX\",\"logicalOperator\":\"AND\",\"isNot\":false,\"pattern\":\"${Agent:regex}\",\"ignoreCase\":false}],\"attributeNameSpecifier\":[{\"op\":\"REGEX\",\"logicalOperator\":\"AND\",\"isNot\":false,\"pattern\":\"${Attribute:regex}.*\",\"ignoreCase\":false}]},\"limit\":10,\"aggregations\":{\"enableAggregation\":true,\"limit\":\"\",\"displayTimeSeries\":false,\"aggregateBy\":\"\",\"order\":\"TOP\",\"aggregationCatergory\":\"None\",\"resultFormat\":\"Time Series\"},\"resultType\":\"Source | Metric Path\",\"customAttribute\":[\"\"],\"tenant\":\"\"}",
+        "description": null,
+        "error": null,
+        "excludeTime": true,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Project",
+        "multi": false,
+        "name": "Projects",
+        "options": [],
+        "query": "{\"filters\":{\"isNot\":false,\"op\":\"SPEC\",\"logicalOperator\":\"AND\",\"sourceNameSpecifier\":[{\"op\":\"REGEX\",\"logicalOperator\":\"AND\",\"isNot\":false,\"pattern\":\"${Agent:regex}\",\"ignoreCase\":false}],\"attributeNameSpecifier\":[{\"op\":\"REGEX\",\"logicalOperator\":\"AND\",\"isNot\":false,\"pattern\":\"${Attribute:regex}.*\",\"ignoreCase\":false}]},\"limit\":10,\"aggregations\":{\"enableAggregation\":true,\"limit\":\"\",\"displayTimeSeries\":false,\"aggregateBy\":\"\",\"order\":\"TOP\",\"aggregationCatergory\":\"None\",\"resultFormat\":\"Time Series\"},\"resultType\":\"Source | Metric Path\",\"customAttribute\":[\"\"],\"tenant\":\"\"}",
+        "refresh": 2,
+        "regex": ".*\\|Projects\\|(.*?)\\|.*",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": "*",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "AIOps_Inventory",
+        "definition": "{\"queryField\":\"GCP Region\",\"size\":\"1000\",\"tenant\":\"\",\"isRawQuery\":false,\"queryFilters\":{\"op\":\"TAKE_VERTICES\",\"input\":{\"mode\":\"VERTEX_AND_RELATED_EDGES\",\"expressions\":[{\"name\":\"product\",\"pointer\":\"\",\"values\":[\"APM\"],\"operator\":\"IN\"},{\"name\":\"GCP Project Name\",\"pointer\":\"\",\"values\":[\"$Projects\"],\"operator\":\"IN\"}],\"layer\":null,\"query\":\"\",\"op\":\"ATTRIBUTE\"}},\"isTakeVertices\":true,\"filterQuery\":\"{\\\"op\\\":\\\"ALL\\\"}\",\"querytFilters\":{\"op\":\"TAKE_VERTICES\",\"input\":{\"mode\":\"VERTEX_AND_RELATED_EDGES\",\"expressions\":[{\"name\":\"product\",\"pointer\":\"\",\"values\":[\"APM\"],\"operator\":\"IN\"},{\"name\":\"GCP Project Name\",\"pointer\":\"\",\"values\":[\"$Projects\"],\"operator\":\"IN\"}],\"layer\":null,\"query\":\"\",\"op\":\"ATTRIBUTE\"}}}",
+        "description": null,
+        "error": null,
+        "excludeTime": true,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "Region",
+        "options": [],
+        "query": "{\"queryField\":\"GCP Region\",\"size\":\"1000\",\"tenant\":\"\",\"isRawQuery\":false,\"queryFilters\":{\"op\":\"TAKE_VERTICES\",\"input\":{\"mode\":\"VERTEX_AND_RELATED_EDGES\",\"expressions\":[{\"name\":\"product\",\"pointer\":\"\",\"values\":[\"APM\"],\"operator\":\"IN\"},{\"name\":\"GCP Project Name\",\"pointer\":\"\",\"values\":[\"$Projects\"],\"operator\":\"IN\"}],\"layer\":null,\"query\":\"\",\"op\":\"ATTRIBUTE\"}},\"isTakeVertices\":true,\"filterQuery\":\"{\\\"op\\\":\\\"ALL\\\"}\",\"querytFilters\":{\"op\":\"TAKE_VERTICES\",\"input\":{\"mode\":\"VERTEX_AND_RELATED_EDGES\",\"expressions\":[{\"name\":\"product\",\"pointer\":\"\",\"values\":[\"APM\"],\"operator\":\"IN\"},{\"name\":\"GCP Project Name\",\"pointer\":\"\",\"values\":[\"$Projects\"],\"operator\":\"IN\"}],\"layer\":null,\"query\":\"\",\"op\":\"ATTRIBUTE\"}}}",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": "AIOps_Metrics",
+        "definition": "{\"filters\":{\"isNot\":false,\"op\":\"SPEC\",\"logicalOperator\":\"AND\",\"sourceNameSpecifier\":[{\"op\":\"REGEX\",\"logicalOperator\":\"AND\",\"isNot\":false,\"pattern\":\".*\",\"ignoreCase\":false}],\"attributeNameSpecifier\":[{\"op\":\"REGEX\",\"logicalOperator\":\"AND\",\"isNot\":false,\"pattern\":\"GCP\\\\|Billing\\\\|Billing\\\\ Accounts\\\\|[^\\\\|]*\\\\:Total Cost\",\"ignoreCase\":false}]},\"limit\":10,\"aggregations\":{\"enableAggregation\":false,\"limit\":\"\",\"displayTimeSeries\":false,\"aggregateBy\":\"\",\"order\":\"TOP\",\"aggregationCatergory\":\"None\",\"resultFormat\":\"Time Series\"},\"resultType\":\"Metric\",\"customAttribute\":[\"\"],\"tenant\":\"\"}",
+        "description": null,
+        "error": null,
+        "excludeTime": false,
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "Account",
+        "options": [],
+        "query": "{\"filters\":{\"isNot\":false,\"op\":\"SPEC\",\"logicalOperator\":\"AND\",\"sourceNameSpecifier\":[{\"op\":\"REGEX\",\"logicalOperator\":\"AND\",\"isNot\":false,\"pattern\":\".*\",\"ignoreCase\":false}],\"attributeNameSpecifier\":[{\"op\":\"REGEX\",\"logicalOperator\":\"AND\",\"isNot\":false,\"pattern\":\"GCP\\\\|Billing\\\\|Billing\\\\ Accounts\\\\|[^\\\\|]*\\\\:Total Cost\",\"ignoreCase\":false}]},\"limit\":10,\"aggregations\":{\"enableAggregation\":false,\"limit\":\"\",\"displayTimeSeries\":false,\"aggregateBy\":\"\",\"order\":\"TOP\",\"aggregationCatergory\":\"None\",\"resultFormat\":\"Time Series\"},\"resultType\":\"Metric\",\"customAttribute\":[\"\"],\"tenant\":\"\"}",
+        "refresh": 2,
+        "regex": "/Billing Accounts\\|(.*?)\\:/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": "AIOps_Metrics",
+        "definition": "{\"filters\":{\"isNot\":false,\"op\":\"SPEC\",\"logicalOperator\":\"AND\",\"sourceNameSpecifier\":[{\"op\":\"REGEX\",\"logicalOperator\":\"AND\",\"isNot\":false,\"pattern\":\".*\",\"ignoreCase\":false}],\"attributeNameSpecifier\":[{\"op\":\"REGEX\",\"logicalOperator\":\"AND\",\"isNot\":false,\"pattern\":\"GCP\\\\|Billing\\\\|Billing\\\\ Accounts\\\\|$Account\\\\:Currency\",\"ignoreCase\":false}]},\"limit\":10,\"aggregations\":{\"enableAggregation\":true,\"limit\":\"\",\"displayTimeSeries\":false,\"aggregateBy\":\"\",\"order\":\"TOP\",\"aggregationCatergory\":\"None\",\"resultFormat\":\"Time Series\"},\"resultType\":\"Metric Value\",\"customAttribute\":[\"\"],\"tenant\":\"\"}",
+        "description": null,
+        "error": null,
+        "excludeTime": false,
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "Currency",
+        "options": [],
+        "query": "{\"filters\":{\"isNot\":false,\"op\":\"SPEC\",\"logicalOperator\":\"AND\",\"sourceNameSpecifier\":[{\"op\":\"REGEX\",\"logicalOperator\":\"AND\",\"isNot\":false,\"pattern\":\".*\",\"ignoreCase\":false}],\"attributeNameSpecifier\":[{\"op\":\"REGEX\",\"logicalOperator\":\"AND\",\"isNot\":false,\"pattern\":\"GCP\\\\|Billing\\\\|Billing\\\\ Accounts\\\\|$Account\\\\:Currency\",\"ignoreCase\":false}]},\"limit\":10,\"aggregations\":{\"enableAggregation\":true,\"limit\":\"\",\"displayTimeSeries\":false,\"aggregateBy\":\"\",\"order\":\"TOP\",\"aggregationCatergory\":\"None\",\"resultFormat\":\"Time Series\"},\"resultType\":\"Metric Value\",\"customAttribute\":[\"\"],\"tenant\":\"\"}",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "GCP Overview",
+  "uid": "CM_GCP_Overview",
+  "version": 22
+}
