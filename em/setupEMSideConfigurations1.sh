@@ -863,11 +863,10 @@ correlateAppToInfraForDBVertex tix-mysql
 #PatchHostToApmiaContainsReln
 
 
-sleep 10
-
-configMySqlMetricAndAlertMapping
-sleep 1
-configInferredDBMetricAndAlertMapping
+#sleep 10
+#configMySqlMetricAndAlertMapping
+#sleep 1
+#configInferredDBMetricAndAlertMapping
 
 ##First delete custom persp before creating otherwise it will create duplicate persp.
 
